@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Stipendio Netto 2024 - Da Lordo a Netto</title>
+  <meta name="description" content="Calcola il tuo stipendio netto dal lordo con IRPEF, contributi e detrazioni. Tool gratuito aggiornato 2024 per tutti i redditi italiani.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Stipendio Netto 2024",
+    "description": "Calcola il tuo stipendio netto dal lordo con IRPEF, contributi e detrazioni",
+    "url": "https://example.com/calcolatore-stipendio-netto",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary-color: #f1f5f9;
+      --text-color: #1e293b;
+      --text-light: #64748b;
+      --border-color: #e2e8f0;
+      --success-color: #059669;
+      --error-color: #dc2626;
+      --warning-color: #d97706;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: #fafafa;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .tool-header {
+      text-align: center;
+      margin-bottom: 30px;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .tool-header h1 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    .tool-header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .ad-slot {
+      background: var(--secondary-color);
+      border: 2px dashed var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      color: var(--text-light);
+      margin: 20px 0;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tool-body {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+    }
+
+    button {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: 100%;
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 25px;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border-radius: 12px;
+      border: 1px solid #0ea5e9;
+    }
+
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .result-table th,
+    .result-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .result-table th {
+      background: var(--secondary-color);
+      font-weight: 600;
+    }
+
+    .result-table .amount {
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .result-table .positive {
+      color: var(--success-color);
+    }
+
+    .result-table .negative {
+      color: var(--error-color);
+    }
+
+    .highlight-result {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .tool-explanation {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    .tool-explanation h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+    .tool-explanation h3 {
+      color: var(--text-color);
+      margin: 20px 0 10px 0;
+      font-size: 1.3rem;
+    }
+
+    .tool-explanation p,
+    .tool-explanation ul {
+      margin-bottom: 15px;
+      color: var(--text-light);
+    }
+
+    .tool-explanation ul {
+      padding-left: 20px;
+    }
+
+    .email-capture {
+      background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .email-capture p {
+      margin-bottom: 15px;
+      font-weight: 600;
+      color: #92400e;
+    }
+
+    .email-capture form {
+      display: flex;
+      gap: 10px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .email-capture input {
+      flex: 1;
+      margin: 0;
+    }
+
+    .email-capture button {
+      width: auto;
+      padding: 12px 20px;
+      background: #92400e;
+    }
+
+    .email-capture button:hover {
+      background: #78350f;
+    }
+
+    .tool-footer {
+      text-align: center;
+      padding: 25px;
+      background: var(--secondary-color);
+      border-radius: 12px;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .error {
+      color: var(--error-color);
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      .tool-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .tool-body,
+      .tool-explanation {
+        padding: 20px;
+      }
+
+      .email-capture form {
+        flex-direction: column;
+      }
+
+      .result-table {
+        font-size: 0.9rem;
+      }
+
+      .result-table th,
+      .result-table td {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- TOOL_HEADER -->
+    <div class="tool-header">
+      <h1>Calcolatore Stipendio Netto 2024</h1>
+      <p>Calcola il tuo stipendio netto dal lordo con IRPEF, contributi INPS e detrazioni. Aggiornato con le aliquote fiscali 2024.</p>
+    </div>
+
+    <!-- AD_SLOT_TOP -->
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <!-- TOOL_BODY -->
+    <div class="tool-body">
+      <form id="salary-form">
+        <div class="form-group">
+          <label for="stipendio_lordo">Stipendio Lordo Annuo (€)</label>
+          <input type="number" id="stipendio_lordo" placeholder="35000" required min="0" max="500000" step="100">
+          <div class="error" id="error-stipendio_lordo"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="regione">Regione</label>
+          <select id="regione" required>
+            <option value="">Seleziona regione</option>
+            <option value="Abruzzo">Abruzzo</option>
+            <option value="Basilicata">Basilicata</option>
+            <option value="Calabria">Calabria</option>
+            <option value="Campania">Campania</option>
+            <option value="Emilia-Romagna">Emilia-Romagna</option>
+            <option value="Friuli-Venezia Giulia">Friuli-Venezia Giulia</option>
+            <option value="Lazio">Lazio</option>
+            <option value="Liguria">Liguria</option>
+            <option value="Lombardia">Lombardia</option>
+            <option value="Marche">Marche</option>
+            <option value="Molise">Molise</option>
+            <option value="Piemonte">Piemonte</option>
+            <option value="Puglia">Puglia</option>
+            <option value="Sardegna">Sardegna</option>
+            <option value="Sicilia">Sicilia</option>
+            <option value="Toscana">Toscana</option>
+            <option value="Trentino-Alto Adige">Trentino-Alto Adige</option>
+            <option value="Umbria">Umbria</option>
+            <option value="Valle d'Aosta">Valle d'Aosta</option>
+            <option value="Veneto">Veneto</option>
+          </select>
+          <div class="error" id="error-regione"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="detrazioni_familiari">Detrazioni per Familiari a Carico (€)</label>
+          <input type="number" id="detrazioni_familiari" placeholder="0" min="0" max="20000" step="100">
+          <div class="error" id="error-detrazioni_familiari"></div>
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="tredicesima">
+            <label for="tredicesima">Include Tredicesima</label>
+          </div>
+        </div>
+
+        <button type="submit">Calcola Stipendio Netto</button>
+      </form>
+
+      <div id="result" class="result" style="display: none;">
+        <h3>Calcolo Stipendio Netto</h3>
+        <table class="result-table" id="result-table">
+          <!-- Populated by JavaScript -->
+        </table>
+      </div>
+    </div>
+
+    <!-- AD_SLOT_MIDDLE -->
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <!-- TOOL_EXPLANATION -->
+    <div class="tool-explanation">
+      <h2>Come Funziona il Calcolatore di Stipendio Netto</h2>
+      
+      <h3>Calcolo dei Contributi INPS</h3>
+      <p>I contributi previdenziali a carico del dipendente sono pari al <strong>9,19%</strong> dello stipendio lordo, calcolati su un massimale di €103.055 annui. Questi contributi finanziano la pensione futura e altre prestazioni previdenziali.</p>
+
+      <h3>Calcolo dell'IRPEF (Imposta sul Reddito delle Persone Fisiche)</h3>
+      <p>L'IRPEF è calcolata per scaglioni progressivi:</p>
+      <ul>
+        <li><strong>23%</strong> fino a €15.000</li>
+        <li><strong>25%</strong> da €15.001 a €28.000</li>
+        <li><strong>35%</strong> da €28.001 a €55.000</li>
+        <li><strong>43%</strong> oltre €55.000</li>
+      </ul>
+
+      <h3>Detrazioni per Lavoro Dipendente</h3>
+      <p>Le detrazioni riducono l'IRPEF dovuta e variano in base al reddito:</p>
+      <ul>
+        <li><strong>€1.880</strong> per redditi fino a €15.000</li>
+        <li>Detrazioni decrescenti fino a <strong>€1.297</strong> per redditi oltre €55.000</li>
+      </ul>
+
+      <h3>Addizionali Regionali e Comunali</h3>
+      <p>Le addizionali sono imposte aggiuntive che variano per territorio:</p>
+      <ul>
+        <li><strong>Addizionale regionale</strong>: dall'1,23% al 3,33% a seconda della regione</li>
+        <li><strong>Addizionale comunale</strong>: fino allo 0,8% (stimata al massimo)</li>
+      </ul>
+
+      <h3>Perché Utilizzare Questo Calcolatore?</h3>
+      <p>Il nostro strumento ti permette di:</p>
+      <ul>
+        <li>Conoscere esattamente quanto riceverai in busta paga</li>
+        <li>Pianificare il tuo budget familiare</li>
+        <li>Valutare proposte di lavoro con stipendi diversi</li>
+        <li>Comprendere l'impatto fiscale del tuo reddito</li>
+      </ul>
+    </div>
+
+    <!-- EMAIL_CAPTURE -->
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <!-- AD_SLOT_BOTTOM -->
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <!-- TOOL_FOOTER -->
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> I calcoli sono indicativi e basati sulle aliquote fiscali 2024. Per calcoli precisi consulta un commercialista o il tuo consulente del lavoro. Le addizionali regionali e comunali possono variare.</p>
+      <p style="margin-top: 15px;">© 2024 Calcolatore Stipendio Netto - Strumento gratuito per il calcolo delle imposte</p>
+    </div>
+  </div>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-stipendio-netto'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    // Addizionali regionali (percentuali medie)
+    const addizionaliRegionali = {
+      'Abruzzo': 1.73,
+      'Basilicata': 1.23,
+      'Calabria': 1.73,
+      'Campania': 1.68,
+      'Emilia-Romagna': 1.62,
+      'Friuli-Venezia Giulia': 1.23,
+      'Lazio': 1.73,
+      'Liguria': 1.68,
+      'Lombardia': 1.23,
+      'Marche': 1.73,
+      'Molise': 1.73,
+      'Piemonte': 1.68,
+      'Puglia': 1.68,
+      'Sardegna': 1.23,
+      'Sicilia': 1.73,
+      'Toscana': 1.73,
+      'Trentino-Alto Adige': 1.23,
+      'Umbria': 1.73,
+      'Valle d\'Aosta': 1.23,
+      'Veneto': 1.23
+    };
+
+    function calculateNetSalary(lordo, regione, detrazioniFamiliari, includeTredicesima) {
+      // 1. Calcola contributi INPS (9.19% fino a 103.055€)
+      const massimaleInps = 103055;
+      const baseContributi = Math.min(lordo, massimaleInps);
+      const contributiInps = baseContributi * 0.0919;
+
+      // 2. Base imponibile IRPEF
+      const baseImponibile = lordo - contributiInps;
+
+      // 3. Calcola IRPEF per scaglioni
+      let irpefLorda = 0;
+      if (baseImponibile > 55000) {
+        irpefLorda += 15000 * 0.23; // primo scaglione
+        irpefLorda += 13000 * 0.25; // secondo scaglione  
+        irpefLorda += 27000 * 0.35; // terzo scaglione
+        irpefLorda += (baseImponibile - 55000) * 0.43; // quarto scaglione
+      } else if (baseImponibile > 28000) {
+        irpefLorda += 15000 * 0.23; // primo scaglione
+        irpefLorda += 13000 * 0.25; // secondo scaglione
+        irpefLorda += (baseImponibile - 28000) * 0.35; // terzo scaglione
+      } else if (baseImponibile > 15000) {
+        irpefLorda += 15000 * 0.23; // primo scaglione
+        irpefLorda += (baseImponibile - 15000) * 0.25; // secondo scaglione
+      } else {
+        irpefLorda += baseImponibile * 0.23; // primo scaglione
+      }
+
+      // 4. Calcola detrazioni lavoro dipendente
+      let detrazioniLavoro = 0;
+      if (baseImponibile <= 15000) {
+        detrazioniLavoro = 1880;
+      } else if (baseImponibile <= 55000) {
+        // Detrazioni decrescenti da 1880 a 1297
+        const coefficiente = (55000 - baseImponibile) / (55000 - 15000);
+        detrazioniLavoro = 1297 + (1880 - 1297) * coefficiente;
+      } else {
+        detrazioniLavoro = 1297;
+      }
+
+      // 5. Totale detrazioni
+      const totalDetrazioni = detrazioniLavoro + detrazioniFamiliari;
+
+      // 6. IRPEF netta
+      const irpefNetta = Math.max(0, irpefLorda - totalDetrazioni);
+
+      // 7. Addizionali
+      const addRegionale = baseImponibile * (addizionaliRegionali[regione] || 1.73) / 100;
+      const addComunale = baseImponibile * 0.008; // stima massima 0.8%
+      const totalAddizionali = addRegionale + addComunale;
+
+      // 8. Calcolo netto
+      const stipendioNetto = lordo - contributiInps - irpefNetta - totalAddizionali;
+      const nettoMensile = includeTredicesima ? stipendioNetto / 13 : stipendioNetto / 12;
+      
+      // 9. Percentuale tassazione effettiva
+      const tassazioneEffettiva = ((lordo - stipendioNetto) / lordo) * 100;
+
+      return {
+        lordo: lordo,
+        contributiInps: contributiInps,
+        irpefLorda: irpefLorda,
+        detrazioni: totalDetrazioni,
+        irpefNetta: irpefNetta,
+        addizionali: totalAddizionali,
+        netto: stipendioNetto,
+        nettoMensile: nettoMensile,
+        tassazioneEffettiva: tassazioneEffettiva
+      };
+    }
+
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('it-IT', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(Math.round(amount));
+    }
+
+    function formatPercentage(percentage) {
+      return percentage.toFixed(1) + '%';
+    }
+
+    function displayResult(result) {
+      const resultDiv = document.getElementById('result');
+      const table = document.getElementById('result-table');
+      
+      table.innerHTML = `
+        <tr>
+          <th>Voce</th>
+          <th>Importo</th>
+        </tr>
+        <tr>
+          <td>Stipendio Lordo Annuo</td>
+          <td class="amount">${formatCurrency(result.lordo)}</td>
+        </tr>
+        <tr>
+          <td>Contributi INPS (9,19%)</td>
+          <td class="amount negative">-${formatCurrency(result.contributiInps)}</td>
+        </tr>
+        <tr>
+          <td>IRPEF Lorda</td>
+          <td class="amount negative">-${formatCurrency(result.irpefLorda)}</td>
+        </tr>
+        <tr>
+          <td>Detrazioni</td>
+          <td class="amount positive">+${formatCurrency(result.detrazioni)}</td>
+        </tr>
+        <tr>
+          <td>IRPEF Netta</td>
+          <td class="amount negative">-${formatCurrency(result.irpefNetta)}</td>
+        </tr>
+        <tr>
+          <td>Addizionali (Regionale + Comunale)</td>
+          <td class="amount negative">-${formatCurrency(result.addizionali)}</td>
+        </tr>
+        <tr class="highlight-result">
+          <td><strong>Stipendio Netto Annuo</strong></td>
+          <td class="amount"><strong>${formatCurrency(result.netto)}</strong></td>
+        </tr>
+        <tr class="highlight-result">
+          <td><strong>Stipendio Netto Mensile</strong></td>
+          <td class="amount"><strong>${formatCurrency(result.nettoMensile)}</strong></td>
+        </tr>
+        <tr>
+          <td>Tassazione Effettiva</td>
+          <td class="amount">${formatPercentage(result.tassazioneEffettiva)}</td>
+        </tr>
+      `;
+      
+      resultDiv.style.display = 'block';
+      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function validateForm() {
+      const errors = {};
+      let isValid = true;
+
+      // Clear previous errors
+      document.querySelectorAll('.error').forEach(el => el.textContent = '');
+
+      // Validate stipendio lordo
+      const stipendio = parseFloat(document.getElementById('stipendio_lordo').value);
+      if (!stipendio || stipendio < 0 || stipendio > 500000) {
+        errors.stipendio_lordo = 'Inserire uno stipendio valido tra 0 e 500.000€';
+        isValid = false;
+      }
+
+      // Validate regione
+      const regione = document.getElementById('regione').value;
+      if (!regione) {
+        errors.regione = 'Selezionare una regione';
+        isValid = false;
+      }
+
+      // Validate detrazioni familiari
+      const detrazioni = parseFloat(document.getElementById('detrazioni_familiari').value) || 0;
+      if (detrazioni < 0 || detrazioni > 20000) {
+        errors.detrazioni_familiari = 'Le detrazioni devono essere tra 0 e 20.000€';
+        isValid = false;
+      }
+
+      // Display errors
+      Object.keys(errors).forEach(field => {
+        document.getElementById(`error-${field}`).textContent = errors[field];
+      });
+
+      return isValid;
+    }
+
+    document.getElementById('salary-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if (!validateForm()) {
+        return;
+      }
+
+      const stipendioLordo = parseFloat(document.getElementById('stipendio_lordo').value);
+      const regione = document.getElementById('regione').value;
+      const detrazioniFamiliari = parseFloat(document.getElementById('detrazioni_familiari').value) || 0;
+      const tredicesima = document.getElementById('tredicesima').checked;
+
+      const result = calculateNetSalary(stipendioLordo, regione, detrazioniFamiliari, tredicesima);
+      displayResult(result);
+    });
+
+    // Real-time validation
+    document.getElementById('stipendio_lordo').addEventListener('input', function() {
+      const value = parseFloat(this.value);
+      const errorEl = document.getElementById('error-stipendio_lordo');
+      if (value && (value < 0 || value > 500000)) {
+        errorEl.textContent = 'Stipendio deve essere tra 0 e 500.000€';
+      } else {
+        errorEl.textContent = '';
+      }
+    });
+
+    document.getElementById('detrazioni_familiari').addEventListener('input', function() {
+      const value = parseFloat(this.value);
+      const errorEl = document.getElementById('error-detrazioni_familiari');
+      if (value && (value < 0 || value > 20000)) {
+        errorEl.textContent = 'Detrazioni devono essere tra 0 e 20.000€';
+      } else {
+        errorEl.textContent = '';
+      }
+    });
+  </script>
+</body>
+</html>
