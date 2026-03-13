@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulatore Mutuo Casa | Confronta Rate e Durate</title>
+  <meta name="description" content="Simula il tuo mutuo casa: calcola LTV, verifica sostenibilità e confronta diverse opzioni di durata e tasso. Strumento gratuito e completo.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Simulatore Mutuo Casa",
+    "description": "Strumento per simulare mutui casa con calcolo di rate, LTV e sostenibilità",
+    "url": "https://example.com/simulatore-mutuo",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success-color: #059669;
+      --warning-color: #d97706;
+      --danger-color: #dc2626;
+      --text-color: #1f2937;
+      --text-light: #6b7280;
+      --border-color: #e5e7eb;
+      --bg-light: #f9fafb;
+      --white: #ffffff;
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .tool-header {
+      text-align: center;
+      margin-bottom: 30px;
+      background: var(--white);
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .tool-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--primary-color), #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tool-header p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .ad-slot {
+      background: var(--bg-light);
+      border: 2px dashed var(--border-color);
+      border-radius: 8px;
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--text-light);
+      margin: 20px 0;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .form-section, .results-section {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .form-group input[type="number"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input[type="number"]:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .range-container {
+      margin-top: 10px;
+    }
+
+    .range-input {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border-color);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .range-input::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      cursor: pointer;
+    }
+
+    .range-input::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      cursor: pointer;
+      border: none;
+    }
+
+    .range-display {
+      text-align: center;
+      margin-top: 8px;
+      font-weight: 600;
+      color: var(--primary-color);
+      font-size: 1.1rem;
+    }
+
+    .calculate-btn {
+      width: 100%;
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 20px;
+    }
+
+    .calculate-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .results-section h2 {
+      margin-bottom: 20px;
+      color: var(--text-color);
+      border-bottom: 2px solid var(--bg-light);
+      padding-bottom: 10px;
+    }
+
+    .result-card {
+      background: var(--bg-light);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .result-title {
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 5px;
+    }
+
+    .result-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .sustainability {
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      font-weight: 600;
+    }
+
+    .sustainability.good {
+      background: #d1fae5;
+      color: var(--success-color);
+      border: 1px solid #10b981;
+    }
+
+    .sustainability.warning {
+      background: #fef3c7;
+      color: var(--warning-color);
+      border: 1px solid #f59e0b;
+    }
+
+    .sustainability.danger {
+      background: #fee2e2;
+      color: var(--danger-color);
+      border: 1px solid #ef4444;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .comparison-table th {
+      background: var(--bg-light);
+      font-weight: 600;
+    }
+
+    .comparison-table tr:hover {
+      background: #f8fafc;
+    }
+
+    .explanation {
+      background: var(--white);
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 30px;
+    }
+
+    .explanation h2 {
+      margin-bottom: 20px;
+      color: var(--text-color);
+    }
+
+    .explanation h3 {
+      margin: 20px 0 10px 0;
+      color: var(--primary-color);
+    }
+
+    .explanation p, .explanation li {
+      margin-bottom: 10px;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    .explanation ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+
+    .email-capture {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .email-capture p {
+      margin-bottom: 15px;
+      color: var(--text-light);
+    }
+
+    .email-capture form {
+      display: flex;
+      gap: 10px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .email-capture input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .email-capture button {
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .email-capture button:hover {
+      background: var(--primary-hover);
+    }
+
+    .footer {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      color: var(--text-light);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .tool-header h1 {
+        font-size: 2rem;
+      }
+
+      .main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .container {
+        padding: 15px;
+      }
+
+      .form-section, .results-section, .explanation {
+        padding: 20px;
+      }
+
+      .email-capture form {
+        flex-direction: column;
+      }
+
+      .comparison-table {
+        font-size: 0.9rem;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="tool-header">
+      <h1>Simulatore Mutuo Casa</h1>
+      <p>Calcola la rata del mutuo, verifica la sostenibilità e confronta diverse opzioni per trovare la soluzione migliore per il tuo acquisto immobiliare</p>
+    </header>
+
+    <div id="ad-slot-top" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <main class="main-content">
+      <section class="form-section">
+        <h2>Parametri del Mutuo</h2>
+        <form id="mortgage-form">
+          <div class="form-group">
+            <label for="valore_immobile">Valore dell'immobile (€)</label>
+            <input type="number" id="valore_immobile" placeholder="300000" min="50000" max="20000000" required>
+          </div>
+
+          <div class="form-group">
+            <label for="anticipo">Anticipo disponibile (€)</label>
+            <input type="number" id="anticipo" placeholder="60000" min="0" required>
+          </div>
+
+          <div class="form-group">
+            <label for="reddito_mensile">Reddito mensile netto (€)</label>
+            <input type="number" id="reddito_mensile" placeholder="3000" min="800" max="50000" required>
+          </div>
+
+          <div class="form-group">
+            <label for="durata">Durata mutuo (anni)</label>
+            <div class="range-container">
+              <input type="range" id="durata" class="range-input" min="10" max="40" value="25">
+              <div class="range-display" id="durata-display">25 anni</div>
+            </div>
+          </div>
+
+          <button type="submit" class="calculate-btn">Calcola Mutuo</button>
+        </form>
+      </section>
+
+      <section class="results-section">
+        <h2>Risultati Simulazione</h2>
+        <div id="results">
+          <p style="text-align: center; color: #6b7280; padding: 40px;">Inserisci i dati e clicca "Calcola Mutuo" per vedere i risultati</p>
+        </div>
+      </section>
+    </main>
+
+    <div id="ad-slot-middle" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <section class="explanation">
+      <h2>Come Funziona il Simulatore Mutuo</h2>
+      
+      <h3>Che cos'è il LTV?</h3>
+      <p>Il <strong>Loan to Value (LTV)</strong> è il rapporto percentuale tra l'importo del mutuo e il valore dell'immobile. Si calcola con la formula: LTV = (Valore immobile - Anticipo) / Valore immobile × 100. Un LTV più basso indica un minor rischio per la banca e condizioni di mutuo più favorevoli.</p>
+
+      <h3>Come si Calcola la Rata?</h3>
+      <p>La rata del mutuo dipende da tre fattori principali:</p>
+      <ul>
+        <li><strong>Capitale</strong>: l'importo finanziato (valore immobile - anticipo)</li>
+        <li><strong>Tasso di interesse</strong>: il costo del denaro, varia tra 2.5% e 4.5%</li>
+        <li><strong>Durata</strong>: il periodo di rimborso, da 10 a 40 anni</li>
+      </ul>
+
+      <h3>Verifica della Sostenibilità</h3>
+      <p>Le banche applicano regole prudenziali per valutare la sostenibilità del mutuo. La rata mensile non dovrebbe superare il 35% del reddito netto familiare. Il nostro simulatore verifica automaticamente questa condizione e fornisce un giudizio sulla fattibilità del finanziamento.</p>
+
+      <h3>Confronto tra Diverse Durate</h3>
+      <p>Il simulatore mostra come varia la rata al cambiare della durata del mutuo. Una durata più lunga comporta rate più basse ma maggiori interessi totali. Viceversa, una durata più breve significa rate più alte ma un risparmio significativo sugli interessi.</p>
+
+      <h3>Tassi di Interesse Simulati</h3>
+      <p>I calcoli utilizzano una gamma di tassi realistici del mercato italiano (2.5%-4.5%) per offrire una stima accurata delle possibili condizioni di mutuo. I tassi effettivi dipendono da fattori come profilo creditizio, banca scelta e tipologia di tasso (fisso o variabile).</p>
+    </section>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <footer class="footer">
+      <p><strong>Disclaimer:</strong> Questo strumento fornisce stime indicative basate sui parametri inseriti. I calcoli sono puramente informativi e non costituiscono un'offerta di credito. Le condizioni reali di mutuo possono variare significativamente in base al profilo creditizio, alle politiche della banca e alle condizioni di mercato. Si consiglia sempre di consultare un consulente finanziario qualificato prima di prendere decisioni importanti.</p>
+      <p style="margin-top: 15px;">© 2024 Simulatore Mutuo Casa - Strumento gratuito per il calcolo orientativo dei mutui immobiliari</p>
+    </footer>
+  </div>
+
+  <script>
+    // Aggiorna il display della durata
+    const durataSlider = document.getElementById('durata');
+    const durataDisplay = document.getElementById('durata-display');
+    
+    durataSlider.addEventListener('input', function() {
+      durataDisplay.textContent = this.value + ' anni';
+    });
+
+    // Calcolo della rata mensile con formula del mutuo
+    function calcolaRata(capitale, tassoAnnuo, anni) {
+      const tassoMensile = tassoAnnuo / 100 / 12;
+      const numeroRate = anni * 12;
+      
+      if (tassoMensile === 0) {
+        return capitale / numeroRate;
+      }
+      
+      return (capitale * tassoMensile * Math.pow(1 + tassoMensile, numeroRate)) / 
+             (Math.pow(1 + tassoMensile, numeroRate) - 1);
+    }
+
+    // Gestione del form
+    document.getElementById('mortgage-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const valoreImmobile = parseFloat(document.getElementById('valore_immobile').value);
+      const anticipo = parseFloat(document.getElementById('anticipo').value);
+      const redditoMensile = parseFloat(document.getElementById('reddito_mensile').value);
+      const durata = parseInt(document.getElementById('durata').value);
+
+      // Validazioni
+      if (anticipo >= valoreImmobile) {
+        alert('L\'anticipo non può essere uguale o superiore al valore dell\'immobile');
+        return;
+      }
+
+      // Calcoli
+      const importoMutuo = valoreImmobile - anticipo;
+      const ltv = (importoMutuo / valoreImmobile) * 100;
+      const redditoMax = redditoMensile * 0.35;
+
+      // Simulazione con diversi tassi
+      const tassi = [2.5, 3.0, 3.5, 4.0, 4.5];
+      const simulazioni = tassi.map(tasso => ({
+        tasso: tasso,
+        rata: calcolaRata(importoMutuo, tasso, durata),
+        totaleInteressi: (calcolaRata(importoMutuo, tasso, durata) * durata * 12) - importoMutuo
+      }));
+
+      // Confronto durate (con tasso medio 3.5%)
+      const durateConfronto = [15, 20, 25, 30, 35];
+      const confrontoDurate = durateConfronto.map(anni => {
+        const rata = calcolaRata(importoMutuo, 3.5, anni);
+        return {
+          anni: anni,
+          rata: rata,
+          totale: rata * anni * 12,
+          interessi: (rata * anni * 12) - importoMutuo
+        };
+      });
+
+      // Sostenibilità
+      const rataMedia = simulazioni[2].rata; // Tasso 3.5%
+      let sostenibilita;
+      let sostenibilitaClass;
+      
+      if (rataMedia <= redditoMax * 0.8) {
+        sostenibilita = "✅ Mutuo altamente sostenibile";
+        sostenibilitaClass = "good";
+      } else if (rataMedia <= redditoMax) {
+        sostenibilita = "⚠️ Mutuo sostenibile ma al limite";
+        sostenibilitaClass = "warning";
+      } else {
+        sostenibilita = "❌ Mutuo non sostenibile";
+        sostenibilitaClass = "danger";
+      }
+
+      // Mostra risultati
+      document.getElementById('results').innerHTML = `
+        <div class="result-card">
+          <div class="result-title">Loan to Value (LTV)</div>
+          <div class="result-value">${ltv.toFixed(1)}%</div>
+        </div>
+
+        <div class="result-card">
+          <div class="result-title">Importo Mutuo</div>
+          <div class="result-value">€${importoMutuo.toLocaleString('it-IT')}</div>
+        </div>
+
+        <div class="result-card">
+          <div class="result-title">Reddito Massimo Consigliato per Rata</div>
+          <div class="result-value">€${redditoMax.toLocaleString('it-IT', {maximumFractionDigits: 0})}</div>
+        </div>
+
+        <div class="sustainability ${sostenibilitaClass}">
+          ${sostenibilita}
+        </div>
+
+        <h3 style="margin: 25px 0 15px 0;">Rate con Diversi Tassi di Interesse</h3>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Tasso</th>
+              <th>Rata Mensile</th>
+              <th>Totale Interessi</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${simulazioni.map(sim => `
+              <tr>
+                <td>${sim.tasso}%</td>
+                <td>€${sim.rata.toLocaleString('it-IT', {maximumFractionDigits: 0})}</td>
+                <td>€${sim.totaleInteressi.toLocaleString('it-IT', {maximumFractionDigits: 0})}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+
+        <h3 style="margin: 25px 0 15px 0;">Confronto Durate (Tasso 3.5%)</h3>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Durata</th>
+              <th>Rata Mensile</th>
+              <th>Totale da Pagare</th>
+              <th>Interessi</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${confrontoDurate.map(conf => `
+              <tr ${conf.anni === durata ? 'style="background: #e0f2fe; font-weight: 600;"' : ''}>
+                <td>${conf.anni} anni</td>
+                <td>€${conf.rata.toLocaleString('it-IT', {maximumFractionDigits: 0})}</td>
+                <td>€${conf.totale.toLocaleString('it-IT', {maximumFractionDigits: 0})}</td>
+                <td>€${conf.interessi.toLocaleString('it-IT', {maximumFractionDigits: 0})}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    });
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'simulatore-mutuo'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+  </script>
+</body>
+</html>
