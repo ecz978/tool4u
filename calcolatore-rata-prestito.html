@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Rata Prestito | Personale, Finalizzato, CQS</title>
+  <meta name="description" content="Calcola rata prestito personale, finalizzato o cessione del quinto. Confronta TAEG e trova la soluzione più conveniente per te.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Rata Prestito",
+    "description": "Calcola la rata del prestito personale, finalizzato o cessione del quinto. Confronta diverse opzioni di finanziamento.",
+    "url": "https://example.com/calcolatore-rata-prestito",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --secondary-color: #f1f5f9;
+      --text-color: #1e293b;
+      --text-light: #64748b;
+      --border-color: #e2e8f0;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --error-color: #ef4444;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--secondary-color);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .tool-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 40px 20px;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .tool-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      color: var(--primary-color);
+    }
+
+    .tool-header p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+    }
+
+    .ad-slot {
+      background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                  linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                  linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                  linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      height: 200px;
+      margin: 40px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-weight: bold;
+      border-radius: 8px;
+      border: 2px dashed #ddd;
+    }
+
+    .tool-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .form-section, .results-section {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-section h2, .results-section h2 {
+      margin-bottom: 24px;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .calculate-btn {
+      width: 100%;
+      padding: 12px 24px;
+      background: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .calculate-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .results {
+      margin-top: 20px;
+    }
+
+    .result-card {
+      background: var(--secondary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .result-card h3 {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .result-card p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .comparison-table th {
+      background: var(--secondary-color);
+      font-weight: 600;
+    }
+
+    .tool-explanation {
+      background: var(--white);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      margin-bottom: 40px;
+    }
+
+    .tool-explanation h2 {
+      color: var(--primary-color);
+      margin-bottom: 24px;
+      font-size: 2rem;
+    }
+
+    .tool-explanation h3 {
+      color: var(--text-color);
+      margin: 24px 0 16px 0;
+      font-size: 1.3rem;
+    }
+
+    .tool-explanation p, .tool-explanation li {
+      margin-bottom: 12px;
+      color: var(--text-color);
+      line-height: 1.7;
+    }
+
+    .tool-explanation ul {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    .email-capture {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .email-capture p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: var(--text-color);
+    }
+
+    .email-capture form {
+      display: flex;
+      max-width: 400px;
+      margin: 0 auto;
+      gap: 12px;
+    }
+
+    .email-capture input {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .email-capture button {
+      padding: 12px 24px;
+      background: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .email-capture button:hover {
+      background: var(--primary-hover);
+    }
+
+    .tool-footer {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .tool-footer p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .error-message {
+      color: var(--error-color);
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+      
+      .tool-header h1 {
+        font-size: 2rem;
+      }
+      
+      .tool-body {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .form-section, .results-section {
+        padding: 20px;
+      }
+      
+      .email-capture form {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- TOOL_HEADER -->
+    <div class="tool-header">
+      <h1>Calcolatore Rata Prestito Personale</h1>
+      <p>Calcola la rata del prestito personale, finalizzato o cessione del quinto. Confronta diverse opzioni di finanziamento e trova la soluzione più conveniente.</p>
+    </div>
+
+    <!-- AD_SLOT_TOP -->
+    <div class="ad-slot" id="ad-slot-top">Spazio pubblicitario</div>
+
+    <!-- TOOL_BODY -->
+    <div class="tool-body">
+      <div class="form-section">
+        <h2>Inserisci i dati del prestito</h2>
+        <form id="loan-form">
+          <div class="form-group">
+            <label for="importo_prestito">Importo prestito (€)</label>
+            <input type="number" id="importo_prestito" placeholder="15000" min="1000" max="100000" required>
+            <div class="error-message" id="importo_prestito_error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="durata_mesi">Durata (mesi)</label>
+            <input type="number" id="durata_mesi" placeholder="60" min="12" max="120" required>
+            <div class="error-message" id="durata_mesi_error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="tan">TAN - Tasso Annuo Nominale (%)</label>
+            <input type="number" id="tan" placeholder="8.5" min="1" max="25" step="0.1" required>
+            <div class="error-message" id="tan_error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="tipo_prestito">Tipo di prestito</label>
+            <select id="tipo_prestito" required>
+              <option value="">Seleziona</option>
+              <option value="Personale">Prestito Personale</option>
+              <option value="Finalizzato">Prestito Finalizzato</option>
+              <option value="CessioneQuinto">Cessione del Quinto</option>
+            </select>
+            <div class="error-message" id="tipo_prestito_error"></div>
+          </div>
+
+          <button type="submit" class="calculate-btn">Calcola Rata</button>
+        </form>
+      </div>
+
+      <div class="results-section">
+        <h2>Risultati del calcolo</h2>
+        <div id="results" class="results">
+          <p style="text-align: center; color: var(--text-light); margin-top: 40px;">
+            Compila il modulo per vedere i risultati del calcolo
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AD_SLOT_MIDDLE -->
+    <div class="ad-slot" id="ad-slot-middle">Spazio pubblicitario</div>
+
+    <!-- TOOL_EXPLANATION -->
+    <div class="tool-explanation">
+      <h2>Come funziona il calcolatore di rata prestito</h2>
+      
+      <h3>Formula di calcolo della rata</h3>
+      <p>Il calcolatore utilizza la formula matematica standard per il calcolo delle rate di un finanziamento:</p>
+      <p><strong>R = C × [i(1+i)^n] / [(1+i)^n-1]</strong></p>
+      <p>Dove:</p>
+      <ul>
+        <li><strong>R</strong> = rata mensile</li>
+        <li><strong>C</strong> = capitale prestato (importo del prestito)</li>
+        <li><strong>i</strong> = tasso mensile (TAN annuo / 12 / 100)</li>
+        <li><strong>n</strong> = numero di rate (durata in mesi)</li>
+      </ul>
+
+      <h3>Tipi di prestito disponibili</h3>
+      <ul>
+        <li><strong>Prestito Personale:</strong> Non richiede garanzie specifiche, basato sulla capacità di reddito. Tasso generalmente più alto ma maggiore flessibilità.</li>
+        <li><strong>Prestito Finalizzato:</strong> Legato all'acquisto di un bene specifico (auto, arredamento, ecc.). Tassi più vantaggiosi grazie alla garanzia del bene acquistato.</li>
+        <li><strong>Cessione del Quinto:</strong> Riservato a dipendenti e pensionati. La rata viene trattenuta direttamente dalla busta paga/pensione e non può superare il 20% del reddito netto.</li>
+      </ul>
+
+      <h3>Calcolo del TAEG</h3>
+      <p>Il TAEG (Tasso Annuo Effettivo Globale) include oltre al TAN anche le spese accessorie tipiche per ogni tipo di prestito:</p>
+      <ul>
+        <li>Istruttoria pratica</li>
+        <li>Spese di incasso rata</li>
+        <li>Costi assicurativi (quando obbligatori)</li>
+        <li>Imposte di bollo</li>
+      </ul>
+
+      <h3>Come scegliere il prestito giusto</h3>
+      <p>Per scegliere il prestito più conveniente considera:</p>
+      <ul>
+        <li><strong>TAEG più basso:</strong> È l'indicatore più importante del costo reale</li>
+        <li><strong>Rata sostenibile:</strong> Non dovrebbe superare il 30% del tuo reddito mensile netto</li>
+        <li><strong>Durata appropriata:</strong> Durate più lunghe riducono la rata ma aumentano gli interessi totali</li>
+        <li><strong>Flessibilità:</strong> Possibilità di rimborso anticipato senza penali</li>
+      </ul>
+
+      <h3>Documenti necessari</h3>
+      <p>Per richiedere un prestito servono generalmente:</p>
+      <ul>
+        <li>Documento d'identità e codice fiscale</li>
+        <li>Ultime buste paga o dichiarazione dei redditi</li>
+        <li>Estratto conto degli ultimi 3 mesi</li>
+        <li>Certificato di residenza (se non riportato su documento)</li>
+      </ul>
+    </div>
+
+    <!-- EMAIL_CAPTURE -->
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <!-- AD_SLOT_BOTTOM -->
+    <div class="ad-slot" id="ad-slot-bottom">Spazio pubblicitario</div>
+
+    <!-- TOOL_FOOTER -->
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> I calcoli forniti sono puramente indicativi e non costituiscono offerte di finanziamento. I tassi e le condizioni reali possono variare in base alla valutazione del merito creditizio e alle politiche commerciali degli istituti di credito.</p>
+      <p>Per informazioni precise e personalizzate, consulta sempre direttamente la banca o la società finanziaria di tuo interesse.</p>
+      <p>&copy; 2024 Calcolatore Rata Prestito - Tutti i diritti riservati</p>
+    </div>
+  </div>
+
+  <script>
+    // Configurazione spese per tipo prestito (per calcolo TAEG)
+    const loanConfig = {
+      'Personale': {
+        spesaIstruttoria: 100,
+        speseIncasso: 2.5,
+        assicurazione: 0.003,
+        imposta: 16,
+        name: 'Prestito Personale'
+      },
+      'Finalizzato': {
+        spesaIstruttoria: 50,
+        speseIncasso: 2,
+        assicurazione: 0.002,
+        imposta: 16,
+        name: 'Prestito Finalizzato'
+      },
+      'CessioneQuinto': {
+        spesaIstruttoria: 200,
+        speseIncasso: 0,
+        assicurazione: 0.005,
+        imposta: 16,
+        name: 'Cessione del Quinto'
+      }
+    };
+
+    function calculateLoan(importo, durata, tan, tipo) {
+      // Calcolo rata mensile
+      const i = tan / 12 / 100; // tasso mensile
+      const n = durata; // numero di rate
+      const rata = importo * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+      
+      // Calcolo totali
+      const totaleRimborso = rata * durata;
+      const interessiTotali = totaleRimborso - importo;
+      
+      // Calcolo TAEG (semplificato)
+      const config = loanConfig[tipo];
+      const speseUpfront = config.spesaIstruttoria + config.imposta;
+      const speseRicorrenti = config.speseIncasso * durata;
+      const speseAssicurazione = importo * config.assicurazione;
+      const speseTotali = speseUpfront + speseRicorrenti + speseAssicurazione;
+      
+      // Importo netto erogato
+      const importoNetto = importo - speseUpfront;
+      
+      // TAEG approssimativo
+      const costoTotale = interessiTotali + speseTotali;
+      const taeg = (costoTotale / importoNetto) / (durata / 12) * 100;
+      
+      return {
+        rata: rata,
+        totaleRimborso: totaleRimborso + speseTotali,
+        interessiTotali: interessiTotali,
+        speseTotali: speseTotali,
+        taeg: taeg,
+        tipo: config.name
+      };
+    }
+
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('it-IT', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(amount);
+    }
+
+    function formatPercentage(rate) {
+      return rate.toFixed(2) + '%';
+    }
+
+    function validateForm() {
+      let isValid = true;
+      const fields = ['importo_prestito', 'durata_mesi', 'tan', 'tipo_prestito'];
+      
+      fields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        const errorElement = document.getElementById(fieldId + '_error');
+        const value = field.value.trim();
+        
+        // Reset error
+        errorElement.textContent = '';
+        field.style.borderColor = 'var(--border-color)';
+        
+        if (!value) {
+          errorElement.textContent = 'Campo obbligatorio';
+          field.style.borderColor = 'var(--error-color)';
+          isValid = false;
+          return;
+        }
+        
+        // Validazioni specifiche per i campi numerici
+        if (fieldId === 'importo_prestito') {
+          const amount = parseFloat(value);
+          if (amount < 1000 || amount > 100000) {
+            errorElement.textContent = 'L\'importo deve essere tra €1.000 e €100.000';
+            field.style.borderColor = 'var(--error-color)';
+            isValid = false;
+          }
+        } else if (fieldId === 'durata_mesi') {
+          const duration = parseInt(value);
+          if (duration < 12 || duration > 120) {
+            errorElement.textContent = 'La durata deve essere tra 12 e 120 mesi';
+            field.style.borderColor = 'var(--error-color)';
+            isValid = false;
+          }
+        } else if (fieldId === 'tan') {
+          const rate = parseFloat(value);
+          if (rate < 1 || rate > 25) {
+            errorElement.textContent = 'Il TAN deve essere tra 1% e 25%';
+            field.style.borderColor = 'var(--error-color)';
+            isValid = false;
+          }
+        }
+      });
+      
+      return isValid;
+    }
+
+    function displayResults(result) {
+      const resultsDiv = document.getElementById('results');
+      
+      // Requisiti specifici per tipo prestito
+      const requirements = {
+        'Personale': 'Documenti di reddito, nessuna garanzia specifica richiesta',
+        'Finalizzato': 'Fattura/contratto del bene da acquistare, documenti di reddito',
+        'CessioneQuinto': 'Solo per dipendenti e pensionati, rata max 20% del netto'
+      };
+      
+      const tipo = document.getElementById('tipo_prestito').value;
+      
+      resultsDiv.innerHTML = `
+        <div class="result-card">
+          <h3>${formatCurrency(result.rata)}</h3>
+          <p>Rata mensile</p>
+        </div>
+        
+        <div class="result-card">
+          <h3>${formatCurrency(result.totaleRimborso)}</h3>
+          <p>Importo totale da rimborsare</p>
+        </div>
+        
+        <div class="result-card">
+          <h3>${formatCurrency(result.interessiTotali + result.speseTotali)}</h3>
+          <p>Costo totale del prestito (interessi + spese)</p>
+        </div>
+        
+        <div class="result-card">
+          <h3>${formatPercentage(result.taeg)}</h3>
+          <p>TAEG stimato (Tasso Annuo Effettivo Globale)</p>
+        </div>
+        
+        <div style="margin-top: 24px; padding: 16px; background: var(--secondary-color); border-radius: 8px;">
+          <h4 style="color: var(--primary-color); margin-bottom: 8px;">Requisiti per ${result.tipo}:</h4>
+          <p style="color: var(--text-color); font-size: 0.9rem;">${requirements[tipo]}</p>
+        </div>
+        
+        <div style="margin-top: 16px; padding: 16px; background: #fef3c7; border-radius: 8px; border-left: 4px solid var(--warning-color);">
+          <p style="color: #92400e; font-size: 0.9rem; margin: 0;"><strong>Nota:</strong> Il TAEG è stimato e include le spese tipiche. Il valore reale può variare in base all'istituto di credito.</p>
+        </div>
+      `;
+      
+      // Aggiungi tabella di confronto
+      displayComparison();
+    }
+
+    function displayComparison() {
+      const importo = parseFloat(document.getElementById('importo_prestito').value);
+      const durata = parseInt(document.getElementById('durata_mesi').value);
+      const tan = parseFloat(document.getElementById('tan').value);
+      
+      const resultsDiv = document.getElementById('results');
+      
+      let comparisonHTML = `
+        <div style="margin-top: 24px;">
+          <h4 style="color: var(--primary-color); margin-bottom: 16px;">Confronto tra tipi di prestito</h4>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Rata mensile</th>
+                <th>TAEG stimato</th>
+                <th>Costo totale</th>
+              </tr>
+            </thead>
+            <tbody>
+      `;
+      
+      ['Personale', 'Finalizzato', 'CessioneQuinto'].forEach(tipo => {
+        const result = calculateLoan(importo, durata, tan, tipo);
+        comparisonHTML += `
+          <tr>
+            <td>${loanConfig[tipo].name}</td>
+            <td>${formatCurrency(result.rata)}</td>
+            <td>${formatPercentage(result.taeg)}</td>
+            <td>${formatCurrency(result.totaleRimborso)}</td>
+          </tr>
+        `;
+      });
+      
+      comparisonHTML += `
+            </tbody>
+          </table>
+        </div>
+      `;
+      
+      resultsDiv.innerHTML += comparisonHTML;
+    }
+
+    // Event listeners
+    document.getElementById('loan-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if (!validateForm()) {
+        return;
+      }
+      
+      const importo = parseFloat(document.getElementById('importo_prestito').value);
+      const durata = parseInt(document.getElementById('durata_mesi').value);
+      const tan = parseFloat(document.getElementById('tan').value);
+      const tipo = document.getElementById('tipo_prestito').value;
+      
+      const result = calculateLoan(importo, durata, tan, tipo);
+      displayResults(result);
+    });
+
+    // Real-time validation
+    ['importo_prestito', 'durata_mesi', 'tan'].forEach(fieldId => {
+      document.getElementById(fieldId).addEventListener('input', function() {
+        const errorElement = document.getElementById(fieldId + '_error');
+        errorElement.textContent = '';
+        this.style.borderColor = 'var(--border-color)';
+      });
+    });
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-rata-prestito'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:var(--success-color); margin: 0;">Iscrizione completata! Grazie!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:var(--success-color); margin: 0;">Iscrizione completata! Grazie!</p>';
+      });
+      return false;
+    }
+
+    // Test della formula con i test case forniti
+    console.log('Test Case 1:', calculateLoan(15000, 60, 8.5, 'Personale'));
+    console.log('Test Case 2:', calculateLoan(25000, 84, 6.2, 'Finalizzato'));
+  </script>
+</body>
+</html>
