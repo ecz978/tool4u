@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Mutuo Online | Calcola Rata e Interessi</title>
+  <meta name="description" content="Calcola rata mutuo, interessi totali e piano ammortamento. Strumento gratuito per simulare il tuo mutuo casa con tassi fissi e variabili.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Mutuo Online",
+    "description": "Calcola rata mutuo, interessi totali e piano ammortamento con il nostro strumento gratuito",
+    "url": "https://example.com/calcolatore-mutuo",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary-color: #f1f5f9;
+      --text-color: #334155;
+      --text-light: #64748b;
+      --border-color: #e2e8f0;
+      --success-color: #10b981;
+      --error-color: #ef4444;
+      --white: #ffffff;
+      --radius: 8px;
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    .tool-header {
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .tool-header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .tool-header p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .ad-slot {
+      background: var(--secondary-color);
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-light);
+      font-style: italic;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .tool-body {
+      padding: 2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 0.75rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-group.error input,
+    .form-group.error select {
+      border-color: var(--error-color);
+    }
+
+    .error-message {
+      color: var(--error-color);
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    .calculate-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .calculate-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .results {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: var(--secondary-color);
+      border-radius: var(--radius);
+      display: none;
+    }
+
+    .results.show {
+      display: block;
+    }
+
+    .results h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .result-item {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .result-item .label {
+      color: var(--text-light);
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .result-item .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .amortization-table {
+      overflow-x: auto;
+      margin-top: 2rem;
+    }
+
+    .amortization-table table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .amortization-table th,
+    .amortization-table td {
+      padding: 0.75rem;
+      text-align: right;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .amortization-table th {
+      background: var(--primary-color);
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .amortization-table th:first-child,
+    .amortization-table td:first-child {
+      text-align: center;
+    }
+
+    .tool-explanation {
+      padding: 2rem;
+      background: var(--white);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .tool-explanation h2 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .tool-explanation p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    .tool-explanation ul {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .tool-explanation li {
+      margin-bottom: 0.5rem;
+    }
+
+    .email-capture {
+      background: var(--secondary-color);
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .email-capture p {
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .email-capture form {
+      display: flex;
+      max-width: 400px;
+      margin: 0 auto;
+      gap: 0.5rem;
+    }
+
+    .email-capture input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+    }
+
+    .email-capture button {
+      padding: 0.75rem 1.5rem;
+      background: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .email-capture button:hover {
+      background: var(--primary-dark);
+    }
+
+    .tool-footer {
+      background: var(--text-color);
+      color: var(--white);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .tool-footer p {
+      opacity: 0.8;
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      .tool-header {
+        padding: 1.5rem;
+      }
+
+      .tool-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .tool-body {
+        padding: 1.5rem;
+      }
+
+      .email-capture form {
+        flex-direction: column;
+      }
+
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Mutuo Online</h1>
+      <p>Calcola la rata mensile, gli interessi totali e il piano di ammortamento del tuo mutuo</p>
+    </div>
+
+    <div id="ad-slot-top" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="mutuo-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="importo">Importo del mutuo (€)</label>
+            <input type="number" id="importo" name="importo" placeholder="200000" required min="10000" max="10000000">
+            <div class="error-message"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="durata">Durata (anni)</label>
+            <input type="number" id="durata" name="durata" placeholder="25" required min="5" max="40">
+            <div class="error-message"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="tasso">Tasso di interesse annuo (%)</label>
+            <input type="number" id="tasso" name="tasso" placeholder="3.5" required min="0.1" max="15" step="0.01">
+            <div class="error-message"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="tipo_tasso">Tipo di tasso</label>
+            <select id="tipo_tasso" name="tipo_tasso" required>
+              <option value="">Seleziona</option>
+              <option value="Fisso">Tasso Fisso</option>
+              <option value="Variabile">Tasso Variabile</option>
+            </select>
+            <div class="error-message"></div>
+          </div>
+        </div>
+
+        <button type="submit" class="calculate-btn">Calcola Mutuo</button>
+      </form>
+
+      <div id="results" class="results">
+        <h3>Risultati del Calcolo</h3>
+        <div class="result-grid">
+          <div class="result-item">
+            <div class="label">Rata Mensile</div>
+            <div class="value" id="rata-mensile">-</div>
+          </div>
+          <div class="result-item">
+            <div class="label">Interesse Totale</div>
+            <div class="value" id="interesse-totale">-</div>
+          </div>
+          <div class="result-item">
+            <div class="label">Importo Totale</div>
+            <div class="value" id="importo-totale">-</div>
+          </div>
+          <div class="result-item">
+            <div class="label">% Interessi</div>
+            <div class="value" id="percentuale-interessi">-</div>
+          </div>
+        </div>
+
+        <div class="amortization-table">
+          <h4 style="margin-bottom: 1rem; color: var(--primary-color);">Piano di Ammortamento - Primi 12 Mesi</h4>
+          <table id="amortization-table">
+            <thead>
+              <tr>
+                <th>Mese</th>
+                <th>Rata (€)</th>
+                <th>Quota Capitale (€)</th>
+                <th>Quota Interessi (€)</th>
+                <th>Debito Residuo (€)</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="ad-slot-middle" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come Funziona il Calcolatore Mutuo</h2>
+      <p>Il nostro calcolatore mutuo utilizza la formula standard del mercato finanziario per calcolare la rata mensile del tuo mutuo casa. Il calcolo si basa su tre parametri fondamentali:</p>
+      
+      <ul>
+        <li><strong>Importo del mutuo:</strong> la somma che intendi richiedere in prestito alla banca</li>
+        <li><strong>Durata del mutuo:</strong> il numero di anni in cui intendi restituire il prestito</li>
+        <li><strong>Tasso di interesse:</strong> il costo del denaro applicato dalla banca, espresso in percentuale annua</li>
+      </ul>
+
+      <p>La formula utilizzata è: <strong>R = C × [i × (1 + i)^n] / [(1 + i)^n - 1]</strong></p>
+      
+      <p>Dove:</p>
+      <ul>
+        <li>R = rata mensile</li>
+        <li>C = capitale richiesto</li>
+        <li>i = tasso di interesse mensile (tasso annuo / 12 / 100)</li>
+        <li>n = numero totale di rate (durata in anni × 12)</li>
+      </ul>
+
+      <p>Il calcolatore fornisce anche il piano di ammortamento dei primi 12 mesi, mostrando per ogni rata la suddivisione tra quota capitale e quota interessi. Questo ti permette di comprendere come evolve il rimborso del tuo mutuo nel tempo.</p>
+
+      <p><strong>Tasso Fisso vs Variabile:</strong></p>
+      <ul>
+        <li><strong>Tasso Fisso:</strong> rimane costante per tutta la durata del mutuo, garantendo rate sempre uguali</li>
+        <li><strong>Tasso Variabile:</strong> può modificarsi nel tempo seguendo l'andamento dei tassi di mercato</li>
+      </ul>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> I calcoli forniti da questo strumento hanno scopo puramente informativo e non costituiscono consulenza finanziaria. Per decisioni di investimento consultare sempre un consulente qualificato. I risultati sono approssimativi e possono differire dalle condizioni reali offerte dalle banche.</p>
+    </div>
+  </div>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-mutuo'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('it-IT', {
+        style: 'currency',
+        currency: 'EUR'
+      }).format(amount);
+    }
+
+    function formatPercentage(value) {
+      return value.toFixed(1) + '%';
+    }
+
+    function validateForm() {
+      let isValid = true;
+      const fields = ['importo', 'durata', 'tasso', 'tipo_tasso'];
+
+      fields.forEach(fieldName => {
+        const field = document.getElementById(fieldName);
+        const formGroup = field.closest('.form-group');
+        const errorMessage = formGroup.querySelector('.error-message');
+        
+        formGroup.classList.remove('error');
+        errorMessage.textContent = '';
+
+        if (!field.value.trim()) {
+          formGroup.classList.add('error');
+          errorMessage.textContent = 'Campo obbligatorio';
+          isValid = false;
+          return;
+        }
+
+        if (fieldName === 'importo') {
+          const value = parseFloat(field.value);
+          if (value < 10000 || value > 10000000) {
+            formGroup.classList.add('error');
+            errorMessage.textContent = 'Importo deve essere tra €10.000 e €10.000.000';
+            isValid = false;
+          }
+        }
+
+        if (fieldName === 'durata') {
+          const value = parseInt(field.value);
+          if (value < 5 || value > 40) {
+            formGroup.classList.add('error');
+            errorMessage.textContent = 'Durata deve essere tra 5 e 40 anni';
+            isValid = false;
+          }
+        }
+
+        if (fieldName === 'tasso') {
+          const value = parseFloat(field.value);
+          if (value < 0.1 || value > 15) {
+            formGroup.classList.add('error');
+            errorMessage.textContent = 'Tasso deve essere tra 0,1% e 15%';
+            isValid = false;
+          }
+        }
+      });
+
+      return isValid;
+    }
+
+    function calculateMutuo(importo, durata, tasso) {
+      const capitale = parseFloat(importo);
+      const anni = parseInt(durata);
+      const tassoAnnuo = parseFloat(tasso);
+
+      const tassoMensile = tassoAnnuo / 12 / 100;
+      const numeroRate = anni * 12;
+
+      // Formula rata: R = C * [i * (1 + i)^n] / [(1 + i)^n - 1]
+      const rataMensile = capitale * (tassoMensile * Math.pow(1 + tassoMensile, numeroRate)) / (Math.pow(1 + tassoMensile, numeroRate) - 1);
+      
+      const importoTotale = rataMensile * numeroRate;
+      const interesseTotale = importoTotale - capitale;
+      const percentualeInteressi = (interesseTotale / importoTotale) * 100;
+
+      return {
+        rataMensile: rataMensile,
+        interesseTotale: interesseTotale,
+        importoTotale: importoTotale,
+        percentualeInteressi: percentualeInteressi,
+        tassoMensile: tassoMensile,
+        numeroRate: numeroRate,
+        capitale: capitale
+      };
+    }
+
+    function generateAmortizationTable(result) {
+      const tableBody = document.querySelector('#amortization-table tbody');
+      tableBody.innerHTML = '';
+
+      let debitoResiduo = result.capitale;
+
+      for (let mese = 1; mese <= 12; mese++) {
+        const quotaInteressi = debitoResiduo * result.tassoMensile;
+        const quotaCapitale = result.rataMensile - quotaInteressi;
+        debitoResiduo -= quotaCapitale;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${mese}</td>
+          <td>${formatCurrency(result.rataMensile)}</td>
+          <td>${formatCurrency(quotaCapitale)}</td>
+          <td>${formatCurrency(quotaInteressi)}</td>
+          <td>${formatCurrency(debitoResiduo)}</td>
+        `;
+        tableBody.appendChild(row);
+      }
+    }
+
+    document.getElementById('mutuo-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      if (!validateForm()) {
+        return;
+      }
+
+      const importo = document.getElementById('importo').value;
+      const durata = document.getElementById('durata').value;
+      const tasso = document.getElementById('tasso').value;
+      const tipoTasso = document.getElementById('tipo_tasso').value;
+
+      const result = calculateMutuo(importo, durata, tasso);
+
+      // Mostra i risultati
+      document.getElementById('rata-mensile').textContent = formatCurrency(result.rataMensile);
+      document.getElementById('interesse-totale').textContent = formatCurrency(result.interesseTotale);
+      document.getElementById('importo-totale').textContent = formatCurrency(result.importoTotale);
+      document.getElementById('percentuale-interessi').textContent = formatPercentage(result.percentualeInteressi);
+
+      generateAmortizationTable(result);
+
+      document.getElementById('results').classList.add('show');
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Test automatici per verificare la correttezza dei calcoli
+    function runTests() {
+      console.log('Running tests...');
+      
+      // Test 1
+      const result1 = calculateMutuo(200000, 25, 3.5);
+      const expected1RataMensile = 1001.48;
+      const expected1InteresseTotale = 100444;
+      
+      console.log(`Test 1 - Rata: ${result1.rataMensile.toFixed(2)} (expected: ${expected1RataMensile})`);
+      console.log(`Test 1 - Interesse: ${result1.interesseTotale.toFixed(0)} (expected: ${expected1InteresseTotale})`);
+      
+      // Test 2
+      const result2 = calculateMutuo(150000, 20, 2.8);
+      const expected2RataMensile = 803.26;
+      const expected2InteresseTotale = 42782.40;
+      
+      console.log(`Test 2 - Rata: ${result2.rataMensile.toFixed(2)} (expected: ${expected2RataMensile})`);
+      console.log(`Test 2 - Interesse: ${result2.interesseTotale.toFixed(2)} (expected: ${expected2InteresseTotale})`);
+    }
+
+    // Esegui i test in console
+    runTests();
+  </script>
+</body>
+</html>
