@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Prestito Personale Online | TAN TAEG 2024</title>
+  <meta name="description" content="Calcola il tuo prestito personale ideale: rata, TAN, TAEG e sostenibilità. Strumento gratuito per tutte le finalità di prestito.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Prestito Personale",
+    "url": "https://example.com/calcolatore-prestito-personale",
+    "description": "Calcola il tuo prestito personale ideale: rata, TAN, TAEG e sostenibilità. Strumento gratuito per tutte le finalità di prestito.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "permissions": "browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #1e40af;
+      --success-color: #059669;
+      --warning-color: #d97706;
+      --error-color: #dc2626;
+      --text-primary: #1f2937;
+      --text-secondary: #6b7280;
+      --bg-light: #f9fafb;
+      --border-color: #e5e7eb;
+      --white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--bg-light);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header h1 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    .header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .ad-slot {
+      background: #f0f0f0;
+      border: 2px dashed #ccc;
+      padding: 20px;
+      text-align: center;
+      margin: 20px 0;
+      border-radius: 8px;
+      color: #666;
+    }
+
+    .form-container {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .calculate-btn {
+      width: 100%;
+      background: var(--primary-color);
+      color: var(--white);
+      border: none;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .calculate-btn:hover {
+      background: var(--secondary-color);
+    }
+
+    .result-container {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+      display: none;
+    }
+
+    .result-container.show {
+      display: block;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .result-card {
+      background: var(--bg-light);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .result-card h3 {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .result-card .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .sustainability {
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .sustainability.positive {
+      background: #d1fae5;
+      color: var(--success-color);
+      border: 2px solid #a7f3d0;
+    }
+
+    .sustainability.negative {
+      background: #fee2e2;
+      color: var(--error-color);
+      border: 2px solid #fca5a5;
+    }
+
+    .suggestions {
+      background: var(--bg-light);
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .suggestions h3 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .suggestions ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .suggestions li {
+      margin-bottom: 0.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .suggestions li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--success-color);
+      font-weight: bold;
+    }
+
+    .explanation {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .explanation h2 {
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+
+    .explanation h3 {
+      color: var(--text-primary);
+      margin: 1.5rem 0 1rem 0;
+    }
+
+    .explanation p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    .email-capture {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .email-capture p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .email-capture form {
+      display: flex;
+      gap: 1rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .email-capture input {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .email-capture button {
+      background: var(--white);
+      color: var(--primary-color);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .email-capture button:hover {
+      transform: translateY(-2px);
+    }
+
+    .footer {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+
+      .header,
+      .form-container,
+      .result-container,
+      .explanation,
+      .email-capture,
+      .footer {
+        padding: 1.5rem;
+      }
+
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .email-capture form {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- TOOL_HEADER -->
+    <div class="header">
+      <h1>Calcolatore Prestito Personale</h1>
+      <p>Calcola il tuo prestito personale ideale con TAN e TAEG. Verifica la sostenibilità e ricevi suggerimenti personalizzati.</p>
+    </div>
+
+    <!-- AD_SLOT_TOP -->
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <!-- TOOL_BODY -->
+    <div class="form-container">
+      <form id="loanCalculator">
+        <div class="form-group">
+          <label for="importo_necessario">Importo necessario (€)</label>
+          <input type="number" id="importo_necessario" name="importo_necessario" placeholder="12000" min="1000" max="150000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="durata_preferita">Durata preferita</label>
+          <select id="durata_preferita" name="durata_preferita" required>
+            <option value="">Seleziona la durata</option>
+            <option value="12">12 mesi</option>
+            <option value="24">24 mesi</option>
+            <option value="36">36 mesi</option>
+            <option value="48">48 mesi</option>
+            <option value="60">60 mesi</option>
+            <option value="72">72 mesi</option>
+            <option value="84">84 mesi</option>
+            <option value="96">96 mesi</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="finalita">Finalità prestito</label>
+          <select id="finalita" name="finalita" required>
+            <option value="">Seleziona la finalità</option>
+            <option value="auto">Auto/Moto</option>
+            <option value="casa">Casa/Ristrutturazione</option>
+            <option value="consolidamento">Consolidamento debiti</option>
+            <option value="libera">Liquidità</option>
+            <option value="spese">Spese impreviste</option>
+            <option value="vacanze">Vacanze/Tempo libero</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="reddito_netto">Reddito mensile netto (€)</label>
+          <input type="number" id="reddito_netto" name="reddito_netto" placeholder="2000" min="800" max="15000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="tipo_contratto">Tipo contratto</label>
+          <select id="tipo_contratto" name="tipo_contratto" required>
+            <option value="">Seleziona il tipo di contratto</option>
+            <option value="indeterminato">Tempo indeterminato</option>
+            <option value="determinato">Tempo determinato</option>
+            <option value="partita_iva">Partita IVA</option>
+            <option value="pensionato">Pensionato</option>
+            <option value="autonomo">Lavoro autonomo</option>
+          </select>
+        </div>
+
+        <button type="submit" class="calculate-btn">Calcola Prestito</button>
+      </form>
+    </div>
+
+    <div class="result-container" id="results">
+      <div class="result-grid" id="resultGrid">
+        <!-- Results will be populated here -->
+      </div>
+      <div id="sustainabilityResult">
+        <!-- Sustainability assessment will be shown here -->
+      </div>
+      <div class="suggestions" id="suggestions">
+        <!-- Suggestions will be shown here -->
+      </div>
+    </div>
+
+    <!-- AD_SLOT_MIDDLE -->
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <!-- TOOL_EXPLANATION -->
+    <div class="explanation">
+      <h2>Come Funziona il Calcolatore Prestito Personale</h2>
+      
+      <h3>Cos'è un Prestito Personale?</h3>
+      <p>Un prestito personale è una forma di credito al consumo che permette di ottenere una somma di denaro da restituire in rate mensili costanti. A differenza del mutuo, non richiede garanzie reali come l'ipoteca su un immobile.</p>
+      
+      <h3>TAN e TAEG: Cosa Significano?</h3>
+      <p><strong>TAN (Tasso Annuo Nominale)</strong> è il tasso di interesse puro applicato al prestito, senza considerare costi aggiuntivi.</p>
+      <p><strong>TAEG (Tasso Annuo Effettivo Globale)</strong> comprende tutti i costi del finanziamento: interessi, commissioni, spese di istruttoria e assicurazioni obbligatorie. È l'indicatore più importante per confrontare diverse offerte.</p>
+      
+      <h3>Come Calcola il Nostro Strumento</h3>
+      <p>Il calcolatore considera diversi fattori per stimare il tuo TAN:</p>
+      <ul>
+        <li><strong>Finalità del prestito:</strong> prestiti per auto hanno tassi più bassi rispetto a quelli per liquidità</li>
+        <li><strong>Tipo di contratto:</strong> lavoratori a tempo indeterminato ottengono condizioni migliori</li>
+        <li><strong>Durata:</strong> prestiti più lunghi hanno tassi leggermente più alti</li>
+        <li><strong>Importo:</strong> somme elevate possono beneficiare di tassi più vantaggiosi</li>
+      </ul>
+      
+      <h3>Valutazione di Sostenibilità</h3>
+      <p>Il nostro strumento verifica che la rata mensile non superi il 30% del tuo reddito netto, soglia considerata sostenibile dalle principali banche e finanziarie. Questo ti aiuta a evitare situazioni di sovraindebitamento.</p>
+      
+      <h3>Suggerimenti per Ottenere Condizioni Migliori</h3>
+      <p>Il calcolatore fornisce consigli personalizzati per migliorare la tua richiesta: aumentare la durata per ridurre la rata, considerare un garante per ottenere tassi migliori, o valutare prestiti finalizzati con condizioni più vantaggiose.</p>
+    </div>
+
+    <!-- EMAIL_CAPTURE -->
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <!-- AD_SLOT_BOTTOM -->
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <!-- TOOL_FOOTER -->
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> I calcoli forniti sono puramente indicativi e basati su stime di mercato. I tassi reali possono variare in base alla valutazione della banca o finanziaria. Consulta sempre un consulente finanziario prima di prendere decisioni importanti.</p>
+      <p style="margin-top: 1rem; font-size: 0.9rem;">© 2024 Calcolatore Prestito Personale - Strumento gratuito per la simulazione di prestiti personali</p>
+    </div>
+  </div>
+
+  <script>
+    // TAN base per finalità (%)
+    const baseTANByPurpose = {
+      'auto': 4.5,
+      'casa': 5.0,
+      'consolidamento': 6.5,
+      'libera': 7.5,
+      'spese': 7.0,
+      'vacanze': 8.0
+    };
+
+    // Spread aggiuntivo per tipo contratto (%)
+    const contractSpread = {
+      'indeterminato': 0,
+      'determinato': 1.5,
+      'partita_iva': 2.5,
+      'pensionato': 0.5,
+      'autonomo': 3.0
+    };
+
+    // Spread per durata (%)
+    const durationSpread = {
+      12: -0.5,
+      24: -0.3,
+      36: 0,
+      48: 0.3,
+      60: 0.5,
+      72: 0.8,
+      84: 1.0,
+      96: 1.2
+    };
+
+    function calculateLoan(amount, duration, purpose, income, contractType) {
+      // Calcola TAN
+      let tan = baseTANByPurpose[purpose] || 7.0;
+      tan += contractSpread[contractType] || 2.0;
+      tan += durationSpread[parseInt(duration)] || 0.5;
+      
+      // Aggiustamento per importo
+      if (amount >= 30000) tan -= 0.3;
+      else if (amount <= 5000) tan += 0.5;
+      
+      // Calcola TAEG (TAN + costi stimati)
+      const taeg = tan + 1.2;
+      
+      // Calcola rata mensile
+      const monthlyRate = tan / 100 / 12;
+      const numPayments = parseInt(duration);
+      const monthlyPayment = (amount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
+                            (Math.pow(1 + monthlyRate, numPayments) - 1);
+      
+      // Calcola totale da restituire
+      const totalAmount = monthlyPayment * numPayments;
+      const totalInterest = totalAmount - amount;
+      
+      // Verifica sostenibilità (max 30% del reddito)
+      const maxSustainablePayment = income * 0.30;
+      const isSustainable = monthlyPayment <= maxSustainablePayment;
+      const sustainabilityPercentage = (monthlyPayment / income) * 100;
+      
+      return {
+        monthlyPayment: Math.round(monthlyPayment),
+        tan: parseFloat(tan.toFixed(1)),
+        taeg: parseFloat(taeg.toFixed(1)),
+        totalAmount: Math.round(totalAmount),
+        totalInterest: Math.round(totalInterest),
+        isSustainable,
+        sustainabilityPercentage: parseFloat(sustainabilityPercentage.toFixed(1)),
+        maxSustainablePayment: Math.round(maxSustainablePayment)
+      };
+    }
+
+    function generateSuggestions(result, formData) {
+      const suggestions = [];
+      
+      if (!result.isSustainable) {
+        suggestions.push("Considera di aumentare la durata del prestito per ridurre la rata mensile");
+        suggestions.push("Valuta di ridurre l'importo richiesto");
+        if (formData.tipo_contratto !== 'indeterminato') {
+          suggestions.push("Un contratto a tempo indeterminato ti permetterebbe di ottenere condizioni migliori");
+        }
+      }
+      
+      if (formData.finalita === 'libera') {
+        suggestions.push("Considera un prestito finalizzato (auto, casa) per ottenere tassi più vantaggiosi");
+      }
+      
+      if (parseInt(formData.importo_necessario) >= 25000) {
+        suggestions.push("Per importi elevati, valuta la possibilità di un garante per migliorare le condizioni");
+      }
+      
+      if (result.tan > 8) {
+        suggestions.push("Confronta offerte di diverse banche e finanziarie per trovare il tasso migliore");
+        suggestions.push("Considera di migliorare il tuo profilo creditizio prima di richiedere il prestito");
+      }
+      
+      suggestions.push("Verifica sempre il TAEG, non solo il TAN, per un confronto corretto delle offerte");
+      
+      return suggestions;
+    }
+
+    function displayResults(result, formData) {
+      const resultContainer = document.getElementById('results');
+      const resultGrid = document.getElementById('resultGrid');
+      const sustainabilityResult = document.getElementById('sustainabilityResult');
+      const suggestionsDiv = document.getElementById('suggestions');
+      
+      // Popola la griglia dei risultati
+      resultGrid.innerHTML = `
+        <div class="result-card">
+          <h3>Rata Mensile</h3>
+          <div class="value">€${result.monthlyPayment.toLocaleString()}</div>
+        </div>
+        <div class="result-card">
+          <h3>TAN Stimato</h3>
+          <div class="value">${result.tan}%</div>
+        </div>
+        <div class="result-card">
+          <h3>TAEG Stimato</h3>
+          <div class="value">${result.taeg}%</div>
+        </div>
+        <div class="result-card">
+          <h3>Totale da Restituire</h3>
+          <div class="value">€${result.totalAmount.toLocaleString()}</div>
+        </div>
+        <div class="result-card">
+          <h3>Interessi Totali</h3>
+          <div class="value">€${result.totalInterest.toLocaleString()}</div>
+        </div>
+        <div class="result-card">
+          <h3>Impatto su Reddito</h3>
+          <div class="value">${result.sustainabilityPercentage}%</div>
+        </div>
+      `;
+      
+      // Valutazione sostenibilità
+      const sustainabilityClass = result.isSustainable ? 'positive' : 'negative';
+      const sustainabilityText = result.isSustainable 
+        ? `✅ Prestito Sostenibile - La rata rappresenta il ${result.sustainabilityPercentage}% del tuo reddito`
+        : `⚠️ Prestito Non Sostenibile - La rata rappresenta il ${result.sustainabilityPercentage}% del tuo reddito (max consigliato: 30%)`;
+      
+      sustainabilityResult.innerHTML = `
+        <div class="sustainability ${sustainabilityClass}">
+          ${sustainabilityText}
+        </div>
+      `;
+      
+      // Suggerimenti
+      const suggestions = generateSuggestions(result, formData);
+      suggestionsDiv.innerHTML = `
+        <h3>Suggerimenti per Migliorare la Tua Richiesta</h3>
+        <ul>
+          ${suggestions.map(suggestion => `<li>${suggestion}</li>`).join('')}
+        </ul>
+      `;
+      
+      resultContainer.classList.add('show');
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-prestito-personale'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white">✅ Iscritto! Grazie!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white">✅ Iscritto! Grazie!</p>';
+      });
+      return false;
+    }
+
+    // Event listener per il form
+    document.getElementById('loanCalculator').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+      
+      // Validazione
+      if (!data.importo_necessario || !data.durata_preferita || !data.finalita || 
+          !data.reddito_netto || !data.tipo_contratto) {
+        alert('Compila tutti i campi richiesti');
+        return;
+      }
+      
+      if (parseInt(data.importo_necessario) < 1000 || parseInt(data.importo_necessario) > 150000) {
+        alert('L\'importo deve essere compreso tra €1.000 e €150.000');
+        return;
+      }
+      
+      if (parseInt(data.reddito_netto) < 800 || parseInt(data.reddito_netto) > 15000) {
+        alert('Il reddito deve essere compreso tra €800 e €15.000');
+        return;
+      }
+      
+      // Calcola il prestito
+      const result = calculateLoan(
+        parseInt(data.importo_necessario),
+        parseInt(data.durata_preferita),
+        data.finalita,
+        parseInt(data.reddito_netto),
+        data.tipo_contratto
+      );
+      
+      displayResults(result, data);
+    });
+
+    // Test automatici per verificare la correttezza
+    function runTests() {
+      // Test 1
+      const test1 = calculateLoan(12000, 48, 'auto', 2000, 'indeterminato');
+      console.log('Test 1 - Rata:', test1.monthlyPayment, 'TAN:', test1.tan + '%', 'Sostenibile:', test1.isSustainable);
+      
+      // Test 2
+      const test2 = calculateLoan(25000, 60, 'libera', 1500, 'determinato');
+      console.log('Test 2 - Rata:', test2.monthlyPayment, 'TAN:', test2.tan + '%', 'Sostenibile:', test2.isSustainable);
+    }
+    
+    // Esegui i test in console (rimuovere in produzione)
+    runTests();
+  </script>
+</body>
+</html>

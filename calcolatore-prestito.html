@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Prestito 2024 | Rata e Importo Massimo</title>
+  <meta name="description" content="Calcola la rata del prestito o l'importo massimo ottenibile. Strumento gratuito per simulazioni veloci e precise.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Prestito",
+    "description": "Calcola la rata del prestito o l'importo massimo ottenibile",
+    "url": "https://example.com/calcolatore-prestito",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success-color: #10b981;
+      --error-color: #ef4444;
+      --warning-color: #f59e0b;
+      --text-primary: #1f2937;
+      --text-secondary: #6b7280;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f9fafb;
+      --border-color: #e5e7eb;
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .tool-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      background: var(--bg-primary);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .tool-header h1 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .tool-header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .ad-slot {
+      background: #f0f0f0;
+      border: 2px dashed #ccc;
+      padding: 20px;
+      text-align: center;
+      margin: 20px 0;
+      border-radius: 8px;
+      color: #666;
+    }
+
+    .tool-body {
+      background: var(--bg-primary);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-group.error input,
+    .form-group.error select {
+      border-color: var(--error-color);
+    }
+
+    .error-message {
+      color: var(--error-color);
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    .calculate-btn {
+      width: 100%;
+      background: var(--primary-color);
+      color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .calculate-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .calculate-btn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .result-container {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+      border-radius: 12px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .result-container.hidden {
+      display: none;
+    }
+
+    .result-main {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .result-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .detail-item {
+      background: var(--bg-primary);
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .detail-label {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .explanation-section {
+      background: var(--bg-primary);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      margin: 2rem 0;
+    }
+
+    .explanation-section h2 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .explanation-section p {
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .explanation-section ul {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .explanation-section li {
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .email-capture {
+      background: var(--bg-primary);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .email-capture p {
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .email-capture form {
+      display: flex;
+      gap: 1rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .email-capture input {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+    }
+
+    .email-capture button {
+      background: var(--success-color);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .email-capture button:hover {
+      background: #059669;
+    }
+
+    .footer {
+      background: var(--bg-primary);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .footer p {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+
+      .tool-header h1 {
+        font-size: 2rem;
+      }
+
+      .tool-header,
+      .tool-body {
+        padding: 1.5rem;
+      }
+
+      .result-details {
+        grid-template-columns: 1fr;
+      }
+
+      .email-capture form {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- TOOL_HEADER -->
+    <div class="tool-header">
+      <h1>Calcolatore Prestito</h1>
+      <p>Calcola la rata mensile del tuo prestito o scopri l'importo massimo ottenibile in base alla rata che puoi sostenere. Simulazioni veloci e precise per pianificare al meglio il tuo finanziamento.</p>
+    </div>
+
+    <!-- AD_SLOT_TOP -->
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario - Top
+    </div>
+
+    <!-- TOOL_BODY -->
+    <div class="tool-body">
+      <form id="loan-calculator" novalidate>
+        <div class="form-group">
+          <label for="modalita_calcolo">Cosa vuoi calcolare? *</label>
+          <select id="modalita_calcolo" name="modalita_calcolo" required>
+            <option value="">Seleziona modalità</option>
+            <option value="rata">Calcola rata mensile</option>
+            <option value="importo">Calcola importo massimo</option>
+          </select>
+          <div class="error-message" id="error-modalita_calcolo"></div>
+        </div>
+
+        <div class="form-group" id="group-importo">
+          <label for="importo">Importo prestito (€) *</label>
+          <input type="number" id="importo" name="importo" placeholder="20000" min="1000" max="500000">
+          <div class="error-message" id="error-importo"></div>
+        </div>
+
+        <div class="form-group hidden" id="group-rata_desiderata">
+          <label for="rata_desiderata">Rata mensile sostenibile (€) *</label>
+          <input type="number" id="rata_desiderata" name="rata_desiderata" placeholder="300" min="50" max="5000">
+          <div class="error-message" id="error-rata_desiderata"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="durata">Durata (mesi) *</label>
+          <input type="number" id="durata" name="durata" placeholder="60" min="12" max="120" required>
+          <div class="error-message" id="error-durata"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="tasso">Tasso annuo (%) *</label>
+          <input type="number" id="tasso" name="tasso" placeholder="7.2" min="1" max="30" step="0.1" required>
+          <div class="error-message" id="error-tasso"></div>
+        </div>
+
+        <button type="submit" class="calculate-btn">Calcola</button>
+      </form>
+
+      <div id="result-container" class="result-container hidden">
+        <div id="result-main" class="result-main"></div>
+        <div class="result-details">
+          <div class="detail-item">
+            <div class="detail-label">Interessi totali</div>
+            <div class="detail-value" id="total-interest"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Costo complessivo</div>
+            <div class="detail-value" id="total-cost"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Durata</div>
+            <div class="detail-value" id="loan-duration"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AD_SLOT_MIDDLE -->
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario - Middle
+    </div>
+
+    <!-- TOOL_EXPLANATION -->
+    <div class="explanation-section">
+      <h2>Come funziona il Calcolatore Prestito</h2>
+      <p>Il nostro calcolatore prestito utilizza la formula del piano di ammortamento francese per calcolare con precisione rata mensile e importo massimo ottenibile. Questo sistema è utilizzato dalla maggior parte degli istituti di credito italiani.</p>
+      
+      <h3>Due modalità di calcolo:</h3>
+      <ul>
+        <li><strong>Calcola rata mensile:</strong> Inserisci importo, durata e tasso per conoscere l'esatto importo della rata</li>
+        <li><strong>Calcola importo massimo:</strong> Inserisci la rata sostenibile, durata e tasso per scoprire quanto puoi chiedere</li>
+      </ul>
+
+      <h3>Formula utilizzata:</h3>
+      <p>La rata mensile viene calcolata con la formula: <strong>R = P × [i(1+i)^n] / [(1+i)^n - 1]</strong></p>
+      <p>Dove: P = capitale, i = tasso mensile, n = numero rate</p>
+
+      <h3>Fattori che influenzano il prestito:</h3>
+      <ul>
+        <li><strong>Tasso di interesse:</strong> Varia in base al profilo di rischio e al tipo di prestito</li>
+        <li><strong>Durata:</strong> Rate più lunghe riducono l'importo mensile ma aumentano gli interessi totali</li>
+        <li><strong>Importo:</strong> Prestiti più elevati possono avere condizioni diverse</li>
+        <li><strong>Garanzie:</strong> Ipoteche e fideiussioni possono migliorare le condizioni</li>
+      </ul>
+    </div>
+
+    <!-- EMAIL_CAPTURE -->
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <!-- AD_SLOT_BOTTOM -->
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario - Bottom
+    </div>
+
+    <!-- TOOL_FOOTER -->
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo strumento fornisce stime indicative basate sui dati inseriti. I risultati non costituiscono offerta contrattuale e le condizioni reali possono variare in base alle politiche dell'istituto di credito.</p>
+      <p>Per informazioni precise, consulta sempre un consulente finanziario qualificato.</p>
+      <p>&copy; 2024 Calcolatore Prestito - Tool gratuito per simulazioni finanziarie</p>
+    </div>
+  </div>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-prestito'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    // Gestione dinamica dei campi
+    document.getElementById('modalita_calcolo').addEventListener('change', function() {
+      const modalita = this.value;
+      const importoGroup = document.getElementById('group-importo');
+      const rataGroup = document.getElementById('group-rata_desiderata');
+      
+      if (modalita === 'rata') {
+        importoGroup.style.display = 'block';
+        rataGroup.style.display = 'none';
+        document.getElementById('importo').required = true;
+        document.getElementById('rata_desiderata').required = false;
+      } else if (modalita === 'importo') {
+        importoGroup.style.display = 'none';
+        rataGroup.style.display = 'block';
+        document.getElementById('importo').required = false;
+        document.getElementById('rata_desiderata').required = true;
+      } else {
+        importoGroup.style.display = 'block';
+        rataGroup.style.display = 'none';
+        document.getElementById('importo').required = false;
+        document.getElementById('rata_desiderata').required = false;
+      }
+    });
+
+    // Validazione e calcolo
+    document.getElementById('loan-calculator').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Reset errori
+      document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+      document.querySelectorAll('.form-group').forEach(el => el.classList.remove('error'));
+      
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+      
+      if (validateForm(data)) {
+        calculateLoan(data);
+      }
+    });
+
+    function validateForm(data) {
+      let isValid = true;
+      
+      // Validazione modalità calcolo
+      if (!data.modalita_calcolo) {
+        showError('modalita_calcolo', 'Seleziona una modalità di calcolo');
+        isValid = false;
+      }
+      
+      // Validazione durata
+      const durata = parseFloat(data.durata);
+      if (!data.durata || durata < 12 || durata > 120) {
+        showError('durata', 'La durata deve essere tra 12 e 120 mesi');
+        isValid = false;
+      }
+      
+      // Validazione tasso
+      const tasso = parseFloat(data.tasso);
+      if (!data.tasso || tasso < 1 || tasso > 30) {
+        showError('tasso', 'Il tasso deve essere tra 1% e 30%');
+        isValid = false;
+      }
+      
+      // Validazione specifica per modalità
+      if (data.modalita_calcolo === 'rata') {
+        const importo = parseFloat(data.importo);
+        if (!data.importo || importo < 1000 || importo > 500000) {
+          showError('importo', 'L\'importo deve essere tra €1.000 e €500.000');
+          isValid = false;
+        }
+      } else if (data.modalita_calcolo === 'importo') {
+        const rata = parseFloat(data.rata_desiderata);
+        if (!data.rata_desiderata || rata < 50 || rata > 5000) {
+          showError('rata_desiderata', 'La rata deve essere tra €50 e €5.000');
+          isValid = false;
+        }
+      }
+      
+      return isValid;
+    }
+
+    function showError(fieldName, message) {
+      const errorEl = document.getElementById('error-' + fieldName);
+      const fieldGroup = errorEl.closest('.form-group');
+      
+      errorEl.textContent = message;
+      fieldGroup.classList.add('error');
+    }
+
+    function calculateLoan(data) {
+      const durata = parseInt(data.durata);
+      const tassoAnnuo = parseFloat(data.tasso);
+      const tassoMensile = tassoAnnuo / 100 / 12;
+      
+      let risultato = {};
+      
+      if (data.modalita_calcolo === 'rata') {
+        // Calcola rata mensile
+        const capitale = parseFloat(data.importo);
+        const rata = calculateMonthlyPayment(capitale, tassoMensile, durata);
+        const interessiTotali = (rata * durata) - capitale;
+        const costoTotale = rata * durata;
+        
+        risultato = {
+          main: `Rata mensile: €${rata.toFixed(2)}`,
+          interessi: `€${interessiTotali.toFixed(2)}`,
+          costoTotale: `€${costoTotale.toFixed(2)}`,
+          durata: `${durata} mesi`
+        };
+        
+      } else {
+        // Calcola importo massimo
+        const rata = parseFloat(data.rata_desiderata);
+        const importoMassimo = calculateMaxLoanAmount(rata, tassoMensile, durata);
+        const costoTotale = rata * durata;
+        const interessiTotali = costoTotale - importoMassimo;
+        
+        risultato = {
+          main: `Importo massimo: €${importoMassimo.toLocaleString('it-IT')}`,
+          interessi: `€${interessiTotali.toFixed(2)}`,
+          costoTotale: `€${costoTotale.toFixed(2)}`,
+          durata: `${durata} mesi`
+        };
+      }
+      
+      displayResult(risultato);
+    }
+
+    function calculateMonthlyPayment(capitale, tassoMensile, numeroRate) {
+      if (tassoMensile === 0) {
+        return capitale / numeroRate;
+      }
+      
+      const fattore = Math.pow(1 + tassoMensile, numeroRate);
+      return capitale * (tassoMensile * fattore) / (fattore - 1);
+    }
+
+    function calculateMaxLoanAmount(rata, tassoMensile, numeroRate) {
+      if (tassoMensile === 0) {
+        return rata * numeroRate;
+      }
+      
+      const fattore = Math.pow(1 + tassoMensile, numeroRate);
+      return rata * (fattore - 1) / (tassoMensile * fattore);
+    }
+
+    function displayResult(risultato) {
+      document.getElementById('result-main').textContent = risultato.main;
+      document.getElementById('total-interest').textContent = risultato.interessi;
+      document.getElementById('total-cost').textContent = risultato.costoTotale;
+      document.getElementById('loan-duration').textContent = risultato.durata;
+      
+      document.getElementById('result-container').classList.remove('hidden');
+      document.getElementById('result-container').scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest'
+      });
+    }
+
+    // Test automatico dei casi forniti
+    console.log('Test 1 - Calcolo rata:');
+    const testRata = calculateMonthlyPayment(20000, 7.2/100/12, 60);
+    console.log('Risultato:', testRata.toFixed(2), '- Atteso: 399.05');
+    
+    console.log('Test 2 - Calcolo importo:');
+    const testImporto = calculateMaxLoanAmount(300, 6.8/100/12, 48);
+    console.log('Risultato:', testImporto.toFixed(0), '- Atteso: 12,847');
+  </script>
+</body>
+</html>

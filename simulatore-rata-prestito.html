@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulatore Prestito Online 2024 | Calcolo Gratuito</title>
+  <meta name="description" content="Simula il tuo prestito personale: calcola rata mensile, TAEG e verifica la sostenibilità. Strumento gratuito e veloce.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Simulatore Prestito Personale Online",
+    "description": "Calcola rata mensile, TAEG e verifica sostenibilità del tuo prestito personale",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "featureList": [
+      "Calcolo rata mensile",
+      "Calcolo TAEG",
+      "Verifica sostenibilità",
+      "Tabella ammortamento"
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary-color: #f8fafc;
+      --text-color: #1e293b;
+      --text-light: #64748b;
+      --border-color: #e2e8f0;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --error-color: #ef4444;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--secondary-color);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .header {
+      background: white;
+      padding: 40px 0;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      padding: 40px 0;
+    }
+
+    .form-section, .results-section {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .calculate-btn {
+      width: 100%;
+      background: var(--primary-color);
+      color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .calculate-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .results-section h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .result-item:last-child {
+      border-bottom: none;
+    }
+
+    .result-label {
+      font-weight: 600;
+    }
+
+    .result-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .sustainability {
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .sustainability.good {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid var(--success-color);
+    }
+
+    .sustainability.warning {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid var(--warning-color);
+    }
+
+    .sustainability.bad {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid var(--error-color);
+    }
+
+    .amortization-table {
+      margin-top: 30px;
+      overflow-x: auto;
+    }
+
+    .amortization-table table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .amortization-table th,
+    .amortization-table td {
+      padding: 8px 12px;
+      text-align: right;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .amortization-table th {
+      background: var(--secondary-color);
+      font-weight: 600;
+    }
+
+    .ad-slot {
+      background: #f1f5f9;
+      border: 2px dashed #cbd5e1;
+      padding: 40px 20px;
+      text-align: center;
+      margin: 30px 0;
+      border-radius: 8px;
+      color: var(--text-light);
+    }
+
+    .explanation {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      margin: 40px 0;
+    }
+
+    .explanation h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    .explanation h3 {
+      color: var(--text-color);
+      margin: 25px 0 15px 0;
+    }
+
+    .explanation p {
+      margin-bottom: 15px;
+      color: var(--text-light);
+    }
+
+    .email-capture {
+      background: var(--primary-color);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .email-capture p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .email-capture form {
+      display: flex;
+      gap: 10px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .email-capture input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .email-capture button {
+      background: white;
+      color: var(--primary-color);
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .footer {
+      background: var(--text-color);
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+    }
+
+    .footer p {
+      margin-bottom: 10px;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px 0;
+      }
+
+      .form-section, .results-section {
+        padding: 20px;
+      }
+
+      .explanation {
+        padding: 30px 20px;
+      }
+
+      .email-capture form {
+        flex-direction: column;
+      }
+
+      .amortization-table {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1>Simulatore Prestito Personale Online</h1>
+      <p>Calcola rata mensile, TAEG e verifica la sostenibilità del tuo prestito personale in modo gratuito e istantaneo</p>
+    </div>
+  </header>
+
+  <div id="ad-slot-top" class="ad-slot">
+    <p>Spazio pubblicitario</p>
+  </div>
+
+  <main class="container">
+    <div class="main-content">
+      <div class="form-section">
+        <h2>Parametri del Prestito</h2>
+        <form id="loan-form">
+          <div class="form-group">
+            <label for="importo_richiesto">Importo richiesto (€)</label>
+            <input type="number" id="importo_richiesto" placeholder="15000" min="500" max="300000" required>
+          </div>
+
+          <div class="form-group">
+            <label for="durata_mesi">Durata prestito (mesi)</label>
+            <input type="number" id="durata_mesi" placeholder="48" min="12" max="120" required>
+          </div>
+
+          <div class="form-group">
+            <label for="tan">TAN - Tasso Nominale (%)</label>
+            <input type="number" id="tan" placeholder="6.5" min="1" max="25" step="0.1" required>
+          </div>
+
+          <div class="form-group">
+            <label for="spese_istruttoria">Spese istruttoria (€)</label>
+            <input type="number" id="spese_istruttoria" placeholder="200" min="0" max="2000">
+          </div>
+
+          <div class="form-group">
+            <label for="reddito_mensile">Reddito mensile netto (€)</label>
+            <input type="number" id="reddito_mensile" placeholder="2500" min="800" max="20000">
+          </div>
+
+          <button type="submit" class="calculate-btn">Calcola Prestito</button>
+        </form>
+      </div>
+
+      <div class="results-section">
+        <h2>Risultato Simulazione</h2>
+        <div id="results-content">
+          <p style="text-align: center; color: var(--text-light); margin: 40px 0;">
+            Compila il modulo per visualizzare il calcolo del tuo prestito
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="ad-slot-middle" class="ad-slot">
+      <p>Spazio pubblicitario</p>
+    </div>
+
+    <div class="explanation">
+      <h2>Come funziona il Simulatore di Prestito</h2>
+      
+      <h3>Calcolo della Rata Mensile</h3>
+      <p>Il nostro simulatore utilizza la <strong>formula francese</strong> per calcolare la rata mensile del prestito. Questa formula tiene conto dell'importo richiesto, della durata in mesi e del tasso di interesse nominale (TAN). La rata rimane costante per tutta la durata del prestito.</p>
+
+      <h3>TAN e TAEG: Qual è la Differenza?</h3>
+      <p>Il <strong>TAN (Tasso Annuo Nominale)</strong> rappresenta solo gli interessi del prestito. Il <strong>TAEG (Tasso Annuo Effettivo Globale)</strong> include anche tutte le spese accessorie come le spese di istruttoria, fornendo il costo reale del prestito.</p>
+
+      <h3>Verifica di Sostenibilità</h3>
+      <p>Per garantire che il prestito sia sostenibile, verifichiamo che la rata mensile non superi il 33% del reddito netto mensile. Questo è il limite generalmente consigliato dalle banche per evitare situazioni di sovraindebitamento.</p>
+
+      <h3>Tabella di Ammortamento</h3>
+      <p>La tabella di ammortamento mostra la composizione di ogni rata, dividendo la quota capitale dalla quota interessi. Nelle prime rate, la quota interessi è maggiore, mentre verso la fine del prestito prevale la quota capitale.</p>
+
+      <h3>Consigli per Scegliere il Prestito Migliore</h3>
+      <p>Confronta sempre il TAEG tra diverse offerte, non solo il TAN. Considera la durata del prestito: rate più basse significano maggiori interessi totali. Verifica sempre la sostenibilità della rata rispetto al tuo budget mensile.</p>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool finanziari utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">
+      <p>Spazio pubblicitario</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p><strong>Disclaimer:</strong> Questo simulatore fornisce calcoli indicativi. I tassi e le condizioni reali possono variare tra istituti di credito.</p>
+      <p>Le simulazioni non costituiscono offerta contrattuale. Consultare sempre un consulente finanziario per decisioni importanti.</p>
+      <p>&copy; 2024 Simulatore Prestito Online. Tutti i diritti riservati.</p>
+    </div>
+  </footer>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'simulatore-rata-prestito'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    document.getElementById('loan-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      calculateLoan();
+    });
+
+    function calculateLoan() {
+      const importo = parseFloat(document.getElementById('importo_richiesto').value);
+      const durata = parseInt(document.getElementById('durata_mesi').value);
+      const tan = parseFloat(document.getElementById('tan').value);
+      const speseIstruttoria = parseFloat(document.getElementById('spese_istruttoria').value) || 0;
+      const reddito = parseFloat(document.getElementById('reddito_mensile').value);
+
+      if (!importo || !durata || !tan || !reddito) {
+        alert('Compila tutti i campi obbligatori');
+        return;
+      }
+
+      // Calcolo rata mensile con formula francese
+      const tassoMensile = tan / 100 / 12;
+      const rataMensile = importo * (tassoMensile * Math.pow(1 + tassoMensile, durata)) / (Math.pow(1 + tassoMensile, durata) - 1);
+      
+      // Calcolo TAEG (approssimazione includendo spese istruttoria)
+      const importoFinanziato = importo + speseIstruttoria;
+      const tassoMensileEffettivo = findTAEG(importoFinanziato, rataMensile, durata);
+      const taeg = tassoMensileEffettivo * 12 * 100;
+      
+      // Calcoli finali
+      const totaleRate = rataMensile * durata;
+      const totaleInteressi = totaleRate - importo - speseIstruttoria;
+      const costoTotale = importo + totaleInteressi + speseIstruttoria;
+      
+      // Verifica sostenibilità
+      const percReddito = (rataMensile / reddito) * 100;
+      let sostenibilita = '';
+      let sostenibilitaClass = '';
+      
+      if (percReddito <= 25) {
+        sostenibilita = `Sostenibile (${percReddito.toFixed(1)}% del reddito)`;
+        sostenibilitaClass = 'good';
+      } else if (percReddito <= 33) {
+        sostenibilita = `Accettabile (${percReddito.toFixed(1)}% del reddito)`;
+        sostenibilitaClass = 'warning';
+      } else {
+        sostenibilita = `Non sostenibile (${percReddito.toFixed(1)}% del reddito)`;
+        sostenibilitaClass = 'bad';
+      }
+
+      displayResults(rataMensile, tan, taeg, totaleInteressi, costoTotale, sostenibilita, sostenibilitaClass, importo, durata, tassoMensile);
+    }
+
+    function findTAEG(capitale, rata, durata) {
+      let tasso = 0.005; // stima iniziale
+      let iterazioni = 0;
+      const maxIterazioni = 100;
+      const tolleranza = 0.0001;
+      
+      while (iterazioni < maxIterazioni) {
+        const valore = capitale - (rata * (1 - Math.pow(1 + tasso, -durata)) / tasso);
+        if (Math.abs(valore) < tolleranza) break;
+        
+        const derivata = rata * ((1 - Math.pow(1 + tasso, -durata)) / (tasso * tasso) - durata / (tasso * Math.pow(1 + tasso, durata - 1)));
+        tasso = tasso - valore / derivata;
+        iterazioni++;
+      }
+      
+      return Math.max(0, tasso);
+    }
+
+    function displayResults(rata, tan, taeg, totaleInteressi, costoTotale, sostenibilita, sostenibilitaClass, importo, durata, tassoMensile) {
+      const resultsContent = document.getElementById('results-content');
+      
+      resultsContent.innerHTML = `
+        <div class="result-item">
+          <span class="result-label">Rata mensile:</span>
+          <span class="result-value" style="color: var(--primary-color);">€${rata.toFixed(2)}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">TAN:</span>
+          <span class="result-value">${tan}%</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">TAEG:</span>
+          <span class="result-value">${taeg.toFixed(2)}%</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Totale interessi:</span>
+          <span class="result-value">€${totaleInteressi.toFixed(2)}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Costo totale:</span>
+          <span class="result-value">€${costoTotale.toFixed(2)}</span>
+        </div>
+        
+        <div class="sustainability ${sostenibilitaClass}">
+          ${sostenibilita}
+        </div>
+        
+        <div class="amortization-table">
+          <h3>Piano di Ammortamento (Prime 12 rate)</h3>
+          ${generateAmortizationTable(importo, tassoMensile, rata, Math.min(12, durata))}
+        </div>
+      `;
+    }
+
+    function generateAmortizationTable(capitale, tassoMensile, rata, numRate) {
+      let residuoCapitale = capitale;
+      let tableHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Rata</th>
+              <th>Quota Interessi</th>
+              <th>Quota Capitale</th>
+              <th>Residuo</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+      
+      for (let i = 1; i <= numRate; i++) {
+        const quotaInteressi = residuoCapitale * tassoMensile;
+        const quotaCapitale = rata - quotaInteressi;
+        residuoCapitale -= quotaCapitale;
+        
+        tableHTML += `
+          <tr>
+            <td>${i}</td>
+            <td>€${quotaInteressi.toFixed(2)}</td>
+            <td>€${quotaCapitale.toFixed(2)}</td>
+            <td>€${Math.max(0, residuoCapitale).toFixed(2)}</td>
+          </tr>
+        `;
+      }
+      
+      tableHTML += '</tbody></table>';
+      return tableHTML;
+    }
+
+    // Calcolo automatico quando si cambia un valore
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', function() {
+        if (document.getElementById('importo_richiesto').value && 
+            document.getElementById('durata_mesi').value && 
+            document.getElementById('tan').value && 
+            document.getElementById('reddito_mensile').value) {
+          calculateLoan();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
