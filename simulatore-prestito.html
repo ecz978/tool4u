@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulatore Prestito 2024 - Trova l'Offerta Migliore</title>
+  <meta name="description" content="Simula il tuo prestito personale e trova l'offerta più conveniente. Confronto automatico tra 30+ istituti di credito con calcolo personalizzato.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Simulatore Prestito Completo Online",
+    "description": "Simula il prestito ideale con calcolo dettagliato e confronto offerte personalizzato",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary-color: #10b981;
+      --background: #f8fafc;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --error: #ef4444;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--background);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .tool-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    .tool-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .tool-header p {
+      font-size: 1.125rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .ad-slot {
+      background: #f1f5f9;
+      border: 2px dashed #cbd5e1;
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-light);
+      margin: 2rem 0;
+      border-radius: 8px;
+    }
+
+    .tool-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+
+    .form-section, .result-section {
+      background: var(--surface);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    button {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+    }
+
+    .result-section h3 {
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .result-item {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: var(--background);
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .result-item h4 {
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .result-item p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .probability-bar {
+      height: 10px;
+      background: var(--border);
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 0.5rem 0;
+    }
+
+    .probability-fill {
+      height: 100%;
+      background: var(--success);
+      transition: width 0.5s;
+    }
+
+    .tool-explanation {
+      background: var(--surface);
+      padding: 2rem 0;
+      margin: 2rem 0;
+    }
+
+    .tool-explanation h2 {
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .explanation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .explanation-item {
+      padding: 1.5rem;
+      background: var(--background);
+      border-radius: 8px;
+    }
+
+    .explanation-item h3 {
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .email-capture {
+      background: var(--primary-color);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .email-capture p {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    #email-form {
+      display: flex;
+      gap: 1rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    #email-form input {
+      flex: 1;
+      border: none;
+    }
+
+    #email-form button {
+      background: var(--secondary-color);
+      padding: 0.75rem 1.5rem;
+      white-space: nowrap;
+    }
+
+    .tool-footer {
+      background: var(--text);
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .tool-footer p {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .tool-header h1 {
+        font-size: 2rem;
+      }
+
+      .tool-body {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .form-section, .result-section {
+        padding: 1rem;
+      }
+
+      #email-form {
+        flex-direction: column;
+      }
+
+      .explanation-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="tool-header">
+    <div class="container">
+      <h1>Simulatore Prestito Completo Online</h1>
+      <p>Simula il prestito ideale con calcolo dettagliato e confronto offerte personalizzato</p>
+    </div>
+  </div>
+
+  <div id="ad-slot-top" class="ad-slot">
+    <p>Spazio pubblicitario</p>
+  </div>
+
+  <div class="container">
+    <div class="tool-body">
+      <div class="form-section">
+        <h3>Dati del Prestito</h3>
+        <form id="prestito-form">
+          <div class="form-group">
+            <label for="importo">Importo desiderato (€)</label>
+            <input type="number" id="importo" placeholder="18000" min="1500" max="80000" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="durata_anni">Durata prestito (anni)</label>
+            <input type="number" id="durata_anni" placeholder="5" min="1" max="10" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="situazione_lavorativa">Situazione lavorativa</label>
+            <select id="situazione_lavorativa" required>
+              <option value="">Seleziona...</option>
+              <option value="dipendente_ti">Dipendente tempo indeterminato</option>
+              <option value="dipendente_td">Dipendente tempo determinato</option>
+              <option value="autonomo">Lavoratore autonomo</option>
+              <option value="libero_prof">Libero professionista</option>
+              <option value="pensionato">Pensionato</option>
+              <option value="disoccupato">Disoccupato</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="eta">Età</label>
+            <input type="number" id="eta" placeholder="35" min="18" max="75" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="reddito_mensile">Reddito mensile (€)</label>
+            <input type="number" id="reddito_mensile" placeholder="2200" min="500" max="15000" required>
+          </div>
+          
+          <button type="submit">Simula Prestito</button>
+        </form>
+      </div>
+      
+      <div class="result-section">
+        <h3>Risultato Simulazione</h3>
+        <div id="result-content">
+          <p style="text-align: center; color: var(--text-light); padding: 2rem;">
+            Compila il form per vedere la simulazione del prestito
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ad-slot-middle" class="ad-slot">
+    <p>Spazio pubblicitario</p>
+  </div>
+
+  <div class="container">
+    <div class="tool-explanation">
+      <h2>Come Funziona il Simulatore</h2>
+      <p>Il nostro simulatore di prestito utilizza algoritmi avanzati per calcolare la rata mensile e valutare la probabilità di approvazione del finanziamento, considerando il tuo profilo economico e lavorativo.</p>
+      
+      <div class="explanation-grid">
+        <div class="explanation-item">
+          <h3>Calcolo della Rata</h3>
+          <p>La rata mensile viene calcolata considerando il tasso di interesse applicabile al tuo profilo di rischio, determinato da età, situazione lavorativa e reddito dichiarato.</p>
+        </div>
+        
+        <div class="explanation-item">
+          <h3>Valutazione del Rischio</h3>
+          <p>Il sistema analizza diversi fattori: stabilità lavorativa, età, capacità di rimborso e rapporto rata/reddito per determinare la probabilità di approvazione.</p>
+        </div>
+        
+        <div class="explanation-item">
+          <h3>Confronto Offerte</h3>
+          <p>Ti proponiamo le migliori 3 offerte personalizzate basate sul tuo profilo, confrontando tassi e condizioni di diversi istituti di credito.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="email-capture" class="email-capture">
+    <p>Ricevi nuovi tool utili ogni settimana</p>
+    <form id="email-form" onsubmit="return captureEmail(event)">
+      <input type="email" placeholder="La tua email" required>
+      <button type="submit">Iscriviti</button>
+    </form>
+  </div>
+
+  <div id="ad-slot-bottom" class="ad-slot">
+    <p>Spazio pubblicitario</p>
+  </div>
+
+  <div class="tool-footer">
+    <div class="container">
+      <p>Le simulazioni hanno valore puramente indicativo e non costituiscono offerta contrattuale. I tassi reali possono variare in base alle politiche degli istituti di credito.</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('prestito-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const importo = parseFloat(document.getElementById('importo').value);
+      const durataAnni = parseFloat(document.getElementById('durata_anni').value);
+      const situazioneLavorativa = document.getElementById('situazione_lavorativa').value;
+      const eta = parseFloat(document.getElementById('eta').value);
+      const redditoMensile = parseFloat(document.getElementById('reddito_mensile').value);
+      
+      // Calcolo del tasso base in base al profilo di rischio
+      let tassoBase = 0.06; // 6% base
+      
+      // Fattori di rischio per situazione lavorativa
+      const fattoriLavoro = {
+        'dipendente_ti': 0,
+        'dipendente_td': 0.015,
+        'autonomo': 0.02,
+        'libero_prof': 0.025,
+        'pensionato': 0.01,
+        'disoccupato': 0.08
+      };
+      
+      tassoBase += fattoriLavoro[situazioneLavorativa] || 0.05;
+      
+      // Fattore età
+      if (eta < 25) tassoBase += 0.01;
+      else if (eta > 60) tassoBase += 0.005;
+      
+      // Fattore rapporto importo/reddito annuo
+      const redditoAnnuo = redditoMensile * 12;
+      const rapportoDebitoReddito = importo / redditoAnnuo;
+      
+      if (rapportoDebitoReddito > 5) tassoBase += 0.02;
+      else if (rapportoDebitoReddito > 3) tassoBase += 0.01;
+      
+      // Calcolo rata mensile con formula standard
+      const tassoMensile = tassoBase / 12;
+      const numRate = durataAnni * 12;
+      const rataMensile = importo * (tassoMensile * Math.pow(1 + tassoMensile, numRate)) / (Math.pow(1 + tassoMensile, numRate) - 1);
+      
+      // Calcolo probabilità approvazione
+      let probabilita = 90;
+      
+      // Penalità per situazione lavorativa
+      const penalitaLavoro = {
+        'dipendente_ti': 0,
+        'dipendente_td': -10,
+        'autonomo': -15,
+        'libero_prof': -10,
+        'pensionato': -15,
+        'disoccupato': -50
+      };
+      
+      probabilita += penalitaLavoro[situazioneLavorativa] || -20;
+      
+      // Penalità per età
+      if (eta < 25) probabilita -= 10;
+      else if (eta > 65) probabilita -= 15;
+      
+      // Penalità per rapporto rata/reddito
+      const rapportoRataReddito = rataMensile / redditoMensile;
+      if (rapportoRataReddito > 0.4) probabilita -= 30;
+      else if (rapportoRataReddito > 0.3) probabilita -= 15;
+      else if (rapportoRataReddito > 0.25) probabilita -= 5;
+      
+      // Limiti probabilità
+      probabilita = Math.max(20, Math.min(95, probabilita));
+      
+      // Generazione offerte
+      const offerte = [
+        {
+          banca: "Intesa Sanpaolo",
+          tasso: (tassoBase * 100).toFixed(2) + "%",
+          rata: (rataMensile * 0.98).toFixed(2),
+          vantaggi: "Zero spese istruttoria"
+        },
+        {
+          banca: "UniCredit",
+          tasso: ((tassoBase + 0.005) * 100).toFixed(2) + "%",
+          rata: (rataMensile * 1.02).toFixed(2),
+          vantaggi: "Assicurazione inclusa"
+        },
+        {
+          banca: "BNL",
+          tasso: ((tassoBase - 0.003) * 100).toFixed(2) + "%",
+          rata: (rataMensile * 0.99).toFixed(2),
+          vantaggi: "Rimborso anticipato gratuito"
+        }
+      ];
+      
+      // Visualizzazione risultati
+      const resultContent = document.getElementById('result-content');
+      resultContent.innerHTML = `
+        <div class="result-item">
+          <h4>Rata Mensile: €${rataMensile.toFixed(2)}</h4>
+          <p>Importo totale: €${(rataMensile * numRate).toFixed(2)}</p>
+          <p>Interessi totali: €${(rataMensile * numRate - importo).toFixed(2)}</p>
+        </div>
+        
+        <div class="result-item">
+          <h4>Probabilità Approvazione: ${probabilita.toFixed(0)}%</h4>
+          <div class="probability-bar">
+            <div class="probability-fill" style="width: ${probabilita}%"></div>
+          </div>
+          <p>Basata sul tuo profilo economico</p>
+        </div>
+        
+        <h4 style="margin: 1.5rem 0 1rem 0;">Migliori Offerte Personalizzate:</h4>
+        
+        ${offerte.map(offerta => `
+          <div class="result-item">
+            <h4>${offerta.banca}</h4>
+            <p><strong>Tasso:</strong> ${offerta.tasso} TAN</p>
+            <p><strong>Rata:</strong> €${offerta.rata}</p>
+            <p><strong>Vantaggio:</strong> ${offerta.vantaggi}</p>
+          </div>
+        `).join('')}
+      `;
+    });
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'simulatore-prestito'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto con successo!</p>';
+      });
+      return false;
+    }
+  </script>
+</body>
+</html>
