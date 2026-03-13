@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Rata Mutuo | Calcolatore con Piano Ammortamento</title>
+  <meta name="description" content="Calcola rata mutuo precisa con piano ammortamento completo. Include TAEG, spese e grafico evoluzione debito. Strumento professionale gratuito.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Rata Mutuo",
+    "description": "Calcola con precisione la rata del mutuo, piano di ammortamento e costi totali",
+    "url": "https://example.com/calcolatore-rata-mutuo",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --secondary-color: #64748b;
+      --success-color: #059669;
+      --warning-color: #d97706;
+      --error-color: #dc2626;
+      --background: #ffffff;
+      --surface: #f8fafc;
+      --border: #e2e8f0;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --radius: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: var(--surface);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .tool-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      background: var(--background);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .tool-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .tool-header p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .ad-slot {
+      background: var(--border);
+      border: 2px dashed var(--secondary-color);
+      padding: 40px 20px;
+      text-align: center;
+      margin: 2rem 0;
+      border-radius: var(--radius);
+      color: var(--text-secondary);
+    }
+
+    .tool-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-section, .results-section {
+      background: var(--background);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .form-section h2, .results-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-group input.error {
+      border-color: var(--error-color);
+    }
+
+    .error-message {
+      color: var(--error-color);
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+
+    .calculate-btn {
+      width: 100%;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .calculate-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .result-card {
+      background: var(--surface);
+      padding: 1rem;
+      border-radius: var(--radius);
+      text-align: center;
+      border: 2px solid var(--border);
+    }
+
+    .result-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .result-label {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .chart-container {
+      margin: 2rem 0;
+      height: 300px;
+      position: relative;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+
+    .amortization-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background: var(--background);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .amortization-table th,
+    .amortization-table td {
+      padding: 12px;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .amortization-table th {
+      background: var(--primary-color);
+      color: white;
+      font-weight: 600;
+    }
+
+    .amortization-table tr:hover {
+      background: var(--surface);
+    }
+
+    .download-btn {
+      background: var(--success-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      cursor: pointer;
+      margin: 1rem 0;
+    }
+
+    .explanation {
+      background: var(--background);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 2rem 0;
+    }
+
+    .explanation h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .explanation h3 {
+      font-size: 1.3rem;
+      margin: 1.5rem 0 1rem;
+      color: var(--text-primary);
+    }
+
+    .explanation p {
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .email-capture {
+      background: var(--primary-color);
+      color: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .email-capture p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .email-capture form {
+      display: flex;
+      gap: 1rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .email-capture input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+    }
+
+    .email-capture button {
+      background: white;
+      color: var(--primary-color);
+      border: none;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .footer {
+      background: var(--background);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+      .tool-header h1 {
+        font-size: 2rem;
+      }
+
+      .tool-body {
+        grid-template-columns: 1fr;
+      }
+
+      .results-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .email-capture form {
+        flex-direction: column;
+      }
+
+      .container {
+        padding: 10px;
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #debtChart {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- TOOL_HEADER -->
+    <div class="tool-header">
+      <h1>Calcolatore Rata Mutuo</h1>
+      <p>Calcola con precisione la rata del mutuo, il piano di ammortamento e tutti i costi. Strumento professionale per valutare il tuo finanziamento immobiliare.</p>
+    </div>
+
+    <!-- AD_SLOT_TOP -->
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <!-- TOOL_BODY -->
+    <div class="tool-body">
+      <div class="form-section">
+        <h2>Dati del Mutuo</h2>
+        <form id="mortgage-form">
+          <div class="form-group">
+            <label for="capitale">Importo finanziato (€)</label>
+            <input type="number" id="capitale" name="capitale" placeholder="180000" min="10000" max="5000000" required>
+            <div class="error-message" id="capitale-error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="tasso_annuo">Tasso annuo effettivo (%)</label>
+            <input type="number" id="tasso_annuo" name="tasso_annuo" placeholder="3.2" min="0.1" max="20" step="0.01" required>
+            <div class="error-message" id="tasso_annuo-error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="anni">Durata (anni)</label>
+            <input type="number" id="anni" name="anni" placeholder="20" min="5" max="40" required>
+            <div class="error-message" id="anni-error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="spese_istruttoria">Spese istruttoria (€)</label>
+            <input type="number" id="spese_istruttoria" name="spese_istruttoria" placeholder="2000" min="0" max="50000">
+            <div class="error-message" id="spese_istruttoria-error"></div>
+          </div>
+
+          <button type="submit" class="calculate-btn">Calcola Rata Mutuo</button>
+        </form>
+      </div>
+
+      <div class="results-section">
+        <h2>Risultati del Calcolo</h2>
+        <div id="results" class="hidden">
+          <div class="results-grid">
+            <div class="result-card">
+              <div class="result-value" id="rata-mensile">€ 0</div>
+              <div class="result-label">Rata mensile</div>
+            </div>
+            <div class="result-card">
+              <div class="result-value" id="interessi-totali">€ 0</div>
+              <div class="result-label">Interessi totali</div>
+            </div>
+            <div class="result-card">
+              <div class="result-value" id="taeg">0%</div>
+              <div class="result-label">TAEG</div>
+            </div>
+            <div class="result-card">
+              <div class="result-value" id="quota-capitale">€ 0</div>
+              <div class="result-label">Quota capitale 1ª rata</div>
+            </div>
+            <div class="result-card">
+              <div class="result-value" id="quota-interessi">€ 0</div>
+              <div class="result-label">Quota interessi 1ª rata</div>
+            </div>
+            <div class="result-card">
+              <div class="result-value" id="totale-pagato">€ 0</div>
+              <div class="result-label">Totale pagato</div>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="debtChart"></canvas>
+          </div>
+
+          <button class="download-btn" onclick="downloadAmortization()">Scarica Piano Ammortamento</button>
+        </div>
+        <div id="no-results">
+          <p style="color: var(--text-secondary); text-align: center; padding: 2rem;">
+            Inserisci i dati del mutuo per vedere i risultati del calcolo
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AD_SLOT_MIDDLE -->
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div id="amortization-section" class="hidden">
+      <div style="background: var(--background); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow);">
+        <h2>Piano di Ammortamento</h2>
+        <div style="overflow-x: auto;">
+          <table class="amortization-table" id="amortization-table">
+            <thead>
+              <tr>
+                <th>Rata</th>
+                <th>Quota Capitale</th>
+                <th>Quota Interessi</th>
+                <th>Rata Totale</th>
+                <th>Debito Residuo</th>
+              </tr>
+            </thead>
+            <tbody id="amortization-tbody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOL_EXPLANATION -->
+    <div class="explanation">
+      <h2>Come Funziona il Calcolatore Rata Mutuo</h2>
+      
+      <h3>Calcolo della Rata Mensile</h3>
+      <p>Il nostro calcolatore utilizza la formula del <strong>piano di ammortamento francese</strong>, il più comune in Italia. La formula matematica è:</p>
+      <p><code>PMT = PV × [r(1+r)^n] / [(1+r)^n-1]</code></p>
+      <p>Dove PV è il capitale finanziato, r è il tasso mensile e n è il numero di rate.</p>
+
+      <h3>TAEG (Tasso Annuo Effettivo Globale)</h3>
+      <p>Il TAEG include tutti i costi del mutuo: tasso nominale, spese di istruttoria e altri oneri. È l'indicatore più importante per confrontare diverse offerte di mutuo.</p>
+
+      <h3>Piano di Ammortamento</h3>
+      <p>Il piano mostra per ogni rata:</p>
+      <ul style="margin-left: 2rem; color: var(--text-secondary);">
+        <li><strong>Quota capitale:</strong> parte della rata che riduce il debito</li>
+        <li><strong>Quota interessi:</strong> costo del finanziamento</li>
+        <li><strong>Debito residuo:</strong> quanto resta da pagare</li>
+      </ul>
+
+      <h3>Fattori che Influenzano la Rata</h3>
+      <p>La rata mensile dipende da tre fattori principali:</p>
+      <ul style="margin-left: 2rem; color: var(--text-secondary);">
+        <li><strong>Importo finanziato:</strong> più alto è, maggiore sarà la rata</li>
+        <li><strong>Tasso di interesse:</strong> anche piccole variazioni hanno impatti significativi</li>
+        <li><strong>Durata:</strong> più lunga riduce la rata ma aumenta gli interessi totali</li>
+      </ul>
+
+      <h3>Consigli per Scegliere il Mutuo</h3>
+      <p>Prima di sottoscrivere un mutuo considera:</p>
+      <ul style="margin-left: 2rem; color: var(--text-secondary);">
+        <li>La rata non dovrebbe superare il 30% del reddito familiare</li>
+        <li>Confronta sempre il TAEG, non solo il tasso nominale</li>
+        <li>Valuta la possibilità di estinzione anticipata</li>
+        <li>Considera l'assicurazione mutuo per proteggere la famiglia</li>
+      </ul>
+    </div>
+
+    <!-- EMAIL_CAPTURE -->
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <!-- AD_SLOT_BOTTOM -->
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <!-- TOOL_FOOTER -->
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> I calcoli forniti sono indicativi e basati sui parametri inseriti. Per informazioni definitive consultare sempre la banca o un consulente finanziario qualificato. I tassi reali possono variare in base al profilo del richiedente e alle condizioni di mercato.</p>
+      <p style="margin-top: 1rem;">© 2024 Calcolatore Rata Mutuo - Strumento gratuito per il calcolo del mutuo</p>
+    </div>
+  </div>
+
+  <script>
+    let amortizationData = [];
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-rata-mutuo'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    function validateField(field, value) {
+      const errors = {
+        capitale: value < 10000 || value > 5000000 ? 'L\'importo deve essere tra €10.000 e €5.000.000' : '',
+        tasso_annuo: value < 0.1 || value > 20 ? 'Il tasso deve essere tra 0,1% e 20%' : '',
+        anni: value < 5 || value > 40 ? 'La durata deve essere tra 5 e 40 anni' : '',
+        spese_istruttoria: value < 0 || value > 50000 ? 'Le spese devono essere tra €0 e €50.000' : ''
+      };
+      return errors[field] || '';
+    }
+
+    function showError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      const errorDiv = document.getElementById(fieldId + '-error');
+      
+      if (message) {
+        field.classList.add('error');
+        errorDiv.textContent = message;
+      } else {
+        field.classList.remove('error');
+        errorDiv.textContent = '';
+      }
+    }
+
+    function calculateMortgage(capitale, tassoAnnuo, anni, speseIstruttoria = 0) {
+      const tassoMensile = tassoAnnuo / 100 / 12;
+      const numeroRate = anni * 12;
+      
+      // Calcolo rata mensile (formula francese)
+      const rataMensile = capitale * (tassoMensile * Math.pow(1 + tassoMensile, numeroRate)) / 
+                         (Math.pow(1 + tassoMensile, numeroRate) - 1);
+      
+      const interessiTotali = (rataMensile * numeroRate) - capitale;
+      const totalePagato = rataMensile * numeroRate;
+      
+      // Calcolo TAEG includendo le spese
+      const capitaleConSpese = capitale + speseIstruttoria;
+      const taegMensile = findTAEG(capitaleConSpese, rataMensile, numeroRate);
+      const taeg = taegMensile * 12 * 100;
+      
+      // Prima rata
+      const quotaInteressiPrimaRata = capitale * tassoMensile;
+      const quotaCapitalePrimaRata = rataMensile - quotaInteressiPrimaRata;
+      
+      return {
+        rataMensile: Math.round(rataMensile * 100) / 100,
+        interessiTotali: Math.round(interessiTotali * 100) / 100,
+        taeg: Math.round(taeg * 100) / 100,
+        quotaCapitalePrimaRata: Math.round(quotaCapitalePrimaRata * 100) / 100,
+        quotaInteressiPrimaRata: Math.round(quotaInteressiPrimaRata * 100) / 100,
+        totalePagato: Math.round(totalePagato * 100) / 100,
+        numeroRate,
+        tassoMensile
+      };
+    }
+
+    function findTAEG(capitale, rata, numeroRate) {
+      let tassoMin = 0;
+      let tassoMax = 1;
+      let tasso, pv;
+      
+      for (let i = 0; i < 100; i++) {
+        tasso = (tassoMin + tassoMax) / 2;
+        pv = rata * (1 - Math.pow(1 + tasso, -numeroRate)) / tasso;
+        
+        if (Math.abs(pv - capitale) < 0.01) break;
+        
+        if (pv > capitale) {
+          tassoMax = tasso;
+        } else {
+          tassoMin = tasso;
+        }
+      }
+      
+      return tasso;
+    }
+
+    function generateAmortizationSchedule(capitale, tassoMensile, rataMensile, numeroRate) {
+      const schedule = [];
+      let debitoResiduoCorrente = capitale;
+      
+      for (let i = 1; i <= numeroRate; i++) {
+        const quotaInteressi = debitoResiduoCorrente * tassoMensile;
+        const quotaCapitale = rataMensile - quotaInteressi;
+        debitoResiduoCorrente -= quotaCapitale;
+        
+        if (debitoResiduoCorrente < 0) debitoResiduoCorrente = 0;
+        
+        schedule.push({
+          rata: i,
+          quotaCapitale: Math.round(quotaCapitale * 100) / 100,
+          quotaInteressi: Math.round(quotaInteressi * 100) / 100,
+          rataTotale: Math.round(rataMensile * 100) / 100,
+          debitoResiduo: Math.round(debitoResiduoCorrente * 100) / 100
+        });
+      }
+      
+      return schedule;
+    }
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('it-IT', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(value);
+    }
+
+    function formatCurrencyDetailed(value) {
+      return new Intl.NumberFormat('it-IT', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(value);
+    }
+
+    function displayResults(results) {
+      document.getElementById('rata-mensile').textContent = formatCurrencyDetailed(results.rataMensile);
+      document.getElementById('interessi-totali').textContent = formatCurrency(results.interessiTotali);
+      document.getElementById('taeg').textContent = results.taeg.toFixed(2) + '%';
+      document.getElementById('quota-capitale').textContent = formatCurrencyDetailed(results.quotaCapitalePrimaRata);
+      document.getElementById('quota-interessi').textContent = formatCurrencyDetailed(results.quotaInteressiPrimaRata);
+      document.getElementById('totale-pagato').textContent = formatCurrency(results.totalePagato);
+      
+      document.getElementById('results').classList.remove('hidden');
+      document.getElementById('no-results').classList.add('hidden');
+    }
+
+    function createDebtChart(schedule) {
+      const canvas = document.getElementById('debtChart');
+      const ctx = canvas.getContext('2d');
+      
+      // Set canvas size
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      
+      const width = canvas.width;
+      const height = canvas.height;
+      const padding = 50;
+      
+      ctx.clearRect(0, 0, width, height);
+      
+      // Get data points (sample every year for better visibility)
+      const dataPoints = schedule.filter((_, index) => index % 12 === 0 || index === schedule.length - 1);
+      const maxDebt = Math.max(...dataPoints.map(d => d.debitoResiduo));
+      
+      // Draw grid and axes
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 1;
+      
+      // Vertical grid lines
+      for (let i = 0; i <= dataPoints.length - 1; i += Math.ceil(dataPoints.length / 10)) {
+        const x = padding + (i / (dataPoints.length - 1)) * (width - 2 * padding);
+        ctx.beginPath();
+        ctx.moveTo(x, padding);
+        ctx.lineTo(x, height - padding);
+        ctx.stroke();
+      }
+      
+      // Horizontal grid lines
+      for (let i = 0; i <= 5; i++) {
+        const y = padding + (i / 5) * (height - 2 * padding);
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(width - padding, y);
+        ctx.stroke();
+      }
+      
+      // Draw debt evolution line
+      ctx.strokeStyle = '#2563eb';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      
+      dataPoints.forEach((point, index) => {
+        const x = padding + (index / (dataPoints.length - 1)) * (width - 2 * padding);
+        const y = height - padding - (point.debitoResiduo / maxDebt) * (height - 2 * padding);
+        
+        if (index === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      });
+      
+      ctx.stroke();
+      
+      // Add labels
+      ctx.fillStyle = '#64748b';
+      ctx.font = '12px sans-serif';
+      ctx.textAlign = 'center';
+      
+      // X-axis labels (years)
+      for (let i = 0; i < dataPoints.length; i += Math.ceil(dataPoints.length / 5)) {
+        const x = padding + (i / (dataPoints.length - 1)) * (width - 2 * padding);
+        const year = Math.round(dataPoints[i].rata / 12);
+        ctx.fillText(`${year}a`, x, height - padding + 20);
+      }
+      
+      // Y-axis labels (debt amounts)
+      ctx.textAlign = 'right';
+      for (let i = 0; i <= 5; i++) {
+        const y = height - padding - (i / 5) * (height - 2 * padding) + 4;
+        const value = (i / 5) * maxDebt;
+        ctx.fillText(formatCurrency(value), padding - 10, y);
+      }
+      
+      // Chart title
+      ctx.fillStyle = '#1e293b';
+      ctx.font = 'bold 14px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Evoluzione del Debito Residuo', width / 2, 25);
+    }
+
+    function displayAmortizationTable(schedule) {
+      const tbody = document.getElementById('amortization-tbody');
+      tbody.innerHTML = '';
+      
+      // Show only first 60 rows and last 12 rows to avoid overwhelming the table
+      const rowsToShow = schedule.length > 72 ? 
+        [...schedule.slice(0, 60), ...schedule.slice(-12)] : 
+        schedule;
+      
+      let addedSeparator = false;
+      
+      rowsToShow.forEach((row, index) => {
+        // Add separator row if we're showing condensed view
+        if (schedule.length > 72
