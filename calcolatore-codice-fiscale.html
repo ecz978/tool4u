@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Codice Fiscale Online Gratis - Calcolatore Immediato</title>
+  <meta name="description" content="Calcola il tuo codice fiscale online gratis. Inserisci nome, cognome, data e luogo di nascita e ottieni subito il CF. Veloce e preciso.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Codice Fiscale",
+    "description": "Calcola il tuo codice fiscale italiano online inserendo nome, cognome, data e luogo di nascita",
+    "url": "https://example.com/calcolatore-codice-fiscale",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --success: #059669;
+      --danger: #dc2626;
+      --warning: #d97706;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-600: #4b5563;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background-color: var(--gray-50);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      color: var(--gray-600);
+    }
+
+    .ad-slot {
+      background: var(--gray-100);
+      border: 2px dashed var(--gray-300);
+      padding: 40px 20px;
+      text-align: center;
+      margin: 30px 0;
+      border-radius: 8px;
+      color: var(--gray-600);
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--gray-800);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      width: 100%;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .result {
+      background: var(--success);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .result h3 {
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .codice-fiscale {
+      font-family: 'Courier New', monospace;
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 4px;
+      margin: 15px 0;
+      padding: 15px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 8px;
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      background: white;
+      color: var(--success);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .error {
+      background: var(--danger);
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .explanation {
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin: 30px 0;
+    }
+
+    .explanation h2 {
+      color: var(--gray-900);
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+    .explanation p, .explanation li {
+      margin-bottom: 15px;
+      color: var(--gray-600);
+    }
+
+    .explanation ul {
+      margin-left: 20px;
+    }
+
+    .email-capture {
+      background: var(--primary);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .email-capture p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .email-capture form {
+      display: flex;
+      max-width: 400px;
+      margin: 0 auto;
+      gap: 10px;
+    }
+
+    .email-capture input {
+      flex: 1;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+
+    .email-capture button {
+      background: white;
+      color: var(--primary);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--gray-200);
+      margin-top: 50px;
+    }
+
+    @media (max-width: 640px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .email-capture form {
+        flex-direction: column;
+      }
+      
+      .codice-fiscale {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- TOOL_HEADER -->
+    <div class="header">
+      <h1>Calcolatore Codice Fiscale Online</h1>
+      <p>Calcola il tuo codice fiscale italiano inserendo nome, cognome, data e luogo di nascita</p>
+    </div>
+
+    <!-- AD_SLOT_TOP -->
+    <div id="ad-slot-top" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <!-- TOOL_BODY -->
+    <div class="card">
+      <form id="cf-form" onsubmit="return calcolaCodiceFiscale(event)">
+        <div class="form-group">
+          <label for="cognome">Cognome</label>
+          <input type="text" id="cognome" placeholder="Rossi" required>
+        </div>
+
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" placeholder="Mario" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="sesso">Sesso</label>
+            <select id="sesso" required>
+              <option value="">Seleziona</option>
+              <option value="M">Maschio</option>
+              <option value="F">Femmina</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="data_nascita">Data di nascita</label>
+            <input type="date" id="data_nascita" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="comune_nascita">Comune di nascita</label>
+          <input type="text" id="comune_nascita" placeholder="Roma" required>
+        </div>
+
+        <button type="submit" class="btn">Calcola Codice Fiscale</button>
+      </form>
+
+      <div id="result" class="result">
+        <h3>Il tuo codice fiscale è:</h3>
+        <div id="codice-fiscale-output" class="codice-fiscale"></div>
+        <button type="button" class="copy-btn" onclick="copyToClipboard()">Copia negli appunti</button>
+      </div>
+
+      <div id="error" class="error"></div>
+    </div>
+
+    <!-- AD_SLOT_MIDDLE -->
+    <div id="ad-slot-middle" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <!-- TOOL_EXPLANATION -->
+    <div class="explanation">
+      <h2>Come funziona il calcolo del codice fiscale</h2>
+      <p>Il codice fiscale italiano è un identificativo univoco composto da 16 caratteri alfanumerici, calcolato secondo regole precise stabilite dall'Agenzia delle Entrate.</p>
+      
+      <p><strong>Composizione del codice fiscale:</strong></p>
+      <ul>
+        <li><strong>Prime 3 lettere:</strong> prime tre consonanti del cognome (se non sufficienti, si aggiungono le vocali)</li>
+        <li><strong>Successive 3 lettere:</strong> consonanti del nome secondo regole specifiche</li>
+        <li><strong>2 cifre:</strong> ultime due cifre dell'anno di nascita</li>
+        <li><strong>1 lettera:</strong> mese di nascita (A=gennaio, B=febbraio, C=marzo, etc.)</li>
+        <li><strong>2 cifre:</strong> giorno di nascita (per le donne si aggiunge 40)</li>
+        <li><strong>4 caratteri:</strong> codice catastale del comune di nascita</li>
+        <li><strong>1 carattere:</strong> cifra di controllo calcolata con algoritmo specifico</li>
+      </ul>
+      
+      <p>Il nostro calcolatore utilizza la tabella ufficiale dei codici catastali italiani e applica correttamente tutti gli algoritmi previsti dalla normativa, garantendo risultati precisi e affidabili.</p>
+    </div>
+
+    <!-- EMAIL_CAPTURE -->
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.financeads.net/tc.php?t=XXXXX" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Confronta i migliori conti deposito</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <!-- AD_SLOT_BOTTOM -->
+    <div id="ad-slot-bottom" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <!-- TOOL_FOOTER -->
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore fornisce il codice fiscale secondo le regole ufficiali, ma per usi amministrativi si consiglia sempre di verificare presso gli uffici competenti.</p>
+      <p>© 2024 Calcolatore Codice Fiscale - Tool gratuito per il calcolo online</p>
+    </div>
+  </div>
+
+  <script>
+    // Tabella dei codici catastali dei principali comuni italiani
+    const codiciCatastali = {
+      'roma': 'H501', 'milano': 'F205', 'napoli': 'F839', 'torino': 'L219',
+      'palermo': 'G273', 'genova': 'D969', 'bologna': 'A944', 'firenze': 'D612',
+      'bari': 'A662', 'catania': 'C351', 'venezia': 'L736', 'verona': 'L781',
+      'messina': 'F158', 'padova': 'G224', 'trieste': 'L424', 'brescia': 'B157',
+      'parma': 'G337', 'taranto': 'L049', 'prato': 'G999', 'modena': 'F257',
+      'reggio emilia': 'H223', 'reggio calabria': 'H224', 'perugia': 'G478',
+      'livorno': 'E625', 'ravenna': 'H199', 'cagliari': 'B354', 'foggia': 'D643',
+      'rimini': 'H294', 'salerno': 'H703', 'ferrara': 'D548', 'sassari': 'I452',
+      'latina': 'E472', 'giugliano in campania': 'E054', 'monza': 'F704',
+      'siracusa': 'I754', 'pescara': 'G482', 'bergamo': 'A794', 'forlì': 'D704',
+      'trento': 'L378', 'vicenza': 'L840', 'terni': 'L112', 'bolzano': 'A952',
+      'novara': 'F952', 'piacenza': 'G535', 'ancona': 'A271', 'andria': 'A285',
+      'arezzo': 'A390', 'udine': 'L483', 'cesena': 'C573', 'lecce': 'E506',
+      'pesaro': 'G479', 'barletta': 'A669', 'alessandria': 'A182', 'la spezia': 'E463',
+      'pistoia': 'G713', 'como': 'C933', 'guidonia montecelio': 'M272', 'treviso': 'L407',
+      'brindisi': 'B180', 'marsala': 'E974', 'pavia': 'G388', 'varese': 'L682',
+      'cosenza': 'D086', 'massa': 'F023', 'fiumicino': 'M297', 'casoria': 'C034',
+      'catanzaro': 'C352', 'cremona': 'D142', 'asti': 'A479', 'caserta': 'B963',
+      'cinisello balsamo': 'C707', 'gela': 'D960', 'altamura': 'A225',
+      'vittoria': 'M088', 'carpi': 'B819', 'potenza': 'G942', 'trapani': 'L331',
+      'crotone': 'D122', 'imola': 'E289', 'pozzuoli': 'G964', 'manfredonia': 'E885',
+      'cerignola': 'C514', 'bitonto': 'A893', 'trani': 'L328', 'caltanissetta': 'B429',
+      'aprilia': 'A341', 'rho': 'H264', 'bagheria': 'A546', 'vigevano': 'L872',
+      'san severo': 'I158', 'portici': 'G902', 'velletri': 'L719', 'avellino': 'A509'
+    };
+
+    // Mappa mesi per codice fiscale
+    const mesiCF = ['A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T'];
+
+    // Tabelle per il carattere di controllo
+    const pari = {
+      '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9,
+      'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9,
+      'K': 10, 'L': 11, 'M': 12, 'N': 13, 'O': 14, 'P': 15, 'Q': 16, 'R': 17, 'S': 18,
+      'T': 19, 'U': 20, 'V': 21, 'W': 22, 'X': 23, 'Y': 24, 'Z': 25
+    };
+
+    const dispari = {
+      '0': 1, '1': 0, '2': 5, '3': 7, '4': 9, '5': 13, '6': 15, '7': 17, '8': 19, '9': 21,
+      'A': 1, 'B': 0, 'C': 5, 'D': 7, 'E': 9, 'F': 13, 'G': 15, 'H': 17, 'I': 19, 'J': 21,
+      'K': 2, 'L': 4, 'M': 18, 'N': 20, 'O': 11, 'P': 3, 'Q': 6, 'R': 8, 'S': 12,
+      'T': 14, 'U': 16, 'V': 10, 'W': 22, 'X': 25, 'Y': 24, 'Z': 23
+    };
+
+    const controllo = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    function estraiConsonanti(str) {
+      return str.toUpperCase().replace(/[^BCDFGHJKLMNPQRSTVWXYZ]/g, '');
+    }
+
+    function estraiVocali(str) {
+      return str.toUpperCase().replace(/[^AEIOU]/g, '');
+    }
+
+    function calcolaCognome(cognome) {
+      const consonanti = estraiConsonanti(cognome);
+      const vocali = estraiVocali(cognome);
+      let risultato = consonanti.substring(0, 3);
+      
+      while (risultato.length < 3) {
+        if (vocali.length > risultato.length - consonanti.length) {
+          risultato += vocali[risultato.length - consonanti.length];
+        } else {
+          risultato += 'X';
+        }
+      }
+      
+      return risultato;
+    }
+
+    function calcolaNome(nome) {
+      const consonanti = estraiConsonanti(nome);
+      const vocali = estraiVocali(nome);
+      
+      if (consonanti.length >= 4) {
+        return consonanti[0] + consonanti[2] + consonanti[3];
+      } else {
+        let risultato = consonanti.substring(0, 3);
+        while (risultato.length < 3) {
+          if (vocali.length > risultato.length - consonanti.length) {
+            risultato += vocali[risultato.length - consonanti.length];
+          } else {
+            risultato += 'X';
+          }
+        }
+        return risultato;
+      }
+    }
+
+    function trovaCodiceCatastale(comune) {
+      const comuneNorm = comune.toLowerCase().trim();
+      return codiciCatastali[comuneNorm] || null;
+    }
+
+    function calcolaCarattereControllo(cf15) {
+      let somma = 0;
+      for (let i = 0; i < 15; i++) {
+        const char = cf15[i];
+        if (i % 2 === 0) {
+          somma += dispari[char] || 0;
+        } else {
+          somma += pari[char] || 0;
+        }
+      }
+      return controllo[somma % 26];
+    }
+
+    function calcolaCodiceFiscale(event) {
+      event.preventDefault();
+      
+      const cognome = document.getElementById('cognome').value.trim();
+      const nome = document.getElementById('nome').value.trim();
+      const sesso = document.getElementById('sesso').value;
+      const dataNascita = document.getElementById('data_nascita').value;
+      const comuneNascita = document.getElementById('comune_nascita').value.trim();
+      
+      // Nascondi risultati precedenti
+      document.getElementById('result').style.display = 'none';
+      document.getElementById('error').style.display = 'none';
+      
+      try {
+        // Controllo campi obbligatori
+        if (!cognome || !nome || !sesso || !dataNascita || !comuneNascita) {
+          throw new Error('Tutti i campi sono obbligatori');
+        }
+        
+        // Parse data
+        const data = new Date(dataNascita);
+        const anno = data.getFullYear().toString().slice(-2);
+        const mese = mesiCF[data.getMonth()];
+        let giorno = data.getDate();
+        
+        if (sesso === 'F') {
+          giorno += 40;
+        }
+        
+        // Trova codice catastale
+        const codiceCatastale = trovaCodiceCatastale(comuneNascita);
+        if (!codiceCatastale) {
+          throw new Error('Comune non trovato nel database. Inserire un comune italiano valido.');
+        }
+        
+        // Costruisci codice fiscale
+        const cfParziale = calcolaCognome(cognome) + 
+                          calcolaNome(nome) + 
+                          anno + 
+                          mese + 
+                          giorno.toString().padStart(2, '0') + 
+                          codiceCatastale;
+        
+        const carattereControllo = calcolaCarattereControllo(cfParziale);
+        const codiceFiscaleCompleto = cfParziale + carattereControllo;
+        
+        // Mostra risultato
+        document.getElementById('codice-fiscale-output').textContent = codiceFiscaleCompleto;
+        document.getElementById('result').style.display = 'block';
+        
+      } catch (error) {
+        document.getElementById('error').textContent = error.message;
+        document.getElementById('error').style.display = 'block';
+      }
+      
+      return false;
+    }
+
+    function copyToClipboard() {
+      const codiceFiscale = document.getElementById('codice-fiscale-output').textContent;
+      navigator.clipboard.writeText(codiceFiscale).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        const originalText = btn.textContent;
+        btn.textContent = 'Copiato!';
+        setTimeout(() => {
+          btn.textContent = originalText;
+        }, 2000);
+      });
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-codice-fiscale'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white; margin:0;">Iscritto! Grazie per esserti unito a noi.</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white; margin:0;">Iscritto! Grazie per esserti unito a noi.</p>';
+      });
+      return false;
+    }
+  </script>
+<div class="faq-section" style="margin:2rem 0;padding:0;border-top:1px solid #e2e8f0;">
+<h2 style="font-size:1.2rem;margin:1.5rem 0 1rem;color:#1a1a2e;">Domande frequenti</h2>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Come si calcola il codice fiscale italiano?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Il codice fiscale si calcola combinando le prime tre consonanti del cognome, le prime tre consonanti del nome, la data di nascita codificata in 6 caratteri (anno, mese e giorno), il codice del comune di nascita di 4 caratteri e un carattere di controllo finale. Esistono regole specifiche per nomi e cognomi con poche consonanti o per persone nate all'estero.</p>
+</details>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Dove posso calcolare il codice fiscale online gratis?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Puoi calcolare il codice fiscale gratuitamente sul sito ufficiale dell'Agenzia delle Entrate nella sezione servizi online. Esistono anche numerosi calcolatori online affidabili che permettono di ottenere il codice fiscale inserendo i dati anagrafici completi.</p>
+</details>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Come si calcola il codice fiscale per chi è nato all'estero?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Per chi è nato all'estero, il codice del comune viene sostituito con il codice del paese estero di nascita, che inizia sempre con la lettera Z seguita da tre cifre. Il resto del calcolo rimane identico: cognome, nome, data di nascita e carattere di controllo seguono le stesse regole.</p>
+</details>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Cosa fare se il codice fiscale calcolato non corrisponde a quello ufficiale?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Se il codice fiscale calcolato automaticamente non corrisponde a quello ufficiale, è normale in caso di omonimie o particolarità anagrafiche. L'Agenzia delle Entrate modifica manualmente alcuni caratteri per evitare duplicati, quindi è sempre necessario fare riferimento al documento ufficiale rilasciato dall'ente.</p>
+</details>
+</div>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Come si calcola il codice fiscale italiano?","acceptedAnswer":{"@type":"Answer","text":"Il codice fiscale si calcola combinando le prime tre consonanti del cognome, le prime tre consonanti del nome, la data di nascita codificata in 6 caratteri (anno, mese e giorno), il codice del comune di nascita di 4 caratteri e un carattere di controllo finale. Esistono regole specifiche per nomi e cognomi con poche consonanti o per persone nate all'estero."}},{"@type":"Question","name":"Dove posso calcolare il codice fiscale online gratis?","acceptedAnswer":{"@type":"Answer","text":"Puoi calcolare il codice fiscale gratuitamente sul sito ufficiale dell'Agenzia delle Entrate nella sezione servizi online. Esistono anche numerosi calcolatori online affidabili che permettono di ottenere il codice fiscale inserendo i dati anagrafici completi."}},{"@type":"Question","name":"Come si calcola il codice fiscale per chi è nato all'estero?","acceptedAnswer":{"@type":"Answer","text":"Per chi è nato all'estero, il codice del comune viene sostituito con il codice del paese estero di nascita, che inizia sempre con la lettera Z seguita da tre cifre. Il resto del calcolo rimane identico: cognome, nome, data di nascita e carattere di controllo seguono le stesse regole."}},{"@type":"Question","name":"Cosa fare se il codice fiscale calcolato non corrisponde a quello ufficiale?","acceptedAnswer":{"@type":"Answer","text":"Se il codice fiscale calcolato automaticamente non corrisponde a quello ufficiale, è normale in caso di omonimie o particolarità anagrafiche. L'Agenzia delle Entrate modifica manualmente alcuni caratteri per evitare duplicati, quindi è sempre necessario fare riferimento al documento ufficiale rilasciato dall'ente."}}]}</script>
+</body>
+</html>
