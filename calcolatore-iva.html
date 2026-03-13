@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore IVA - Aggiungi e Scorpora IVA Online</title>
+  <meta name="description" content="Calcola IVA con tutte le aliquote italiane (4%, 10%, 22%). Aggiungi o scorpora IVA con arrotondamenti corretti. Gratis e preciso.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore IVA",
+    "description": "Calcola IVA, scorporo e aggiunta con tutte le aliquote italiane",
+    "url": "https://example.com/calcolatore-iva",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #64748b;
+      --success: #10b981;
+      --error: #ef4444;
+      --warning: #f59e0b;
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-muted: #64748b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--surface);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .header {
+      background: var(--bg);
+      padding: 2rem 0;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .ad-slot {
+      background: var(--surface);
+      border: 2px dashed var(--border);
+      padding: 2rem;
+      text-align: center;
+      margin: 2rem 0;
+      color: var(--text-muted);
+      border-radius: 8px;
+    }
+
+    .tool-body {
+      background: var(--bg);
+      padding: 2rem;
+      margin: 2rem 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .radio-option:hover {
+      border-color: var(--primary);
+    }
+
+    .radio-option input[type="radio"] {
+      width: auto;
+      margin: 0;
+    }
+
+    .radio-option input[type="radio"]:checked + label {
+      color: var(--primary);
+    }
+
+    .radio-option:has(input:checked) {
+      border-color: var(--primary);
+      background: rgba(37, 99, 235, 0.1);
+    }
+
+    .calculate-btn {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+    }
+
+    .calculate-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .results {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: var(--surface);
+      border-radius: 8px;
+      border-left: 4px solid var(--success);
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+
+    .results-table th,
+    .results-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .results-table th {
+      background: var(--bg);
+      font-weight: 600;
+    }
+
+    .amount {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .calculation-steps {
+      background: var(--bg);
+      padding: 1rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+    }
+
+    .explanation {
+      background: var(--bg);
+      padding: 2rem;
+      margin: 2rem 0;
+      border-radius: 12px;
+    }
+
+    .explanation h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .aliquote-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .aliquota-card {
+      padding: 1rem;
+      background: var(--surface);
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .email-capture {
+      background: var(--bg);
+      padding: 2rem;
+      margin: 2rem 0;
+      border-radius: 12px;
+      text-align: center;
+      border: 2px solid var(--border);
+    }
+
+    .email-capture form {
+      display: flex;
+      gap: 1rem;
+      max-width: 400px;
+      margin: 1rem auto 0;
+    }
+
+    .email-capture input {
+      flex: 1;
+    }
+
+    .email-capture button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .footer {
+      background: var(--text);
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .error {
+      color: var(--error);
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .radio-group {
+        flex-direction: column;
+      }
+      
+      .email-capture form {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- TOOL_HEADER -->
+  <div class="header">
+    <div class="container">
+      <h1>Calcolatore IVA</h1>
+      <p>Calcola IVA, scorporo e aggiunta con tutte le aliquote italiane. Preciso, veloce e conforme alla normativa.</p>
+    </div>
+  </div>
+
+  <!-- AD_SLOT_TOP -->
+  <div class="container">
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+  </div>
+
+  <!-- TOOL_BODY -->
+  <div class="container">
+    <div class="tool-body">
+      <form id="iva-form">
+        <div class="form-group">
+          <label>Tipo Operazione</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="aggiungi" name="operazione" value="aggiungi" required>
+              <label for="aggiungi">Aggiungi IVA</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="scorpora" name="operazione" value="scorpora" required>
+              <label for="scorpora">Scorpora IVA</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="importo">Importo (€)</label>
+          <input type="number" id="importo" step="0.01" min="0" max="9999999.99" placeholder="100.00" required>
+        </div>
+
+        <div class="form-group">
+          <label for="aliquota">Aliquota IVA</label>
+          <select id="aliquota" required>
+            <option value="">Seleziona aliquota</option>
+            <option value="4">4% - Beni di prima necessità</option>
+            <option value="5">5% - Beni socialmente utili</option>
+            <option value="10">10% - Alimentari, turismo, trasporti</option>
+            <option value="22">22% - Aliquota ordinaria</option>
+            <option value="custom">Personalizzata</option>
+          </select>
+        </div>
+
+        <div class="form-group hidden" id="custom-rate-group">
+          <label for="aliquota_custom">Aliquota Personalizzata (%)</label>
+          <input type="number" id="aliquota_custom" step="0.1" min="0" max="50" placeholder="15">
+        </div>
+
+        <div class="form-group">
+          <label for="arrotondamento">Arrotondamento</label>
+          <select id="arrotondamento" required>
+            <option value="2">2 decimali (standard)</option>
+            <option value="0">Arrotondamento al centesimo</option>
+            <option value="5">Multipli di 5 centesimi</option>
+          </select>
+        </div>
+
+        <button type="submit" class="calculate-btn">Calcola IVA</button>
+      </form>
+
+      <div id="results" class="results hidden">
+        <h3>Risultati del Calcolo</h3>
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Voce</th>
+              <th>Importo</th>
+            </tr>
+          </thead>
+          <tbody id="results-body">
+          </tbody>
+        </table>
+        <div id="calculation-steps" class="calculation-steps"></div>
+        <p><strong>Normativa di riferimento:</strong> <a href="https://www.agenziaentrate.gov.it/portale/web/guest/schede/pagamenti/iva/cosa-iva" target="_blank">Agenzia delle Entrate - IVA</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AD_SLOT_MIDDLE -->
+  <div class="container">
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+  </div>
+
+  <!-- TOOL_EXPLANATION -->
+  <div class="container">
+    <div class="explanation">
+      <h2>Come Funziona il Calcolatore IVA</h2>
+      
+      <h3>Operazioni Disponibili</h3>
+      <p><strong>Aggiungi IVA:</strong> Calcola l'IVA da aggiungere a un importo netto (imponibile) per ottenere il totale IVA inclusa.</p>
+      <p><strong>Scorpora IVA:</strong> Estrae l'importo IVA e l'imponibile da un totale che già include l'IVA.</p>
+
+      <h3>Aliquote IVA Italiane</h3>
+      <div class="aliquote-list">
+        <div class="aliquota-card">
+          <h4>4% - Ridottissima</h4>
+          <p>Beni di prima necessità: alimentari base, farmaci essenziali, libri</p>
+        </div>
+        <div class="aliquota-card">
+          <h4>5% - Super Ridotta</h4>
+          <p>Beni socialmente utili: abitazioni prima casa, alcuni servizi sanitari</p>
+        </div>
+        <div class="aliquota-card">
+          <h4>10% - Ridotta</h4>
+          <p>Alimentari elaborati, turismo, trasporti, alcuni servizi</p>
+        </div>
+        <div class="aliquota-card">
+          <h4>22% - Ordinaria</h4>
+          <p>Tutti gli altri beni e servizi non soggetti ad aliquote speciali</p>
+        </div>
+      </div>
+
+      <h3>Formule di Calcolo</h3>
+      <p><strong>Aggiunta IVA:</strong></p>
+      <ul>
+        <li>IVA = Imponibile × (Aliquota ÷ 100)</li>
+        <li>Totale = Imponibile + IVA</li>
+      </ul>
+      
+      <p><strong>Scorporo IVA:</strong></p>
+      <ul>
+        <li>Imponibile = Totale IVA inclusa ÷ (1 + Aliquota ÷ 100)</li>
+        <li>IVA = Totale IVA inclusa - Imponibile</li>
+      </ul>
+
+      <h3>Arrotondamenti</h3>
+      <p>Il calcolatore applica gli arrotondamenti secondo la normativa fiscale italiana:</p>
+      <ul>
+        <li><strong>2 decimali:</strong> Arrotondamento standard al centesimo</li>
+        <li><strong>Al centesimo:</strong> Arrotondamento matematico senza decimali</li>
+        <li><strong>Multipli di 5:</strong> Per operazioni speciali</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EMAIL_CAPTURE -->
+  <div class="container">
+    <div id="email-capture" class="email-capture">
+      <h3>Rimani aggiornato</h3>
+      <p>Ricevi nuovi tool utili e aggiornamenti fiscali ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- AD_SLOT_BOTTOM -->
+  <div class="container">
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+  </div>
+
+  <!-- TOOL_FOOTER -->
+  <div class="footer">
+    <div class="container">
+      <p><strong>Disclaimer:</strong> Questo calcolatore è fornito a scopo informativo. Per operazioni fiscali ufficiali, consultare sempre un commercialista o l'Agenzia delle Entrate.</p>
+      <p>&copy; 2024 Calcolatore IVA - Tool gratuito per il calcolo dell'IVA</p>
+    </div>
+  </div>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-iva'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:red">Errore nell\'iscrizione</p>';
+      });
+      return false;
+    }
+
+    // Toggle custom rate field
+    document.getElementById('aliquota').addEventListener('change', function() {
+      const customGroup = document.getElementById('custom-rate-group');
+      const customInput = document.getElementById('aliquota_custom');
+      
+      if (this.value === 'custom') {
+        customGroup.classList.remove('hidden');
+        customInput.required = true;
+      } else {
+        customGroup.classList.add('hidden');
+        customInput.required = false;
+        customInput.value = '';
+      }
+    });
+
+    // Main calculation function
+    document.getElementById('iva-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const operazione = document.querySelector('input[name="operazione"]:checked')?.value;
+      const importo = parseFloat(document.getElementById('importo').value);
+      const aliquotaSelect = document.getElementById('aliquota').value;
+      const aliquotaCustom = parseFloat(document.getElementById('aliquota_custom').value) || 0;
+      const arrotondamento = parseInt(document.getElementById('arrotondamento').value);
+      
+      // Validate inputs
+      if (!operazione || !importo || !aliquotaSelect) {
+        alert('Compila tutti i campi obbligatori');
+        return;
+      }
+      
+      if (aliquotaSelect === 'custom' && (!aliquotaCustom || aliquotaCustom < 0 || aliquotaCustom > 50)) {
+        alert('Inserisci un\'aliquota personalizzata valida (0-50%)');
+        return;
+      }
+      
+      // Get rate
+      const aliquota = aliquotaSelect === 'custom' ? aliquotaCustom : parseFloat(aliquotaSelect);
+      
+      // Calculate
+      let imponibile, iva, totale;
+      let steps = [];
+      
+      if (operazione === 'aggiungi') {
+        imponibile = importo;
+        iva = importo * (aliquota / 100);
+        totale = imponibile + iva;
+        
+        steps.push(`Imponibile: ${importo.toFixed(2)}€`);
+        steps.push(`IVA: ${importo.toFixed(2)}€ × ${aliquota}% = ${iva.toFixed(2)}€`);
+        steps.push(`Totale: ${imponibile.toFixed(2)}€ + ${iva.toFixed(2)}€ = ${totale.toFixed(2)}€`);
+      } else {
+        totale = importo;
+        imponibile = importo / (1 + aliquota / 100);
+        iva = importo - imponibile;
+        
+        steps.push(`Totale IVA inclusa: ${importo.toFixed(2)}€`);
+        steps.push(`Imponibile: ${importo.toFixed(2)}€ ÷ (1 + ${aliquota}%) = ${imponibile.toFixed(2)}€`);
+        steps.push(`IVA: ${totale.toFixed(2)}€ - ${imponibile.toFixed(2)}€ = ${iva.toFixed(2)}€`);
+      }
+      
+      // Apply rounding
+      if (arrotondamento === 0) {
+        imponibile = Math.round(imponibile);
+        iva = Math.round(iva);
+        totale = Math.round(totale);
+      } else if (arrotondamento === 5) {
+        imponibile = Math.round(imponibile * 20) / 20;
+        iva = Math.round(iva * 20) / 20;
+        totale = Math.round(totale * 20) / 20;
+      } else {
+        imponibile = Math.round(imponibile * 100) / 100;
+        iva = Math.round(iva * 100) / 100;
+        totale = Math.round(totale * 100) / 100;
+      }
+      
+      // Display results
+      const resultsBody = document.getElementById('results-body');
+      resultsBody.innerHTML = `
+        <tr>
+          <td>Imponibile</td>
+          <td class="amount">${imponibile.toFixed(2)}€</td>
+        </tr>
+        <tr>
+          <td>IVA (${aliquota}%)</td>
+          <td class="amount">${iva.toFixed(2)}€</td>
+        </tr>
+        <tr>
+          <td>Totale con IVA</td>
+          <td class="amount">${totale.toFixed(2)}€</td>
+        </tr>
+        <tr>
+          <td>Aliquota applicata</td>
+          <td>${aliquota}%</td>
+        </tr>
+      `;
+      
+      document.getElementById('calculation-steps').innerHTML = 
+        '<strong>Passaggi del calcolo:</strong><br>' + steps.join('<br>');
+      
+      document.getElementById('results').classList.remove('hidden');
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Test cases validation
+    function runTests() {
+      console.log('Running test cases...');
+      
+      // Test 1: Aggiungi IVA
+      const test1 = calculateIVA('aggiungi', 100, 22, 2);
+      console.assert(test1.imponibile === 100 && test1.iva === 22 && test1.totale === 122, 'Test 1 failed');
+      
+      // Test 2: Scorpora IVA
+      const test2 = calculateIVA('scorpora', 122, 22, 2);
+      console.assert(Math.abs(test2.imponibile - 100) < 0.01 && Math.abs(test2.iva - 22) < 0.01, 'Test 2 failed');
+      
+      console.log('Tests completed');
+    }
+    
+    function calculateIVA(operazione, importo, aliquota, decimali) {
+      let imponibile, iva, totale;
+      
+      if (operazione === 'aggiungi') {
+        imponibile = importo;
+        iva = importo * (aliquota / 100);
+        totale = imponibile + iva;
+      } else {
+        totale = importo;
+        imponibile = importo / (1 + aliquota / 100);
+        iva = importo - imponibile;
+      }
+      
+      const factor = Math.pow(10, decimali);
+      return {
+        imponibile: Math.round(imponibile * factor) / factor,
+        iva: Math.round(iva * factor) / factor,
+        totale: Math.round(totale * factor) / factor
+      };
+    }
+    
+    // Run tests on load
+    runTests();
+  </script>
+</body>
+</html>
