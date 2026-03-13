@@ -1,0 +1,126 @@
+{
+  "tools": [
+    {
+      "slug": "calcolatore-mutuo",
+      "title": "Calcolatore Mutuo Online Gratuito",
+      "description": "Calcola la rata del mutuo, gli interessi totali e il piano di ammortamento con il nostro calcolatore gratuito.",
+      "keyword": "calcolatore mutuo",
+      "url": "https://tool4u.org/calcolatore-mutuo.html",
+      "created_at": "2026-03-13T17:20:57.764046",
+      "status": "active",
+      "traffic_30d": 0,
+      "revenue_30d": 0.0,
+      "distributed": true
+    },
+    {
+      "slug": "calcolatore-stipendio-netto",
+      "title": "Calcolatore Stipendio Netto",
+      "description": "Calcola lo stipendio netto dal lordo con IRPEF, contributi e detrazioni",
+      "keyword": "calcolatore stipendio netto",
+      "url": "https://tool4u.org/calcolatore-stipendio-netto.html",
+      "created_at": "2026-03-13T17:20:57.764046",
+      "status": "active",
+      "traffic_30d": 0,
+      "revenue_30d": 0.0,
+      "distributed": true
+    },
+    {
+      "slug": "calcolatore-iva",
+      "title": "Calcolatore IVA",
+      "description": "Calcola IVA, scorporo e aggiunta con tutte le aliquote italiane",
+      "keyword": "calcolatore iva",
+      "url": "https://tool4u.org/calcolatore-iva.html",
+      "created_at": "2026-03-13T17:20:57.764046",
+      "status": "active",
+      "traffic_30d": 0,
+      "revenue_30d": 0.0,
+      "distributed": true
+    },
+    {
+      "slug": "calcolatore-rata-mutuo",
+      "title": "Calcolatore Rata Mutuo - Calcolo Preciso",
+      "description": "Calcola con precisione la rata del mutuo, piano di ammortamento e costi totali. Strumento professionale e gratuito.",
+      "keyword": "calcolatore rata mutuo",
+      "url": "https://tool4u.org/calcolatore-rata-mutuo.html",
+      "created_at": "2026-03-13T17:20:57.764046",
+      "status": "active",
+      "traffic_30d": 0,
+      "revenue_30d": 0.0,
+      "distributed": true
+    },
+    {
+      "slug": "simulatore-rata-mutuo",
+      "title": "Simulatore Rata Mutuo Casa Online",
+      "description": "Simula la rata del mutuo casa con calcolo dettagliato di interessi e piano di ammortamento",
+      "keyword": "simulatore rata mutuo",
+      "url": "https://tool4u.org/simulatore-rata-mutuo.html",
+      "created_at": "2026-03-13T17:20:57.764046",
+      "status": "active",
+      "traffic_30d": 0,
+      "revenue_30d": 0.0,
+      "distributed": true
+    },
+    {
+      "slug": "calcolatore-stipendio-netto-da-ral",
+      "title": "Calcolatore Stipendio Netto da RAL",
+      "description": "Converti la RAL in stipendio netto considerando tasse e contributi",
+      "keyword": "calcolatore stipendio netto da ral",
+      "url": "https://tool4u.org/calcolatore-stipendio-netto-da-ral.html",
+      "created_at": "2026-03-13T17:20:57.764046",
+      "status": "active",
+      "traffic_30d": 0,
+      "revenue_30d": 0.0,
+      "distributed": true
+    },
+    {
+      "slug": "simulatore-mutuo",
+      "title": "Simulatore Mutuo Casa - Calcolo Rate",
+      "description": "Simula diverse soluzioni di mutuo confrontando rate, durate e tassi per trovare la migliore opzione per la tua casa.",
+      "keyword": "simulatore mutuo",
+      "url": "https://tool4u.org/simulatore-mutuo.html",
+      "created_at": "2026-03-13T17:20:57.764046",
+      "status": "active",
+      "traffic_30d": 0,
+      "revenue_30d": 0.0,
+      "distributed": true
+    },
+    {
+      "slug": "simulatore-prestito",
+      "title": "Simulatore Prestito Completo Online",
+      "description": "Simula il prestito ideale con calcolo dettagliato e confronto offerte personalizzato",
+      "keyword": "simulatore prestito",
+      "url": "https://tool4u.org/simulatore-prestito.html",
+      "created_at": "2026-03-13T17:20:57.764046",
+      "status": "active",
+      "traffic_30d": 0,
+      "revenue_30d": 0.0,
+      "distributed": true
+    },
+    {
+      "slug": "calcolatore-rata-prestito",
+      "title": "Calcolatore Rata Prestito Personale",
+      "description": "Calcola la rata del prestito personale, finalizzato o cessione del quinto. Confronta diverse opzioni di finanziamento.",
+      "keyword": "calcolatore rata prestito",
+      "url": "https://tool4u.org/calcolatore-rata-prestito.html",
+      "created_at": "2026-03-13T17:20:57.764046",
+      "status": "active",
+      "traffic_30d": 0,
+      "revenue_30d": 0.0,
+      "distributed": true
+    },
+    {
+      "slug": "calcolatore-rata",
+      "title": "Calcolatore Rata Prestito e Mutuo Online",
+      "description": "Calcola facilmente la rata mensile di prestiti e mutui con il nostro tool gratuito",
+      "keyword": "calcolatore rata",
+      "url": "https://tool4u.org/calcolatore-rata.html",
+      "created_at": "2026-03-13T17:20:57.764046",
+      "status": "active",
+      "traffic_30d": 0,
+      "revenue_30d": 0.0,
+      "distributed": true
+    }
+  ],
+  "last_newsletter": null,
+  "last_analysis": "2026-03-13T17:08:57.676984"
+}
