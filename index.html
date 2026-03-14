@@ -1,55 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Free Online Tools — Calculator, Converter, Generator</title>
-<meta name="description" content="Collection of 12+ free online tools: calculators, converters, generators. No signup, no ads clutter, just useful tools.">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui,sans-serif;max-width:800px;margin:0 auto;padding:2rem 1rem;color:#1a1a2e;line-height:1.6}
-h1{font-size:1.8rem;margin-bottom:0.5rem}
-.subtitle{color:#666;margin-bottom:2rem}
-h2{font-size:1.2rem;margin:1.5rem 0 0.8rem;color:#444;border-bottom:1px solid #eee;padding-bottom:0.3rem}
-.tool-list{list-style:none}
-.tool-list li{margin:0.6rem 0}
-.tool-list a{color:#2563eb;text-decoration:none;font-weight:500}
-.tool-list a:hover{text-decoration:underline}
-.tool-list .desc{color:#666;font-size:0.9rem}
-</style>
-</head>
-<body>
-<h1>Free Online Tools</h1>
-<p class="subtitle">12 free tools — no signup, no clutter.</p>
-<h2>Finance</h2>
-<ul class="tool-list">
-<li><a href="/calcolatore-codice-fiscale.html">Calcolatore Codice Fiscale Online</a> <span class="desc">— Calcola il codice fiscale italiano inserendo nome, cognome, data e luogo di nasc</span></li>
-<li><a href="/calcolatore-codice-fiscale.html">Calcolatore Codice Fiscale Online</a> <span class="desc">— Calcola il codice fiscale italiano inserendo nome, cognome, data e luogo di nasc</span></li>
-</ul>
-<h2>Other</h2>
-<ul class="tool-list">
-<li><a href="/calcolatore-mutuo.html">Calcolatore Mutuo Online Gratuito</a> <span class="desc">— Calcola la rata del mutuo, gli interessi totali e il piano di ammortamento con i</span></li>
-<li><a href="/calcolatore-stipendio-netto.html">Calcolatore Stipendio Netto</a> <span class="desc">— Calcola lo stipendio netto dal lordo con IRPEF, contributi e detrazioni</span></li>
-<li><a href="/calcolatore-iva.html">Calcolatore IVA</a> <span class="desc">— Calcola IVA, scorporo e aggiunta con tutte le aliquote italiane</span></li>
-<li><a href="/calcolatore-rata-mutuo.html">Calcolatore Rata Mutuo - Calcolo Preciso</a> <span class="desc">— Calcola con precisione la rata del mutuo, piano di ammortamento e costi totali. </span></li>
-<li><a href="/simulatore-rata-mutuo.html">Simulatore Rata Mutuo Casa Online</a> <span class="desc">— Simula la rata del mutuo casa con calcolo dettagliato di interessi e piano di am</span></li>
-<li><a href="/calcolatore-stipendio-netto-da-ral.html">Calcolatore Stipendio Netto da RAL</a> <span class="desc">— Converti la RAL in stipendio netto considerando tasse e contributi</span></li>
-<li><a href="/simulatore-mutuo.html">Simulatore Mutuo Casa - Calcolo Rate</a> <span class="desc">— Simula diverse soluzioni di mutuo confrontando rate, durate e tassi per trovare </span></li>
-<li><a href="/simulatore-prestito.html">Simulatore Prestito Completo Online</a> <span class="desc">— Simula il prestito ideale con calcolo dettagliato e confronto offerte personaliz</span></li>
-<li><a href="/calcolatore-rata-prestito.html">Calcolatore Rata Prestito Personale</a> <span class="desc">— Calcola la rata del prestito personale, finalizzato o cessione del quinto. Confr</span></li>
-<li><a href="/calcolatore-rata.html">Calcolatore Rata Prestito e Mutuo Online</a> <span class="desc">— Calcola facilmente la rata mensile di prestiti e mutui con il nostro tool gratui</span></li>
-</ul>
-
-<div id="email-capture" style="margin:2rem 0;padding:1.5rem;background:#f0f4ff;border-radius:8px;text-align:center;">
-<p style="margin-bottom:0.8rem;">Get new tools weekly</p>
-<form id="email-form" onsubmit="return captureEmail(event)" style="display:flex;gap:8px;justify-content:center;">
-<input type="email" placeholder="your@email.com" required style="padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;">
-<button type="submit" style="padding:8px 16px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;">Subscribe</button>
-</form>
-</div>
-<script>
-function captureEmail(e){e.preventDefault();const email=e.target.querySelector('input').value;
-fetch('__NEWSLETTER_ENDPOINT__',{method:'POST',headers:{'Content-Type':'application/json'},
-body:JSON.stringify({email,source:'index'})}).then(()=>{e.target.innerHTML='<p style="color:green">Subscribed!</p>';});return false;}
-</script>
-</body></html>
+<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Tool4U.org - Strumenti Online Gratuiti</title><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Plus Jakarta Sans,system-ui,sans-serif;background:#f7f7f5;color:#111;-webkit-font-smoothing:antialiased}.w{max-width:960px;margin:0 auto;padding:0 1.5rem}.hero{padding:5rem 0 3rem;text-align:center}.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:100px;background:#e8effd;color:#1a56db;font-size:.78rem;font-weight:600;margin-bottom:1.8rem}.dot{width:6px;height:6px;border-radius:50%;background:#1a56db;animation:p 2s infinite}@keyframes p{0%,100%{opacity:1}50%{opacity:.3}}h1{font-size:clamp(2.4rem,6vw,3.8rem);font-weight:800;line-height:1.08;letter-spacing:-.03em;margin-bottom:1.2rem}.ac{color:#1a56db}.hs{font-size:1.15rem;color:#555;max-width:520px;margin:0 auto 2.5rem;line-height:1.55}.sb{position:relative;max-width:520px;margin:0 auto 2rem}.sb input{width:100%;padding:14px 20px 14px 48px;border:2px solid #e8e8e5;border-radius:100px;font-size:1rem;font-family:inherit;background:#fff}.sb input:focus{outline:none;border-color:#1a56db;box-shadow:0 0 0 4px rgba(26,86,219,.08)}.si{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:#888}.mt{display:flex;justify-content:center;gap:3rem}.me{text-align:center}.mv{font-size:1.8rem;font-weight:800}.ml{font-size:.72rem;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:2rem 0 3rem}.card{display:block;padding:18px 20px;background:#fff;border:1px solid #e8e8e5;border-radius:16px;text-decoration:none;color:inherit;transition:transform .12s,box-shadow .12s,border-color .12s}.card:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.06);border-color:#1a56db}.card h3{font-size:.92rem;font-weight:700;margin-bottom:4px}.card p{font-size:.8rem;color:#555;margin-bottom:6px}.cta{font-size:.78rem;color:#1a56db;font-weight:600}.em{display:none;grid-column:1/-1;text-align:center;padding:4rem;color:#888}footer{border-top:1px solid #e8e8e5;padding:2rem 0;text-align:center}footer p{font-size:.78rem;color:#888;margin-bottom:4px}footer a{color:#1a56db;text-decoration:none}@media(max-width:640px){.hero{padding:3rem 0 2rem}.g{grid-template-columns:1fr}}@keyframes su{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}.card{animation:su .35s ease both}.card:nth-child(2){animation-delay:.02s}.card:nth-child(3){animation-delay:.04s}.card:nth-child(4){animation-delay:.06s}.card:nth-child(5){animation-delay:.08s}.card:nth-child(6){animation-delay:.1s}</style></head><body><div class="w"><div class="hero"><div class="pill"><span class="dot"></span> 15 strumenti gratuiti</div><h1>Gli strumenti che<br><span class="ac">funzionano davvero</span></h1><p class="hs">Calcolatori, simulatori e convertitori. Nessun account, nessun dato raccolto. Apri e usa.</p><div class="sb"><svg class="si" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="q" placeholder="Cerca..." oninput="fi()"></div><div class="mt"><div class="me"><div class="mv">15</div><div class="ml">Strumenti</div></div><div class="me"><div class="mv">0 EUR</div><div class="ml">Costo</div></div><div class="me"><div class="mv">0</div><div class="ml">Dati raccolti</div></div></div></div><div class="g" id="g"><a class="card" href="/calcolatore-codice-fiscale.html"><h3>Calcolatore Codice Fiscale Online</h3><p>Calcola il codice fiscale italiano inserendo nome, cognome, data e luogo di nasc</p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/calcolatore-codice-fiscale.html"><h3>Calcolatore Codice Fiscale Online</h3><p>Calcola il codice fiscale italiano inserendo nome, cognome, data e luogo di nasc</p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/calcolatore-iva.html"><h3>Calcolatore IVA</h3><p>Calcola IVA, scorporo e aggiunta con tutte le aliquote italiane</p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/calcolatore-mutuo.html"><h3>Calcolatore Mutuo Online Gratuito</h3><p>Calcola la rata del mutuo, gli interessi totali e il piano di ammortamento con i</p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/calcolatore-prestito-personale.html"><h3>Calcolatore Prestito Personale Online</h3><p>Calcola la rata ideale per il tuo prestito personale con confronto offerte</p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/calcolatore-rata-mutuo.html"><h3>Calcolatore Rata Mutuo - Calcolo Preciso</h3><p>Calcola con precisione la rata del mutuo, piano di ammortamento e costi totali. </p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/calcolatore-rata-prestito.html"><h3>Calcolatore Rata Prestito Personale</h3><p>Calcola la rata del prestito personale, finalizzato o cessione del quinto. Confr</p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/calcolatore-rata.html"><h3>Calcolatore Rata Prestito e Mutuo Online</h3><p>Calcola facilmente la rata mensile di prestiti e mutui con il nostro tool gratui</p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/calcolatore-stipendio-netto.html"><h3>Calcolatore Stipendio Netto</h3><p>Calcola lo stipendio netto dal lordo con IRPEF, contributi e detrazioni</p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/calcolatore-stipendio-netto-da-ral.html"><h3>Calcolatore Stipendio Netto da RAL</h3><p>Converti la RAL in stipendio netto considerando tasse e contributi</p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/simulatore-mutuo.html"><h3>Simulatore Mutuo Casa - Calcolo Rate</h3><p>Simula diverse soluzioni di mutuo confrontando rate, durate e tassi per trovare </p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/simulatore-mutuo-prima-casa.html"><h3>Simulatore Mutuo Prima Casa - Calcola Agevolazioni e Rate</h3><p>Simula il mutuo per la prima casa con tutte le agevolazioni fiscali. Calcola det</p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/simulatore-prestito.html"><h3>Simulatore Prestito Completo Online</h3><p>Simula il prestito ideale con calcolo dettagliato e confronto offerte personaliz</p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/simulatore-rata-mutuo.html"><h3>Simulatore Rata Mutuo Casa Online</h3><p>Simula la rata del mutuo casa con calcolo dettagliato di interessi e piano di am</p><span class="cta">Apri &rarr;</span></a>
+<a class="card" href="/simulatore-rata-prestito.html"><h3>Simulatore Rata Prestito Personale</h3><p>Simula la rata del prestito personale con calcolo di interessi e costi totali</p><span class="cta">Apri &rarr;</span></a>
+</div><div class="em" id="em">Nessuno strumento trovato</div></div><footer><div class="w"><p>Tool4U.org - strumenti online gratuiti</p><p>Nessun cookie di profilazione. Calcoli nel tuo browser.</p><p style="margin-top:8px"><a href="/privacy.html">Privacy</a></p></div></footer><script>function fi(){var q=document.getElementById("q").value.toLowerCase(),c=document.querySelectorAll(".card"),n=0;c.forEach(function(e){var v=e.textContent.toLowerCase().indexOf(q)!==-1;e.style.display=v?"":"none";if(v)n++});document.getElementById("em").style.display=n?"none":"block"}</script></body></html>
