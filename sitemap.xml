@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://tool4u.org/calcolatore-codice-fiscale.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://tool4u.org/calcolatore-iva.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://tool4u.org/calcolatore-mutuo.html</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://tool4u.org/calcolatore-prestito-personale.html</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://tool4u.org/calcolatore-prestito.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://tool4u.org/calcolatore-rata-mutuo.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://tool4u.org/calcolatore-rata-prestito.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://tool4u.org/calcolatore-rata.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://tool4u.org/calcolatore-stipendio-netto-da-ral.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://tool4u.org/calcolatore-stipendio-netto.html</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://tool4u.org/confronto-calcolatore-mutuo-vs-calcolatore-rata-mutuo.html</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://tool4u.org/confronto-calcolatore-rata-mutuo-vs-simulatore-rata-mutuo.html</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://tool4u.org/confronto-calcolatore-stipendio-netto-vs-calcolatore-stipendio-netto-da-ral.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://tool4u.org/</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://tool4u.org/privacy.html</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://tool4u.org/simulatore-mutuo-prima-casa.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://tool4u.org/simulatore-mutuo.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://tool4u.org/simulatore-prestito.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://tool4u.org/simulatore-rata-mutuo.html</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://tool4u.org/simulatore-rata-prestito.html</loc><changefreq>weekly</changefreq></url>
 </urlset>
