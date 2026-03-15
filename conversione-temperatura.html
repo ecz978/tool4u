@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convertitore Temperatura Online - Celsius Fahrenheit Kelvin</title>
+  <meta name="description" content="Converti temperature tra Celsius, Fahrenheit e Kelvin. Immediato e gratuito.">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Convertitore Temperatura",
+    "description": "Converti temperature tra Celsius, Fahrenheit e Kelvin",
+    "url": "https://tool4u.org/conversione-temperatura",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Any modern browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --success: #10b981;
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .tool-header {
+      text-align: center;
+      padding: 2rem 0;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      margin-bottom: 2rem;
+    }
+
+    .tool-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .ad-slot {
+      background: var(--surface);
+      border: 2px dashed var(--border);
+      padding: 2rem;
+      text-align: center;
+      margin: 2rem 0;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .form-container {
+      background: var(--surface);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.875rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    button {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+    }
+
+    .results {
+      background: white;
+      border: 2px solid var(--success);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .result-main {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--success);
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .temperature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .temp-card {
+      background: var(--surface);
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .temp-card h4 {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .temp-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .explanation {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      margin: 2rem 0;
+    }
+
+    .explanation h2 {
+      color: var(--text);
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+
+    .explanation p {
+      margin-bottom: 1rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    .email-capture {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .email-capture p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .email-capture form {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .email-capture input {
+      flex: 1;
+      border: none;
+    }
+
+    .email-capture button {
+      background: white;
+      color: var(--primary);
+      padding: 0.875rem 1.5rem;
+      width: auto;
+    }
+
+    .footer {
+      background: var(--surface);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .tool-header h1 {
+        font-size: 2rem;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .email-capture form {
+        flex-direction: column;
+      }
+      
+      .email-capture button {
+        width: 100%;
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;">
+    <a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a>
+  </div>
+
+  <div class="tool-header">
+    <div class="container">
+      <h1>Convertitore Temperatura</h1>
+      <p>Converti temperature tra Celsius, Fahrenheit e Kelvin</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="form-container">
+      <form id="tempForm">
+        <div class="form-group">
+          <label for="temperatura">Temperatura</label>
+          <input type="number" id="temperatura" step="any" placeholder="100" required>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="da">Da</label>
+            <select id="da" required>
+              <option value="Celsius">Celsius (°C)</option>
+              <option value="Fahrenheit">Fahrenheit (°F)</option>
+              <option value="Kelvin">Kelvin (K)</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="a">A</label>
+            <select id="a" required>
+              <option value="Celsius">Celsius (°C)</option>
+              <option value="Fahrenheit" selected>Fahrenheit (°F)</option>
+              <option value="Kelvin">Kelvin (K)</option>
+            </select>
+          </div>
+        </div>
+        
+        <button type="submit">Converti Temperatura</button>
+      </form>
+
+      <div id="results" class="results hidden">
+        <div class="result-main" id="mainResult"></div>
+        <div class="temperature-grid">
+          <div class="temp-card">
+            <h4>Celsius</h4>
+            <div class="temp-value" id="celsiusValue">-</div>
+          </div>
+          <div class="temp-card">
+            <h4>Fahrenheit</h4>
+            <div class="temp-value" id="fahrenheitValue">-</div>
+          </div>
+          <div class="temp-card">
+            <h4>Kelvin</h4>
+            <div class="temp-value" id="kelvinValue">-</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="explanation">
+      <h2>Come Funziona la Conversione di Temperatura</h2>
+      <p>
+        Il nostro convertitore di temperatura permette di convertire facilmente tra le tre principali scale di temperatura: 
+        Celsius, Fahrenheit e Kelvin. Ogni scala ha le sue caratteristiche e utilizzi specifici.
+      </p>
+      <p>
+        <strong>Scala Celsius (°C):</strong> Utilizzata principalmente in Europa e nella maggior parte del mondo. 
+        Il punto di congelamento dell'acqua è 0°C e il punto di ebollizione è 100°C.
+      </p>
+      <p>
+        <strong>Scala Fahrenheit (°F):</strong> Utilizzata principalmente negli Stati Uniti. 
+        Il punto di congelamento dell'acqua è 32°F e il punto di ebollizione è 212°F.
+      </p>
+      <p>
+        <strong>Scala Kelvin (K):</strong> Utilizzata principalmente in ambito scientifico. 
+        È una scala assoluta che inizia dal zero assoluto (-273.15°C).
+      </p>
+      <p>
+        Le formule di conversione utilizzate sono: Celsius a Fahrenheit (C × 9/5) + 32, 
+        Fahrenheit a Celsius (F - 32) × 5/9, Celsius a Kelvin C + 273.15, Kelvin a Celsius K - 273.15.
+      </p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.easyship.com/?ref=XXXXX" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → International shipping calculator</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo strumento è fornito solo a scopo informativo. 
+      Verifica sempre i risultati per applicazioni critiche.</p>
+      <p>© 2024 Tool4U.org - Convertitore Temperatura Online</p>
+    </div>
+  </div>
+
+  <script>
+    function celsiusToFahrenheit(c) {
+      return (c * 9/5) + 32;
+    }
+
+    function fahrenheitToCelsius(f) {
+      return (f - 32) * 5/9;
+    }
+
+    function celsiusToKelvin(c) {
+      return c + 273.15;
+    }
+
+    function kelvinToCelsius(k) {
+      return k - 273.15;
+    }
+
+    function fahrenheitToKelvin(f) {
+      return celsiusToKelvin(fahrenheitToCelsius(f));
+    }
+
+    function kelvinToFahrenheit(k) {
+      return celsiusToFahrenheit(kelvinToCelsius(k));
+    }
+
+    function convertTemperature(value, from, to) {
+      let celsius, fahrenheit, kelvin;
+      
+      // Prima converti tutto in Celsius come base
+      if (from === 'Celsius') {
+        celsius = value;
+      } else if (from === 'Fahrenheit') {
+        celsius = fahrenheitToCelsius(value);
+      } else if (from === 'Kelvin') {
+        celsius = kelvinToCelsius(value);
+      }
+      
+      // Poi converti da Celsius alle altre scale
+      fahrenheit = celsiusToFahrenheit(celsius);
+      kelvin = celsiusToKelvin(celsius);
+      
+      // Determina il risultato principale
+      let result;
+      if (to === 'Celsius') {
+        result = celsius;
+      } else if (to === 'Fahrenheit') {
+        result = fahrenheit;
+      } else if (to === 'Kelvin') {
+        result = kelvin;
+      }
+      
+      return {
+        result: result,
+        celsius: celsius,
+        fahrenheit: fahrenheit,
+        kelvin: kelvin
+      };
+    }
+
+    function formatTemperature(value, unit) {
+      const formatted = Math.round(value * 100) / 100;
+      let symbol;
+      switch(unit) {
+        case 'Celsius': symbol = '°C'; break;
+        case 'Fahrenheit': symbol = '°F'; break;
+        case 'Kelvin': symbol = 'K'; break;
+        default: symbol = '';
+      }
+      return `${formatted}${symbol}`;
+    }
+
+    document.getElementById('tempForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const valore = parseFloat(document.getElementById('temperatura').value);
+      const da = document.getElementById('da').value;
+      const a = document.getElementById('a').value;
+      
+      if (isNaN(valore)) {
+        alert('Inserisci un valore numerico valido');
+        return;
+      }
+      
+      const conversion = convertTemperature(valore, da, a);
+      
+      // Mostra risultato principale
+      const mainResult = formatTemperature(conversion.result, a);
+      document.getElementById('mainResult').textContent = mainResult;
+      
+      // Mostra tutte le temperature
+      document.getElementById('celsiusValue').textContent = formatTemperature(conversion.celsius, 'Celsius');
+      document.getElementById('fahrenheitValue').textContent = formatTemperature(conversion.fahrenheit, 'Fahrenheit');
+      document.getElementById('kelvinValue').textContent = formatTemperature(conversion.kelvin, 'Kelvin');
+      
+      // Mostra i risultati
+      document.getElementById('results').classList.remove('hidden');
+    });
+
+    // Auto-conversione quando cambia input
+    document.getElementById('temperatura').addEventListener('input', function() {
+      if (this.value) {
+        document.getElementById('tempForm').dispatchEvent(new Event('submit'));
+      }
+    });
+
+    document.getElementById('da').addEventListener('change', function() {
+      if (document.getElementById('temperatura').value) {
+        document.getElementById('tempForm').dispatchEvent(new Event('submit'));
+      }
+    });
+
+    document.getElementById('a').addEventListener('change', function() {
+      if (document.getElementById('temperatura').value) {
+        document.getElementById('tempForm').dispatchEvent(new Event('submit'));
+      }
+    });
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'conversione-temperatura'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto!</p>';
+      });
+      return false;
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
