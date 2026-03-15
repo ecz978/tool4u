@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codifica Decodifica Base64 Online - Tool Gratuito</title>
+  <meta name="description" content="Codifica e decodifica Base64 online gratis. Incolla il testo e converti istantaneamente. Tool veloce e sicuro per encoding/decoding Base64.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Codifica Decodifica Base64 Online",
+    "description": "Tool online gratuito per codificare e decodificare testo in formato Base64",
+    "url": "https://tool4u.org/codifica-decodifica-base64",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "permissions": "browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --success-color: #059669;
+  --error-color: #dc2626;
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-color: #1f2937;
+  --text-muted: #6b7280;
+  --border-color: #e5e7eb;
+  --border-radius: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background: var(--bg-color);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem 0;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  margin: 0 0 1rem;
+  color: var(--primary-color);
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.ad-slot {
+  background: #f0f0f0;
+  border: 2px dashed #ccc;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  border-radius: var(--border-radius);
+  color: var(--text-muted);
+}
+
+.tool-body {
+  background: var(--surface-color);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: 'Courier New', monospace;
+}
+
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+}
+
+.btn:disabled {
+  background: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.btn-copy {
+  background: var(--success-color);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.btn-copy:hover {
+  background: #047857;
+}
+
+.result-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--border-color);
+}
+
+.result-box {
+  background: #f9fafb;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  min-height: 120px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+  position: relative;
+}
+
+.error {
+  color: var(--error-color);
+  background: #fef2f2;
+  border-color: var(--error-color);
+}
+
+.success {
+  color: var(--success-color);
+}
+
+.tool-explanation {
+  background: var(--surface-color);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.tool-explanation h2 {
+  color: var(--primary-color);
+  margin-top: 0;
+}
+
+.tool-explanation h3 {
+  color: var(--text-color);
+  margin-top: 1.5rem;
+}
+
+.tool-explanation ul {
+  padding-left: 1.5rem;
+}
+
+.tool-explanation li {
+  margin-bottom: 0.5rem;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  color: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.email-capture p {
+  font-size: 1.1rem;
+  margin: 0 0 1rem;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: white;
+  color: var(--primary-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.email-capture button:hover {
+  opacity: 0.9;
+}
+
+.tool-footer {
+  background: var(--surface-color);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tool-body,
+  .tool-explanation {
+    padding: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+
+  <div class="container">
+    <div class="tool-header">
+      <h1>Codifica/Decodifica Base64 Online</h1>
+      <p>Converti testo in Base64 e viceversa in modo rapido e sicuro</p>
+    </div>
+
+    <div id="ad-slot-top" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="base64Form">
+        <div class="form-group">
+          <label for="inputText">Testo</label>
+          <textarea id="inputText" placeholder="Inserisci il testo..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="action">Azione</label>
+          <select id="action" required>
+            <option value="">Seleziona azione</option>
+            <option value="encode">Codifica (Testo → Base64)</option>
+            <option value="decode">Decodifica (Base64 → Testo)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn">Converti</button>
+      </form>
+
+      <div id="result-section" class="result-section" style="display: none;">
+        <h3>Risultato:</h3>
+        <div id="result" class="result-box"></div>
+        <button id="copyBtn" class="btn btn-copy" onclick="copyResult()">Copia Risultato</button>
+      </div>
+    </div>
+
+    <div id="ad-slot-middle" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come funziona la codifica Base64</h2>
+      
+      <p>Base64 è un sistema di codifica che converte dati binari in testo ASCII utilizzando un set di 64 caratteri. È ampiamente utilizzato per trasmettere dati attraverso protocolli che gestiscono solo testo.</p>
+
+      <h3>Quando utilizzare Base64</h3>
+      <ul>
+        <li><strong>Email:</strong> Per allegare file binari in formato testo</li>
+        <li><strong>Web Development:</strong> Per incorporare immagini in CSS/HTML</li>
+        <li><strong>API:</strong> Per trasmettere dati binari via JSON</li>
+        <li><strong>URL:</strong> Per codificare parametri con caratteri speciali</li>
+        <li><strong>Database:</strong> Per memorizzare dati binari in campi testo</li>
+      </ul>
+
+      <h3>Caratteristiche del Base64</h3>
+      <ul>
+        <li>Utilizza 64 caratteri: A-Z, a-z, 0-9, +, /</li>
+        <li>Padding con "=" per completare gruppi di 4 caratteri</li>
+        <li>Aumenta la dimensione del dato del ~33%</li>
+        <li>È reversibile: puoi sempre decodificare</li>
+        <li>Non è crittografia: è solo una codifica</li>
+      </ul>
+
+      <h3>Esempi pratici</h3>
+      <p><strong>Testo:</strong> "Ciao mondo!" → <strong>Base64:</strong> "Q2lhbyBtb25kbyE="</p>
+      <p><strong>Base64:</strong> "SGVsbG8gV29ybGQ=" → <strong>Testo:</strong> "Hello World"</p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/s?k=tastiera+ergonomica&tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Tastiere ergonomiche su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> Questo tool esegue la conversione localmente nel tuo browser. I tuoi dati non vengono inviati a server esterni, garantendo privacy e sicurezza.</p>
+      <p>© 2024 Tool4U.org - Tool gratuito per codifica e decodifica Base64</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('base64Form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      processBase64();
+    });
+
+    function processBase64() {
+      const inputText = document.getElementById('inputText').value.trim();
+      const action = document.getElementById('action').value;
+      const resultSection = document.getElementById('result-section');
+      const resultDiv = document.getElementById('result');
+
+      if (!inputText || !action) {
+        alert('Inserisci il testo e seleziona un\'azione');
+        return;
+      }
+
+      let result = '';
+      let isError = false;
+
+      try {
+        if (action === 'encode') {
+          // Codifica: gestisce caratteri Unicode correttamente
+          result = btoa(unescape(encodeURIComponent(inputText)));
+        } else if (action === 'decode') {
+          // Decodifica: gestisce caratteri Unicode correttamente
+          result = decodeURIComponent(escape(atob(inputText)));
+        }
+      } catch (error) {
+        result = 'Errore: Input non valido per la decodifica Base64. Verifica che il testo inserito sia in formato Base64 corretto.';
+        isError = true;
+      }
+
+      // Mostra il risultato
+      resultDiv.textContent = result;
+      resultDiv.className = isError ? 'result-box error' : 'result-box';
+      resultSection.style.display = 'block';
+
+      // Scroll al risultato
+      resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function copyResult() {
+      const resultText = document.getElementById('result').textContent;
+      
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(resultText).then(() => {
+          showCopySuccess();
+        }).catch(() => {
+          fallbackCopy(resultText);
+        });
+      } else {
+        fallbackCopy(resultText);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      
+      try {
+        document.execCommand('copy');
+        showCopySuccess();
+      } catch (err) {
+        alert('Impossibile copiare automaticamente. Seleziona e copia manualmente il testo.');
+      }
+      
+      textArea.remove();
+    }
+
+    function showCopySuccess() {
+      const copyBtn = document.getElementById('copyBtn');
+      const originalText = copyBtn.textContent;
+      copyBtn.textContent = 'Copiato!';
+      copyBtn.style.background = '#059669';
+      
+      setTimeout(() => {
+        copyBtn.textContent = originalText;
+        copyBtn.style.background = '';
+      }, 2000);
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'codifica-decodifica-base64'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white;margin:0;">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white;margin:0;">Iscritto con successo!</p>';
+      });
+      return false;
+    }
+
+    // Auto-resize textarea
+    document.getElementById('inputText').addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.max(120, this.scrollHeight) + 'px';
+    });
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/generatore-password.html" style="color:#2563eb;text-decoration:none;">Generatore Password Sicure</a></li>
+<li style="margin:0.5rem 0;"><a href="/conta-parole.html" style="color:#2563eb;text-decoration:none;">Conta Parole e Caratteri</a></li>
+<li style="margin:0.5rem 0;"><a href="/generatore-lorem-ipsum.html" style="color:#2563eb;text-decoration:none;">Generatore Lorem Ipsum</a></li>
+<li style="margin:0.5rem 0;"><a href="/generatore-qr-code.html" style="color:#2563eb;text-decoration:none;">Generatore QR Code</a></li>
+</ul>
+</div>
+</body>
+</html>
