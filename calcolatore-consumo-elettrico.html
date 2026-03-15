@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Consumo Elettrico Online - Calcolatore Costo Elettrodomestici</title>
+  <meta name="description" content="Calcola quanto consuma e costa un elettrodomestico. Inserisci watt e ore di utilizzo per scoprire il consumo elettrico giornaliero, mensile e annuale.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Consumo Elettrico",
+    "description": "Calcola il consumo e il costo elettrico dei tuoi elettrodomestici",
+    "url": "https://tool4u.org/calcolatore-consumo-elettrico",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "HTML5, CSS3, JavaScript",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --success: #059669;
+  --warning: #d97706;
+  --error: #dc2626;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-900: #111827;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--gray-700);
+  background: var(--gray-50);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  background: white;
+  padding: 2rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  color: var(--gray-600);
+}
+
+.tool-body {
+  background: white;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.form-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--gray-700);
+}
+
+.form-group input {
+  padding: 0.75rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.presets {
+  margin-bottom: 2rem;
+}
+
+.presets h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--gray-900);
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+.preset-btn {
+  background: var(--gray-100);
+  border: 2px solid var(--gray-200);
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.preset-btn:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.results {
+  background: var(--gray-50);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
+.results h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--gray-900);
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.result-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.result-card h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gray-600);
+  margin-bottom: 0.5rem;
+}
+
+.result-card .value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.result-card .unit {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+}
+
+.ad-slot {
+  background: var(--gray-100);
+  border: 2px dashed var(--gray-300);
+  padding: 2rem;
+  margin: 2rem 0;
+  border-radius: 8px;
+  text-align: center;
+  color: var(--gray-600);
+  font-size: 0.9rem;
+}
+
+.tool-explanation {
+  background: white;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.tool-explanation h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: var(--gray-900);
+}
+
+.tool-explanation h3 {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--gray-900);
+}
+
+.tool-explanation p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+.tool-explanation ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.tool-explanation li {
+  margin-bottom: 0.5rem;
+}
+
+.email-capture {
+  background: white;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.email-capture p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--gray-700);
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.email-capture button:hover {
+  background: var(--primary-dark);
+}
+
+.tool-footer {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+  
+  .preset-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+  
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Consumo Elettrico</h1>
+      <p>Calcola il consumo e il costo elettrico dei tuoi elettrodomestici</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio Pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <div class="presets">
+        <h3>Elettrodomestici Comuni</h3>
+        <div class="preset-grid">
+          <div class="preset-btn" onclick="setPreset(2000, 2)">
+            <div><strong>Lavatrice</strong></div>
+            <div>2000W - 2h/giorno</div>
+          </div>
+          <div class="preset-btn" onclick="setPreset(150, 24)">
+            <div><strong>Frigorifero</strong></div>
+            <div>150W - 24h/giorno</div>
+          </div>
+          <div class="preset-btn" onclick="setPreset(2500, 1)">
+            <div><strong>Forno</strong></div>
+            <div>2500W - 1h/giorno</div>
+          </div>
+          <div class="preset-btn" onclick="setPreset(1200, 8)">
+            <div><strong>Condizionatore</strong></div>
+            <div>1200W - 8h/giorno</div>
+          </div>
+          <div class="preset-btn" onclick="setPreset(2200, 0.5)">
+            <div><strong>Lavastoviglie</strong></div>
+            <div>2200W - 0.5h/giorno</div>
+          </div>
+          <div class="preset-btn" onclick="setPreset(100, 8)">
+            <div><strong>TV LED</strong></div>
+            <div>100W - 8h/giorno</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="watt">Potenza (Watt)</label>
+          <input type="number" id="watt" placeholder="2000" min="1" step="1">
+        </div>
+        <div class="form-group">
+          <label for="ore">Ore uso al giorno</label>
+          <input type="number" id="ore" placeholder="3" min="0" step="0.1">
+        </div>
+        <div class="form-group">
+          <label for="costo_kwh">Costo kWh (EUR)</label>
+          <input type="number" id="costo_kwh" placeholder="0.25" min="0" step="0.01">
+        </div>
+      </div>
+
+      <div id="results" class="results" style="display: none;">
+        <h3>Risultati Consumo Elettrico</h3>
+        <div class="result-grid">
+          <div class="result-card">
+            <h4>Consumo Giornaliero</h4>
+            <div class="value" id="consumo-giorno">0</div>
+            <div class="unit">kWh</div>
+          </div>
+          <div class="result-card">
+            <h4>Costo Giornaliero</h4>
+            <div class="value" id="costo-giorno">€0.00</div>
+          </div>
+          <div class="result-card">
+            <h4>Consumo Mensile</h4>
+            <div class="value" id="consumo-mese">0</div>
+            <div class="unit">kWh</div>
+          </div>
+          <div class="result-card">
+            <h4>Costo Mensile</h4>
+            <div class="value" id="costo-mese">€0.00</div>
+          </div>
+          <div class="result-card">
+            <h4>Consumo Annuale</h4>
+            <div class="value" id="consumo-anno">0</div>
+            <div class="unit">kWh</div>
+          </div>
+          <div class="result-card">
+            <h4>Costo Annuale</h4>
+            <div class="value" id="costo-anno">€0.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio Pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come Funziona il Calcolatore di Consumo Elettrico</h2>
+      
+      <p>Il nostro calcolatore ti permette di stimare con precisione il consumo energetico e i costi elettrici dei tuoi elettrodomestici. È uno strumento essenziale per gestire meglio i consumi domestici e ridurre la bolletta elettrica.</p>
+
+      <h3>Come Calcolare il Consumo Elettrico</h3>
+      <p>Il calcolo del consumo elettrico si basa su una formula semplice:</p>
+      <ul>
+        <li><strong>Consumo giornaliero (kWh) = Potenza (Watt) × Ore di utilizzo ÷ 1000</strong></li>
+        <li><strong>Costo giornaliero = Consumo (kWh) × Prezzo kWh</strong></li>
+        <li><strong>Consumo mensile = Consumo giornaliero × 30</strong></li>
+        <li><strong>Consumo annuale = Consumo giornaliero × 365</strong></li>
+      </ul>
+
+      <h3>Elettrodomestici e Consumi Tipici</h3>
+      <p>Ogni elettrodomestico ha un consumo diverso:</p>
+      <ul>
+        <li><strong>Frigorifero:</strong> 100-200W, funziona 24h/giorno</li>
+        <li><strong>Lavatrice:</strong> 1800-2500W, 2-3 ore al giorno</li>
+        <li><strong>Condizionatore:</strong> 800-1500W, 6-10 ore al giorno</li>
+        <li><strong>Forno elettrico:</strong> 2000-3000W, 1-2 ore al giorno</li>
+        <li><strong>TV LED:</strong> 80-150W, 6-8 ore al giorno</li>
+        <li><strong>Lavastoviglie:</strong> 2000-2500W, 1-2 ore al giorno</li>
+      </ul>
+
+      <h3>Consigli per Risparmiare Energia</h3>
+      <ul>
+        <li>Utilizza elettrodomestici ad alta efficienza energetica (classe A+++)</li>
+        <li>Spegni completamente i dispositivi quando non li usi</li>
+        <li>Usa il condizionatore con moderazione e imposta temperature ragionevoli</li>
+        <li>Ottimizza l'uso della lavatrice e lavastoviglie con carichi pieni</li>
+        <li>Sostituisci le lampadine tradizionali con LED a basso consumo</li>
+      </ul>
+
+      <h3>Perché È Importante Conoscere i Consumi</h3>
+      <p>Monitorare il consumo elettrico dei tuoi elettrodomestici ti aiuta a:</p>
+      <ul>
+        <li>Ridurre la bolletta elettrica identificando gli apparecchi più energivori</li>
+        <li>Scegliere elettrodomestici più efficienti al momento dell'acquisto</li>
+        <li>Programmare l'utilizzo degli apparecchi negli orari di tariffa più conveniente</li>
+        <li>Contribuire alla sostenibilità ambientale riducendo lo spreco di energia</li>
+      </ul>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/deals?tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Scopri le offerte del giorno su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio Pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> I calcoli forniti sono stime basate sui dati inseriti. I consumi reali possono variare in base all'efficienza dell'elettrodomestico, condizioni di utilizzo e altri fattori. Consultare sempre le specifiche del produttore per dati precisi.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Tutti i diritti riservati</p>
+    </div>
+  </div>
+
+  <script>
+    function setPreset(watt, ore) {
+      document.getElementById('watt').value = watt;
+      document.getElementById('ore').value = ore;
+      if (!document.getElementById('costo_kwh').value) {
+        document.getElementById('costo_kwh').value = '0.25';
+      }
+      calculateConsumption();
+    }
+
+    function calculateConsumption() {
+      const watt = parseFloat(document.getElementById('watt').value);
+      const ore = parseFloat(document.getElementById('ore').value);
+      const costoKwh = parseFloat(document.getElementById('costo_kwh').value);
+
+      if (!watt || !ore || !costoKwh || watt <= 0 || ore < 0 || costoKwh <= 0) {
+        document.getElementById('results').style.display = 'none';
+        return;
+      }
+
+      // Calcolo consumo giornaliero in kWh
+      const consumoGiorno = (watt * ore) / 1000;
+      const costoGiorno = consumoGiorno * costoKwh;
+      
+      // Calcoli mensili e annuali
+      const consumoMese = consumoGiorno * 30;
+      const costoMese = costoGiorno * 30;
+      const consumoAnno = consumoGiorno * 365;
+      const costoAnno = costoGiorno * 365;
+
+      // Aggiornamento risultati
+      document.getElementById('consumo-giorno').textContent = consumoGiorno.toFixed(2);
+      document.getElementById('costo-giorno').textContent = '€' + costoGiorno.toFixed(2);
+      document.getElementById('consumo-mese').textContent = consumoMese.toFixed(1);
+      document.getElementById('costo-mese').textContent = '€' + costoMese.toFixed(2);
+      document.getElementById('consumo-anno').textContent = consumoAnno.toFixed(0);
+      document.getElementById('costo-anno').textContent = '€' + costoAnno.toFixed(2);
+
+      document.getElementById('results').style.display = 'block';
+    }
+
+    // Event listeners per calcolo automatico
+    document.getElementById('watt').addEventListener('input', calculateConsumption);
+    document.getElementById('ore').addEventListener('input', calculateConsumption);
+    document.getElementById('costo_kwh').addEventListener('input', calculateConsumption);
+
+    // Impostazione valore predefinito costo kWh
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!document.getElementById('costo_kwh').value) {
+        document.getElementById('costo_kwh').value = '0.25';
+      }
+    });
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-consumo-elettrico'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-sconto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Sconto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-divisione-spese.html" style="color:#2563eb;text-decoration:none;">Calcolatore Divisione Spese</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mancia.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mancia</a></li>
+</ul>
+</div>
+</body>
+</html>
