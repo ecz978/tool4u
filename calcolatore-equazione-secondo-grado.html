@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Risolutore Equazione Secondo Grado Online - Calcola le Soluzioni</title>
+  <meta name="description" content="Risolvi equazioni di secondo grado online. Inserisci a, b, c e ottieni le soluzioni con i passaggi della formula risolutiva.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Risolutore Equazione Secondo Grado",
+    "description": "Tool online per risolvere equazioni di secondo grado con formula risolutiva",
+    "url": "https://tool4u.org/calcolatore-equazione-secondo-grado",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All"
+  }
+  </script>
+
+<style>
+:root {
+  --primary-color: #2563eb;
+  --success-color: #059669;
+  --error-color: #dc2626;
+  --warning-color: #d97706;
+  --background: #ffffff;
+  --surface: #f8fafc;
+  --text: #1f2937;
+  --text-light: #6b7280;
+  --border: #e5e7eb;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-lg: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--background);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+.ad-slot {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-light);
+  margin: 2rem 0;
+  border-radius: 8px;
+}
+
+.tool-body {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.equation-display {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin: 1.5rem 0;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+}
+
+.btn {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+  width: 100%;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+}
+
+.result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid var(--border);
+}
+
+.result.success {
+  border-color: var(--success-color);
+  background: #f0fdf4;
+}
+
+.result.warning {
+  border-color: var(--warning-color);
+  background: #fffbeb;
+}
+
+.result.error {
+  border-color: var(--error-color);
+  background: #fef2f2;
+}
+
+.result h3 {
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.steps {
+  list-style: none;
+  counter-reset: step-counter;
+}
+
+.steps li {
+  counter-increment: step-counter;
+  margin-bottom: 0.5rem;
+  padding-left: 2rem;
+  position: relative;
+}
+
+.steps li:before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: var(--primary-color);
+  color: white;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.solutions {
+  background: #f0fdf4;
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+}
+
+.explanation {
+  margin: 3rem 0;
+  padding: 2rem;
+  background: var(--surface);
+  border-radius: 12px;
+}
+
+.explanation h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.explanation p, .explanation li {
+  margin-bottom: 0.8rem;
+}
+
+.explanation ul {
+  padding-left: 1.5rem;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: white;
+  color: var(--primary-color);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+
+  <div class="container">
+    <div class="tool-header">
+      <h1>Risolutore Equazione di Secondo Grado</h1>
+      <p>Risolvi equazioni di secondo grado ax² + bx + c = 0 con la formula risolutiva</p>
+    </div>
+
+    <div id="ad-slot-top" class="ad-slot">
+      [Spazio Pubblicitario]
+    </div>
+
+    <div class="tool-body">
+      <form id="equation-form">
+        <div class="equation-display">
+          <span id="coefficient-a">a</span>x² + <span id="coefficient-b">b</span>x + <span id="coefficient-c">c</span> = 0
+        </div>
+
+        <div class="form-group">
+          <label for="a">Coefficiente a</label>
+          <input type="number" id="a" name="a" placeholder="1" step="any" required>
+        </div>
+
+        <div class="form-group">
+          <label for="b">Coefficiente b</label>
+          <input type="number" id="b" name="b" placeholder="-5" step="any">
+        </div>
+
+        <div class="form-group">
+          <label for="c">Coefficiente c</label>
+          <input type="number" id="c" name="c" placeholder="6" step="any">
+        </div>
+
+        <button type="submit" class="btn">Risolvi Equazione</button>
+      </form>
+
+      <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <div id="ad-slot-middle" class="ad-slot">
+      [Spazio Pubblicitario]
+    </div>
+
+    <div class="explanation">
+      <h2>Come Funziona il Risolutore di Equazioni di Secondo Grado</h2>
+      <p>Un'equazione di secondo grado (o quadratica) ha la forma generale <strong>ax² + bx + c = 0</strong>, dove a, b e c sono coefficienti e a ≠ 0.</p>
+      
+      <h3>Formula Risolutiva</h3>
+      <p>Le soluzioni si calcolano con la formula: <strong>x = (-b ± √Δ) / 2a</strong></p>
+      <p>Dove il <strong>discriminante Δ = b² - 4ac</strong> determina il tipo di soluzioni:</p>
+      
+      <ul>
+        <li><strong>Δ > 0:</strong> Due soluzioni reali e distinte</li>
+        <li><strong>Δ = 0:</strong> Una soluzione reale doppia</li>
+        <li><strong>Δ < 0:</strong> Due soluzioni complesse coniugate</li>
+      </ul>
+
+      <h3>Esempi Pratici</h3>
+      <p><strong>Esempio 1:</strong> x² - 5x + 6 = 0</p>
+      <p>a = 1, b = -5, c = 6 → Δ = 25 - 24 = 1 → x₁ = 3, x₂ = 2</p>
+      
+      <p><strong>Esempio 2:</strong> x² - 4x + 4 = 0</p>
+      <p>a = 1, b = -4, c = 4 → Δ = 16 - 16 = 0 → x = 2 (doppia)</p>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">
+      [Spazio Pubblicitario]
+    </div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo strumento fornisce calcoli matematici per scopi educativi. Verifica sempre i risultati per applicazioni critiche.</p>
+      <p>© 2024 Tool4U.org - Strumenti online gratuiti</p>
+    </div>
+  </div>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-equazione-secondo-grado'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:rgba(255,255,255,0.9)">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:rgba(255,255,255,0.9)">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    function updateEquationDisplay() {
+      const a = document.getElementById('a').value || 'a';
+      const b = document.getElementById('b').value || 'b';
+      const c = document.getElementById('c').value || 'c';
+      
+      document.getElementById('coefficient-a').textContent = a;
+      document.getElementById('coefficient-b').textContent = b;
+      document.getElementById('coefficient-c').textContent = c;
+    }
+
+    function formatNumber(num) {
+      if (Number.isInteger(num)) {
+        return num.toString();
+      }
+      return Number(num.toFixed(6)).toString();
+    }
+
+    function formatComplex(real, imaginary) {
+      const realStr = formatNumber(real);
+      const imagStr = formatNumber(Math.abs(imaginary));
+      const sign = imaginary >= 0 ? '+' : '-';
+      return `${realStr} ${sign} ${imagStr}i`;
+    }
+
+    function solveQuadratic(a, b, c) {
+      // Calcola il discriminante
+      const delta = b * b - 4 * a * c;
+      
+      const steps = [
+        `Equazione: ${formatNumber(a)}x² + ${formatNumber(b)}x + ${formatNumber(c)} = 0`,
+        `Calcolo del discriminante: Δ = b² - 4ac`,
+        `Δ = (${formatNumber(b)})² - 4(${formatNumber(a)})(${formatNumber(c)})`,
+        `Δ = ${formatNumber(b * b)} - ${formatNumber(4 * a * c)}`,
+        `Δ = ${formatNumber(delta)}`
+      ];
+
+      let resultClass, solutions, solutionText;
+
+      if (delta > 0) {
+        // Due soluzioni reali distinte
+        const sqrtDelta = Math.sqrt(delta);
+        const x1 = (-b + sqrtDelta) / (2 * a);
+        const x2 = (-b - sqrtDelta) / (2 * a);
+        
+        steps.push(
+          `Δ > 0: due soluzioni reali distinte`,
+          `x = (-b ± √Δ) / 2a`,
+          `x = (${formatNumber(-b)} ± √${formatNumber(delta)}) / ${formatNumber(2 * a)}`,
+          `x = (${formatNumber(-b)} ± ${formatNumber(sqrtDelta)}) / ${formatNumber(2 * a)}`,
+          `x₁ = (${formatNumber(-b)} + ${formatNumber(sqrtDelta)}) / ${formatNumber(2 * a)} = ${formatNumber(x1)}`,
+          `x₂ = (${formatNumber(-b)} - ${formatNumber(sqrtDelta)}) / ${formatNumber(2 * a)} = ${formatNumber(x2)}`
+        );
+        
+        resultClass = 'success';
+        solutions = [x1, x2];
+        solutionText = `x₁ = ${formatNumber(x1)}, x₂ = ${formatNumber(x2)}`;
+      } else if (delta === 0) {
+        // Una soluzione reale (radice doppia)
+        const x = -b / (2 * a);
+        
+        steps.push(
+          `Δ = 0: una soluzione reale (radice doppia)`,
+          `x = -b / 2a`,
+          `x = ${formatNumber(-b)} / ${formatNumber(2 * a)}`,
+          `x = ${formatNumber(x)}`
+        );
+        
+        resultClass = 'warning';
+        solutions = [x];
+        solutionText = `x = ${formatNumber(x)} (radice doppia)`;
+      } else {
+        // Soluzioni complesse
+        const realPart = -b / (2 * a);
+        const imaginaryPart = Math.sqrt(-delta) / (2 * a);
+        
+        steps.push(
+          `Δ < 0: due soluzioni complesse coniugate`,
+          `x = (-b ± √Δ) / 2a = (-b ± i√|Δ|) / 2a`,
+          `x = (${formatNumber(-b)} ± i√${formatNumber(-delta)}) / ${formatNumber(2 * a)}`,
+          `x = (${formatNumber(-b)} ± i${formatNumber(Math.sqrt(-delta))}) / ${formatNumber(2 * a)}`,
+          `x₁ = ${formatComplex(realPart, imaginaryPart)}`,
+          `x₂ = ${formatComplex(realPart, -imaginaryPart)}`
+        );
+        
+        resultClass = 'error';
+        solutions = [{real: realPart, imag: imaginaryPart}, {real: realPart, imag: -imaginaryPart}];
+        solutionText = `x₁ = ${formatComplex(realPart, imaginaryPart)}, x₂ = ${formatComplex(realPart, -imaginaryPart)}`;
+      }
+
+      return {
+        delta,
+        solutions,
+        steps,
+        solutionText,
+        resultClass
+      };
+    }
+
+    document.getElementById('equation-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const a = parseFloat(document.getElementById('a').value);
+      const b = parseFloat(document.getElementById('b').value) || 0;
+      const c = parseFloat(document.getElementById('c').value) || 0;
+      
+      if (a === 0) {
+        document.getElementById('result').innerHTML = `
+          <div class="result error">
+            <h3>⚠️ Errore</h3>
+            <p>Il coefficiente 'a' non può essere zero. L'equazione non sarebbe di secondo grado.</p>
+          </div>
+        `;
+        document.getElementById('result').style.display = 'block';
+        return;
+      }
+      
+      const result = solveQuadratic(a, b, c);
+      
+      let stepsHtml = '<ol class="steps">';
+      result.steps.forEach(step => {
+        stepsHtml += `<li>${step}</li>`;
+      });
+      stepsHtml += '</ol>';
+      
+      document.getElementById('result').className = `result ${result.resultClass}`;
+      document.getElementById('result').innerHTML = `
+        <h3>📊 Risultato</h3>
+        ${stepsHtml}
+        <div class="solutions">
+          <strong>Soluzioni: ${result.solutionText}</strong>
+        </div>
+      `;
+      
+      document.getElementById('result').style.display = 'block';
+    });
+
+    // Aggiorna l'equazione in tempo reale
+    ['a', 'b', 'c'].forEach(id => {
+      document.getElementById(id).addEventListener('input', updateEquationDisplay);
+    });
+
+    // Test del caso fornito
+    window.addEventListener('load', function() {
+      // Test case: a=1, b=-5, c=6 dovrebbe dare delta=1
+      const testResult = solveQuadratic(1, -5, 6);
+      if (testResult.delta !== 1) {
+        console.error('Test fallito: delta dovrebbe essere 1, ottenuto:', testResult.delta);
+      } else {
+        console.log('Test superato: delta = 1, soluzioni:', testResult.solutionText);
+      }
+    });
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
