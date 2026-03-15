@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Area Triangolo Online - Base/Altezza e Erone</title>
+  <meta name="description" content="Calcola l'area del triangolo online gratis. Formula base per altezza e formula di Erone con i tre lati.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Area Triangolo",
+    "description": "Calcola l'area del triangolo con base e altezza, o con i tre lati usando la formula di Erone",
+    "url": "https://tool4u.org/calcolatore-area-triangolo",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --success: #16a34a;
+  --error: #dc2626;
+  --warning: #d97706;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-900: #111827;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--gray-900);
+  background: var(--gray-50);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  padding: 2rem 0 1rem;
+  background: white;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--gray-900);
+}
+
+.tool-header p {
+  color: var(--gray-600);
+  font-size: 1.1rem;
+}
+
+.tool-body {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+.method-tabs {
+  display: flex;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.method-tab {
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.method-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+  font-weight: 600;
+}
+
+.method-content {
+  display: none;
+}
+
+.method-content.active {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+}
+
+.result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--gray-50);
+  border-radius: 0.5rem;
+  text-align: center;
+  display: none;
+}
+
+.result.show {
+  display: block;
+}
+
+.result-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.result-label {
+  color: var(--gray-600);
+  margin-bottom: 1rem;
+}
+
+.formula-display {
+  background: white;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+}
+
+.ad-slot {
+  background: var(--gray-100);
+  border: 2px dashed var(--gray-300);
+  padding: 2rem;
+  text-align: center;
+  color: var(--gray-600);
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+.explanation {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+.explanation h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--gray-900);
+}
+
+.explanation h3 {
+  font-size: 1.2rem;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--gray-800);
+}
+
+.explanation p {
+  margin-bottom: 1rem;
+  color: var(--gray-700);
+}
+
+.formula {
+  background: var(--gray-50);
+  padding: 1rem;
+  border-radius: 0.375rem;
+  font-family: monospace;
+  margin: 1rem 0;
+  border-left: 4px solid var(--primary);
+}
+
+.email-capture {
+  background: var(--primary);
+  color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: white;
+  color: var(--primary);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--gray-600);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+  
+  .method-tabs {
+    flex-direction: column;
+  }
+  
+  .method-tab {
+    text-align: left;
+    padding: 0.75rem 0;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Area Triangolo</h1>
+      <p>Calcola l'area del triangolo con base e altezza o usando la formula di Erone</p>
+    </div>
+
+    <div id="ad-slot-top" class="ad-slot">
+      Spazio Pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <div class="method-tabs">
+        <button class="method-tab active" onclick="switchMethod('base-height')">Base e Altezza</button>
+        <button class="method-tab" onclick="switchMethod('heron')">Formula di Erone</button>
+      </div>
+
+      <div id="base-height-method" class="method-content active">
+        <form id="base-height-form">
+          <div class="form-group">
+            <label for="base">Base (cm)</label>
+            <input type="number" id="base" name="base" placeholder="10" step="0.01" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="altezza">Altezza (cm)</label>
+            <input type="number" id="altezza" name="altezza" placeholder="5" step="0.01" min="0" required>
+          </div>
+          <button type="submit" class="btn">Calcola Area</button>
+        </form>
+      </div>
+
+      <div id="heron-method" class="method-content">
+        <form id="heron-form">
+          <div class="form-group">
+            <label for="lato-a">Lato A (cm)</label>
+            <input type="number" id="lato-a" name="lato-a" placeholder="3" step="0.01" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="lato-b">Lato B (cm)</label>
+            <input type="number" id="lato-b" name="lato-b" placeholder="4" step="0.01" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="lato-c">Lato C (cm)</label>
+            <input type="number" id="lato-c" name="lato-c" placeholder="5" step="0.01" min="0" required>
+          </div>
+          <button type="submit" class="btn">Calcola Area</button>
+        </form>
+      </div>
+
+      <div id="result" class="result">
+        <div class="result-value" id="result-value"></div>
+        <div class="result-label">Area del triangolo</div>
+        <div class="formula-display" id="formula-display"></div>
+      </div>
+    </div>
+
+    <div id="ad-slot-middle" class="ad-slot">
+      Spazio Pubblicitario
+    </div>
+
+    <div class="explanation">
+      <h2>Come Funziona il Calcolo dell'Area del Triangolo</h2>
+      
+      <p>Questo strumento ti permette di calcolare l'area di un triangolo utilizzando due metodi diversi, a seconda dei dati che hai a disposizione.</p>
+
+      <h3>Metodo 1: Base e Altezza</h3>
+      <p>Il metodo più comune e semplice per calcolare l'area di un triangolo utilizza la formula classica:</p>
+      <div class="formula">Area = (Base × Altezza) / 2</div>
+      <p>Questo metodo funziona per qualsiasi tipo di triangolo, purché tu conosca la lunghezza della base e l'altezza perpendicolare ad essa.</p>
+
+      <h3>Metodo 2: Formula di Erone</h3>
+      <p>Quando conosci la lunghezza dei tre lati del triangolo, puoi usare la formula di Erone:</p>
+      <div class="formula">
+        s = (a + b + c) / 2<br>
+        Area = √[s × (s-a) × (s-b) × (s-c)]
+      </div>
+      <p>Dove s è il semiperimetro e a, b, c sono le lunghezze dei tre lati. Questa formula è particolarmente utile quando non conosci l'altezza del triangolo.</p>
+
+      <h3>Quando Usare Ciascun Metodo</h3>
+      <p><strong>Base e Altezza:</strong> Ideale per problemi di geometria scolastica, calcoli architettonici e quando hai misure dirette di base e altezza.</p>
+      <p><strong>Formula di Erone:</strong> Perfetta per triangoli irregolari, topografia, e quando conosci solo le lunghezze dei lati (ad esempio, misurando con un metro).</p>
+
+      <p>Il risultato è sempre espresso in unità quadrate (cm², m², ecc.) e viene arrotondato a due cifre decimali per praticità.</p>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">
+      Spazio Pubblicitario
+    </div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo strumento fornisce calcoli matematici accurati per scopi educativi e informativi. Per applicazioni professionali o critiche, verifica sempre i risultati con strumenti specializzati.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Strumenti di calcolo gratuiti</p>
+    </div>
+  </div>
+
+  <script>
+    let currentMethod = 'base-height';
+
+    function switchMethod(method) {
+      // Update tabs
+      document.querySelectorAll('.method-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      event.target.classList.add('active');
+
+      // Update content
+      document.querySelectorAll('.method-content').forEach(content => {
+        content.classList.remove('active');
+      });
+      document.getElementById(method + '-method').classList.add('active');
+
+      currentMethod = method;
+      
+      // Hide result when switching methods
+      document.getElementById('result').classList.remove('show');
+    }
+
+    // Base and Height calculation
+    document.getElementById('base-height-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const base = parseFloat(document.getElementById('base').value);
+      const altezza = parseFloat(document.getElementById('altezza').value);
+      
+      if (isNaN(base) || isNaN(altezza) || base <= 0 || altezza <= 0) {
+        alert('Inserisci valori numerici positivi per base e altezza');
+        return;
+      }
+      
+      const area = (base * altezza) / 2;
+      
+      displayResult(area, `Area = (${base} × ${altezza}) / 2 = ${area.toFixed(2)} cm²`);
+    });
+
+    // Heron's formula calculation
+    document.getElementById('heron-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const a = parseFloat(document.getElementById('lato-a').value);
+      const b = parseFloat(document.getElementById('lato-b').value);
+      const c = parseFloat(document.getElementById('lato-c').value);
+      
+      if (isNaN(a) || isNaN(b) || isNaN(c) || a <= 0 || b <= 0 || c <= 0) {
+        alert('Inserisci valori numerici positivi per tutti e tre i lati');
+        return;
+      }
+      
+      // Check triangle inequality
+      if (a + b <= c || b + c <= a || a + c <= b) {
+        alert('I lati inseriti non possono formare un triangolo valido');
+        return;
+      }
+      
+      const s = (a + b + c) / 2;
+      const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+      
+      displayResult(area, `s = (${a} + ${b} + ${c}) / 2 = ${s.toFixed(2)}<br>Area = √[${s.toFixed(2)} × ${(s-a).toFixed(2)} × ${(s-b).toFixed(2)} × ${(s-c).toFixed(2)}] = ${area.toFixed(2)} cm²`);
+    });
+
+    function displayResult(area, formula) {
+      document.getElementById('result-value').textContent = area.toFixed(2) + ' cm²';
+      document.getElementById('formula-display').innerHTML = formula;
+      document.getElementById('result').classList.add('show');
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-area-triangolo'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    // Auto-calculate on input for base-height method
+    document.getElementById('base').addEventListener('input', autoCalculateBaseHeight);
+    document.getElementById('altezza').addEventListener('input', autoCalculateBaseHeight);
+
+    function autoCalculateBaseHeight() {
+      if (currentMethod !== 'base-height') return;
+      
+      const base = parseFloat(document.getElementById('base').value);
+      const altezza = parseFloat(document.getElementById('altezza').value);
+      
+      if (!isNaN(base) && !isNaN(altezza) && base > 0 && altezza > 0) {
+        const area = (base * altezza) / 2;
+        displayResult(area, `Area = (${base} × ${altezza}) / 2 = ${area.toFixed(2)} cm²`);
+      }
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
