@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Mancia e Divisione Conto - Gratis Online</title>
+  <meta name="description" content="Calcola la mancia al ristorante e dividi il conto tra più persone. Tool gratuito e veloce per calcolare mance e dividere conti.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Mancia",
+    "description": "Calcola la mancia al ristorante e dividi il conto tra più persone",
+    "url": "https://tool4u.org/calcolatore-mancia",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --success: #059669;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --text-light: #6b7280;
+  --border: #e5e7eb;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--background);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+}
+
+.ad-slot {
+  background: #f3f4f6;
+  border: 2px dashed #d1d5db;
+  padding: 2rem;
+  text-align: center;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  color: var(--text-light);
+}
+
+.tool-body {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.calculate-btn {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+
+.calculate-btn:hover {
+  background: var(--primary-dark);
+}
+
+.results {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f0f9ff;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+  display: none;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e0e7ff;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-label {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.result-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.suggestion {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  color: var(--success);
+}
+
+.explanation {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+}
+
+.explanation h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.explanation h3 {
+  font-size: 1.2rem;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--text);
+}
+
+.explanation p, .explanation li {
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+}
+
+.explanation ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.email-capture {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.email-capture p {
+  color: var(--text);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+}
+
+.email-capture button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.email-capture button:hover {
+  background: var(--primary-dark);
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+@media (max-width: 640px) {
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tool-body, .explanation, .email-capture {
+    padding: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .result-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Mancia</h1>
+      <p>Calcola la mancia e dividi il conto tra più persone in modo semplice e veloce</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">Spazio pubblicitario</div>
+
+    <div class="tool-body">
+      <form id="tip-form">
+        <div class="form-group">
+          <label for="totale">Totale conto (EUR)</label>
+          <input type="number" id="totale" step="0.01" min="0" placeholder="85" required>
+        </div>
+
+        <div class="form-group">
+          <label for="mancia_perc">Mancia (%)</label>
+          <input type="number" id="mancia_perc" step="0.1" min="0" max="100" placeholder="10" required>
+        </div>
+
+        <div class="form-group">
+          <label for="persone">Numero persone</label>
+          <input type="number" id="persone" min="1" placeholder="4" required>
+        </div>
+
+        <button type="submit" class="calculate-btn">Calcola Mancia</button>
+      </form>
+
+      <div id="results" class="results">
+        <div class="result-item">
+          <span class="result-label">Mancia:</span>
+          <span class="result-value" id="mancia-amount">€0.00</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Totale con mancia:</span>
+          <span class="result-value" id="totale-con-mancia">€0.00</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Per persona:</span>
+          <span class="result-value" id="per-persona">€0.00</span>
+        </div>
+        <div class="suggestion" id="suggestion"></div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">Spazio pubblicitario</div>
+
+    <div class="explanation">
+      <h2>Come funziona il Calcolatore Mancia</h2>
+      <p>Il nostro calcolatore di mance ti aiuta a determinare rapidamente l'importo appropriato della mancia e a dividere il conto totale tra tutti i commensali.</p>
+      
+      <h3>Come calcolare la mancia</h3>
+      <p>Il calcolo è semplice:</p>
+      <ul>
+        <li><strong>Mancia</strong> = Totale conto × Percentuale mancia ÷ 100</li>
+        <li><strong>Totale con mancia</strong> = Totale conto + Mancia</li>
+        <li><strong>Per persona</strong> = Totale con mancia ÷ Numero persone</li>
+      </ul>
+
+      <h3>Percentuali di mancia consigliate</h3>
+      <ul>
+        <li><strong>10%</strong> - Servizio base ma corretto</li>
+        <li><strong>15%</strong> - Servizio buono (standard in Italia)</li>
+        <li><strong>20%</strong> - Servizio eccellente</li>
+        <li><strong>25%+</strong> - Servizio straordinario o occasioni speciali</li>
+      </ul>
+
+      <h3>Consigli per l'arrotondamento</h3>
+      <p>Il nostro tool suggerisce automaticamente un arrotondamento conveniente per facilitare il pagamento, specialmente quando si paga in contanti. L'arrotondamento tiene conto della facilità di divisione tra le persone presenti.</p>
+
+      <h3>Vantaggi del nostro calcolatore</h3>
+      <ul>
+        <li>Calcolo istantaneo e preciso</li>
+        <li>Divisione automatica per gruppo</li>
+        <li>Suggerimenti di arrotondamento intelligenti</li>
+        <li>Gratuito e senza registrazione</li>
+        <li>Funziona su tutti i dispositivi</li>
+      </ul>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/deals?tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Scopri le offerte del giorno su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">Spazio pubblicitario</div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore è fornito a scopo informativo. La mancia è sempre facoltativa e dipende dalla qualità del servizio ricevuto. In Italia non esiste l'obbligo di lasciare la mancia, ma è un gesto di apprezzamento verso il personale di servizio.</p>
+      <p>© 2024 Tool4U.org - Calcolatore Mancia Gratuito</p>
+    </div>
+  </div>
+
+  <script>
+function captureEmail(e) {
+  e.preventDefault();
+  const email = e.target.querySelector('input').value;
+  // Il Publisher inietterà l'endpoint reale
+  fetch('__NEWSLETTER_ENDPOINT__', {
+    method: 'POST', 
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email, source: 'calcolatore-mancia'})
+  }).then(() => {
+    e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+  });
+  return false;
+}
+
+document.getElementById('tip-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const totale = parseFloat(document.getElementById('totale').value);
+  const manciaPerc = parseFloat(document.getElementById('mancia_perc').value);
+  const persone = parseInt(document.getElementById('persone').value);
+  
+  // Validazione
+  if (!totale || totale <= 0) {
+    alert('Inserisci un totale conto valido');
+    return;
+  }
+  
+  if (!manciaPerc || manciaPerc < 0) {
+    alert('Inserisci una percentuale di mancia valida');
+    return;
+  }
+  
+  if (!persone || persone < 1) {
+    alert('Inserisci un numero di persone valido');
+    return;
+  }
+  
+  // Calcoli
+  const mancia = totale * manciaPerc / 100;
+  const totaleConMancia = totale + mancia;
+  const perPersona = totaleConMancia / persone;
+  
+  // Arrotondamento suggerito
+  const perPersonaArrotondata = Math.ceil(perPersona);
+  const totaleArrotondato = perPersonaArrotondata * persone;
+  const differenza = totaleArrotondato - totaleConMancia;
+  
+  // Mostra risultati
+  document.getElementById('mancia-amount').textContent = `€${mancia.toFixed(2)}`;
+  document.getElementById('totale-con-mancia').textContent = `€${totaleConMancia.toFixed(2)}`;
+  document.getElementById('per-persona').textContent = `€${perPersona.toFixed(2)}`;
+  
+  // Suggerimento
+  const suggestionEl = document.getElementById('suggestion');
+  if (differenza > 0.50) {
+    suggestionEl.innerHTML = `
+      <strong>💡 Suggerimento arrotondamento:</strong><br>
+      ${perPersonaArrotondata}€ per persona = ${totaleArrotondato}€ totale<br>
+      <small>(+${differenza.toFixed(2)}€ di mancia aggiuntiva)</small>
+    `;
+  } else if (differenza > 0.10) {
+    suggestionEl.innerHTML = `
+      <strong>💡 Suggerimento arrotondamento:</strong><br>
+      Potreste arrotondare a ${perPersonaArrotondata}€ per persona per un totale di ${totaleArrotondato}€
+    `;
+  } else {
+    suggestionEl.innerHTML = `
+      <strong>✅ Perfetto!</strong><br>
+      L'importo per persona è già comodo per il pagamento
+    `;
+  }
+  
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+});
+
+// Auto-calcolo mentre si digita (opzionale)
+document.querySelectorAll('input').forEach(input => {
+  input.addEventListener('input', function() {
+    const form = document.getElementById('tip-form');
+    const totale = document.getElementById('totale').value;
+    const manciaPerc = document.getElementById('mancia_perc').value;
+    const persone = document.getElementById('persone').value;
+    
+    if (totale && manciaPerc && persone) {
+      form.dispatchEvent(new Event('submit'));
+    }
+  });
+});
+</script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-sconto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Sconto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-divisione-spese.html" style="color:#2563eb;text-decoration:none;">Calcolatore Divisione Spese</a></li>
+</ul>
+</div>
+</body>
+</html>
