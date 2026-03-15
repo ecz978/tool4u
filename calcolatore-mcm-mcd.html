@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo MCM e MCD Online - Calcolatore con Fattorizzazione</title>
+  <meta name="description" content="Calcola minimo comune multiplo e massimo comun divisore. Con fattorizzazione in numeri primi e passaggi dettagliati del calcolo.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore MCM e MCD",
+    "description": "Calcola minimo comune multiplo e massimo comun divisore con fattorizzazione",
+    "url": "https://tool4u.org/calcolatore-mcm-mcd",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "permissions": "browser"
+  }
+  </script>
+
+<style>
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #f3f4f6;
+  --text-color: #1f2937;
+  --border-color: #d1d5db;
+  --success-color: #10b981;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: #ffffff;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.tool-header h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.ad-slot {
+  background: var(--secondary-color);
+  border: 2px dashed var(--border-color);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.tool-form {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--text-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.calculate-btn {
+  width: 100%;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.875rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.calculate-btn:hover {
+  background: #1d4ed8;
+}
+
+.result-container {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.result-item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--secondary-color);
+  border-radius: 8px;
+}
+
+.result-item h3 {
+  color: var(--primary-color);
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.result-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--success-color);
+  margin-bottom: 0.5rem;
+}
+
+.steps {
+  font-family: 'Courier New', monospace;
+  background: white;
+  padding: 1rem;
+  border-radius: 6px;
+  border-left: 3px solid var(--primary-color);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.factors {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.explanation {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.explanation h2 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.explanation h3 {
+  color: var(--primary-color);
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.125rem;
+}
+
+.explanation p {
+  margin-bottom: 0.75rem;
+  color: #4b5563;
+}
+
+.explanation ul {
+  margin: 0.5rem 0 1rem 1.5rem;
+  color: #4b5563;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+#email-form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#email-form input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+#email-form button {
+  background: white;
+  color: var(--primary-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.error {
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 480px) {
+  #email-form {
+    flex-direction: column;
+  }
+  
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+
+  <div class="container">
+    <header class="tool-header">
+      <h1>Calcolatore MCM e MCD</h1>
+      <p>Calcola il minimo comune multiplo e il massimo comun divisore con fattorizzazione dettagliata</p>
+    </header>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-form">
+      <form id="mcm-mcd-form">
+        <div class="form-group">
+          <label for="numero_a">Primo numero</label>
+          <input type="number" id="numero_a" name="numero_a" placeholder="12" min="1" required>
+          <div class="error" id="error-a"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="numero_b">Secondo numero</label>
+          <input type="number" id="numero_b" name="numero_b" placeholder="18" min="1" required>
+          <div class="error" id="error-b"></div>
+        </div>
+        
+        <button type="submit" class="calculate-btn">Calcola MCM e MCD</button>
+      </form>
+    </div>
+
+    <div id="result-container" class="result-container" style="display: none;">
+      <div class="result-item">
+        <h3>Massimo Comun Divisore (MCD)</h3>
+        <div class="result-value" id="mcd-result"></div>
+        <div class="steps" id="mcd-steps"></div>
+      </div>
+      
+      <div class="result-item">
+        <h3>Minimo Comune Multiplo (MCM)</h3>
+        <div class="result-value" id="mcm-result"></div>
+        <div class="steps" id="mcm-calculation"></div>
+      </div>
+      
+      <div class="result-item">
+        <h3>Fattorizzazione in Numeri Primi</h3>
+        <div class="factors" id="factors-result"></div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <section class="explanation">
+      <h2>Come funziona il Calcolatore MCM e MCD</h2>
+      
+      <h3>Cos'è il Massimo Comun Divisore (MCD)?</h3>
+      <p>Il MCD di due o più numeri è il più grande numero intero che divide tutti i numeri dati senza lasciare resto. Ad esempio, il MCD di 12 e 18 è 6, perché 6 è il più grande numero che divide sia 12 che 18.</p>
+      
+      <h3>Cos'è il Minimo Comune Multiplo (MCM)?</h3>
+      <p>Il MCM di due o più numeri è il più piccolo numero intero positivo che è multiplo di tutti i numeri dati. Il MCM di 12 e 18 è 36, perché è il più piccolo numero divisibile sia per 12 che per 18.</p>
+      
+      <h3>Algoritmo di Euclide per il MCD</h3>
+      <p>Il nostro calcolatore usa l'algoritmo di Euclide, un metodo efficiente per trovare il MCD:</p>
+      <ul>
+        <li>Dividi il numero maggiore per quello minore</li>
+        <li>Il MCD del numero maggiore e minore è uguale al MCD del numero minore e del resto della divisione</li>
+        <li>Ripeti fino a quando il resto è zero</li>
+        <li>L'ultimo divisore diverso da zero è il MCD</li>
+      </ul>
+      
+      <h3>Come si calcola il MCM?</h3>
+      <p>Una volta trovato il MCD, il MCM si calcola con la formula: MCM(a,b) = (a × b) ÷ MCD(a,b)</p>
+      
+      <h3>Fattorizzazione in Numeri Primi</h3>
+      <p>Il calcolatore mostra anche la scomposizione in fattori primi di entrambi i numeri, che è utile per comprendere meglio la relazione tra i numeri e verificare i risultati.</p>
+    </section>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/s?k=calcolatrice+scientifica&tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Calcolatrice scientifica su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <footer class="footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore è fornito a scopo educativo e informativo. Verifica sempre i risultati per usi accademici o professionali importanti.</p>
+      <p style="margin-top: 0.5rem;">© 2024 Tool4U.org - Calcolatori online gratuiti</p>
+    </footer>
+  </div>
+
+  <script>
+    function gcd(a, b) {
+      const steps = [];
+      const originalA = a, originalB = b;
+      
+      while (b !== 0) {
+        const quotient = Math.floor(a / b);
+        const remainder = a % b;
+        steps.push(`${a} = ${b} × ${quotient} + ${remainder}`);
+        a = b;
+        b = remainder;
+      }
+      
+      return { result: a, steps: steps };
+    }
+
+    function lcm(a, b, gcdValue) {
+      return (a * b) / gcdValue;
+    }
+
+    function primeFactorization(n) {
+      const factors = [];
+      let d = 2;
+      
+      while (d * d <= n) {
+        while (n % d === 0) {
+          factors.push(d);
+          n /= d;
+        }
+        d++;
+      }
+      
+      if (n > 1) {
+        factors.push(n);
+      }
+      
+      return factors;
+    }
+
+    function formatPrimeFactors(factors) {
+      const counts = {};
+      factors.forEach(factor => {
+        counts[factor] = (counts[factor] || 0) + 1;
+      });
+      
+      return Object.keys(counts).map(prime => {
+        const count = counts[prime];
+        return count > 1 ? `${prime}^${count}` : prime;
+      }).join(' × ');
+    }
+
+    function validateInputs() {
+      const numeroA = document.getElementById('numero_a');
+      const numeroB = document.getElementById('numero_b');
+      const errorA = document.getElementById('error-a');
+      const errorB = document.getElementById('error-b');
+      
+      let isValid = true;
+      
+      // Reset errors
+      errorA.textContent = '';
+      errorB.textContent = '';
+      
+      const a = parseInt(numeroA.value);
+      const b = parseInt(numeroB.value);
+      
+      if (!a || a < 1) {
+        errorA.textContent = 'Inserisci un numero intero positivo';
+        isValid = false;
+      }
+      
+      if (!b || b < 1) {
+        errorB.textContent = 'Inserisci un numero intero positivo';
+        isValid = false;
+      }
+      
+      if (a > 1000000 || b > 1000000) {
+        if (a > 1000000) errorA.textContent = 'Il numero deve essere minore di 1.000.000';
+        if (b > 1000000) errorB.textContent = 'Il numero deve essere minore di 1.000.000';
+        isValid = false;
+      }
+      
+      return isValid;
+    }
+
+    function calculateMcmMcd() {
+      if (!validateInputs()) return;
+      
+      const a = parseInt(document.getElementById('numero_a').value);
+      const b = parseInt(document.getElementById('numero_b').value);
+      
+      // Calcola MCD con algoritmo di Euclide
+      const gcdResult = gcd(a, b);
+      const mcdValue = gcdResult.result;
+      
+      // Calcola MCM
+      const mcmValue = lcm(a, b, mcdValue);
+      
+      // Fattorizzazione
+      const factorsA = primeFactorization(a);
+      const factorsB = primeFactorization(b);
+      
+      // Mostra risultati
+      document.getElementById('mcd-result').textContent = mcdValue;
+      document.getElementById('mcm-result').textContent = mcmValue;
+      
+      // Mostra passaggi MCD
+      const stepsHtml = gcdResult.steps.join('<br>') + '<br><strong>Quindi MCD(' + a + ', ' + b + ') = ' + mcdValue + '</strong>';
+      document.getElementById('mcd-steps').innerHTML = stepsHtml;
+      
+      // Mostra calcolo MCM
+      const mcmCalculation = `MCM(${a}, ${b}) = (${a} × ${b}) ÷ MCD(${a}, ${b})<br>MCM(${a}, ${b}) = ${a * b} ÷ ${mcdValue} = ${mcmValue}`;
+      document.getElementById('mcm-calculation').innerHTML = mcmCalculation;
+      
+      // Mostra fattorizzazione
+      const factorsHtml = `${a} = ${formatPrimeFactors(factorsA)}<br>${b} = ${formatPrimeFactors(factorsB)}`;
+      document.getElementById('factors-result').innerHTML = factorsHtml;
+      
+      // Mostra container risultati
+      document.getElementById('result-container').style.display = 'block';
+      document.getElementById('result-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Event listeners
+    document.getElementById('mcm-mcd-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      calculateMcmMcd();
+    });
+
+    // Test automatico per verifica
+    function runTest() {
+      const testA = 12;
+      const testB = 18;
+      const expectedMcd = 6;
+      const expectedMcm = 36;
+      
+      const gcdResult = gcd(testA, testB);
+      const mcmResult = lcm(testA, testB, gcdResult.result);
+      
+      console.log('Test MCD:', gcdResult.result === expectedMcd ? 'PASS' : 'FAIL');
+      console.log('Test MCM:', mcmResult === expectedMcm ? 'PASS' : 'FAIL');
+    }
+
+    // Esegui test al caricamento (solo in development)
+    if (window.location.hostname === 'localhost') {
+      runTest();
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-mcm-mcd'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white;margin:0;">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white;margin:0;">Iscritto!</p>';
+      });
+      return false;
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-equazione-secondo-grado.html" style="color:#2563eb;text-decoration:none;">Risolutore Equazione di Secondo Grado</a></li>
+</ul>
+</div>
+</body>
+</html>
