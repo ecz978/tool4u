@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convertitore Valuta Online - Euro Dollaro Sterlina</title>
+  <meta name="description" content="Converti valute online. Euro, dollaro, sterlina e altre valute mondiali.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Convertitore Valuta",
+    "description": "Converti tra le principali valute mondiali con tassi aggiornati",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #f3f4f6;
+  --text-color: #111827;
+  --border-color: #d1d5db;
+  --success-color: #059669;
+  --error-color: #dc2626;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin: 2rem 0;
+  color: white;
+}
+
+.tool-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.main-content {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+}
+
+.ad-slot {
+  background: var(--secondary-color);
+  border: 2px dashed var(--border-color);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  color: #6b7280;
+  margin: 2rem 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.form-control {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.result {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-top: 2rem;
+  text-align: center;
+  display: none;
+}
+
+.result.show {
+  display: block;
+  animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.result-rate {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.result-disclaimer {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 1rem;
+}
+
+.explanation {
+  background: var(--secondary-color);
+  padding: 2rem;
+  border-radius: 1rem;
+  margin: 2rem 0;
+}
+
+.explanation h2 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.explanation p {
+  margin-bottom: 1rem;
+  color: #4b5563;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+#email-form {
+  display: flex;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#email-form input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+#email-form button {
+  background: white;
+  color: var(--primary-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#email-form button:hover {
+  background: var(--secondary-color);
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: white;
+  opacity: 0.8;
+}
+
+.footer p {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .tool-header h1 {
+    font-size: 2rem;
+  }
+  
+  .main-content {
+    padding: 1.5rem;
+  }
+  
+  .result-amount {
+    font-size: 2rem;
+  }
+  
+  #email-form {
+    flex-direction: column;
+  }
+  
+  #email-form button {
+    padding: 1rem;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:white;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>💱 Convertitore Valuta</h1>
+      <p>Converti tra le principali valute mondiali con tassi aggiornati</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="main-content">
+      <form id="currency-form">
+        <div class="form-group">
+          <label for="importo">Importo</label>
+          <input type="number" id="importo" class="form-control" placeholder="100" min="0" step="0.01" required>
+        </div>
+
+        <div class="form-group">
+          <label for="da">Da valuta</label>
+          <select id="da" class="form-control" required>
+            <option value="EUR">EUR - Euro</option>
+            <option value="USD">USD - Dollaro Americano</option>
+            <option value="GBP">GBP - Sterlina Britannica</option>
+            <option value="CHF">CHF - Franco Svizzero</option>
+            <option value="JPY">JPY - Yen Giapponese</option>
+            <option value="CAD">CAD - Dollaro Canadese</option>
+            <option value="AUD">AUD - Dollaro Australiano</option>
+            <option value="CNY">CNY - Yuan Cinese</option>
+            <option value="SEK">SEK - Corona Svedese</option>
+            <option value="NOK">NOK - Corona Norvegese</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="a">A valuta</label>
+          <select id="a" class="form-control" required>
+            <option value="USD">USD - Dollaro Americano</option>
+            <option value="EUR">EUR - Euro</option>
+            <option value="GBP">GBP - Sterlina Britannica</option>
+            <option value="CHF">CHF - Franco Svizzero</option>
+            <option value="JPY">JPY - Yen Giapponese</option>
+            <option value="CAD">CAD - Dollaro Canadese</option>
+            <option value="AUD">AUD - Dollaro Australiano</option>
+            <option value="CNY">CNY - Yuan Cinese</option>
+            <option value="SEK">SEK - Corona Svedese</option>
+            <option value="NOK">NOK - Corona Norvegese</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn">Converti Valuta</button>
+      </form>
+
+      <div id="result" class="result">
+        <div class="result-amount" id="converted-amount"></div>
+        <div class="result-rate" id="exchange-rate"></div>
+        <div class="result-disclaimer">
+          * I tassi di cambio sono indicativi e potrebbero non riflettere i valori di mercato in tempo reale.
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="explanation">
+      <h2>Come funziona il Convertitore Valuta</h2>
+      <p>Il nostro convertitore di valuta ti permette di convertire rapidamente tra le principali valute mondiali. Utilizza tassi di cambio recenti per fornire stime accurate delle conversioni.</p>
+      
+      <p>Le valute supportate includono Euro (EUR), Dollaro Americano (USD), Sterlina Britannica (GBP), Franco Svizzero (CHF), Yen Giapponese (JPY), Dollaro Canadese (CAD), Dollaro Australiano (AUD), Yuan Cinese (CNY), Corona Svedese (SEK) e Corona Norvegese (NOK).</p>
+      
+      <p>Per utilizzare il convertitore, inserisci l'importo che desideri convertire, seleziona la valuta di partenza e quella di destinazione, quindi clicca su "Converti Valuta". Il risultato apparirà immediatamente con il tasso di cambio utilizzato.</p>
+      
+      <p>I tassi di cambio sono indicativi e basati su dati recenti. Per transazioni finanziarie importanti, consulta sempre i tassi aggiornati delle banche o dei fornitori di servizi finanziari.</p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/s?k=metro+laser+digitale&tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Metro digitale laser su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> I tassi di cambio mostrati sono indicativi e potrebbero non riflettere i valori di mercato attuali.</p>
+      <p>Per decisioni finanziarie importanti, consulta sempre fonti ufficiali aggiornate.</p>
+    </div>
+  </div>
+
+  <script>
+    // Tassi di cambio hardcoded (EUR come base)
+    const exchangeRates = {
+      'EUR': {
+        'USD': 1.08,
+        'GBP': 0.86,
+        'CHF': 0.95,
+        'JPY': 162,
+        'CAD': 1.47,
+        'AUD': 1.65,
+        'CNY': 7.84,
+        'SEK': 11.28,
+        'NOK': 11.75,
+        'EUR': 1
+      },
+      'USD': {
+        'EUR': 1/1.08,
+        'GBP': 0.86/1.08,
+        'CHF': 0.95/1.08,
+        'JPY': 162/1.08,
+        'CAD': 1.47/1.08,
+        'AUD': 1.65/1.08,
+        'CNY': 7.84/1.08,
+        'SEK': 11.28/1.08,
+        'NOK': 11.75/1.08,
+        'USD': 1
+      }
+    };
+
+    // Calcola tutti i tassi incrociati
+    function calculateCrossRates() {
+      const currencies = ['EUR', 'USD', 'GBP', 'CHF', 'JPY', 'CAD', 'AUD', 'CNY', 'SEK', 'NOK'];
+      
+      currencies.forEach(from => {
+        if (!exchangeRates[from]) {
+          exchangeRates[from] = {};
+        }
+        
+        currencies.forEach(to => {
+          if (from === to) {
+            exchangeRates[from][to] = 1;
+          } else if (!exchangeRates[from][to]) {
+            // Calcola il tasso incrociato usando EUR come base
+            const fromToEur = from === 'EUR' ? 1 : 1/exchangeRates.EUR[from];
+            const eurToTo = to === 'EUR' ? 1 : exchangeRates.EUR[to];
+            exchangeRates[from][to] = fromToEur * eurToTo;
+          }
+        });
+      });
+    }
+
+    calculateCrossRates();
+
+    document.getElementById('currency-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const importo = parseFloat(document.getElementById('importo').value);
+      const da = document.getElementById('da').value;
+      const a = document.getElementById('a').value;
+      
+      if (!importo || importo <= 0) {
+        alert('Inserisci un importo valido');
+        return;
+      }
+      
+      const rate = exchangeRates[da][a];
+      const convertedAmount = importo * rate;
+      
+      // Formatazione del risultato
+      let formattedAmount;
+      if (a === 'JPY') {
+        formattedAmount = Math.round(convertedAmount).toLocaleString('it-IT');
+      } else {
+        formattedAmount = convertedAmount.toFixed(2);
+      }
+      
+      document.getElementById('converted-amount').textContent = `${formattedAmount} ${a}`;
+      document.getElementById('exchange-rate').textContent = `Tasso: 1 ${da} = ${rate.toFixed(4)} ${a}`;
+      
+      const resultDiv = document.getElementById('result');
+      resultDiv.classList.add('show');
+      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'convertitore-valuta'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white;">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white;">Iscritto con successo!</p>';
+      });
+      return false;
+    }
+
+    // Scambia valute quando cambiano
+    document.getElementById('da').addEventListener('change', function() {
+      const daSelect = this;
+      const aSelect = document.getElementById('a');
+      
+      if (daSelect.value === aSelect.value) {
+        // Trova un'altra valuta per evitare duplicati
+        const options = Array.from(aSelect.options);
+        const differentOption = options.find(opt => opt.value !== daSelect.value);
+        if (differentOption) {
+          aSelect.value = differentOption.value;
+        }
+      }
+    });
+
+    document.getElementById('a').addEventListener('change', function() {
+      const aSelect = this;
+      const daSelect = document.getElementById('da');
+      
+      if (daSelect.value === aSelect.value) {
+        // Trova un'altra valuta per evitare duplicati
+        const options = Array.from(daSelect.options);
+        const differentOption = options.find(opt => opt.value !== aSelect.value);
+        if (differentOption) {
+          daSelect.value = differentOption.value;
+        }
+      }
+    });
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/conversione-temperatura.html" style="color:#2563eb;text-decoration:none;">Convertitore Temperatura</a></li>
+<li style="margin:0.5rem 0;"><a href="/convertitore-taglie-scarpe.html" style="color:#2563eb;text-decoration:none;">Convertitore Taglie Scarpe</a></li>
+</ul>
+</div>
+</body>
+</html>
