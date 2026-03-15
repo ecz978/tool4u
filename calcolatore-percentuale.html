@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Percentuale Online - Calcola Percentuali, Aumenti e Diminuzioni</title>
+  <meta name="description" content="Calcola percentuali, aumenti e diminuzioni percentuali. 4 modalità di calcolo con formula e passaggi. Tool gratuito online.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Percentuale",
+    "description": "Calcola percentuali, aumenti e diminuzioni percentuali con 4 modalità di calcolo",
+    "url": "https://tool4u.org/calcolatore-percentuale",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --success: #059669;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --border-focus: #3b82f6;
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.tool-header p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+.ad-slot {
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-light);
+  margin: 2rem 0;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tool-body {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.form-group select,
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
+}
+
+.calculate-btn {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.calculate-btn:hover {
+  background: var(--primary-dark);
+}
+
+.result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f0f9ff;
+  border: 2px solid #0ea5e9;
+  border-radius: 8px;
+  display: none;
+}
+
+.result.show {
+  display: block;
+}
+
+.result-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.formula {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+}
+
+.steps {
+  background: #ecfdf5;
+  border: 1px solid var(--success);
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.steps h4 {
+  color: var(--success);
+  margin-bottom: 0.5rem;
+}
+
+.steps ol {
+  margin-left: 1.2rem;
+}
+
+.tool-explanation {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.tool-explanation h2 {
+  color: var(--text);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.tool-explanation h3 {
+  color: var(--text);
+  margin: 1.5rem 0 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.tool-explanation ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.email-capture p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.email-capture button:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.tool-footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+  margin-top: 3rem;
+}
+
+@media (max-width: 640px) {
+  .tool-header h1 {
+    font-size: 1.7rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .tool-body, .tool-explanation {
+    padding: 1.5rem;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Percentuale</h1>
+      <p>Calcola percentuali, aumenti, diminuzioni e variazioni percentuali con formula e passaggi</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="percentage-form">
+        <div class="form-group">
+          <label for="tipo">Tipo di calcolo</label>
+          <select id="tipo" required>
+            <option value="">Seleziona il tipo di calcolo</option>
+            <option value="percent_of">Quanto è X% di Y</option>
+            <option value="what_percent">X è che percentuale di Y</option>
+            <option value="increase">Aumento percentuale da X a Y</option>
+            <option value="decrease">Diminuzione percentuale da X a Y</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="valore_a" id="label-a">Valore A</label>
+          <input type="number" id="valore_a" placeholder="200" step="any" required>
+        </div>
+
+        <div class="form-group">
+          <label for="valore_b" id="label-b">Valore B</label>
+          <input type="number" id="valore_b" placeholder="15" step="any" required>
+        </div>
+
+        <button type="submit" class="calculate-btn">Calcola Percentuale</button>
+      </form>
+
+      <div id="result" class="result">
+        <div id="result-content"></div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come funziona il Calcolatore Percentuale</h2>
+      
+      <p>Il nostro calcolatore percentuale ti permette di effettuare 4 tipi diversi di calcoli percentuali con formule dettagliate e passaggi spiegati.</p>
+
+      <h3>Modalità di calcolo disponibili:</h3>
+      
+      <ul>
+        <li><strong>Quanto è X% di Y:</strong> Calcola il valore corrispondente a una percentuale di un numero (es. 15% di 200)</li>
+        <li><strong>X è che percentuale di Y:</strong> Trova che percentuale rappresenta un numero rispetto a un altro (es. 30 è che % di 200)</li>
+        <li><strong>Aumento percentuale:</strong> Calcola la percentuale di aumento tra due valori (es. da 100 a 150)</li>
+        <li><strong>Diminuzione percentuale:</strong> Calcola la percentuale di diminuzione tra due valori (es. da 200 a 160)</li>
+      </ul>
+
+      <h3>Formule utilizzate:</h3>
+      
+      <ul>
+        <li><strong>X% di Y:</strong> (X / 100) × Y</li>
+        <li><strong>X è che % di Y:</strong> (X / Y) × 100</li>
+        <li><strong>Aumento %:</strong> ((Y - X) / X) × 100</li>
+        <li><strong>Diminuzione %:</strong> ((X - Y) / X) × 100</li>
+      </ul>
+
+      <h3>Esempi pratici:</h3>
+      
+      <ul>
+        <li>Calcolo di sconti e ricarichi</li>
+        <li>Variazioni di prezzo</li>
+        <li>Crescita di investimenti</li>
+        <li>Percentuali di completamento</li>
+        <li>Analisi di performance</li>
+      </ul>
+
+      <p>Ogni calcolo viene mostrato con la formula utilizzata e i passaggi dettagliati per aiutarti a comprendere il procedimento.</p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/s?k=calcolatrice+scientifica&tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Calcolatrice scientifica su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore è fornito solo a scopo informativo. Verifica sempre i risultati per utilizzi critici o professionali.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Calcolatore Percentuale Online Gratuito</p>
+    </div>
+  </div>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-percentuale'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:#10b981;font-weight:600;">Iscritto con successo!</p>';
+      });
+      return false;
+    }
+
+    // Update labels based on calculation type
+    document.getElementById('tipo').addEventListener('change', function() {
+      const labelA = document.getElementById('label-a');
+      const labelB = document.getElementById('label-b');
+      const inputA = document.getElementById('valore_a');
+      const inputB = document.getElementById('valore_b');
+
+      switch(this.value) {
+        case 'percent_of':
+          labelA.textContent = 'Percentuale (X%)';
+          labelB.textContent = 'Valore base (Y)';
+          inputA.placeholder = '15';
+          inputB.placeholder = '200';
+          break;
+        case 'what_percent':
+          labelA.textContent = 'Valore (X)';
+          labelB.textContent = 'Valore base (Y)';
+          inputA.placeholder = '30';
+          inputB.placeholder = '200';
+          break;
+        case 'increase':
+          labelA.textContent = 'Valore iniziale (X)';
+          labelB.textContent = 'Valore finale (Y)';
+          inputA.placeholder = '100';
+          inputB.placeholder = '150';
+          break;
+        case 'decrease':
+          labelA.textContent = 'Valore iniziale (X)';
+          labelB.textContent = 'Valore finale (Y)';
+          inputA.placeholder = '200';
+          inputB.placeholder = '160';
+          break;
+        default:
+          labelA.textContent = 'Valore A';
+          labelB.textContent = 'Valore B';
+          inputA.placeholder = '200';
+          inputB.placeholder = '15';
+      }
+    });
+
+    document.getElementById('percentage-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const tipo = document.getElementById('tipo').value;
+      const valoreA = parseFloat(document.getElementById('valore_a').value);
+      const valoreB = parseFloat(document.getElementById('valore_b').value);
+      
+      if (!tipo || isNaN(valoreA) || isNaN(valoreB)) {
+        alert('Seleziona il tipo di calcolo e inserisci valori numerici validi.');
+        return;
+      }
+
+      let risultato, formula, passaggi;
+
+      switch(tipo) {
+        case 'percent_of':
+          risultato = (valoreA / 100) * valoreB;
+          formula = `(${valoreA} / 100) × ${valoreB} = ${risultato}`;
+          passaggi = [
+            `Dividiamo la percentuale per 100: ${valoreA} ÷ 100 = ${valoreA/100}`,
+            `Moltiplichiamo per il valore base: ${valoreA/100} × ${valoreB} = ${risultato}`,
+            `Risultato: ${valoreA}% di ${valoreB} = ${risultato}`
+          ];
+          break;
+
+        case 'what_percent':
+          if (valoreB === 0) {
+            alert('Il valore base non può essere zero.');
+            return;
+          }
+          risultato = (valoreA / valoreB) * 100;
+          formula = `(${valoreA} / ${valoreB}) × 100 = ${risultato.toFixed(2)}%`;
+          passaggi = [
+            `Dividiamo il valore per il valore base: ${valoreA} ÷ ${valoreB} = ${(valoreA/valoreB).toFixed(4)}`,
+            `Moltiplichiamo per 100: ${(valoreA/valoreB).toFixed(4)} × 100 = ${risultato.toFixed(2)}%`,
+            `Risultato: ${valoreA} è il ${risultato.toFixed(2)}% di ${valoreB}`
+          ];
+          break;
+
+        case 'increase':
+          if (valoreA === 0) {
+            alert('Il valore iniziale non può essere zero.');
+            return;
+          }
+          if (valoreB <= valoreA) {
+            alert('Per un aumento, il valore finale deve essere maggiore del valore iniziale.');
+            return;
+          }
+          const aumento = valoreB - valoreA;
+          risultato = (aumento / valoreA) * 100;
+          formula = `((${valoreB} - ${valoreA}) / ${valoreA}) × 100 = ${risultato.toFixed(2)}%`;
+          passaggi = [
+            `Calcoliamo l'aumento: ${valoreB} - ${valoreA} = ${aumento}`,
+            `Dividiamo per il valore iniziale: ${aumento} ÷ ${valoreA} = ${(aumento/valoreA).toFixed(4)}`,
+            `Moltiplichiamo per 100: ${(aumento/valoreA).toFixed(4)} × 100 = ${risultato.toFixed(2)}%`,
+            `Risultato: Aumento del ${risultato.toFixed(2)}% da ${valoreA} a ${valoreB}`
+          ];
+          break;
+
+        case 'decrease':
+          if (valoreA === 0) {
+            alert('Il valore iniziale non può essere zero.');
+            return;
+          }
+          if (valoreB >= valoreA) {
+            alert('Per una diminuzione, il valore finale deve essere minore del valore iniziale.');
+            return;
+          }
+          const diminuzione = valoreA - valoreB;
+          risultato = (diminuzione / valoreA) * 100;
+          formula = `((${valoreA} - ${valoreB}) / ${valoreA}) × 100 = ${risultato.toFixed(2)}%`;
+          passaggi = [
+            `Calcoliamo la diminuzione: ${valoreA} - ${valoreB} = ${diminuzione}`,
+            `Dividiamo per il valore iniziale: ${diminuzione} ÷ ${valoreA} = ${(diminuzione/valoreA).toFixed(4)}`,
+            `Moltiplichiamo per 100: ${(diminuzione/valoreA).toFixed(4)} × 100 = ${risultato.toFixed(2)}%`,
+            `Risultato: Diminuzione del ${risultato.toFixed(2)}% da ${valoreA} a ${valoreB}`
+          ];
+          break;
+      }
+
+      // Display result
+      const resultDiv = document.getElementById('result');
+      const resultContent = document.getElementById('result-content');
+      
+      let displayValue;
+      if (tipo === 'percent_of') {
+        displayValue = `<div class="result-value">${risultato}</div>`;
+      } else {
+        displayValue = `<div class="result-value">${risultato.toFixed(2)}%</div>`;
+      }
+
+      resultContent.innerHTML = `
+        ${displayValue}
+        <div class="formula">
+          <h4>Formula:</h4>
+          ${formula}
+        </div>
+        <div class="steps">
+          <h4>Passaggi:</h4>
+          <ol>
+            ${passaggi.map(step => `<li>${step}</li>`).join('')}
+          </ol>
+        </div>
+      `;
+      
+      resultDiv.classList.add('show');
+      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-equazione-secondo-grado.html" style="color:#2563eb;text-decoration:none;">Risolutore Equazione di Secondo Grado</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mcm-mcd.html" style="color:#2563eb;text-decoration:none;">Calcolatore MCM e MCD</a></li>
+</ul>
+</div>
+</body>
+</html>
