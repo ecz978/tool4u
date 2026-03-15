@@ -268,9 +268,7 @@ textarea:focus {
       <p>Analizza il tuo testo in tempo reale</p>
     </div>
     
-    <div id="ad-slot-top" class="ad-slot">
-      Spazio pubblicitario
-    </div>
+    <div style="margin:1.5rem 0;padding:1.2rem 1.5rem;background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1px solid #fed7aa;border-radius:12px;text-align:center"><p style="margin:0 0 0.5rem;font-size:0.95rem;font-weight:600;color:#9a3412">Scrivi meglio</p><a href="https://www.amazon.it/s?k=tastiera+ergonomica&tag=tool4u0b-21" target="_blank" rel="noopener sponsored" style="display:inline-block;padding:10px 24px;background:#f97316;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.9rem">Tastiere ergonomiche su Amazon &rarr;</a><p style="margin:0.5rem 0 0;font-size:0.7rem;color:#c2410c">Link affiliato Amazon</p></div>
     
     <div class="tool-body">
       <div class="form-group">
@@ -347,102 +345,6 @@ textarea:focus {
       <p>Il tempo di lettura è calcolato considerando che una persona media legge circa 250 parole al minuto. Per il tempo di discorso, utilizziamo una media di 150 parole al minuto, che è il ritmo ideale per una presentazione.</p>
     </div>
     
-    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
-<a href="https://grammarly.go2cloud.org/aff_c?offer_id=XXX" target="_blank" rel="noopener sponsored"
-   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
-   → Try Grammarly for better writing</a>
-</div>
-<div id="email-capture" class="email-capture">
-      <p>Ricevi nuovi tool utili ogni settimana</p>
-      <form id="email-form" onsubmit="return captureEmail(event)">
-        <input type="email" placeholder="La tua email" required>
-        <button type="submit">Iscriviti</button>
-      </form>
-    </div>
     
-    <div id="ad-slot-bottom" class="ad-slot">
-      Spazio pubblicitario
-    </div>
-    
-    <div class="footer">
-      <p><strong>Disclaimer:</strong> Questo strumento è fornito gratuitamente per scopi informativi. I calcoli sono approssimativi e possono variare in base al tipo di testo e al lettore.</p>
-      <p>&copy; 2024 Tool4U.org - Strumenti gratuiti per la produttività</p>
-    </div>
-  </div>
-
-  <script>
-    function analyzeText() {
-      const text = document.getElementById('textInput').value;
-      
-      // Conta caratteri con spazi
-      const charCountWithSpaces = text.length;
-      
-      // Conta caratteri senza spazi
-      const charCountNoSpaces = text.replace(/\s/g, '').length;
-      
-      // Conta parole
-      let wordCount = 0;
-      if (text.trim()) {
-        wordCount = text.trim().split(/\s+/).length;
-      }
-      
-      // Conta frasi
-      let sentenceCount = 0;
-      if (text.trim()) {
-        const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
-        sentenceCount = sentences.length;
-      }
-      
-      // Conta paragrafi
-      let paragraphCount = 0;
-      if (text.trim()) {
-        const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
-        paragraphCount = paragraphs.length;
-      }
-      
-      // Calcola tempo di lettura (250 parole/minuto)
-      const readingTime = wordCount > 0 ? Math.ceil(wordCount / 250) : 0;
-      
-      // Calcola tempo di discorso (150 parole/minuto)
-      const speechTime = wordCount > 0 ? Math.ceil(wordCount / 150) : 0;
-      
-      // Aggiorna i contatori
-      document.getElementById('wordCount').textContent = wordCount.toLocaleString('it-IT');
-      document.getElementById('charCountWithSpaces').textContent = charCountWithSpaces.toLocaleString('it-IT');
-      document.getElementById('charCountNoSpaces').textContent = charCountNoSpaces.toLocaleString('it-IT');
-      document.getElementById('sentenceCount').textContent = sentenceCount.toLocaleString('it-IT');
-      document.getElementById('paragraphCount').textContent = paragraphCount.toLocaleString('it-IT');
-      document.getElementById('readingTime').textContent = readingTime.toLocaleString('it-IT');
-      document.getElementById('speechTime').textContent = speechTime.toLocaleString('it-IT');
-    }
-    
-    function captureEmail(e) {
-      e.preventDefault();
-      const email = e.target.querySelector('input').value;
-      // Il Publisher inietterà l'endpoint reale
-      fetch('__NEWSLETTER_ENDPOINT__', {
-        method: 'POST', 
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({email, source: 'conta-parole'})
-      }).then(() => {
-        e.target.innerHTML = '<p style="color:white">Iscritto!</p>';
-      }).catch(() => {
-        e.target.innerHTML = '<p style="color:white">Iscritto!</p>';
-      });
-      return false;
-    }
-    
-    // Inizializza l'analisi al caricamento
-    document.addEventListener('DOMContentLoaded', function() {
-      analyzeText();
-    });
-  </script>
-<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
-<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
-<ul style="list-style:none;padding:0;margin:0;">
-<li style="margin:0.5rem 0;"><a href="/generatore-password.html" style="color:#2563eb;text-decoration:none;">Generatore Password Sicure</a></li>
-</ul>
-</div>
-<p style="font-size:0.75rem;color:#94a3b8;margin-top:8px"><em>In qualita di Affiliato Amazon ricevo un guadagno dagli acquisti idonei.</em></p><div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;"><a href="https://www.amazon.it/s?k=tastiera+ergonomica&tag=tool4u0b-21" target="_blank" rel="noopener sponsored" style="color:#2563eb;text-decoration:none;font-size:0.9rem;">Tastiere ergonomiche su Amazon &rarr;</a></div>
 </body>
 </html>

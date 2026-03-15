@@ -336,7 +336,7 @@ body {
 
   <div class="tool-header">
     <div class="container">
-      <h1>Calcolatore BMI</h1>
+      <h1>Calcolatore BMI</h1><div style="margin:1.5rem 0;padding:1.2rem 1.5rem;background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1px solid #fed7aa;border-radius:12px;text-align:center"><p style="margin:0 0 0.5rem;font-size:0.95rem;font-weight:600;color:#9a3412">Monitora la tua salute</p><a href="https://www.amazon.it/s?k=bilancia+pesapersone+digitale&tag=tool4u0b-21" target="_blank" rel="noopener sponsored" style="display:inline-block;padding:10px 24px;background:#f97316;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.9rem">Bilance e fitness tracker su Amazon &rarr;</a><p style="margin:0.5rem 0 0;font-size:0.7rem;color:#c2410c">Link affiliato Amazon</p></div>
       <p>Calcola il tuo indice di massa corporea e scopri se sei normopeso, sovrappeso o sottopeso</p>
     </div>
   </div>
@@ -409,133 +409,6 @@ body {
       <p>Per una valutazione completa del tuo stato di salute, consulta sempre un medico o un nutrizionista qualificato.</p>
     </div>
 
-    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
-<a href="https://www.amazon.com/s?k=fitness+equipment&tag=YOURTAG-20" target="_blank" rel="noopener sponsored"
-   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
-   → Shop fitness equipment on Amazon</a>
-</div>
-<div id="email-capture" class="email-capture">
-      <p>Ricevi nuovi tool utili ogni settimana</p>
-      <form id="email-form" onsubmit="return captureEmail(event)">
-        <input type="email" placeholder="La tua email" required>
-        <button type="submit">Iscriviti</button>
-      </form>
-    </div>
-
-    <div class="ad-slot" id="ad-slot-bottom">Spazio Pubblicitario</div>
-  </div>
-
-  <div class="footer">
-    <div class="container">
-      <p><strong>Disclaimer:</strong> Questo calcolatore BMI è solo a scopo informativo e non sostituisce il parere medico professionale.</p>
-      <p>Per questioni di salute, consulta sempre un medico qualificato.</p>
-      <p>&copy; 2024 Tool4U.org - Tutti i diritti riservati</p>
-    </div>
-  </div>
-
-  <script>
-    function captureEmail(e) {
-      e.preventDefault();
-      const email = e.target.querySelector('input').value;
-      fetch('__NEWSLETTER_ENDPOINT__', {
-        method: 'POST', 
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({email, source: 'calcolatore-bmi'})
-      }).then(() => {
-        e.target.innerHTML = '<p style="color:white;margin:0;">Iscritto con successo! 🎉</p>';
-      }).catch(() => {
-        e.target.innerHTML = '<p style="color:white;margin:0;">Iscritto! 📧</p>';
-      });
-      return false;
-    }
-
-    document.getElementById('bmi-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const pesoInput = document.getElementById('peso');
-      const altezzaInput = document.getElementById('altezza');
-      const peso = parseFloat(pesoInput.value);
-      const altezza = parseFloat(altezzaInput.value);
-      
-      // Reset errori
-      pesoInput.classList.remove('error');
-      altezzaInput.classList.remove('error');
-      document.getElementById('peso-error').style.display = 'none';
-      document.getElementById('altezza-error').style.display = 'none';
-      
-      let hasError = false;
-      
-      // Validazione peso
-      if (!peso || peso < 1 || peso > 300) {
-        pesoInput.classList.add('error');
-        document.getElementById('peso-error').style.display = 'block';
-        hasError = true;
-      }
-      
-      // Validazione altezza
-      if (!altezza || altezza < 50 || altezza > 250) {
-        altezzaInput.classList.add('error');
-        document.getElementById('altezza-error').style.display = 'block';
-        hasError = true;
-      }
-      
-      if (hasError) return;
-      
-      // Calcolo BMI
-      const altezzaMetri = altezza / 100;
-      const bmi = peso / (altezzaMetri * altezzaMetri);
-      
-      // Determinazione categoria
-      let categoria, colore, percentuale;
-      
-      if (bmi < 18.5) {
-        categoria = 'Sottopeso';
-        colore = '#2563eb';
-        percentuale = 15;
-      } else if (bmi < 25) {
-        categoria = 'Normopeso';
-        colore = '#059669';
-        percentuale = 40;
-      } else if (bmi < 30) {
-        categoria = 'Sovrappeso';
-        colore = '#d97706';
-        percentuale = 70;
-      } else {
-        categoria = 'Obesità';
-        colore = '#dc2626';
-        percentuale = 95;
-      }
-      
-      // Mostra risultato
-      document.getElementById('bmi-value').textContent = bmi.toFixed(1);
-      document.getElementById('bmi-category').textContent = categoria;
-      document.getElementById('bmi-category').style.color = colore;
-      
-      const indicator = document.getElementById('bmi-indicator');
-      indicator.style.width = percentuale + '%';
-      indicator.style.background = colore;
-      
-      document.getElementById('result').classList.add('show');
-      document.getElementById('result').scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      });
-    });
-
-    // Test case validation
-    console.log('Test case: peso=70, altezza=175');
-    const testBmi = 70 / Math.pow(1.75, 2);
-    console.log('Expected: 22.9, Calculated:', testBmi.toFixed(1));
-  </script>
-<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
-<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
-<ul style="list-style:none;padding:0;margin:0;">
-<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
-<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
-<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
-<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
-</ul>
-</div>
-<p style="font-size:0.75rem;color:#94a3b8;margin-top:8px"><em>In qualita di Affiliato Amazon ricevo un guadagno dagli acquisti idonei.</em></p><div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;"><a href="https://www.amazon.it/s?k=bilancia+pesapersone+digitale&tag=tool4u0b-21" target="_blank" rel="noopener sponsored" style="color:#2563eb;text-decoration:none;font-size:0.9rem;">Bilancia pesapersone digitale su Amazon &rarr;</a></div>
+    
 </body>
 </html>
