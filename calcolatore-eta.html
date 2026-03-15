@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcola la Tua Età Esatta Online - Calcolatore Età Preciso</title>
+  <meta name="description" content="Calcola la tua età esatta in anni, mesi e giorni. Scopri quando è il prossimo compleanno e in che giorno della settimana sei nato.">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Età",
+    "description": "Calcola la tua età esatta in anni, mesi e giorni dalla data di nascita",
+    "url": "https://tool4u.org/calcolatore-eta",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #059669;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-600: #4b5563;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: var(--gray-50);
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .tool-header {
+      text-align: center;
+      padding: 2rem 0;
+      background: white;
+      border-radius: 12px;
+      margin: 1rem 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .tool-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-header p {
+      font-size: 1.1rem;
+      color: var(--gray-600);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .ad-slot {
+      background: var(--gray-100);
+      border: 2px dashed var(--gray-300);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      margin: 1.5rem 0;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+    }
+
+    .tool-body {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--gray-800);
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    input[type="date"]:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .calculate-btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      padding: 0.875rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .calculate-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .result {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: var(--gray-50);
+      border-radius: 8px;
+      display: none;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .age-display {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .age-main {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .age-precise {
+      font-size: 1.1rem;
+      color: var(--gray-600);
+    }
+
+    .details {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .detail-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-value {
+      color: var(--gray-600);
+    }
+
+    .explanation {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .explanation h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--gray-900);
+    }
+
+    .explanation p {
+      margin-bottom: 1rem;
+      color: var(--gray-600);
+    }
+
+    .email-capture {
+      background: var(--primary);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+
+    .email-capture p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .email-capture form {
+      display: flex;
+      max-width: 400px;
+      margin: 0 auto;
+      gap: 0.5rem;
+    }
+
+    .email-capture input {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .email-capture button {
+      background: white;
+      color: var(--primary);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .footer {
+      background: var(--gray-100);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 2rem;
+      border-radius: 12px;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 640px) {
+      .tool-header h1 {
+        font-size: 2rem;
+      }
+      
+      .age-main {
+        font-size: 2rem;
+      }
+      
+      .email-capture form {
+        flex-direction: column;
+      }
+    }
+  </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;">
+    <a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a>
+  </div>
+
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Età</h1>
+      <p>Calcola la tua età esatta in anni, mesi e giorni dalla data di nascita. Scopri anche quando è il tuo prossimo compleanno!</p>
+    </div>
+
+    <div id="ad-slot-top" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="age-form">
+        <div class="form-group">
+          <label for="data_nascita">Data di nascita</label>
+          <input type="date" id="data_nascita" name="data_nascita" required>
+        </div>
+        
+        <button type="submit" class="calculate-btn">Calcola Età</button>
+        
+        <div id="result" class="result">
+          <div class="age-display">
+            <div class="age-main" id="age-main"></div>
+            <div class="age-precise" id="age-precise"></div>
+          </div>
+          
+          <div class="details">
+            <div class="detail-item">
+              <div class="detail-label">Giorno della settimana di nascita</div>
+              <div class="detail-value" id="birth-day"></div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Prossimo compleanno</div>
+              <div class="detail-value" id="next-birthday"></div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Età in giorni totali</div>
+              <div class="detail-value" id="total-days"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="ad-slot-middle" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="explanation">
+      <h2>Come funziona il Calcolatore di Età</h2>
+      <p>Il nostro calcolatore di età ti permette di scoprire la tua età esatta in anni, mesi e giorni dalla data di nascita. Lo strumento calcola automaticamente la differenza tra la tua data di nascita e la data odierna, fornendoti informazioni precise e dettagliate.</p>
+      
+      <p><strong>Informazioni fornite:</strong></p>
+      <ul style="margin-left: 1.5rem; color: var(--gray-600);">
+        <li>Età esatta in anni, mesi e giorni</li>
+        <li>Il giorno della settimana in cui sei nato</li>
+        <li>Quando sarà il tuo prossimo compleanno e tra quanti giorni</li>
+        <li>La tua età totale espressa in giorni</li>
+      </ul>
+      
+      <p>Questo strumento è utile per documenti ufficiali, curiosità personali, o semplicemente per sapere con precisione quanti giorni hai vissuto fino ad oggi!</p>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore fornisce stime basate sui dati inseriti. Per documenti ufficiali, verificare sempre con le autorità competenti.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Calcolatori e strumenti utili online</p>
+    </div>
+  </div>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-eta'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white">Grazie per l\'iscrizione!</p>';
+      });
+      return false;
+    }
+
+    document.getElementById('age-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const birthDate = new Date(document.getElementById('data_nascita').value);
+      const today = new Date();
+      
+      if (birthDate > today) {
+        alert('La data di nascita non può essere nel futuro!');
+        return;
+      }
+      
+      // Calcolo età esatta
+      const ageData = calculateAge(birthDate, today);
+      
+      // Giorni della settimana in italiano
+      const daysOfWeek = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+      const birthDayName = daysOfWeek[birthDate.getDay()];
+      
+      // Prossimo compleanno
+      const nextBirthday = calculateNextBirthday(birthDate, today);
+      
+      // Giorni totali vissuti
+      const totalDays = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24));
+      
+      // Mostra risultati
+      document.getElementById('age-main').textContent = `${ageData.years} anni`;
+      document.getElementById('age-precise').textContent = `${ageData.years} anni, ${ageData.months} mesi e ${ageData.days} giorni`;
+      document.getElementById('birth-day').textContent = birthDayName;
+      document.getElementById('next-birthday').textContent = nextBirthday;
+      document.getElementById('total-days').textContent = `${totalDays.toLocaleString()} giorni`;
+      
+      document.getElementById('result').classList.add('show');
+    });
+
+    function calculateAge(birthDate, currentDate) {
+      let years = currentDate.getFullYear() - birthDate.getFullYear();
+      let months = currentDate.getMonth() - birthDate.getMonth();
+      let days = currentDate.getDate() - birthDate.getDate();
+
+      if (days < 0) {
+        months--;
+        const prevMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+        days += prevMonth.getDate();
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      return { years, months, days };
+    }
+
+    function calculateNextBirthday(birthDate, currentDate) {
+      const thisYear = currentDate.getFullYear();
+      let nextBirthday = new Date(thisYear, birthDate.getMonth(), birthDate.getDate());
+      
+      if (nextBirthday <= currentDate) {
+        nextBirthday.setFullYear(thisYear + 1);
+      }
+      
+      const daysUntil = Math.ceil((nextBirthday - currentDate) / (1000 * 60 * 60 * 24));
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      const dateString = nextBirthday.toLocaleDateString('it-IT', options);
+      
+      return `${dateString} (tra ${daysUntil} giorni)`;
+    }
+
+    // Imposta la data massima per il campo data (oggi)
+    document.getElementById('data_nascita').max = new Date().toISOString().split('T')[0];
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-giorni-tra-date.html" style="color:#2563eb;text-decoration:none;">Calcolatore Giorni tra Due Date</a></li>
+</ul>
+</div>
+</body>
+</html>
