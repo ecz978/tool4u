@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Area Trapezio Online - Calcolatore Gratuito</title>
+  <meta name="description" content="Calcola l'area del trapezio online. Inserisci le basi e l'altezza per ottenere il risultato istantaneo. Tool gratuito e facile da usare.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Area Trapezio",
+    "description": "Strumento online per calcolare l'area del trapezio inserendo base maggiore, base minore e altezza",
+    "url": "https://tool4u.org/calcolatore-area-trapezio",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --secondary-color: #f1f5f9;
+  --text-color: #1e293b;
+  --border-color: #e2e8f0;
+  --success-color: #059669;
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background: #ffffff;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.tool-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  color: #64748b;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.ad-slot {
+  background: var(--secondary-color);
+  border: 2px dashed var(--border-color);
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.tool-body {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  margin: 2rem 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
+}
+
+.calculate-btn {
+  width: 100%;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 1rem;
+}
+
+.calculate-btn:hover {
+  background: var(--primary-hover);
+}
+
+.calculate-btn:active {
+  transform: translateY(1px);
+}
+
+.result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-color);
+  display: none;
+}
+
+.result.show {
+  display: block;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.result-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.explanation {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  border: 1px solid var(--border-color);
+}
+
+.explanation h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.explanation p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+.explanation .formula {
+  background: var(--secondary-color);
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  border: 1px solid var(--border-color);
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.875rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.email-capture button:hover {
+  background: var(--primary-hover);
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-color);
+  margin-top: 3rem;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 640px) {
+  .tool-header h1 {
+    font-size: 2rem;
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+  
+  .explanation {
+    padding: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .email-capture button {
+    width: 100%;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Area Trapezio</h1>
+      <p>Calcola istantaneamente l'area del trapezio inserendo le misure delle basi e dell'altezza</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="trapezio-form">
+        <div class="form-group">
+          <label for="base_maggiore">Base maggiore (cm)</label>
+          <input type="number" id="base_maggiore" name="base_maggiore" placeholder="10" step="0.01" min="0" required>
+          <div class="error" id="error-base_maggiore"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="base_minore">Base minore (cm)</label>
+          <input type="number" id="base_minore" name="base_minore" placeholder="6" step="0.01" min="0" required>
+          <div class="error" id="error-base_minore"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="altezza">Altezza (cm)</label>
+          <input type="number" id="altezza" name="altezza" placeholder="4" step="0.01" min="0" required>
+          <div class="error" id="error-altezza"></div>
+        </div>
+
+        <button type="submit" class="calculate-btn">Calcola Area Trapezio</button>
+      </form>
+
+      <div class="result" id="result">
+        <h3>Risultato del calcolo:</h3>
+        <div class="result-value" id="result-value"></div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="explanation">
+      <h2>Come funziona il calcolo dell'area del trapezio</h2>
+      
+      <p>Il <strong>trapezio</strong> è un quadrilatero con una coppia di lati paralleli chiamati basi. Per calcolare la sua area, utilizziamo una formula matematica semplice ed efficace.</p>
+      
+      <h3>Formula dell'area del trapezio</h3>
+      <div class="formula">
+        Area = (Base maggiore + Base minore) × Altezza ÷ 2
+      </div>
+      
+      <p>Dove:</p>
+      <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+        <li><strong>Base maggiore:</strong> il lato parallelo più lungo del trapezio</li>
+        <li><strong>Base minore:</strong> il lato parallelo più corto del trapezio</li>
+        <li><strong>Altezza:</strong> la distanza perpendicolare tra le due basi parallele</li>
+      </ul>
+      
+      <h3>Esempio pratico</h3>
+      <p>Se abbiamo un trapezio con:</p>
+      <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+        <li>Base maggiore = 10 cm</li>
+        <li>Base minore = 6 cm</li>
+        <li>Altezza = 4 cm</li>
+      </ul>
+      <p>L'area sarà: (10 + 6) × 4 ÷ 2 = 16 × 4 ÷ 2 = 32 cm²</p>
+      
+      <p>Questo calcolatore è utile per studenti, professionisti e chiunque debba calcolare rapidamente l'area di figure trapezoidali in geometria, architettura, ingegneria o altre applicazioni pratiche.</p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/s?k=calcolatrice+scientifica&tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Calcolatrice scientifica su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo strumento fornisce calcoli matematici accurati per scopi educativi e professionali. Verifica sempre i risultati per applicazioni critiche.</p>
+      <p style="margin-top: 0.5rem;">© 2024 Tool4U.org - Strumenti di calcolo online gratuiti</p>
+    </div>
+  </div>
+
+  <script>
+function captureEmail(e) {
+  e.preventDefault();
+  const email = e.target.querySelector('input').value;
+  // Il Publisher inietterà l'endpoint reale
+  fetch('__NEWSLETTER_ENDPOINT__', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email, source: 'calcolatore-area-trapezio'})
+  }).then(() => {
+    e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+  });
+  return false;
+}
+
+document.getElementById('trapezio-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Rimuovi errori precedenti
+  clearErrors();
+  
+  // Ottieni i valori
+  const baseMaggiore = parseFloat(document.getElementById('base_maggiore').value);
+  const baseMinore = parseFloat(document.getElementById('base_minore').value);
+  const altezza = parseFloat(document.getElementById('altezza').value);
+  
+  // Validazione
+  let hasErrors = false;
+  
+  if (!baseMaggiore || baseMaggiore <= 0) {
+    showError('base_maggiore', 'Inserisci un valore valido per la base maggiore');
+    hasErrors = true;
+  }
+  
+  if (!baseMinore || baseMinore <= 0) {
+    showError('base_minore', 'Inserisci un valore valido per la base minore');
+    hasErrors = true;
+  }
+  
+  if (!altezza || altezza <= 0) {
+    showError('altezza', 'Inserisci un valore valido per l\'altezza');
+    hasErrors = true;
+  }
+  
+  if (baseMaggiore && baseMinore && baseMaggiore < baseMinore) {
+    showError('base_maggiore', 'La base maggiore deve essere maggiore o uguale alla base minore');
+    hasErrors = true;
+  }
+  
+  if (hasErrors) return;
+  
+  // Calcola l'area
+  const area = (baseMaggiore + baseMinore) * altezza / 2;
+  
+  // Mostra il risultato
+  document.getElementById('result-value').textContent = `${area.toFixed(2)} cm²`;
+  document.getElementById('result').classList.add('show');
+  
+  // Scroll al risultato
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+
+function clearErrors() {
+  const errorElements = document.querySelectorAll('.error');
+  errorElements.forEach(el => el.textContent = '');
+  
+  const inputs = document.querySelectorAll('input');
+  inputs.forEach(input => input.style.borderColor = '');
+}
+
+function showError(fieldId, message) {
+  document.getElementById(`error-${fieldId}`).textContent = message;
+  document.getElementById(fieldId).style.borderColor = '#dc2626';
+}
+
+// Auto-calcolo quando l'utente smette di digitare
+let timeout;
+document.querySelectorAll('input').forEach(input => {
+  input.addEventListener('input', function() {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      const form = document.getElementById('trapezio-form');
+      const baseMaggiore = parseFloat(document.getElementById('base_maggiore').value);
+      const baseMinore = parseFloat(document.getElementById('base_minore').value);
+      const altezza = parseFloat(document.getElementById('altezza').value);
+      
+      if (baseMaggiore > 0 && baseMinore > 0 && altezza > 0 && baseMaggiore >= baseMinore) {
+        form.dispatchEvent(new Event('submit'));
+      }
+    }, 500);
+  });
+});
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-triangolo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Triangolo</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-cerchio.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Cerchio</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-rettangolo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Rettangolo</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-volume-sfera.html" style="color:#2563eb;text-decoration:none;">Calcolatore Volume Sfera</a></li>
+</ul>
+</div>
+</body>
+</html>
