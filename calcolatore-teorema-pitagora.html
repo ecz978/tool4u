@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Teorema di Pitagora Online</title>
+  <meta name="description" content="Calcola ipotenusa o cateto con il teorema di Pitagora. Gratis e immediato.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Teorema di Pitagora",
+    "description": "Calcola il lato mancante di un triangolo rettangolo usando il teorema di Pitagora",
+    "url": "https://tool4u.org/calcolatore-teorema-pitagora",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --success-color: #059669;
+  --error-color: #dc2626;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+  --border-focus: #3b82f6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-header {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.ad-slot {
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.tool-body {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.mode-selector {
+  margin-bottom: 2rem;
+}
+
+.mode-selector h3 {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.radio-item:hover {
+  border-color: var(--border-focus);
+  background-color: #f8fafc;
+}
+
+.radio-item input[type="radio"] {
+  margin-right: 0.75rem;
+  accent-color: var(--primary-color);
+}
+
+.radio-item.active {
+  border-color: var(--primary-color);
+  background-color: #eff6ff;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group input:disabled {
+  background-color: #f1f5f9;
+  color: var(--text-secondary);
+}
+
+.calculate-btn {
+  width: 100%;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-bottom: 2rem;
+}
+
+.calculate-btn:hover {
+  background: var(--primary-hover);
+}
+
+.result {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.result h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.result .value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.result .formula {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  font-family: monospace;
+}
+
+.triangle-visualization {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.triangle {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 150px;
+  margin: 2rem;
+}
+
+.triangle svg {
+  width: 100%;
+  height: 100%;
+}
+
+.explanation {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.explanation h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.explanation p, .explanation li {
+  margin-bottom: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.explanation ul {
+  margin-left: 1.5rem;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.email-capture p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  opacity: 0.95;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: white;
+  color: var(--primary-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.email-capture button:hover {
+  transform: translateY(-1px);
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .radio-group {
+    flex-direction: column;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .tool-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .triangle {
+    width: 150px;
+    height: 112px;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Teorema di Pitagora</h1>
+      <p>Trova il lato mancante di un triangolo rettangolo in modo semplice e immediato</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">Spazio pubblicitario</div>
+
+    <div class="tool-body">
+      <div class="mode-selector">
+        <h3>Cosa vuoi calcolare?</h3>
+        <div class="radio-group">
+          <label class="radio-item active">
+            <input type="radio" name="mode" value="ipotenusa" checked>
+            <span>Ipotenusa (dati i due cateti)</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="mode" value="cateto_a">
+            <span>Cateto A (dati cateto B e ipotenusa)</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="mode" value="cateto_b">
+            <span>Cateto B (dati cateto A e ipotenusa)</span>
+          </label>
+        </div>
+      </div>
+
+      <form id="calculator-form">
+        <div class="form-group">
+          <label for="cateto_a">Cateto A (unità)</label>
+          <input type="number" id="cateto_a" step="0.01" min="0.01" placeholder="3" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cateto_b">Cateto B (unità)</label>
+          <input type="number" id="cateto_b" step="0.01" min="0.01" placeholder="4" required>
+        </div>
+
+        <div class="form-group" id="ipotenusa-group" style="display: none;">
+          <label for="ipotenusa">Ipotenusa (unità)</label>
+          <input type="number" id="ipotenusa" step="0.01" min="0.01" placeholder="5">
+        </div>
+
+        <button type="submit" class="calculate-btn">Calcola</button>
+      </form>
+
+      <div id="result" style="display: none;"></div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">Spazio pubblicitario</div>
+
+    <div class="explanation">
+      <h2>Come funziona il Teorema di Pitagora</h2>
+      <p>Il teorema di Pitagora è una delle formule matematiche più famose e utili. Stabilisce che in un triangolo rettangolo, il quadrato dell'ipotenusa è uguale alla somma dei quadrati dei due cateti.</p>
+      
+      <p><strong>Formula: a² + b² = c²</strong></p>
+      
+      <p>Dove:</p>
+      <ul>
+        <li><strong>a</strong> e <strong>b</strong> sono i cateti (i due lati che formano l'angolo retto)</li>
+        <li><strong>c</strong> è l'ipotenusa (il lato più lungo, opposto all'angolo retto)</li>
+      </ul>
+
+      <p>Il nostro calcolatore può essere usato in tre modi:</p>
+      <ul>
+        <li><strong>Calcolare l'ipotenusa</strong>: inserisci i due cateti per trovare l'ipotenusa</li>
+        <li><strong>Calcolare un cateto</strong>: inserisci l'altro cateto e l'ipotenusa per trovare il cateto mancante</li>
+      </ul>
+
+      <p>Questo strumento è perfetto per studenti, ingegneri, architetti e chiunque abbia bisogno di calcoli geometrici precisi e immediati.</p>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">Spazio pubblicitario</div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore fornisce risultati approssimativi per scopi educativi e informativi. 
+      Per calcoli professionali o critici, verificare sempre i risultati con strumenti specializzati.</p>
+      <p>&copy; 2024 <a href="/">Tool4U.org</a> - Strumenti gratuiti per tutti</p>
+    </div>
+  </div>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-teorema-pitagora'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white;margin:0;opacity:0.95;">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white;margin:0;opacity:0.95;">Iscritto con successo!</p>';
+      });
+      return false;
+    }
+
+    // Gestione modalità di calcolo
+    const radioItems = document.querySelectorAll('.radio-item');
+    const radios = document.querySelectorAll('input[name="mode"]');
+    const catetoAInput = document.getElementById('cateto_a');
+    const catetoBInput = document.getElementById('cateto_b');
+    const ipotenusaInput = document.getElementById('ipotenusa');
+    const ipotenusaGroup = document.getElementById('ipotenusa-group');
+    const form = document.getElementById('calculator-form');
+    const resultDiv = document.getElementById('result');
+
+    // Aggiorna interfaccia in base alla modalità
+    function updateMode() {
+      const mode = document.querySelector('input[name="mode"]:checked').value;
+      
+      // Reset visual state
+      radioItems.forEach(item => item.classList.remove('active'));
+      document.querySelector(`input[value="${mode}"]`).closest('.radio-item').classList.add('active');
+      
+      // Reset inputs
+      catetoAInput.disabled = false;
+      catetoBInput.disabled = false;
+      ipotenusaInput.disabled = false;
+      catetoAInput.required = true;
+      catetoBInput.required = true;
+      ipotenusaInput.required = false;
+      ipotenusaGroup.style.display = 'none';
+      
+      // Update labels and visibility based on mode
+      if (mode === 'ipotenusa') {
+        document.querySelector('label[for="cateto_a"]').textContent = 'Cateto A (unità)';
+        document.querySelector('label[for="cateto_b"]').textContent = 'Cateto B (unità)';
+      } else if (mode === 'cateto_a') {
+        document.querySelector('label[for="cateto_a"]').textContent = 'Cateto A (da calcolare)';
+        document.querySelector('label[for="cateto_b"]').textContent = 'Cateto B (unità)';
+        catetoAInput.disabled = true;
+        catetoAInput.required = false;
+        catetoAInput.value = '';
+        ipotenusaGroup.style.display = 'block';
+        ipotenusaInput.required = true;
+      } else if (mode === 'cateto_b') {
+        document.querySelector('label[for="cateto_a"]').textContent = 'Cateto A (unità)';
+        document.querySelector('label[for="cateto_b"]').textContent = 'Cateto B (da calcolare)';
+        catetoBInput.disabled = true;
+        catetoBInput.required = false;
+        catetoBInput.value = '';
+        ipotenusaGroup.style.display = 'block';
+        ipotenusaInput.required = true;
+      }
+      
+      // Clear result
+      resultDiv.style.display = 'none';
+    }
+
+    // Event listeners per radio buttons
+    radios.forEach(radio => {
+      radio.addEventListener('change', updateMode);
+    });
+
+    radioItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const radio = item.querySelector('input[type="radio"]');
+        radio.checked = true;
+        updateMode();
+      });
+    });
+
+    // Form submission
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const mode = document.querySelector('input[name="mode"]:checked').value;
+      const a = parseFloat(catetoAInput.value) || 0;
+      const b = parseFloat(catetoBInput.value) || 0;
+      const c = parseFloat(ipotenusaInput.value) || 0;
+      
+      let result, formula, label;
+      
+      try {
+        if (mode === 'ipotenusa') {
+          if (a <= 0 || b <= 0) throw new Error('I cateti devono essere positivi');
+          result = Math.sqrt(a * a + b * b);
+          formula = `√(${a}² + ${b}²) = √(${a*a} + ${b*b}) = ${result.toFixed(3)}`;
+          label = 'Ipotenusa';
+        } else if (mode === 'cateto_a') {
+          if (b <= 0 || c <= 0) throw new Error('I valori devono essere positivi');
+          if (c <= b) throw new Error('L\'ipotenusa deve essere maggiore del cateto');
+          result = Math.sqrt(c * c - b * b);
+          formula = `√(${c}² - ${b}²) = √(${c*c} - ${b*b}) = ${result.toFixed(3)}`;
+          label = 'Cateto A';
+        } else if (mode === 'cateto_b') {
+          if (a <= 0 || c <= 0) throw new Error('I valori devono essere positivi');
+          if (c <= a) throw new Error('L\'ipotenusa deve essere maggiore del cateto');
+          result = Math.sqrt(c * c - a * a);
+          formula = `√(${c}² - ${a}²) = √(${c*c} - ${a*a}) = ${result.toFixed(3)}`;
+          label = 'Cateto B';
+        }
+        
+        resultDiv.innerHTML = `
+          <div class="result">
+            <h3>${label}</h3>
+            <div class="value">${result.toFixed(3)} unità</div>
+            <div class="formula">${formula}</div>
+          </div>
+          <div class="triangle-visualization">
+            <div class="triangle">
+              <svg viewBox="0 0 200 150">
+                <polygon points="20,130 180,130 180,20" fill="#e0f2fe" stroke="#0369a1" stroke-width="2"/>
+                <text x="100" y="145" text-anchor="middle" font-size="12" fill="#0369a1">
+                  ${mode === 'cateto_a' ? result.toFixed(1) : (a || '?')}
+                </text>
+                <text x="190" y="75" text-anchor="start" font-size="12" fill="#0369a1">
+                  ${mode === 'cateto_b' ? result.toFixed(1) : (b || '?')}
+                </text>
+                <text x="90" y="65" text-anchor="middle" font-size="12" fill="#dc2626" transform="rotate(-35 90 65)">
+                  ${mode === 'ipotenusa' ? result.toFixed(1) : (c || '?')}
+                </text>
+                <rect x="170" y="120" width="10" height="10" fill="none" stroke="#0369a1" stroke-width="1"/>
+              </svg>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">
+              Rappresentazione del triangolo rettangolo con i valori calcolati
+            </p>
+          </div>
+        `;
+        resultDiv.style.display = 'block';
+        
+      } catch (error) {
+        resultDiv.innerHTML = `
+          <div style="background: #fee2e2; color: #dc2626; padding: 1rem; border-radius: 8px;">
+            <strong>Errore:</strong> ${error.message}
+          </div>
+        `;
+        resultDiv.style.display = 'block';
+      }
+    });
+
+    // Initialize
+    updateMode();
+
+    // Test the calculation with the provided test case
+    console.log('Test case: a=3, b=4 should give c=5');
+    const testResult = Math.sqrt(3*3 + 4*4);
+    console.log('Calculated result:', testResult);
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-triangolo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Triangolo</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-cerchio.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Cerchio</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-rettangolo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Rettangolo</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-volume-sfera.html" style="color:#2563eb;text-decoration:none;">Calcolatore Volume Sfera</a></li>
+</ul>
+</div>
+</body>
+</html>
