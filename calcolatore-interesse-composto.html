@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Interesse Composto Online</title>
+  <meta name="description" content="Calcola come crescono i tuoi risparmi con l'interesse composto. Con contributi mensili e tabella annuale.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Interesse Composto",
+    "description": "Calcola come crescono i tuoi risparmi con l'interesse composto nel tempo",
+    "url": "https://tool4u.org/calcolatore-interesse-composto",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "HTML5, JavaScript"
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #64748b;
+  --success: #059669;
+  --background: #f8fafc;
+  --card-bg: #ffffff;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --input-bg: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem 1rem;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.tool-header h1 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.tool-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.ad-slot {
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  border-radius: 8px;
+  color: var(--text-muted);
+}
+
+.tool-body {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.form-group input {
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--input-bg);
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.form-group input:invalid {
+  border-color: #ef4444;
+}
+
+.calculate-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.calculate-btn:hover {
+  background: var(--primary-dark);
+}
+
+.results {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--border);
+}
+
+.results-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.result-card {
+  background: var(--background);
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.result-card h3 {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.result-card .value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--success);
+}
+
+.table-container {
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+th, td {
+  padding: 0.75rem 1rem;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: var(--background);
+  font-weight: 600;
+  color: var(--text);
+}
+
+td:first-child, th:first-child {
+  text-align: left;
+}
+
+.chart-container {
+  margin: 2rem 0;
+}
+
+.chart-container h3 {
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.chart {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.chart-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
+.chart-label {
+  width: 60px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.chart-visual {
+  flex: 1;
+  height: 20px;
+  background: var(--border);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--success));
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.chart-value {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  min-width: 80px;
+  text-align: right;
+}
+
+.tool-explanation {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+.tool-explanation h2 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.tool-explanation p {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+.email-capture {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tool-footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .tool-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .results-summary {
+    grid-template-columns: 1fr;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Interesse Composto</h1>
+      <p>Calcola come crescono i tuoi risparmi con l'interesse composto nel tempo</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="compound-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="capitale">Capitale iniziale (€)</label>
+            <input type="number" id="capitale" min="0" step="0.01" placeholder="10000" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="tasso">Tasso annuo (%)</label>
+            <input type="number" id="tasso" min="0" max="100" step="0.01" placeholder="5" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="anni">Durata (anni)</label>
+            <input type="number" id="anni" min="1" max="100" placeholder="10" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="contributo">Contributo mensile (€)</label>
+            <input type="number" id="contributo" min="0" step="0.01" placeholder="100">
+          </div>
+        </div>
+        
+        <button type="submit" class="calculate-btn">Calcola Interesse Composto</button>
+      </form>
+
+      <div id="results" class="results" style="display: none;">
+        <div class="results-summary">
+          <div class="result-card">
+            <h3>Montante Finale</h3>
+            <div class="value" id="montante-finale">€0</div>
+          </div>
+          
+          <div class="result-card">
+            <h3>Interessi Totali</h3>
+            <div class="value" id="interessi-totali">€0</div>
+          </div>
+          
+          <div class="result-card">
+            <h3>Capitale Versato</h3>
+            <div class="value" id="capitale-versato">€0</div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <h3>Crescita nel Tempo</h3>
+          <div id="chart" class="chart"></div>
+        </div>
+
+        <div class="table-container">
+          <table id="results-table">
+            <thead>
+              <tr>
+                <th>Anno</th>
+                <th>Capitale</th>
+                <th>Interessi</th>
+                <th>Totale</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come Funziona l'Interesse Composto</h2>
+      <p>L'interesse composto è la forza più potente dell'investimento. A differenza dell'interesse semplice, l'interesse composto calcola i rendimenti non solo sul capitale iniziale, ma anche sugli interessi già maturati negli anni precedenti.</p>
+      
+      <p>Il nostro calcolatore utilizza la formula matematica per l'interesse composto con contributi mensili:</p>
+      <p><strong>Montante = P*(1+r/12)^(12*t) + C*[((1+r/12)^(12*t)-1)/(r/12)]</strong></p>
+      
+      <p>Dove:</p>
+      <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+        <li><strong>P</strong> = Capitale iniziale</li>
+        <li><strong>r</strong> = Tasso di interesse annuo (in decimali)</li>
+        <li><strong>t</strong> = Numero di anni</li>
+        <li><strong>C</strong> = Contributo mensile</li>
+      </ul>
+      
+      <p>La tabella annuale ti mostra come il tuo patrimonio cresce anno dopo anno, mentre il grafico visualizza la crescita esponenziale tipica dell'interesse composto. Più lungo è il periodo di investimento, più evidente diventa l'effetto dell'interesse composto.</p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.financeads.net/tc.php?t=XXXXX" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Confronta i migliori conti deposito</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore fornisce stime basate sui parametri inseriti. I risultati sono indicativi e non costituiscono consigli di investimento. I rendimenti reali possono variare a causa di tasse, commissioni e fluttuazioni di mercato.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Strumenti online gratuiti</p>
+    </div>
+  </div>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-interesse-composto'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('it-IT', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(amount);
+    }
+
+    function calculateCompoundInterest(principal, rate, years, monthlyContribution) {
+      const monthlyRate = rate / 100 / 12;
+      const months = years * 12;
+      
+      // Montante del capitale iniziale
+      const principalAmount = principal * Math.pow(1 + monthlyRate, months);
+      
+      // Montante dei contributi mensili
+      let contributionAmount = 0;
+      if (monthlyContribution > 0 && monthlyRate > 0) {
+        contributionAmount = monthlyContribution * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+      } else if (monthlyContribution > 0) {
+        contributionAmount = monthlyContribution * months;
+      }
+      
+      return principalAmount + contributionAmount;
+    }
+
+    function calculateYearlyBreakdown(principal, rate, years, monthlyContribution) {
+      const monthlyRate = rate / 100 / 12;
+      const yearlyData = [];
+      
+      let currentBalance = principal;
+      let totalContributions = principal;
+      
+      for (let year = 1; year <= years; year++) {
+        // Calcola per 12 mesi
+        for (let month = 1; month <= 12; month++) {
+          currentBalance = currentBalance * (1 + monthlyRate) + monthlyContribution;
+          totalContributions += monthlyContribution;
+        }
+        
+        const totalInterest = currentBalance - totalContributions;
+        
+        yearlyData.push({
+          year: year,
+          capital: totalContributions,
+          interest: totalInterest,
+          total: currentBalance
+        });
+      }
+      
+      return yearlyData;
+    }
+
+    function createChart(yearlyData) {
+      const chartContainer = document.getElementById('chart');
+      chartContainer.innerHTML = '';
+      
+      const maxValue = Math.max(...yearlyData.map(d => d.total));
+      
+      yearlyData.forEach(data => {
+        const barContainer = document.createElement('div');
+        barContainer.className = 'chart-bar';
+        
+        const label = document.createElement('div');
+        label.className = 'chart-label';
+        label.textContent = `Anno ${data.year}`;
+        
+        const visual = document.createElement('div');
+        visual.className = 'chart-visual';
+        
+        const fill = document.createElement('div');
+        fill.className = 'chart-fill';
+        fill.style.width = `${(data.total / maxValue) * 100}%`;
+        
+        const value = document.createElement('div');
+        value.className = 'chart-value';
+        value.textContent = formatCurrency(data.total);
+        
+        visual.appendChild(fill);
+        barContainer.appendChild(label);
+        barContainer.appendChild(visual);
+        barContainer.appendChild(value);
+        chartContainer.appendChild(barContainer);
+      });
+    }
+
+    function populateTable(yearlyData) {
+      const tableBody = document.querySelector('#results-table tbody');
+      tableBody.innerHTML = '';
+      
+      yearlyData.forEach(data => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>Anno ${data.year}</td>
+          <td>${formatCurrency(data.capital)}</td>
+          <td>${formatCurrency(data.interest)}</td>
+          <td>${formatCurrency(data.total)}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    document.getElementById('compound-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const capitale = parseFloat(document.getElementById('capitale').value) || 0;
+      const tasso = parseFloat(document.getElementById('tasso').value) || 0;
+      const anni = parseInt(document.getElementById('anni').value) || 0;
+      const contributo = parseFloat(document.getElementById('contributo').value) || 0;
+      
+      if (capitale <= 0 || tasso <= 0 || anni <= 0) {
+        alert('Inserisci valori validi per capitale, tasso e anni.');
+        return;
+      }
+      
+      // Calcola il montante finale
+      const montanteFinale = calculateCompoundInterest(capitale, tasso, anni, contributo);
+      const capitaleVersato = capitale + (contributo * 12 * anni);
+      const interessiTotali = montanteFinale - capitaleVersato;
+      
+      // Aggiorna i risultati
+      document.getElementById('montante-finale').textContent = formatCurrency(montanteFinale);
+      document.getElementById('interessi-totali').textContent = formatCurrency(interessiTotali);
+      document.getElementById('capitale-versato').textContent = formatCurrency(capitaleVersato);
+      
+      // Calcola e mostra la tabella annuale
+      const yearlyData = calculateYearlyBreakdown(capitale, tasso, anni, contributo);
+      populateTable(yearlyData);
+      createChart(yearlyData);
+      
+      // Mostra i risultati
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Calcolo automatico di esempio al caricamento
+    window.addEventListener('load', function() {
+      document.getElementById('capitale').value = '10000';
+      document.getElementById('tasso').value = '5';
+      document.getElementById('anni').value = '10';
+      document.getElementById('contributo').value = '100';
+      
+      setTimeout(() => {
+        document.getElementById('compound-form').dispatchEvent(new Event('submit'));
+      }, 500);
+    });
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-codice-fiscale.html" style="color:#2563eb;text-decoration:none;">Calcolatore Codice Fiscale Online</a></li>
+</ul>
+</div>
+</body>
+</html>
