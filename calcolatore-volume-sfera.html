@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Volume Sfera Online - Calcolatore Gratuito</title>
+  <meta name="description" content="Calcola volume e superficie della sfera online gratis. Inserisci il raggio e ottieni risultati istantanei con formule matematiche precise.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Volume Sfera",
+    "description": "Calcola volume e superficie della sfera dal raggio",
+    "url": "https://tool4u.org/calcolatore-volume-sfera",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "permissions": "browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #64748b;
+  --success: #059669;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--background);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.tool-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ad-slot {
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.tool-body {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.calculate-btn {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.875rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.calculate-btn:hover {
+  background: var(--primary-dark);
+}
+
+.result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  display: none;
+}
+
+.result.show {
+  display: block;
+}
+
+.result h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e0f2fe;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-label {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.result-value {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.explanation {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+}
+
+.explanation h2 {
+  color: var(--text);
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+}
+
+.explanation h3 {
+  color: var(--text);
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.explanation p {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.formula {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+  font-weight: 600;
+}
+
+.email-capture {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.email-capture p {
+  color: var(--text);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.email-capture button:hover {
+  background: var(--primary-dark);
+}
+
+.footer {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.footer p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .tool-header h1 {
+    font-size: 2rem;
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .email-capture button {
+    padding: 0.875rem;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;">
+    <a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a>
+  </div>
+
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Volume Sfera</h1>
+      <p>Calcola volume e superficie della sfera inserendo il raggio. Risultati istantanei e precisi.</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="sphere-form">
+        <div class="form-group">
+          <label for="raggio">Raggio (r)</label>
+          <input type="number" id="raggio" name="raggio" placeholder="5" step="any" min="0" required>
+          <div id="raggio-error" class="error">Inserisci un raggio valido maggiore di 0</div>
+        </div>
+        
+        <button type="submit" class="calculate-btn">Calcola Volume e Superficie</button>
+      </form>
+
+      <div id="result" class="result">
+        <h3>Risultati Calcolo Sfera</h3>
+        <div class="result-item">
+          <span class="result-label">Volume:</span>
+          <span class="result-value" id="volume-result">-</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Superficie:</span>
+          <span class="result-value" id="superficie-result">-</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="explanation">
+      <h2>Come Funziona il Calcolatore Volume Sfera</h2>
+      
+      <p>Il nostro calcolatore utilizza le formule matematiche standard per calcolare volume e superficie di una sfera partendo dal raggio.</p>
+      
+      <h3>Formula per il Volume</h3>
+      <p>Il volume di una sfera si calcola con la formula:</p>
+      <div class="formula">V = (4/3) × π × r³</div>
+      <p>Dove <strong>r</strong> è il raggio della sfera e <strong>π</strong> (pi greco) ≈ 3.14159</p>
+      
+      <h3>Formula per la Superficie</h3>
+      <p>La superficie di una sfera si calcola con la formula:</p>
+      <div class="formula">S = 4 × π × r²</div>
+      <p>Questa formula calcola l'area della superficie sferica totale.</p>
+      
+      <h3>Unità di Misura</h3>
+      <p>Il calcolatore funziona con qualsiasi unità di misura (metri, centimetri, pollici, ecc.). Il risultato sarà:</p>
+      <ul style="margin-left: 2rem; color: var(--text-light);">
+        <li>Volume: unità³ (es. m³, cm³)</li>
+        <li>Superficie: unità² (es. m², cm²)</li>
+      </ul>
+      
+      <h3>Applicazioni Pratiche</h3>
+      <p>Il calcolo del volume e superficie della sfera è utile in:</p>
+      <ul style="margin-left: 2rem; color: var(--text-light);">
+        <li>Architettura e ingegneria</li>
+        <li>Calcoli di capacità per serbatoi sferici</li>
+        <li>Fisica e astronomia</li>
+        <li>Design industriale</li>
+      </ul>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore fornisce risultati approssimativi per scopi educativi e informativi. Per applicazioni professionali, verifica sempre i calcoli.</p>
+      <p>© 2024 Tool4U.org - Calcolatori online gratuiti</p>
+    </div>
+  </div>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-volume-sfera'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    document.getElementById('sphere-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Reset errors
+      document.getElementById('raggio-error').style.display = 'none';
+      
+      // Get inputs
+      const raggio = parseFloat(document.getElementById('raggio').value);
+      
+      // Validate
+      let hasError = false;
+      
+      if (!raggio || raggio <= 0) {
+        document.getElementById('raggio-error').style.display = 'block';
+        hasError = true;
+      }
+      
+      if (hasError) return;
+      
+      // Calculate
+      const volume = (4/3) * Math.PI * Math.pow(raggio, 3);
+      const superficie = 4 * Math.PI * Math.pow(raggio, 2);
+      
+      // Display results
+      document.getElementById('volume-result').textContent = volume.toFixed(2);
+      document.getElementById('superficie-result').textContent = superficie.toFixed(2);
+      document.getElementById('result').classList.add('show');
+      
+      // Smooth scroll to result
+      document.getElementById('result').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'nearest' 
+      });
+    });
+
+    // Real-time calculation as user types
+    document.getElementById('raggio').addEventListener('input', function() {
+      const raggio = parseFloat(this.value);
+      
+      if (raggio && raggio > 0) {
+        document.getElementById('raggio-error').style.display = 'none';
+        
+        const volume = (4/3) * Math.PI * Math.pow(raggio, 3);
+        const superficie = 4 * Math.PI * Math.pow(raggio, 2);
+        
+        document.getElementById('volume-result').textContent = volume.toFixed(2);
+        document.getElementById('superficie-result').textContent = superficie.toFixed(2);
+        document.getElementById('result').classList.add('show');
+      }
+    });
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-triangolo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Triangolo</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-cerchio.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Cerchio</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-rettangolo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Rettangolo</a></li>
+</ul>
+</div>
+</body>
+</html>
