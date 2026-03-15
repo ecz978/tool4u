@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Volume Cilindro Online - Calcolatore Gratuito</title>
+  <meta name="description" content="Calcola volume e superficie del cilindro. Inserisci raggio e altezza per ottenere volume, superficie laterale e totale istantaneamente.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Volume Cilindro",
+    "description": "Calcola volume e superficie del cilindro inserendo raggio e altezza",
+    "url": "https://tool4u.org/calcolatore-volume-cilindro",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "permissions": "browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #1e40af;
+  --success-color: #059669;
+  --background-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.tool-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.tool-body {
+  background: var(--surface-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.calculate-btn {
+  width: 100%;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.calculate-btn:hover {
+  background: var(--secondary-color);
+}
+
+.results {
+  display: none;
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border: 2px solid #0ea5e9;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.results.show {
+  display: block;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.result-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.ad-slot {
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+  margin: 2rem 0;
+  font-size: 0.9rem;
+}
+
+.tool-explanation {
+  background: var(--surface-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+}
+
+.tool-explanation h2 {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.tool-explanation h3 {
+  margin: 1.5rem 0 0.75rem 0;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.tool-explanation p, .tool-explanation li {
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.tool-explanation ul {
+  padding-left: 1.5rem;
+}
+
+.formula {
+  background: #f8fafc;
+  border-left: 4px solid var(--primary-color);
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: monospace;
+  font-size: 0.95rem;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: var(--success-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.email-capture button:hover {
+  background: #047857;
+}
+
+.tool-footer {
+  text-align: center;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .result-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .result-value {
+    margin-top: 0.25rem;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Volume Cilindro</h1>
+      <p>Calcola volume, superficie laterale e superficie totale del cilindro</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="cylinder-calculator">
+        <div class="form-group">
+          <label for="raggio">Raggio base (r)</label>
+          <input type="number" id="raggio" placeholder="5" step="0.01" min="0" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="altezza">Altezza (h)</label>
+          <input type="number" id="altezza" placeholder="10" step="0.01" min="0" required>
+        </div>
+        
+        <button type="submit" class="calculate-btn">Calcola Volume e Superfici</button>
+      </form>
+
+      <div id="results" class="results">
+        <div class="result-item">
+          <span class="result-label">Volume:</span>
+          <span class="result-value" id="volume-result">-</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Superficie laterale:</span>
+          <span class="result-value" id="surface-lateral-result">-</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Superficie totale:</span>
+          <span class="result-value" id="surface-total-result">-</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come Funziona il Calcolo del Volume del Cilindro</h2>
+      
+      <p>Il nostro calcolatore utilizza le formule geometriche standard per determinare tutte le caratteristiche di un cilindro basandosi su raggio e altezza.</p>
+      
+      <h3>Formule Utilizzate</h3>
+      
+      <div class="formula">
+        <strong>Volume:</strong> V = π × r² × h<br>
+        <strong>Superficie laterale:</strong> S<sub>lat</sub> = 2 × π × r × h<br>
+        <strong>Superficie totale:</strong> S<sub>tot</sub> = S<sub>lat</sub> + 2 × π × r²
+      </div>
+      
+      <h3>Spiegazione delle Formule</h3>
+      <ul>
+        <li><strong>Volume:</strong> Rappresenta lo spazio tridimensionale contenuto nel cilindro. Si calcola moltiplicando l'area della base circolare (π × r²) per l'altezza.</li>
+        <li><strong>Superficie laterale:</strong> È l'area della superficie curva del cilindro, equivalente a un rettangolo di base 2πr (circonferenza) e altezza h.</li>
+        <li><strong>Superficie totale:</strong> Somma della superficie laterale e delle due basi circolari (2 × π × r²).</li>
+      </ul>
+      
+      <h3>Applicazioni Pratiche</h3>
+      <p>Il calcolo del volume e delle superfici del cilindro è fondamentale in:</p>
+      <ul>
+        <li>Ingegneria e architettura per dimensionare contenitori e strutture</li>
+        <li>Industria alimentare per calcolare capacità di silos e serbatoi</li>
+        <li>Edilizia per determinare quantità di materiali cilindrici</li>
+        <li>Matematica e fisica per problemi di geometria solida</li>
+      </ul>
+      
+      <h3>Consigli per l'Uso</h3>
+      <p>Per ottenere risultati accurati, assicurati di utilizzare le stesse unità di misura per raggio e altezza. Il risultato sarà espresso nelle corrispondenti unità al cubo per il volume e al quadrato per le superfici.</p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/s?k=calcolatrice+scientifica&tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Calcolatrice scientifica su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore fornisce risultati approssimativi per scopi educativi e informativi. Per applicazioni professionali, verifica sempre i calcoli con strumenti specializzati.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Strumenti gratuiti online</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('cylinder-calculator').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const raggio = parseFloat(document.getElementById('raggio').value);
+      const altezza = parseFloat(document.getElementById('altezza').value);
+      
+      if (isNaN(raggio) || isNaN(altezza) || raggio <= 0 || altezza <= 0) {
+        alert('Inserisci valori numerici positivi per raggio e altezza');
+        return;
+      }
+      
+      // Calcoli
+      const volume = Math.PI * Math.pow(raggio, 2) * altezza;
+      const superficieLaterale = 2 * Math.PI * raggio * altezza;
+      const superficieTotale = superficieLaterale + 2 * Math.PI * Math.pow(raggio, 2);
+      
+      // Mostra risultati
+      document.getElementById('volume-result').textContent = volume.toFixed(2);
+      document.getElementById('surface-lateral-result').textContent = superficieLaterale.toFixed(2);
+      document.getElementById('surface-total-result').textContent = superficieTotale.toFixed(2);
+      
+      document.getElementById('results').classList.add('show');
+    });
+
+    // Calcolo in tempo reale quando si modificano i valori
+    document.getElementById('raggio').addEventListener('input', calculateIfValid);
+    document.getElementById('altezza').addEventListener('input', calculateIfValid);
+
+    function calculateIfValid() {
+      const raggio = parseFloat(document.getElementById('raggio').value);
+      const altezza = parseFloat(document.getElementById('altezza').value);
+      
+      if (!isNaN(raggio) && !isNaN(altezza) && raggio > 0 && altezza > 0) {
+        const volume = Math.PI * Math.pow(raggio, 2) * altezza;
+        const superficieLaterale = 2 * Math.PI * raggio * altezza;
+        const superficieTotale = superficieLaterale + 2 * Math.PI * Math.pow(raggio, 2);
+        
+        document.getElementById('volume-result').textContent = volume.toFixed(2);
+        document.getElementById('surface-lateral-result').textContent = superficieLaterale.toFixed(2);
+        document.getElementById('surface-total-result').textContent = superficieTotale.toFixed(2);
+        
+        document.getElementById('results').classList.add('show');
+      }
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-volume-cilindro'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-triangolo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Triangolo</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-cerchio.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Cerchio</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-rettangolo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Rettangolo</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-volume-sfera.html" style="color:#2563eb;text-decoration:none;">Calcolatore Volume Sfera</a></li>
+</ul>
+</div>
+</body>
+</html>
