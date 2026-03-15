@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Ore Lavoro e Retribuzione Online</title>
+  <meta name="description" content="Calcola ore lavorate, straordinari e retribuzione. Inserisci orari e paga oraria per ottenere il calcolo automatico giornaliero e settimanale.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Ore Lavoro",
+    "description": "Strumento per calcolare ore lavorate, straordinari e retribuzione giornaliera e settimanale",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "permissions": "browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --secondary: #64748b;
+  --success: #059669;
+  --warning: #d97706;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  padding: 2rem 0 1rem;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+}
+
+.ad-slot {
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: var(--text-light);
+}
+
+.tool-card {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 1.5rem 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  margin-right: 0.5rem;
+  width: auto;
+}
+
+.btn-secondary:hover {
+  background: #475569;
+}
+
+.day-entry {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+}
+
+.day-header {
+  display: flex;
+  justify-content: between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.day-title {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.remove-day {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.results {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2rem;
+  border: 1px solid #0ea5e9;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.result-item {
+  text-align: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+}
+
+.result-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+.result-label {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.weekly-summary {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 2px solid var(--success);
+}
+
+.weekly-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--success);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.explanation {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+}
+
+.explanation h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.explanation h3 {
+  font-size: 1.25rem;
+  margin: 1.5rem 0 1rem;
+  color: var(--primary);
+}
+
+.explanation ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.explanation li {
+  margin-bottom: 0.5rem;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  border: 1px solid #0ea5e9;
+}
+
+.email-capture p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.email-capture button {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+  margin-top: 3rem;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .day-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Ore Lavoro</h1>
+      <p>Calcola le ore lavorate, straordinari e retribuzione giornaliera e settimanale</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-card">
+      <div class="form-group">
+        <label for="paga_oraria">Paga oraria (EUR)</label>
+        <input type="number" id="paga_oraria" step="0.01" min="0" placeholder="12.00" value="12">
+      </div>
+
+      <div id="days-container">
+        <div class="day-entry" data-day="0">
+          <div class="day-header">
+            <span class="day-title">Giorno 1</span>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ora inizio</label>
+              <input type="time" class="ora-inizio" value="09:00">
+            </div>
+            <div class="form-group">
+              <label>Ora fine</label>
+              <input type="time" class="ora-fine" value="17:00">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Pausa pranzo (minuti)</label>
+            <input type="number" class="pausa" min="0" placeholder="60" value="60">
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-secondary" onclick="addDay()">Aggiungi Giorno</button>
+      <button type="button" class="btn" onclick="calcolaOre()">Calcola Ore e Retribuzione</button>
+
+      <div id="results" class="results" style="display: none;">
+        <div id="daily-results"></div>
+        
+        <div class="weekly-summary">
+          <div class="weekly-title">Riepilogo Settimanale</div>
+          <div class="result-grid">
+            <div class="result-item">
+              <div class="result-value" id="total-ore">0</div>
+              <div class="result-label">Ore Totali</div>
+            </div>
+            <div class="result-item">
+              <div class="result-value" id="total-straordinari">0</div>
+              <div class="result-label">Straordinari</div>
+            </div>
+            <div class="result-item">
+              <div class="result-value" id="total-retribuzione">€0</div>
+              <div class="result-label">Retribuzione Totale</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="explanation">
+      <h2>Come Funziona il Calcolatore Ore Lavoro</h2>
+      
+      <p>Il nostro calcolatore ore lavoro ti permette di calcolare automaticamente le ore lavorate, gli straordinari e la retribuzione giornaliera e settimanale. È uno strumento essenziale per dipendenti, freelancer e datori di lavoro.</p>
+
+      <h3>Caratteristiche Principali</h3>
+      <ul>
+        <li><strong>Calcolo automatico ore lavorate:</strong> Inserisci orario di inizio, fine e pausa pranzo</li>
+        <li><strong>Gestione straordinari:</strong> Calcolo automatico per ore superiori alle 8 giornaliere</li>
+        <li><strong>Calcolo retribuzione:</strong> Basato sulla paga oraria inserita</li>
+        <li><strong>Riepilogo settimanale:</strong> Aggiungi più giorni e ottieni il totale</li>
+        <li><strong>Maggiorazione straordinari:</strong> Calcolo al 125% per le ore eccedenti</li>
+      </ul>
+
+      <h3>Come Calcolare le Ore Lavorate</h3>
+      <p>Il calcolo delle ore lavorate segue questa formula:</p>
+      <ul>
+        <li><strong>Ore lavorate = Ora fine - Ora inizio - Pausa pranzo</strong></li>
+        <li><strong>Ore normali:</strong> Prime 8 ore della giornata</li>
+        <li><strong>Straordinari:</strong> Ore superiori alle 8 (pagate al 125%)</li>
+        <li><strong>Retribuzione = (Ore normali × Paga oraria) + (Straordinari × Paga oraria × 1.25)</strong></li>
+      </ul>
+
+      <h3>Esempio Pratico</h3>
+      <p>Se lavori dalle 9:00 alle 18:00 con 60 minuti di pausa e una paga di €12/ora:</p>
+      <ul>
+        <li>Ore lavorate: 9 ore (8 normali + 1 straordinario)</li>
+        <li>Retribuzione: (8 × €12) + (1 × €12 × 1.25) = €96 + €15 = €111</li>
+      </ul>
+
+      <h3>Vantaggi del Calcolatore</h3>
+      <ul>
+        <li>Precisione nel calcolo delle ore e retribuzioni</li>
+        <li>Risparmio di tempo nei calcoli manuali</li>
+        <li>Gestione di più giorni lavorativi</li>
+        <li>Calcolo automatico delle maggiorazioni</li>
+        <li>Interfaccia semplice e intuitiva</li>
+      </ul>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/s?k=planner+agenda+2026&tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Planner e agende su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p><strong>Disclaimer:</strong> Questo calcolatore è fornito a scopo informativo. Per questioni contrattuali o legali, consulta sempre un esperto o verifica i termini del tuo contratto di lavoro. I calcoli potrebbero variare in base alle normative locali e agli accordi contrattuali specifici.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Strumenti di calcolo gratuiti</p>
+    </div>
+  </footer>
+
+  <script>
+let dayCounter = 1;
+
+function addDay() {
+  dayCounter++;
+  const container = document.getElementById('days-container');
+  
+  const dayEntry = document.createElement('div');
+  dayEntry.className = 'day-entry';
+  dayEntry.setAttribute('data-day', dayCounter - 1);
+  
+  dayEntry.innerHTML = `
+    <div class="day-header">
+      <span class="day-title">Giorno ${dayCounter}</span>
+      <button type="button" class="remove-day" onclick="removeDay(this)">Rimuovi</button>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label>Ora inizio</label>
+        <input type="time" class="ora-inizio" value="09:00">
+      </div>
+      <div class="form-group">
+        <label>Ora fine</label>
+        <input type="time" class="ora-fine" value="17:00">
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>Pausa pranzo (minuti)</label>
+      <input type="number" class="pausa" min="0" placeholder="60" value="60">
+    </div>
+  `;
+  
+  container.appendChild(dayEntry);
+}
+
+function removeDay(button) {
+  const dayEntry = button.closest('.day-entry');
+  dayEntry.remove();
+  
+  // Rinumera i giorni
+  const remainingDays = document.querySelectorAll('.day-entry');
+  remainingDays.forEach((day, index) => {
+    day.querySelector('.day-title').textContent = `Giorno ${index + 1}`;
+    day.setAttribute('data-day', index);
+  });
+  
+  dayCounter = remainingDays.length;
+}
+
+function timeToMinutes(timeString) {
+  const [hours, minutes] = timeString.split(':').map(Number);
+  return hours * 60 + minutes;
+}
+
+function minutesToHours(minutes) {
+  return Math.round((minutes / 60) * 100) / 100;
+}
+
+function calcolaOre() {
+  const pagaOraria = parseFloat(document.getElementById('paga_oraria').value) || 0;
+  const dayEntries = document.querySelectorAll('.day-entry');
+  
+  if (pagaOraria <= 0) {
+    alert('Inserisci una paga oraria valida');
+    return;
+  }
+  
+  let totalOre = 0;
+  let totalStraordinari = 0;
+  let totalRetribuzione = 0;
+  let dailyResults = '';
+  
+  dayEntries.forEach((entry, index) => {
+    const oraInizio = entry.querySelector('.ora-inizio').value;
+    const oraFine = entry.querySelector('.ora-fine').value;
+    const pausa = parseInt(entry.querySelector('.pausa').value) || 0;
+    
+    if (!oraInizio || !oraFine) {
+      return;
+    }
+    
+    let inizioMinuti = timeToMinutes(oraInizio);
+    let fineMinuti = timeToMinutes(oraFine);
+    
+    // Gestione del cambio giorno (es. turno notturno)
+    if (fineMinuti <= inizioMinuti) {
+      fineMinuti += 24 * 60;
+    }
+    
+    const minutiLavorati = fineMinuti - inizioMinuti - pausa;
+    const oreLavorate = Math.max(0, minutesToHours(minutiLavorati));
+    
+    const oreNormali = Math.min(oreLavorate, 8);
+    const straordinari = Math.max(0, oreLavorate - 8);
+    
+    const retribuzioneNormale = oreNormali * pagaOraria;
+    const retribuzioneStraordinari = straordinari * pagaOraria * 1.25;
+    const retribuzioneGiornaliera = retribuzioneNormale + retribuzioneStraordinari;
+    
+    totalOre += oreLavorate;
+    totalStraordinari += straordinari;
+    totalRetribuzione += retribuzioneGiornaliera;
+    
+    dailyResults += `
+      <div class="result-grid" style="margin-bottom: 1rem;">
+        <div class="result-item">
+          <div class="result-value">${oreLavorate.toFixed(2)}h</div>
+          <div class="result-label">Giorno ${index + 1} - Ore Lavorate</div>
+        </div>
+        <div class="result-item">
+          <div class="result-value">${straordinari.toFixed(2)}h</div>
+          <div class="result-label">Straordinari</div>
+        </div>
+        <div class="result-item">
+          <div class="result-value">€${retribuzioneGiornaliera.toFixed(2)}</div>
+          <div class="result-label">Retribuzione</div>
+        </div>
+      </div>
+    `;
+  });
+  
+  // Mostra i risultati
+  document.getElementById('daily-results').innerHTML = dailyResults;
+  document.getElementById('total-ore').textContent = totalOre.toFixed(2) + 'h';
+  document.getElementById('total-straordinari').textContent = totalStraordinari.toFixed(2) + 'h';
+  document.getElementById('total-retribuzione').textContent = '€' + totalRetribuzione.toFixed(2);
+  document.getElementById('results').style.display = 'block';
+  
+  // Scroll ai risultati
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+}
+
+function captureEmail(e) {
+  e.preventDefault();
+  const email = e.target.querySelector('input').value;
+  // Il Publisher inietterà l'endpoint reale
+  fetch('__NEWSLETTER_ENDPOINT__', {
+    method: 'POST', 
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email, source: 'calcolatore-ore-lavoro'})
+  }).then(() => {
+    e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+  }).catch(() => {
+    e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+  });
+  return false;
+}
+
+// Auto-calcolo quando cambiano i valori
+document.addEventListener('DOMContentLoaded', function() {
+  const inputs = document.querySelectorAll('input[type="time"], input[type="number"]');
+  inputs.forEach(input => {
+    input.addEventListener('change', function() {
+      if (document.getElementById('results').style.display !== 'none') {
+        calcolaOre();
+      }
+    });
+  });
+});
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-giorni-tra-date.html" style="color:#2563eb;text-decoration:none;">Calcolatore Giorni tra Due Date</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-eta.html" style="color:#2563eb;text-decoration:none;">Calcolatore Eta</a></li>
+</ul>
+</div>
+</body>
+</html>
