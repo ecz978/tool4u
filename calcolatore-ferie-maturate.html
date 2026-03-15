@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Ferie Maturate e Residue - Calcolatore Online Gratuito</title>
+  <meta name="description" content="Calcola le ferie maturate e residue. Inserisci data assunzione e ferie godute per sapere quanti giorni di vacanza hai a disposizione.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Ferie Maturate",
+    "description": "Calcola quanti giorni di ferie hai maturato in base ai mesi lavorati",
+    "url": "https://tool4u.org/calcolatore-ferie-maturate",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --secondary-color: #f1f5f9;
+  --success-color: #059669;
+  --warning-color: #d97706;
+  --text-color: #1e293b;
+  --text-light: #64748b;
+  --border-color: #e2e8f0;
+  --background: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--secondary-color);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  background: var(--background);
+  padding: 2rem 0;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.tool-header p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+.ad-slot {
+  background: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  padding: 2rem;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.tool-body {
+  background: var(--background);
+  padding: 2rem 0;
+}
+
+.form-container {
+  background: var(--background);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.form-group small {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+}
+
+.results {
+  background: var(--background);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.results h3 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.result-card {
+  background: var(--secondary-color);
+  padding: 1.25rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.result-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.result-label {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.highlight {
+  background: linear-gradient(135deg, var(--success-color), #10b981);
+  color: white;
+}
+
+.warning {
+  background: linear-gradient(135deg, var(--warning-color), #f59e0b);
+  color: white;
+}
+
+.explanation {
+  background: var(--background);
+  padding: 2rem 0;
+}
+
+.explanation-content {
+  background: var(--background);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.explanation h2 {
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.explanation h3 {
+  margin: 1.5rem 0 0.75rem 0;
+  color: var(--primary-color);
+}
+
+.explanation ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.explanation li {
+  margin-bottom: 0.5rem;
+}
+
+.email-capture {
+  background: var(--background);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 1rem auto 0;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.footer {
+  background: var(--background);
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+
+  <div class="tool-header">
+    <div class="container">
+      <h1>Calcolatore Ferie Maturate</h1>
+      <p>Calcola quanti giorni di ferie hai maturato e quanti ne hai ancora a disposizione</p>
+    </div>
+  </div>
+
+  <div id="ad-slot-top" class="ad-slot">
+    Spazio pubblicitario
+  </div>
+
+  <div class="tool-body">
+    <div class="container">
+      <div class="form-container">
+        <form id="ferieForm">
+          <div class="form-group">
+            <label for="ferie_annue">Ferie annue (giorni)</label>
+            <input type="number" id="ferie_annue" name="ferie_annue" placeholder="26" min="0" max="50" required>
+            <small>Numero totale di giorni di ferie previsti dal tuo contratto (solitamente 26)</small>
+          </div>
+
+          <div class="form-group">
+            <label for="data_assunzione">Data assunzione</label>
+            <input type="date" id="data_assunzione" name="data_assunzione" required>
+            <small>La data in cui hai iniziato a lavorare</small>
+          </div>
+
+          <div class="form-group">
+            <label for="ferie_godute">Ferie già godute</label>
+            <input type="number" id="ferie_godute" name="ferie_godute" placeholder="10" min="0" required>
+            <small>Numero di giorni di ferie che hai già utilizzato quest'anno</small>
+          </div>
+
+          <button type="submit" class="btn">Calcola Ferie</button>
+        </form>
+      </div>
+
+      <div id="results" class="results hidden">
+        <h3>Risultato del Calcolo</h3>
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="result-value" id="ferie-maturate">0</div>
+            <div class="result-label">Ferie Maturate</div>
+          </div>
+          <div class="result-card">
+            <div class="result-value" id="ferie-godute-display">0</div>
+            <div class="result-label">Ferie Godute</div>
+          </div>
+          <div class="result-card highlight">
+            <div class="result-value" id="ferie-residue">0</div>
+            <div class="result-label">Ferie Residue</div>
+          </div>
+          <div class="result-card">
+            <div class="result-value" id="proiezione-annua">0</div>
+            <div class="result-label">Proiezione Fine Anno</div>
+          </div>
+        </div>
+        <div id="mesi-lavorati-info" style="text-align: center; color: var(--text-light); margin-top: 1rem;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ad-slot-middle" class="ad-slot">
+    Spazio pubblicitario
+  </div>
+
+  <div class="explanation">
+    <div class="container">
+      <div class="explanation-content">
+        <h2>Come Funziona il Calcolo delle Ferie</h2>
+        
+        <p>Il nostro calcolatore utilizza la formula standard per determinare le ferie maturate in base ai mesi effettivamente lavorati. Ecco come funziona:</p>
+
+        <h3>Formula di Calcolo</h3>
+        <ul>
+          <li><strong>Ferie Maturate</strong> = (Ferie Annue ÷ 12) × Mesi Lavorati</li>
+          <li><strong>Ferie Residue</strong> = Ferie Maturate - Ferie Godute</li>
+          <li><strong>Proiezione Annua</strong> = Ferie che avrai maturato a fine anno</li>
+        </ul>
+
+        <h3>Normativa Italiana</h3>
+        <p>Secondo il Codice del Lavoro italiano:</p>
+        <ul>
+          <li>Ogni lavoratore ha diritto ad almeno 4 settimane di ferie annue</li>
+          <li>Le ferie maturano progressivamente durante l'anno</li>
+          <li>Per ogni mese lavorato si maturano circa 2.17 giorni di ferie (26÷12)</li>
+          <li>Le ferie non godute possono essere riportate all'anno successivo</li>
+        </ul>
+
+        <h3>Come Interpretare i Risultati</h3>
+        <ul>
+          <li><strong>Ferie Maturate:</strong> Giorni di ferie che hai già guadagnato</li>
+          <li><strong>Ferie Residue:</strong> Giorni che puoi ancora prendere</li>
+          <li><strong>Proiezione Annua:</strong> Totale ferie che avrai maturato a dicembre</li>
+        </ul>
+
+        <p><strong>Nota:</strong> Il calcolo è indicativo. Per informazioni precise consulta il tuo contratto di lavoro e l'ufficio HR della tua azienda.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/s?k=planner+agenda+2026&tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Planner e agende su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+    <div class="container">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="ad-slot-bottom" class="ad-slot">
+    Spazio pubblicitario
+  </div>
+
+  <div class="footer">
+    <div class="container">
+      <p><strong>Disclaimer:</strong> Questo tool fornisce calcoli indicativi basati sulla normativa generale. Per informazioni precise sulle tue ferie, consulta il contratto di lavoro e l'ufficio risorse umane della tua azienda.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Strumenti di calcolo gratuiti</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('ferieForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const ferieAnnue = parseInt(document.getElementById('ferie_annue').value);
+      const dataAssunzione = new Date(document.getElementById('data_assunzione').value);
+      const ferieGodute = parseInt(document.getElementById('ferie_godute').value);
+      
+      if (!ferieAnnue || !dataAssunzione || isNaN(ferieGodute)) {
+        alert('Per favore compila tutti i campi correttamente.');
+        return;
+      }
+      
+      // Calcola i mesi lavorati
+      const oggi = new Date();
+      const annoAttuale = oggi.getFullYear();
+      
+      // Se l'assunzione è nell'anno corrente, calcola dall'assunzione
+      // Altrimenti calcola dall'inizio dell'anno
+      let dataInizio;
+      if (dataAssunzione.getFullYear() === annoAttuale) {
+        dataInizio = dataAssunzione;
+      } else {
+        dataInizio = new Date(annoAttuale, 0, 1); // 1 gennaio dell'anno corrente
+      }
+      
+      const mesiLavorati = calcolaMesiLavorati(dataInizio, oggi);
+      
+      // Calcola le ferie
+      const ferieMaturate = Math.round((ferieAnnue / 12) * mesiLavorati * 100) / 100;
+      const ferieResidue = Math.max(0, ferieMaturate - ferieGodute);
+      
+      // Proiezione a fine anno
+      const mesiTotaliAnno = dataAssunzione.getFullYear() === annoAttuale ? 
+        (13 - dataAssunzione.getMonth() - (dataAssunzione.getDate() > 1 ? 0 : 1)) : 12;
+      const proiezioneAnnua = Math.round((ferieAnnue / 12) * mesiTotaliAnno * 100) / 100;
+      
+      // Mostra i risultati
+      document.getElementById('ferie-maturate').textContent = ferieMaturate.toFixed(1);
+      document.getElementById('ferie-godute-display').textContent = ferieGodute;
+      document.getElementById('ferie-residue').textContent = ferieResidue.toFixed(1);
+      document.getElementById('proiezione-annua').textContent = proiezioneAnnua.toFixed(1);
+      document.getElementById('mesi-lavorati-info').textContent = 
+        `Basato su ${mesiLavorati.toFixed(1)} mesi lavorati nell'anno corrente`;
+      
+      // Evidenzia le ferie residue in base al valore
+      const ferieResidueCard = document.getElementById('ferie-residue').parentElement;
+      ferieResidueCard.className = 'result-card';
+      if (ferieResidue < 0) {
+        ferieResidueCard.classList.add('warning');
+      } else if (ferieResidue > 10) {
+        ferieResidueCard.classList.add('highlight');
+      }
+      
+      document.getElementById('results').classList.remove('hidden');
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    function calcolaMesiLavorati(dataInizio, dataFine) {
+      const anni = dataFine.getFullYear() - dataInizio.getFullYear();
+      const mesi = dataFine.getMonth() - dataInizio.getMonth();
+      const giorni = dataFine.getDate() - dataInizio.getDate();
+      
+      let totMesi = anni * 12 + mesi;
+      
+      // Aggiusta per i giorni
+      if (giorni >= 15) {
+        totMesi += 0.5;
+      }
+      
+      return Math.max(0, totMesi);
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-ferie-maturate'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto con successo!</p>';
+      });
+      return false;
+    }
+
+    // Imposta la data di oggi come massimo per la data di assunzione
+    document.getElementById('data_assunzione').max = new Date().toISOString().split('T')[0];
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-giorni-tra-date.html" style="color:#2563eb;text-decoration:none;">Calcolatore Giorni tra Due Date</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-eta.html" style="color:#2563eb;text-decoration:none;">Calcolatore Eta</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-ore-lavoro.html" style="color:#2563eb;text-decoration:none;">Calcolatore Ore Lavoro</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-countdown.html" style="color:#2563eb;text-decoration:none;">Calcolatore Countdown</a></li>
+</ul>
+</div>
+</body>
+</html>
