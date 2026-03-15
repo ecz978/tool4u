@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Divisione Spese tra Amici - Tool Gratuito</title>
+  <meta name="description" content="Dividi le spese tra amici facilmente. Calcola chi deve pagare cosa e gestisci i debiti del gruppo in modo equo e trasparente.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Divisione Spese tra Amici",
+    "description": "Tool per dividere le spese tra amici e calcolare i debiti del gruppo",
+    "url": "https://tool4u.org/calcolatore-divisione-spese",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "permissions": "browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-600: #4b5563;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--gray-800);
+  background: var(--gray-50);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  background: white;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  color: var(--gray-600);
+  font-size: 1.1rem;
+}
+
+.ad-slot {
+  background: var(--gray-100);
+  border: 2px dashed var(--gray-300);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  color: var(--gray-600);
+  font-size: 0.9rem;
+}
+
+.tool-body {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.form-section h3 {
+  color: var(--gray-900);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.people-list {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.person-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: var(--gray-50);
+  border-radius: 8px;
+}
+
+.person-item input {
+  margin: 0;
+  flex: 1;
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+}
+
+.btn-secondary {
+  background: var(--gray-600);
+}
+
+.btn-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.btn-danger {
+  background: var(--danger);
+}
+
+.expenses-section {
+  border-top: 1px solid var(--gray-200);
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+
+.expense-item {
+  background: var(--gray-50);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.expense-item .form-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.expense-participants {
+  margin-bottom: 1rem;
+}
+
+.participants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+}
+
+.participant-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.results {
+  background: var(--gray-50);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+  display: none;
+}
+
+.results.show {
+  display: block;
+}
+
+.results h3 {
+  color: var(--gray-900);
+  margin-bottom: 1rem;
+}
+
+.result-section {
+  margin-bottom: 1.5rem;
+}
+
+.result-section h4 {
+  color: var(--gray-800);
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.balance-list, .debt-list {
+  list-style: none;
+}
+
+.balance-list li, .debt-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.balance-positive {
+  color: var(--success);
+  font-weight: 500;
+}
+
+.balance-negative {
+  color: var(--danger);
+  font-weight: 500;
+}
+
+.debt-item {
+  background: white;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  border-left: 4px solid var(--warning);
+}
+
+.tool-explanation {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.tool-explanation h2 {
+  color: var(--gray-900);
+  margin-bottom: 1rem;
+}
+
+.tool-explanation h3 {
+  color: var(--gray-800);
+  margin: 1.5rem 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.tool-explanation p {
+  margin-bottom: 1rem;
+  color: var(--gray-600);
+}
+
+.tool-explanation ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--gray-600);
+}
+
+.email-capture {
+  background: var(--gray-100);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  color: var(--gray-700);
+  font-weight: 500;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+}
+
+.email-capture button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.tool-footer {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  text-align: center;
+  color: var(--gray-600);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .tool-header h1 {
+    font-size: 1.6rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .participants-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Divisione Spese tra Amici</h1>
+      <p>Dividi le spese del gruppo e calcola chi deve pagare cosa in modo semplice e trasparente</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="expense-calculator">
+        <div class="form-section">
+          <h3>👥 Partecipanti</h3>
+          <div class="form-group">
+            <label for="num-people">Numero di persone</label>
+            <input type="number" id="num-people" min="2" max="20" value="4" required>
+          </div>
+          <div id="people-list" class="people-list">
+            <!-- Generato dinamicamente -->
+          </div>
+        </div>
+
+        <div class="expenses-section">
+          <h3>💰 Spese</h3>
+          <div id="expenses-list">
+            <!-- Spese generate dinamicamente -->
+          </div>
+          <button type="button" id="add-expense" class="btn btn-secondary btn-small">+ Aggiungi Spesa</button>
+        </div>
+
+        <button type="button" onclick="calculateExpenses()" class="btn" style="width: 100%; margin-top: 2rem;">
+          Calcola Divisione
+        </button>
+      </form>
+
+      <div id="results" class="results">
+        <h3>📊 Risultati</h3>
+        <div id="results-content"></div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come funziona il Calcolatore Divisione Spese</h2>
+      
+      <p>Il nostro calcolatore per dividere le spese tra amici ti aiuta a gestire i conti del gruppo in modo equo e trasparente. Perfetto per vacanze, cene, eventi o qualsiasi situazione in cui più persone condividono delle spese.</p>
+
+      <h3>🎯 Caratteristiche principali</h3>
+      <ul>
+        <li><strong>Divisione equa automatica</strong>: Calcola automaticamente quanto deve pagare ogni persona</li>
+        <li><strong>Spese multiple</strong>: Aggiungi tutte le spese del gruppo con descrizioni dettagliate</li>
+        <li><strong>Partecipanti variabili</strong>: Ogni spesa può coinvolgere persone diverse del gruppo</li>
+        <li><strong>Calcolo debiti</strong>: Scopri chi deve soldi a chi e quanto</li>
+        <li><strong>Risultati chiari</strong>: Visualizza bilanci individuali e transazioni necessarie</li>
+      </ul>
+
+      <h3>📝 Come utilizzare il tool</h3>
+      <ol style="margin-left: 1.5rem; color: var(--gray-600);">
+        <li><strong>Inserisci i partecipanti</strong>: Specifica quante persone fanno parte del gruppo e i loro nomi</li>
+        <li><strong>Aggiungi le spese</strong>: Per ogni spesa inserisci descrizione, importo e chi ha pagato</li>
+        <li><strong>Seleziona i partecipanti</strong>: Scegli chi deve contribuire a ciascuna spesa</li>
+        <li><strong>Calcola</strong>: Il tool mostrerà i bilanci e i debiti tra le persone</li>
+        <li><strong>Salda i conti</strong>: Segui le indicazioni per pareggiare tutti i debiti</li>
+      </ol>
+
+      <h3>💡 Consigli utili</h3>
+      <ul>
+        <li>Tieni traccia di tutte le spese durante l'evento per evitare dimenticanze</li>
+        <li>Usa descrizioni chiare per ogni spesa (es. "Cena ristorante", "Carburante", "Supermercato")</li>
+        <li>Verifica che tutti i partecipanti siano d'accordo prima di effettuare i pagamenti</li>
+        <li>Conserva le ricevute per eventuali verifiche successive</li>
+      </ul>
+
+      <h3>🔧 Casi d'uso comuni</h3>
+      <p>Questo strumento è perfetto per:</p>
+      <ul>
+        <li><strong>Vacanze di gruppo</strong>: Hotel, ristoranti, attività, trasporti</li>
+        <li><strong>Cene tra amici</strong>: Ristoranti, takeaway, spesa per cucinare a casa</li>
+        <li><strong>Eventi e feste</strong>: Location, catering, decorazioni, intrattenimento</li>
+        <li><strong>Viaggi di lavoro</strong>: Spese condivise tra colleghi</li>
+        <li><strong>Coinquilini</strong>: Spese domestiche, bollette, acquisti comuni</li>
+      </ul>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore fornisce stime basate sui dati inseriti. Verificare sempre i calcoli prima di effettuare pagamenti. Non ci assumiamo responsabilità per errori di calcolo o dispute tra le parti.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Strumento gratuito per dividere le spese</p>
+    </div>
+  </div>
+
+  <script>
+let people = [];
+let expenses = [];
+
+// Inizializza l'app
+document.addEventListener('DOMContentLoaded', function() {
+  updatePeopleCount();
+  addExpense();
+  
+  document.getElementById('num-people').addEventListener('input', updatePeopleCount);
+  document.getElementById('add-expense').addEventListener('click', addExpense);
+});
+
+function updatePeopleCount() {
+  const numPeople = parseInt(document.getElementById('num-people').value) || 2;
+  const peopleList = document.getElementById('people-list');
+  
+  // Aggiorna array delle persone
+  while (people.length < numPeople) {
+    people.push(`Persona ${people.length + 1}`);
+  }
+  while (people.length > numPeople) {
+    people.pop();
+  }
+  
+  // Genera HTML per l'input dei nomi
+  peopleList.innerHTML = people.map((person, index) => `
+    <div class="person-item">
+      <span style="min-width: 60px; color: var(--gray-600);">#${index + 1}</span>
+      <input type="text" value="${person}" onchange="updatePersonName(${index}, this.value)" 
+             placeholder="Nome persona">
+    </div>
+  `).join('');
+  
+  // Aggiorna le checkbox delle spese esistenti
+  updateExpenseParticipants();
+}
+
+function updatePersonName(index, name) {
+  people[index] = name || `Persona ${index + 1}`;
+  updateExpenseParticipants();
+}
+
+function addExpense() {
+  const expenseId = expenses.length;
+  const expense = {
+    id: expenseId,
+    description: '',
+    amount: 0,
+    paidBy: 0,
+    participants: people.map((_, i) => i)
+  };
+  
+  expenses.push(expense);
+  
+  const expensesList = document.getElementById('expenses-list');
+  const expenseDiv = document.createElement('div');
+  expenseDiv.className = 'expense-item';
+  expenseDiv.setAttribute('data-expense-id', expenseId);
+  
+  expenseDiv.innerHTML = `
+    <div class="form-row">
+      <div class="form-group">
+        <label>Descrizione spesa</label>
+        <input type="text" placeholder="es. Cena ristorante" 
+               onchange="updateExpense(${expenseId}, 'description', this.value)">
+      </div>
+      <div class="form-group">
+        <label>Importo (€)</label>
+        <input type="number" step="0.01" min="0" placeholder="50.00"
+               onchange="updateExpense(${expenseId}, 'amount', parseFloat(this.value) || 0)">
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>Chi ha pagato?</label>
+      <select onchange="updateExpense(${expenseId}, 'paidBy', parseInt(this.value))">
+        ${people.map((person, index) => 
+          `<option value="${index}">${person}</option>`
+        ).join('')}
+      </select>
+    </div>
+    
+    <div class="expense-participants">
+      <label>Chi partecipa a questa spesa?</label>
+      <div class="participants-grid" id="participants-${expenseId}">
+        ${people.map((person, index) => `
+          <div class="participant-checkbox">
+            <input type="checkbox" id="participant-${expenseId}-${index}" checked
+                   onchange="toggleParticipant(${expenseId}, ${index})">
+            <label for="participant-${expenseId}-${index}">${person}</label>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <button type="button" onclick="removeExpense(${expenseId})" class="btn btn-danger btn-small">
+      Rimuovi Spesa
+    </button>
+  `;
+  
+  expensesList.appendChild(expenseDiv);
+}
+
+function updateExpense(expenseId, field, value) {
+  if (expenses[expenseId]) {
+    expenses[expenseId][field] = value;
+  }
+}
+
+function toggleParticipant(expenseId, personIndex) {
+  const expense = expenses[expenseId];
+  if (!expense) return;
+  
+  const participantIndex = expense.participants.indexOf(personIndex);
+  if (participantIndex > -1) {
+    expense.participants.splice(participantIndex, 1);
+  } else {
+    expense.participants.push(personIndex);
+  }
+}
+
+function removeExpense(expenseId) {
+  const expenseElement = document.querySelector(`[data-expense-id="${expenseId}"]`);
+  if (expenseElement) {
+    expenseElement.remove();
+  }
+  
+  expenses[expenseId] = null; // Segna come rimosso
+}
+
+function updateExpenseParticipants() {
+  expenses.forEach((expense, expenseId) => {
+    if (!expense) return;
+    
+    const participantsContainer = document.getElementById(`participants-${expenseId}`);
+    if (participantsContainer) {
+      participantsContainer.innerHTML = people.map((person, index) => `
+        <div class="participant-checkbox">
+          <input type="checkbox" id="participant-${expenseId}-${index}" 
+                 ${expense.participants.includes(index) ? 'checked' : ''}
+                 onchange="toggleParticipant(${expenseId}, ${index})">
+          <label for="participant-${expenseId}-${index}">${person}</label>
+        </div>
+      `).join('');
+    }
+    
+    // Aggiorna anche il select di "chi ha pagato"
+    const paidBySelect = document.querySelector(`[data-expense-id="${expenseId}"] select`);
+    if (paidBySelect) {
+      paidBySelect.innerHTML = people.map((person, index) => 
+        `<option value="${index}" ${expense.paidBy === index ? 'selected' : ''}>${person}</option>`
+      ).join('');
+    }
+  });
+}
+
+function calculateExpenses() {
+  // Filtra spese valide
+  const validExpenses = expenses.filter(expense => 
+    expense && expense.amount > 0 && expense.participants.length > 0
+  );
+  
+  if (validExpenses.length === 0) {
+    alert('Inserisci almeno una spesa valida!');
+    return;
+  }
+  
+  // Calcola i bilanci per ogni persona
+  const balances = people.map(() => 0);
+  
+  validExpenses.forEach(expense => {
+    const costPerPerson = expense.amount / expense.participants.length;
+    
+    // Chi ha pagato riceve credito
+    balances[expense.paidBy] += expense.amount;
+    
+    // Chi partecipa alla spesa paga la sua quota
+    expense.participants.forEach(participantIndex => {
+      balances[participantIndex] -= costPerPerson;
+    });
+  });
+  
+  // Calcola le transazioni necessarie per pareggiare
+  const debts = calculateDebts(balances);
+  
+  // Mostra risultati
+  displayResults(balances, debts, validExpenses);
+}
+
+function calculateDebts(balances) {
+  const creditors = [];
+  const debtors = [];
+  
+  balances.forEach((balance, index) => {
+    if (balance > 0.01) {
+      creditors.push({ person: index, amount: balance });
+    } else if (balance < -0.01) {
+      debtors.push({ person: index, amount: -balance });
+    }
+  });
+  
+  const transactions = [];
+  
+  creditors.forEach(creditor => {
+    debtors.forEach(debtor => {
+      if (creditor.amount > 0.01 && debtor.amount > 0.01) {
+        const transferAmount = Math.min(creditor.amount, debtor.amount);
+        
+        transactions.push({
+          from: debtor.person,
+          to: creditor.person,
+          amount: transferAmount
+        });
+        
+        creditor.amount -= transferAmount;
+        debtor.amount -= transferAmount;
+      }
+    });
+  });
+  
+  return transactions;
+}
+
+function displayResults(balances, debts, validExpenses) {
+  const resultsDiv = document.getElementById('results');
+  const contentDiv = document.getElementById('results-content');
+  
+  const totalAmount = validExpenses.reduce((sum, expense) => sum + expense.amount, 0);
+  
+  let html = `
+    <div class="result-section">
+      <h4>💰 Riepilogo Generale</h4>
+      <p><strong>Totale spese:</strong> €${totalAmount.toFixed(2)}</p>
+      <p><strong>Numero spese:</strong> ${validExpenses.length}</p>
+      <p><strong>Partecipanti:</strong> ${people.length}</p>
+    </div>
+    
+    <div class="result-section">
+      <h4>📋 Dettaglio Spese</h4>
+      <ul class="balance-list">
+        ${validExpenses.map(expense => `
+          <li>
+            <strong>${expense.description || 'Spesa senza nome'}</strong><br>
+            €${expense.amount.toFixed(2)} pagato da ${people[expense.paidBy]}<br>
+            <small style="color: var(--gray-600);">
+              Partecipanti: ${expense.participants.map(i => people[i]).join(', ')}
+              (€${(expense.amount / expense.participants.length).toFixed(2)} a testa)
+            </small>
+          </li>
+        `).join('')}
+      </ul>
+    </div>
+    
+    <div class="result-section">
+      <h4>⚖️ Bilanci Individuali</h4>
+      <ul class="balance-list">
+        ${balances.map((balance, index) => `
+          <li>
+            <strong>${people[index]}:</strong> 
+            <span class="${balance > 0.01 ? 'balance-positive' : balance < -0.01 ? 'balance-negative' : ''}">
+              ${balance > 0.01 ? `+€${balance.toFixed(2)} (deve ricevere)` : 
+                balance < -0.01 ? `-€${Math.abs(balance).toFixed(2)} (deve pagare)` : 
+                '€0.00 (in pari)'}
+            </span>
+          </li>
+        `).join('')}
+      </ul>
+    </div>
+  `;
+  
+  if (debts.length > 0) {
+    html += `
+      <div class="result-section">
+        <h4>💸 Pagamenti da Effettuare</h4>
+        <div class="debt-list">
+          ${debts.map(debt => `
+            <div class="debt-item">
+              <strong>${people[debt.from]}</strong> deve pagare <strong>€${debt.amount.toFixed(2)}</strong> a <strong>${people[debt.to]}</strong>
+            </div>
+          `).join('')}
+        </div>
+        <p style="margin-top: 1rem; color: var(--gray-600); font-size: 0.9rem;">
+          <em>Effettuando tutti questi pagamenti, i conti saranno in pari.</em>
+        </p>
+      </div>
+    `;
+  } else {
+    html += `
+      <div class="result-section">
+        <h4>✅ Conti in Pari</h4>
+        <p style="color: var(--success);">Tutti i conti sono già bilanciati! Non sono necessari pagamenti aggiuntivi.</p>
+      </div>
+    `;
+  }
+  
+  contentDiv.innerHTML = html;
+  resultsDiv.classList.add('show');
+  resultsDiv.scrollIntoView({ behavior: 'smooth' });
+}
+
+function captureEmail(e) {
+  e.preventDefault();
+  const email = e.target.querySelector('input').value;
+  // Il Publisher inietterà l'endpoint reale
+  fetch('__NEWSLETTER_ENDPOINT__', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email, source: 'calcolatore-divisione-spese'})
+  }).then(() => {
+    e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+  }).catch(() => {
+    e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+  });
+  return false;
+}
+</script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-sconto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Sconto</a></li>
+</ul>
+</div>
+</body>
+</html>
