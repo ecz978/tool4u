@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Area Cerchio Online Gratis</title>
+  <meta name="description" content="Calcola area, circonferenza e diametro del cerchio. Inserisci il raggio e ottieni subito i risultati.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Area Cerchio",
+    "description": "Calcola area, circonferenza e diametro del cerchio dal raggio",
+    "url": "https://tool4u.org/calcolatore-area-cerchio",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --success: #10b981;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --text-light: #6b7280;
+  --border: #e5e7eb;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+.tool-body {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+}
+
+.results {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f0f9ff;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+  display: none;
+}
+
+.results.show {
+  display: block;
+}
+
+.results h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-label {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.result-value {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.ad-slot {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  text-align: center;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.explanation {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.explanation h2 {
+  color: var(--text);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.explanation p {
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+.explanation ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.explanation li {
+  margin-bottom: 0.5rem;
+  color: var(--text-light);
+}
+
+.email-capture {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.email-capture button {
+  background: var(--success);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.footer {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.footer p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .email-capture button {
+    width: 100%;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Area Cerchio</h1>
+      <p>Calcola area, circonferenza e diametro del cerchio inserendo il raggio</p>
+    </div>
+
+    <div id="ad-slot-top" class="ad-slot">Spazio Pubblicitario</div>
+
+    <div class="tool-body">
+      <form id="calculatorForm">
+        <div class="form-group">
+          <label for="raggio">Raggio</label>
+          <input type="number" id="raggio" name="raggio" placeholder="5" step="any" required>
+        </div>
+        
+        <button type="submit" class="btn">Calcola</button>
+        
+        <div id="results" class="results">
+          <h3>Risultati</h3>
+          <div class="result-item">
+            <span class="result-label">Area:</span>
+            <span class="result-value" id="areaResult">-</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Circonferenza:</span>
+            <span class="result-value" id="circonferenzaResult">-</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Diametro:</span>
+            <span class="result-value" id="diametroResult">-</span>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="ad-slot-middle" class="ad-slot">Spazio Pubblicitario</div>
+
+    <div class="explanation">
+      <h2>Come funziona il calcolo dell'area del cerchio</h2>
+      <p>Il nostro calcolatore utilizza le formule matematiche standard per calcolare tutte le proprietà fondamentali di un cerchio partendo dal raggio:</p>
+      
+      <ul>
+        <li><strong>Area = π × r²</strong> - L'area rappresenta la superficie racchiusa dalla circonferenza</li>
+        <li><strong>Circonferenza = 2 × π × r</strong> - La circonferenza è la lunghezza del bordo del cerchio</li>
+        <li><strong>Diametro = 2 × r</strong> - Il diametro è la distanza massima tra due punti del cerchio</li>
+      </ul>
+      
+      <p>Dove π (pi greco) è una costante matematica che vale circa 3.14159. Il raggio è la distanza dal centro del cerchio al suo bordo.</p>
+      
+      <p>Questo strumento è perfetto per studenti, ingegneri, architetti e chiunque necessiti di calcoli geometrici rapidi e precisi. Tutti i risultati sono calcolati istantaneamente con alta precisione.</p>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">Spazio Pubblicitario</div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> I calcoli sono forniti a scopo informativo. Verifica sempre i risultati per utilizzi professionali critici.</p>
+      <p>© 2024 <a href="/">Tool4U.org</a> - Strumenti di calcolo gratuiti</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('calculatorForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const raggio = parseFloat(document.getElementById('raggio').value);
+      
+      if (isNaN(raggio) || raggio <= 0) {
+        alert('Inserisci un valore valido per il raggio');
+        return;
+      }
+      
+      // Calcoli
+      const area = Math.PI * Math.pow(raggio, 2);
+      const circonferenza = 2 * Math.PI * raggio;
+      const diametro = 2 * raggio;
+      
+      // Mostra risultati
+      document.getElementById('areaResult').textContent = area.toFixed(2) + ' unità²';
+      document.getElementById('circonferenzaResult').textContent = circonferenza.toFixed(2) + ' unità';
+      document.getElementById('diametroResult').textContent = diametro.toFixed(2) + ' unità';
+      
+      document.getElementById('results').classList.add('show');
+    });
+
+    // Calcolo automatico durante la digitazione
+    document.getElementById('raggio').addEventListener('input', function() {
+      const raggio = parseFloat(this.value);
+      
+      if (!isNaN(raggio) && raggio > 0) {
+        const area = Math.PI * Math.pow(raggio, 2);
+        const circonferenza = 2 * Math.PI * raggio;
+        const diametro = 2 * raggio;
+        
+        document.getElementById('areaResult').textContent = area.toFixed(2) + ' unità²';
+        document.getElementById('circonferenzaResult').textContent = circonferenza.toFixed(2) + ' unità';
+        document.getElementById('diametroResult').textContent = diametro.toFixed(2) + ' unità';
+        
+        document.getElementById('results').classList.add('show');
+      } else {
+        document.getElementById('results').classList.remove('show');
+      }
+    });
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-area-cerchio'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-triangolo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Triangolo</a></li>
+</ul>
+</div>
+</body>
+</html>
