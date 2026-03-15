@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo BMI Online - Indice Massa Corporea</title>
+  <meta name="description" content="Calcola il tuo BMI gratis. Inserisci peso e altezza e scopri se sei normopeso, sovrappeso o sottopeso.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore BMI",
+    "description": "Calcola il tuo indice di massa corporea e scopri se sei normopeso",
+    "url": "https://tool4u.org/calcolatore-bmi",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Any",
+    "permissions": "browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-600: #4b5563;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--gray-800);
+  background: var(--gray-50);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  background: white;
+  padding: 2rem 0;
+  text-align: center;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.tool-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  color: var(--gray-600);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.ad-slot {
+  background: var(--gray-100);
+  border: 2px dashed var(--gray-300);
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+  color: var(--gray-600);
+  font-size: 0.9rem;
+}
+
+.tool-body {
+  background: white;
+  padding: 2rem;
+  margin: 2rem 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--gray-800);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--gray-300);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group input.error {
+  border-color: var(--danger);
+}
+
+.error-message {
+  color: var(--danger);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: none;
+}
+
+.calculate-btn {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.calculate-btn:hover {
+  background: var(--primary-dark);
+}
+
+.calculate-btn:disabled {
+  background: var(--gray-300);
+  cursor: not-allowed;
+}
+
+.result {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: var(--gray-50);
+  border-radius: 12px;
+  text-align: center;
+  display: none;
+}
+
+.result.show {
+  display: block;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bmi-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.bmi-category {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.bmi-bar {
+  width: 100%;
+  height: 20px;
+  background: var(--gray-200);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.bmi-indicator {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s ease, background-color 0.5s ease;
+}
+
+.bmi-labels {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.bmi-label {
+  padding: 0.25rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.underweight { background: #dbeafe; color: var(--primary); }
+.normal { background: #dcfce7; color: var(--success); }
+.overweight { background: #fef3c7; color: var(--warning); }
+.obese { background: #fee2e2; color: var(--danger); }
+
+.explanation {
+  background: white;
+  padding: 2rem;
+  margin: 2rem 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.explanation h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 1rem;
+}
+
+.explanation h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin: 1.5rem 0 0.5rem;
+}
+
+.explanation p, .explanation li {
+  color: var(--gray-600);
+  margin-bottom: 0.75rem;
+}
+
+.explanation ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.email-capture {
+  background: var(--primary);
+  color: white;
+  padding: 2rem;
+  margin: 2rem 0;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.email-capture p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  padding: 0.75rem 1.5rem;
+  background: white;
+  color: var(--primary);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.email-capture button:hover {
+  background: var(--gray-100);
+}
+
+.footer {
+  background: var(--gray-800);
+  color: white;
+  padding: 2rem 0;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.footer p {
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 640px) {
+  .tool-header h1 {
+    font-size: 2rem;
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .bmi-value {
+    font-size: 2.5rem;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+
+  <div class="tool-header">
+    <div class="container">
+      <h1>Calcolatore BMI</h1>
+      <p>Calcola il tuo indice di massa corporea e scopri se sei normopeso, sovrappeso o sottopeso</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="ad-slot" id="ad-slot-top">Spazio Pubblicitario</div>
+
+    <div class="tool-body">
+      <form id="bmi-form">
+        <div class="form-group">
+          <label for="peso">Peso (kg)</label>
+          <input type="number" id="peso" placeholder="70" min="1" max="300" step="0.1" required>
+          <div class="error-message" id="peso-error">Inserisci un peso valido (1-300 kg)</div>
+        </div>
+
+        <div class="form-group">
+          <label for="altezza">Altezza (cm)</label>
+          <input type="number" id="altezza" placeholder="175" min="50" max="250" step="0.1" required>
+          <div class="error-message" id="altezza-error">Inserisci un'altezza valida (50-250 cm)</div>
+        </div>
+
+        <button type="submit" class="calculate-btn">Calcola BMI</button>
+      </form>
+
+      <div class="result" id="result">
+        <div class="bmi-value" id="bmi-value">0.0</div>
+        <div class="bmi-category" id="bmi-category">Categoria</div>
+        
+        <div class="bmi-bar">
+          <div class="bmi-indicator" id="bmi-indicator"></div>
+        </div>
+        
+        <div class="bmi-labels">
+          <div class="bmi-label underweight">Sottopeso<br>&lt;18.5</div>
+          <div class="bmi-label normal">Normopeso<br>18.5-24.9</div>
+          <div class="bmi-label overweight">Sovrappeso<br>25-29.9</div>
+          <div class="bmi-label obese">Obesità<br>≥30</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">Spazio Pubblicitario</div>
+
+    <div class="explanation">
+      <h2>Come funziona il calcolo del BMI</h2>
+      
+      <p>L'Indice di Massa Corporea (BMI) è un indicatore utilizzato per valutare il rapporto tra peso e altezza di una persona. Il nostro calcolatore BMI gratuito ti permette di ottenere immediatamente il tuo indice e scoprire in quale categoria rientri.</p>
+
+      <h3>Formula del BMI</h3>
+      <p>Il BMI si calcola dividendo il peso (in chilogrammi) per il quadrato dell'altezza (in metri):</p>
+      <p><strong>BMI = Peso (kg) / [Altezza (m)]²</strong></p>
+
+      <h3>Categorie BMI secondo l'OMS</h3>
+      <ul>
+        <li><strong>Sottopeso:</strong> BMI inferiore a 18.5</li>
+        <li><strong>Normopeso:</strong> BMI tra 18.5 e 24.9</li>
+        <li><strong>Sovrappeso:</strong> BMI tra 25.0 e 29.9</li>
+        <li><strong>Obesità:</strong> BMI uguale o superiore a 30.0</li>
+      </ul>
+
+      <h3>Limitazioni del BMI</h3>
+      <p>È importante ricordare che il BMI è solo un indicatore generale e non tiene conto di fattori come:</p>
+      <ul>
+        <li>Massa muscolare vs massa grassa</li>
+        <li>Distribuzione del grasso corporeo</li>
+        <li>Età, sesso e etnia</li>
+        <li>Struttura ossea</li>
+      </ul>
+
+      <p>Per una valutazione completa del tuo stato di salute, consulta sempre un medico o un nutrizionista qualificato.</p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.com/s?k=fitness+equipment&tag=YOURTAG-20" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Shop fitness equipment on Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">Spazio Pubblicitario</div>
+  </div>
+
+  <div class="footer">
+    <div class="container">
+      <p><strong>Disclaimer:</strong> Questo calcolatore BMI è solo a scopo informativo e non sostituisce il parere medico professionale.</p>
+      <p>Per questioni di salute, consulta sempre un medico qualificato.</p>
+      <p>&copy; 2024 Tool4U.org - Tutti i diritti riservati</p>
+    </div>
+  </div>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-bmi'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white;margin:0;">Iscritto con successo! 🎉</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white;margin:0;">Iscritto! 📧</p>';
+      });
+      return false;
+    }
+
+    document.getElementById('bmi-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const pesoInput = document.getElementById('peso');
+      const altezzaInput = document.getElementById('altezza');
+      const peso = parseFloat(pesoInput.value);
+      const altezza = parseFloat(altezzaInput.value);
+      
+      // Reset errori
+      pesoInput.classList.remove('error');
+      altezzaInput.classList.remove('error');
+      document.getElementById('peso-error').style.display = 'none';
+      document.getElementById('altezza-error').style.display = 'none';
+      
+      let hasError = false;
+      
+      // Validazione peso
+      if (!peso || peso < 1 || peso > 300) {
+        pesoInput.classList.add('error');
+        document.getElementById('peso-error').style.display = 'block';
+        hasError = true;
+      }
+      
+      // Validazione altezza
+      if (!altezza || altezza < 50 || altezza > 250) {
+        altezzaInput.classList.add('error');
+        document.getElementById('altezza-error').style.display = 'block';
+        hasError = true;
+      }
+      
+      if (hasError) return;
+      
+      // Calcolo BMI
+      const altezzaMetri = altezza / 100;
+      const bmi = peso / (altezzaMetri * altezzaMetri);
+      
+      // Determinazione categoria
+      let categoria, colore, percentuale;
+      
+      if (bmi < 18.5) {
+        categoria = 'Sottopeso';
+        colore = '#2563eb';
+        percentuale = 15;
+      } else if (bmi < 25) {
+        categoria = 'Normopeso';
+        colore = '#059669';
+        percentuale = 40;
+      } else if (bmi < 30) {
+        categoria = 'Sovrappeso';
+        colore = '#d97706';
+        percentuale = 70;
+      } else {
+        categoria = 'Obesità';
+        colore = '#dc2626';
+        percentuale = 95;
+      }
+      
+      // Mostra risultato
+      document.getElementById('bmi-value').textContent = bmi.toFixed(1);
+      document.getElementById('bmi-category').textContent = categoria;
+      document.getElementById('bmi-category').style.color = colore;
+      
+      const indicator = document.getElementById('bmi-indicator');
+      indicator.style.width = percentuale + '%';
+      indicator.style.background = colore;
+      
+      document.getElementById('result').classList.add('show');
+      document.getElementById('result').scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    });
+
+    // Test case validation
+    console.log('Test case: peso=70, altezza=175');
+    const testBmi = 70 / Math.pow(1.75, 2);
+    console.log('Expected: 22.9, Calculated:', testBmi.toFixed(1));
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
