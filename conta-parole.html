@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conta Parole e Caratteri Online</title>
+  <meta name="description" content="Conta parole, caratteri, frasi e tempo di lettura del tuo testo. Gratis e in tempo reale.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Conta Parole e Caratteri Online",
+    "description": "Strumento gratuito per contare parole, caratteri, frasi e calcolare il tempo di lettura di un testo",
+    "url": "https://tool4u.org/conta-parole",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Any modern web browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --secondary: #64748b;
+  --success: #059669;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.nav {
+  padding: 0.8rem 0 0;
+}
+
+.nav a {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.header {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.header h1 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+.ad-slot {
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  color: #64748b;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.tool-body {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.stat-card {
+  background: var(--background);
+  padding: 1.25rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-top: 0.25rem;
+}
+
+.explanation {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+}
+
+.explanation h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.explanation h3 {
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.explanation p {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.explanation ul {
+  color: var(--text-light);
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.email-capture p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: white;
+  color: var(--primary);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer p {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <a href="/">&larr; Tool4U.org</a>
+    </div>
+    
+    <div class="header">
+      <h1>Conta Parole e Caratteri</h1>
+      <p>Analizza il tuo testo in tempo reale</p>
+    </div>
+    
+    <div id="ad-slot-top" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+    
+    <div class="tool-body">
+      <div class="form-group">
+        <label for="textInput">Incolla il tuo testo</label>
+        <textarea 
+          id="textInput" 
+          placeholder="Scrivi o incolla qui il tuo testo..."
+          oninput="analyzeText()"
+        ></textarea>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span id="wordCount" class="stat-number">0</span>
+          <div class="stat-label">Parole</div>
+        </div>
+        <div class="stat-card">
+          <span id="charCountWithSpaces" class="stat-number">0</span>
+          <div class="stat-label">Caratteri</div>
+        </div>
+        <div class="stat-card">
+          <span id="charCountNoSpaces" class="stat-number">0</span>
+          <div class="stat-label">Senza spazi</div>
+        </div>
+        <div class="stat-card">
+          <span id="sentenceCount" class="stat-number">0</span>
+          <div class="stat-label">Frasi</div>
+        </div>
+        <div class="stat-card">
+          <span id="paragraphCount" class="stat-number">0</span>
+          <div class="stat-label">Paragrafi</div>
+        </div>
+        <div class="stat-card">
+          <span id="readingTime" class="stat-number">0</span>
+          <div class="stat-label">Min. lettura</div>
+        </div>
+        <div class="stat-card">
+          <span id="speechTime" class="stat-number">0</span>
+          <div class="stat-label">Min. parlato</div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="ad-slot-middle" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+    
+    <div class="explanation">
+      <h2>Come funziona il contatore di parole</h2>
+      <p>Il nostro strumento analizza il tuo testo in tempo reale fornendo statistiche dettagliate per aiutarti a ottimizzare la tua scrittura.</p>
+      
+      <h3>Metriche analizzate</h3>
+      <ul>
+        <li><strong>Parole:</strong> Conta tutte le parole separate da spazi</li>
+        <li><strong>Caratteri:</strong> Include tutti i caratteri compreso spazi e punteggiatura</li>
+        <li><strong>Caratteri senza spazi:</strong> Esclude spazi e tabulazioni</li>
+        <li><strong>Frasi:</strong> Identificate dai segni di punteggiatura (. ! ?)</li>
+        <li><strong>Paragrafi:</strong> Separati da interruzioni di riga</li>
+        <li><strong>Tempo di lettura:</strong> Basato su 250 parole al minuto</li>
+        <li><strong>Tempo di discorso:</strong> Basato su 150 parole al minuto</li>
+      </ul>
+      
+      <h3>Perché usare un contatore di parole?</h3>
+      <p>Il conteggio delle parole è essenziale per:</p>
+      <ul>
+        <li>Rispettare i limiti di caratteri sui social media</li>
+        <li>Creare contenuti SEO ottimizzati</li>
+        <li>Scrivere articoli della lunghezza giusta</li>
+        <li>Preparare discorsi e presentazioni</li>
+        <li>Verificare la lunghezza di saggi e tesi</li>
+      </ul>
+      
+      <h3>Calcolo del tempo di lettura</h3>
+      <p>Il tempo di lettura è calcolato considerando che una persona media legge circa 250 parole al minuto. Per il tempo di discorso, utilizziamo una media di 150 parole al minuto, che è il ritmo ideale per una presentazione.</p>
+    </div>
+    
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://grammarly.go2cloud.org/aff_c?offer_id=XXX" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Try Grammarly for better writing</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+    
+    <div id="ad-slot-bottom" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+    
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo strumento è fornito gratuitamente per scopi informativi. I calcoli sono approssimativi e possono variare in base al tipo di testo e al lettore.</p>
+      <p>&copy; 2024 Tool4U.org - Strumenti gratuiti per la produttività</p>
+    </div>
+  </div>
+
+  <script>
+    function analyzeText() {
+      const text = document.getElementById('textInput').value;
+      
+      // Conta caratteri con spazi
+      const charCountWithSpaces = text.length;
+      
+      // Conta caratteri senza spazi
+      const charCountNoSpaces = text.replace(/\s/g, '').length;
+      
+      // Conta parole
+      let wordCount = 0;
+      if (text.trim()) {
+        wordCount = text.trim().split(/\s+/).length;
+      }
+      
+      // Conta frasi
+      let sentenceCount = 0;
+      if (text.trim()) {
+        const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+        sentenceCount = sentences.length;
+      }
+      
+      // Conta paragrafi
+      let paragraphCount = 0;
+      if (text.trim()) {
+        const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+        paragraphCount = paragraphs.length;
+      }
+      
+      // Calcola tempo di lettura (250 parole/minuto)
+      const readingTime = wordCount > 0 ? Math.ceil(wordCount / 250) : 0;
+      
+      // Calcola tempo di discorso (150 parole/minuto)
+      const speechTime = wordCount > 0 ? Math.ceil(wordCount / 150) : 0;
+      
+      // Aggiorna i contatori
+      document.getElementById('wordCount').textContent = wordCount.toLocaleString('it-IT');
+      document.getElementById('charCountWithSpaces').textContent = charCountWithSpaces.toLocaleString('it-IT');
+      document.getElementById('charCountNoSpaces').textContent = charCountNoSpaces.toLocaleString('it-IT');
+      document.getElementById('sentenceCount').textContent = sentenceCount.toLocaleString('it-IT');
+      document.getElementById('paragraphCount').textContent = paragraphCount.toLocaleString('it-IT');
+      document.getElementById('readingTime').textContent = readingTime.toLocaleString('it-IT');
+      document.getElementById('speechTime').textContent = speechTime.toLocaleString('it-IT');
+    }
+    
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'conta-parole'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto!</p>';
+      });
+      return false;
+    }
+    
+    // Inizializza l'analisi al caricamento
+    document.addEventListener('DOMContentLoaded', function() {
+      analyzeText();
+    });
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/generatore-password.html" style="color:#2563eb;text-decoration:none;">Generatore Password Sicure</a></li>
+</ul>
+</div>
+</body>
+</html>
