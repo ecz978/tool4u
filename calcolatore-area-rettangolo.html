@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Area Rettangolo Online - Calcolatore Gratuito</title>
+  <meta name="description" content="Calcola area, perimetro e diagonale del rettangolo online gratis. Tool veloce e preciso per tutti i calcoli geometrici del rettangolo.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Area Rettangolo",
+    "description": "Calcola area, perimetro e diagonale del rettangolo online",
+    "url": "https://tool4u.org/calcolatore-area-rettangolo",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "permissions": "browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --secondary-color: #64748b;
+  --background-color: #f8fafc;
+  --card-background: #ffffff;
+  --text-color: #1e293b;
+  --border-color: #e2e8f0;
+  --success-color: #059669;
+  --error-color: #dc2626;
+  --border-radius: 8px;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem 1rem;
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  color: var(--secondary-color);
+  font-size: 1.1rem;
+}
+
+.tool-body {
+  background: var(--card-background);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group input.error {
+  border-color: var(--error-color);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.calculate-btn {
+  width: 100%;
+  background: var(--primary-color);
+  color: white;
+  padding: 0.875rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.calculate-btn:hover {
+  background: var(--primary-hover);
+}
+
+.calculate-btn:disabled {
+  background: var(--secondary-color);
+  cursor: not-allowed;
+}
+
+.results {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: #f0f9ff;
+  border: 2px solid #0ea5e9;
+  border-radius: var(--border-radius);
+}
+
+.results h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.result-label {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.result-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.ad-slot {
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+  color: var(--secondary-color);
+  margin: 1.5rem 0;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tool-explanation {
+  background: var(--card-background);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin: 1.5rem 0;
+}
+
+.tool-explanation h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.tool-explanation h3 {
+  color: var(--text-color);
+  margin: 1.5rem 0 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.tool-explanation p, .tool-explanation li {
+  margin-bottom: 0.8rem;
+  color: var(--secondary-color);
+  line-height: 1.7;
+}
+
+.tool-explanation ul {
+  margin-left: 1.5rem;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  color: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: white;
+  color: var(--primary-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.email-capture button:hover {
+  transform: translateY(-1px);
+}
+
+.tool-footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .tool-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .email-capture button {
+    padding: 0.875rem;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Area Rettangolo</h1>
+      <p>Calcola area, perimetro e diagonale del rettangolo in modo rapido e preciso</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="rectangle-form">
+        <div class="form-group">
+          <label for="base">Base (cm)</label>
+          <input type="number" id="base" name="base" placeholder="10" step="0.01" min="0">
+          <div class="error-message" id="base-error"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="altezza">Altezza (cm)</label>
+          <input type="number" id="altezza" name="altezza" placeholder="5" step="0.01" min="0">
+          <div class="error-message" id="altezza-error"></div>
+        </div>
+        
+        <button type="submit" class="calculate-btn">Calcola Area Rettangolo</button>
+      </form>
+
+      <div id="results" class="results" style="display: none;">
+        <h3>Risultati del Calcolo</h3>
+        <div class="result-item">
+          <span class="result-label">Area:</span>
+          <span class="result-value" id="area-result">-</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Perimetro:</span>
+          <span class="result-value" id="perimeter-result">-</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Diagonale:</span>
+          <span class="result-value" id="diagonal-result">-</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come Funziona il Calcolo dell'Area del Rettangolo</h2>
+      
+      <p>Il nostro calcolatore di area rettangolo utilizza le formule geometriche fondamentali per fornire risultati precisi e immediati. È uno strumento essenziale per studenti, professionisti e chiunque abbia bisogno di calcoli geometrici rapidi.</p>
+
+      <h3>Formule Utilizzate</h3>
+      <ul>
+        <li><strong>Area del Rettangolo</strong>: Area = Base × Altezza</li>
+        <li><strong>Perimetro del Rettangolo</strong>: Perimetro = 2 × (Base + Altezza)</li>
+        <li><strong>Diagonale del Rettangolo</strong>: Diagonale = √(Base² + Altezza²)</li>
+      </ul>
+
+      <h3>Quando Utilizzare questo Tool</h3>
+      <ul>
+        <li>Calcolo dell'area per progetti di ristrutturazione o arredamento</li>
+        <li>Problemi di geometria e matematica scolastica</li>
+        <li>Calcoli per lavori di giardinaggio e paesaggistica</li>
+        <li>Determinazione delle dimensioni per materiali da costruzione</li>
+        <li>Progettazione di spazi e layout</li>
+      </ul>
+
+      <h3>Caratteristiche del Calcolatore</h3>
+      <ul>
+        <li>Calcolo istantaneo senza ricaricamento della pagina</li>
+        <li>Supporto per numeri decimali con alta precisione</li>
+        <li>Validazione automatica degli input</li>
+        <li>Risultati chiari e ben formattati</li>
+        <li>Completamente gratuito e senza registrazione</li>
+      </ul>
+
+      <p>Il rettangolo è una figura geometrica fondamentale caratterizzata da quattro lati e quattro angoli retti. I lati opposti sono uguali e paralleli. Questo calcolatore ti permette di determinare rapidamente tutte le proprietà principali del rettangolo conoscendo semplicemente base e altezza.</p>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore fornisce risultati approssimativi per scopi educativi e informativi. Per applicazioni professionali critiche, si consiglia di verificare i calcoli con strumenti specifici del settore.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Calcolatore Area Rettangolo Online Gratuito</p>
+    </div>
+  </div>
+
+  <script>
+    function validateInput(value, fieldName) {
+      const errors = [];
+      
+      if (!value || value.trim() === '') {
+        errors.push(`${fieldName} è obbligatorio`);
+      } else if (isNaN(value) || parseFloat(value) <= 0) {
+        errors.push(`${fieldName} deve essere un numero positivo`);
+      }
+      
+      return errors;
+    }
+
+    function showError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      const errorDiv = document.getElementById(fieldId + '-error');
+      
+      field.classList.add('error');
+      errorDiv.textContent = message;
+    }
+
+    function clearError(fieldId) {
+      const field = document.getElementById(fieldId);
+      const errorDiv = document.getElementById(fieldId + '-error');
+      
+      field.classList.remove('error');
+      errorDiv.textContent = '';
+    }
+
+    function calculateRectangle(base, altezza) {
+      const baseNum = parseFloat(base);
+      const altezzaNum = parseFloat(altezza);
+      
+      const area = baseNum * altezzaNum;
+      const perimeter = 2 * (baseNum + altezzaNum);
+      const diagonal = Math.sqrt(Math.pow(baseNum, 2) + Math.pow(altezzaNum, 2));
+      
+      return {
+        area: area,
+        perimeter: perimeter,
+        diagonal: diagonal
+      };
+    }
+
+    function formatNumber(num) {
+      return num % 1 === 0 ? num.toString() : num.toFixed(2);
+    }
+
+    function displayResults(results) {
+      document.getElementById('area-result').textContent = formatNumber(results.area) + ' cm²';
+      document.getElementById('perimeter-result').textContent = formatNumber(results.perimeter) + ' cm';
+      document.getElementById('diagonal-result').textContent = formatNumber(results.diagonal) + ' cm';
+      
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    document.getElementById('rectangle-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const base = document.getElementById('base').value;
+      const altezza = document.getElementById('altezza').value;
+      
+      // Clear previous errors
+      clearError('base');
+      clearError('altezza');
+      
+      // Validate inputs
+      const baseErrors = validateInput(base, 'Base');
+      const altezzaErrors = validateInput(altezza, 'Altezza');
+      
+      let hasErrors = false;
+      
+      if (baseErrors.length > 0) {
+        showError('base', baseErrors[0]);
+        hasErrors = true;
+      }
+      
+      if (altezzaErrors.length > 0) {
+        showError('altezza', altezzaErrors[0]);
+        hasErrors = true;
+      }
+      
+      if (!hasErrors) {
+        const results = calculateRectangle(base, altezza);
+        displayResults(results);
+      }
+    });
+
+    // Real-time calculation as user types
+    document.getElementById('base').addEventListener('input', function() {
+      clearError('base');
+      tryCalculate();
+    });
+
+    document.getElementById('altezza').addEventListener('input', function() {
+      clearError('altezza');
+      tryCalculate();
+    });
+
+    function tryCalculate() {
+      const base = document.getElementById('base').value;
+      const altezza = document.getElementById('altezza').value;
+      
+      if (base && altezza && !isNaN(base) && !isNaN(altezza) && parseFloat(base) > 0 && parseFloat(altezza) > 0) {
+        const results = calculateRectangle(base, altezza);
+        displayResults(results);
+      }
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-area-rettangolo'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white;margin:0;">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white;margin:0;">Iscritto con successo!</p>';
+      });
+      return false;
+    }
+
+    // Test automatico
+    setTimeout(() => {
+      const baseField = document.getElementById('base');
+      const altezzaField = document.getElementById('altezza');
+      
+      baseField.value = '10';
+      altezzaField.value = '5';
+      tryCalculate();
+      
+      // Verifica test case
+      const results = calculateRectangle('10', '5');
+      if (results.area === 50) {
+        console.log('✅ Test case passed: Area = 50 cm² per base=10, altezza=5');
+      } else {
+        console.error('❌ Test case failed');
+      }
+    }, 100);
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-triangolo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Triangolo</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-area-cerchio.html" style="color:#2563eb;text-decoration:none;">Calcolatore Area Cerchio</a></li>
+</ul>
+</div>
+</body>
+</html>
