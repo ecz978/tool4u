@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Sconto Percentuale Online - Calcola Prezzo Scontato</title>
+  <meta name="description" content="Calcola il prezzo scontato e il risparmio. Inserisci prezzo e percentuale di sconto per scoprire quanto risparmi istantaneamente.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Sconto Percentuale",
+    "description": "Strumento online gratuito per calcolare sconti percentuali, prezzi scontati e risparmi",
+    "url": "https://tool4u.org/calcolatore-sconto",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "permissions": "browser"
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --success: #10b981;
+  --error: #ef4444;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-600: #4b5563;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--gray-800);
+  background: var(--gray-50);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  padding: 2rem 0 1rem;
+  background: white;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  color: var(--gray-600);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.ad-slot {
+  background: var(--gray-100);
+  border: 2px dashed var(--gray-300);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  color: var(--gray-600);
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.tool-body {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+}
+
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.form-section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--gray-900);
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+}
+
+.results {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--gray-50);
+  border-radius: 8px;
+  border-left: 4px solid var(--success);
+}
+
+.results h3 {
+  color: var(--gray-900);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-label {
+  color: var(--gray-600);
+  font-weight: 500;
+}
+
+.result-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.highlight {
+  background: var(--success);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.explanation {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+}
+
+.explanation h2 {
+  font-size: 1.5rem;
+  color: var(--gray-900);
+  margin-bottom: 1rem;
+}
+
+.explanation h3 {
+  font-size: 1.2rem;
+  color: var(--gray-800);
+  margin: 1.5rem 0 0.5rem;
+}
+
+.explanation p {
+  margin-bottom: 1rem;
+  color: var(--gray-700);
+}
+
+.explanation ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.explanation li {
+  margin-bottom: 0.5rem;
+  color: var(--gray-700);
+}
+
+.email-capture {
+  background: var(--primary);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.email-capture p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .email-capture form {
+    flex-direction: column;
+  }
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: white;
+  color: var(--primary);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.email-capture button:hover {
+  background: var(--gray-100);
+}
+
+.footer {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--gray-200);
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--gray-600);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+  font-weight: 500;
+}
+
+.tab:hover {
+  background: var(--gray-50);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;">
+    <a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a>
+  </div>
+
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Sconto Percentuale</h1>
+      <p>Calcola istantaneamente il prezzo scontato e scopri quanto risparmi con qualsiasi percentuale di sconto</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab(event, 'standard')">Calcolo Standard</button>
+        <button class="tab" onclick="switchTab(event, 'reverse')">Calcolo Inverso</button>
+      </div>
+
+      <div id="standard" class="tab-content active">
+        <h2>Calcola il prezzo scontato</h2>
+        <form id="discountForm" onsubmit="calculateDiscount(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="prezzo">Prezzo originale (€)</label>
+              <input type="number" id="prezzo" name="prezzo" placeholder="100" step="0.01" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="sconto">Sconto (%)</label>
+              <input type="number" id="sconto" name="sconto" placeholder="20" step="0.01" min="0" max="100" required>
+            </div>
+          </div>
+          <button type="submit" class="btn">Calcola Sconto</button>
+        </form>
+
+        <div id="results" class="results hidden">
+          <h3>Risultato del calcolo</h3>
+          <div class="result-item">
+            <span class="result-label">Prezzo originale:</span>
+            <span class="result-value" id="originalPrice">€0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Sconto applicato:</span>
+            <span class="result-value" id="discountPercent">0%</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Prezzo scontato:</span>
+            <span class="result-value highlight" id="finalPrice">€0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Risparmio:</span>
+            <span class="result-value" id="savings">€0</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="reverse" class="tab-content">
+        <h2>Trova il prezzo originale</h2>
+        <p style="margin-bottom: 1rem; color: var(--gray-600);">Hai il prezzo scontato e la percentuale? Scopri qual era il prezzo originale.</p>
+        <form id="reverseForm" onsubmit="calculateReverse(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="prezzoScontato">Prezzo scontato (€)</label>
+              <input type="number" id="prezzoScontato" name="prezzoScontato" placeholder="80" step="0.01" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="scontoReverse">Sconto applicato (%)</label>
+              <input type="number" id="scontoReverse" name="scontoReverse" placeholder="20" step="0.01" min="0" max="99.99" required>
+            </div>
+          </div>
+          <button type="submit" class="btn">Calcola Prezzo Originale</button>
+        </form>
+
+        <div id="reverseResults" class="results hidden">
+          <h3>Risultato del calcolo inverso</h3>
+          <div class="result-item">
+            <span class="result-label">Prezzo scontato:</span>
+            <span class="result-value" id="discountedPriceResult">€0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Sconto applicato:</span>
+            <span class="result-value" id="discountPercentResult">0%</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Prezzo originale:</span>
+            <span class="result-value highlight" id="originalPriceResult">€0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Risparmio totale:</span>
+            <span class="result-value" id="totalSavingsResult">€0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="explanation">
+      <h2>Come funziona il calcolatore di sconti</h2>
+      <p>Il nostro calcolatore di sconti percentuali è uno strumento gratuito che ti permette di calcolare rapidamente il prezzo finale di un prodotto dopo l'applicazione di uno sconto e di scoprire esattamente quanto risparmierai.</p>
+      
+      <h3>Come calcolare uno sconto percentuale</h3>
+      <p>Per calcolare un sconto percentuale, utilizziamo questa formula matematica semplice:</p>
+      <ul>
+        <li><strong>Prezzo scontato</strong> = Prezzo originale × (1 - Sconto% ÷ 100)</li>
+        <li><strong>Risparmio</strong> = Prezzo originale - Prezzo scontato</li>
+        <li><strong>Risparmio percentuale</strong> = (Risparmio ÷ Prezzo originale) × 100</li>
+      </ul>
+
+      <h3>Esempio pratico</h3>
+      <p>Se un articolo costa €100 e ha uno sconto del 20%:</p>
+      <ul>
+        <li>Prezzo scontato = €100 × (1 - 20/100) = €100 × 0.8 = €80</li>
+        <li>Risparmio = €100 - €80 = €20</li>
+      </ul>
+
+      <h3>Calcolo inverso</h3>
+      <p>Con la funzione di calcolo inverso puoi scoprire il prezzo originale di un prodotto quando conosci solo il prezzo scontato e la percentuale di sconto applicata. La formula è:</p>
+      <ul>
+        <li><strong>Prezzo originale</strong> = Prezzo scontato ÷ (1 - Sconto% ÷ 100)</li>
+      </ul>
+
+      <h3>Quando utilizzare questo strumento</h3>
+      <ul>
+        <li>Durante i saldi e le promozioni per confrontare i prezzi</li>
+        <li>Per calcolare sconti commerciali e ribassi</li>
+        <li>Nella pianificazione del budget per gli acquisti</li>
+        <li>Per verificare la convenienza di un'offerta</li>
+        <li>Per calcolare commissioni e percentuali di sconto</li>
+      </ul>
+
+      <p>Questo calcolatore è particolarmente utile durante i periodi di saldi, Black Friday, sconti stagionali o qualsiasi altra occasione in cui devi rapidamente valutare la convenienza di un acquisto.</p>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore è fornito solo a scopo informativo. I risultati sono basati sui dati inseriti e sulle formule matematiche standard per il calcolo degli sconti percentuali. Verifica sempre i calcoli per decisioni finanziarie importanti.</p>
+      <p style="margin-top: 1rem; font-size: 0.8rem;">© 2024 Tool4U.org - Strumenti di calcolo gratuiti</p>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(event, tabName) {
+      // Remove active class from all tabs and contents
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      
+      // Add active class to clicked tab and corresponding content
+      event.target.classList.add('active');
+      document.getElementById(tabName).classList.add('active');
+      
+      // Hide results when switching tabs
+      document.getElementById('results').classList.add('hidden');
+      document.getElementById('reverseResults').classList.add('hidden');
+    }
+
+    function calculateDiscount(event) {
+      event.preventDefault();
+      
+      const prezzo = parseFloat(document.getElementById('prezzo').value);
+      const sconto = parseFloat(document.getElementById('sconto').value);
+      
+      if (isNaN(prezzo) || isNaN(sconto) || prezzo < 0 || sconto < 0 || sconto > 100) {
+        alert('Inserisci valori validi. Il prezzo deve essere positivo e lo sconto tra 0 e 100%.');
+        return;
+      }
+      
+      // Calculate discounted price and savings
+      const prezzoScontato = prezzo * (1 - sconto / 100);
+      const risparmio = prezzo - prezzoScontato;
+      
+      // Update results
+      document.getElementById('originalPrice').textContent = `€${prezzo.toFixed(2)}`;
+      document.getElementById('discountPercent').textContent = `${sconto}%`;
+      document.getElementById('finalPrice').textContent = `€${prezzoScontato.toFixed(2)}`;
+      document.getElementById('savings').textContent = `€${risparmio.toFixed(2)}`;
+      
+      // Show results
+      document.getElementById('results').classList.remove('hidden');
+    }
+
+    function calculateReverse(event) {
+      event.preventDefault();
+      
+      const prezzoScontato = parseFloat(document.getElementById('prezzoScontato').value);
+      const scontoPerc = parseFloat(document.getElementById('scontoReverse').value);
+      
+      if (isNaN(prezzoScontato) || isNaN(scontoPerc) || prezzoScontato < 0 || scontoPerc < 0 || scontoPerc >= 100) {
+        alert('Inserisci valori validi. Il prezzo deve essere positivo e lo sconto tra 0 e 99.99%.');
+        return;
+      }
+      
+      // Calculate original price
+      const prezzoOriginale = prezzoScontato / (1 - scontoPerc / 100);
+      const risparmiaTotale = prezzoOriginale - prezzoScontato;
+      
+      // Update reverse results
+      document.getElementById('discountedPriceResult').textContent = `€${prezzoScontato.toFixed(2)}`;
+      document.getElementById('discountPercentResult').textContent = `${scontoPerc}%`;
+      document.getElementById('originalPriceResult').textContent = `€${prezzoOriginale.toFixed(2)}`;
+      document.getElementById('totalSavingsResult').textContent = `€${risparmiaTotale.toFixed(2)}`;
+      
+      // Show reverse results
+      document.getElementById('reverseResults').classList.remove('hidden');
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-sconto'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto con successo!</p>';
+      });
+      return false;
+    }
+
+    // Auto-calculate on input change for better UX
+    document.getElementById('prezzo').addEventListener('input', function() {
+      const scontoField = document.getElementById('sconto');
+      if (this.value && scontoField.value) {
+        setTimeout(() => {
+          document.getElementById('discountForm').dispatchEvent(new Event('submit'));
+        }, 500);
+      }
+    });
+
+    document.getElementById('sconto').addEventListener('input', function() {
+      const prezzoField = document.getElementById('prezzo');
+      if (this.value && prezzoField.value) {
+        setTimeout(() => {
+          document.getElementById('discountForm').dispatchEvent(new Event('submit'));
+        }, 500);
+      }
+    });
+
+    document.getElementById('prezzoScontato').addEventListener('input', function() {
+      const scontoField = document.getElementById('scontoReverse');
+      if (this.value && scontoField.value) {
+        setTimeout(() => {
+          document.getElementById('reverseForm').dispatchEvent(new Event('submit'));
+        }, 500);
+      }
+    });
+
+    document.getElementById('scontoReverse').addEventListener('input', function() {
+      const prezzoField = document.getElementById('prezzoScontato');
+      if (this.value && prezzoField.value) {
+        setTimeout(() => {
+          document.getElementById('reverseForm').dispatchEvent(new Event('submit'));
+        }, 500);
+      }
+    });
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
