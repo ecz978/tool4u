@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Bollo Auto Online 2026 - Calcolatore Preciso kW e Classe Euro</title>
+  <meta name="description" content="Calcola il bollo auto in base a kW e classe Euro. Aggiornato al 2026. Risultato istantaneo con dettaglio calcolo completo.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Bollo Auto",
+    "description": "Calcola il bollo auto in base a potenza kW e classe ambientale Euro",
+    "url": "https://tool4u.org/calcolatore-bollo-auto",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #64748b;
+  --success: #059669;
+  --warning: #d97706;
+  --error: #dc2626;
+  --bg: #ffffff;
+  --bg-alt: #f8fafc;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg-alt);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-header {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.tool-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.ad-slot {
+  background: var(--bg-alt);
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.tool-body {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--bg-alt);
+  border-radius: 8px;
+  border-left: 4px solid var(--success);
+  display: none;
+}
+
+.result.show {
+  display: block;
+}
+
+.result h3 {
+  color: var(--success);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.result-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.result-details {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.tool-explanation {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.tool-explanation h2 {
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.tool-explanation p {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+.tool-explanation ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.tool-explanation li {
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+}
+
+.email-capture {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tool-footer {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tool-header p {
+    font-size: 1rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Bollo Auto</h1>
+      <p>Calcola il bollo auto in base a potenza kW e classe ambientale Euro. Aggiornato al 2026.</p>
+    </div>
+
+    <div id="ad-slot-top" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="bollo-form">
+        <div class="form-group">
+          <label for="kw">Potenza (kW)</label>
+          <input type="number" id="kw" placeholder="85" min="1" max="999" required>
+        </div>
+
+        <div class="form-group">
+          <label for="classe">Classe ambientale</label>
+          <select id="classe" required>
+            <option value="">Seleziona classe Euro</option>
+            <option value="euro0">Euro 0</option>
+            <option value="euro1">Euro 1</option>
+            <option value="euro2">Euro 2</option>
+            <option value="euro3">Euro 3</option>
+            <option value="euro4">Euro 4</option>
+            <option value="euro5">Euro 5</option>
+            <option value="euro6">Euro 6</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn">Calcola Bollo Auto</button>
+
+        <div id="result" class="result">
+          <h3>Risultato Calcolo Bollo</h3>
+          <div id="result-amount" class="result-amount"></div>
+          <div id="result-details" class="result-details"></div>
+        </div>
+      </form>
+    </div>
+
+    <div id="ad-slot-middle" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come Funziona il Calcolo del Bollo Auto</h2>
+      <p>Il bollo auto è una tassa regionale che varia in base alla <strong>potenza del veicolo in kW</strong> e alla <strong>classe ambientale Euro</strong>. Il nostro calcolatore utilizza le tariffe nazionali di base per il 2026.</p>
+      
+      <h3>Sistema di Calcolo</h3>
+      <ul>
+        <li><strong>Fino a 100 kW:</strong> Si applica la tariffa base per ogni kW</li>
+        <li><strong>Oltre 100 kW:</strong> Si applica una tariffa maggiorata per i kW eccedenti</li>
+      </ul>
+
+      <h3>Tariffe per Classe Ambientale (€/kW)</h3>
+      <ul>
+        <li><strong>Euro 0 e Euro 1:</strong> €3,00 fino a 100kW - €4,50 oltre 100kW</li>
+        <li><strong>Euro 2:</strong> €2,80 fino a 100kW - €4,20 oltre 100kW</li>
+        <li><strong>Euro 3:</strong> €2,70 fino a 100kW - €4,05 oltre 100kW</li>
+        <li><strong>Euro 4, 5 e 6:</strong> €2,58 fino a 100kW - €3,87 oltre 100kW</li>
+      </ul>
+
+      <p><strong>Nota:</strong> Le tariffe possono variare tra regioni. Verifica sempre con gli uffici competenti per confermare l'importo esatto da versare.</p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/s?k=accessori+auto&tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Accessori auto su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> I calcoli sono indicativi e basati sulle tariffe nazionali di base. Le tariffe effettive possono variare tra regioni. Consulta sempre gli uffici competenti per l'importo esatto.</p>
+      <p style="margin-top: 1rem;">© 2026 Tool4U.org - Calcolatori gratuiti online</p>
+    </div>
+  </div>
+
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-bollo-auto'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    document.getElementById('bollo-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const kw = parseFloat(document.getElementById('kw').value);
+      const classe = document.getElementById('classe').value;
+      
+      if (!kw || !classe) {
+        alert('Inserisci tutti i campi richiesti');
+        return;
+      }
+
+      // Definizione tariffe per classe ambientale
+      const tariffe = {
+        euro0: { base: 3.00, maggiorata: 4.50 },
+        euro1: { base: 3.00, maggiorata: 4.50 },
+        euro2: { base: 2.80, maggiorata: 4.20 },
+        euro3: { base: 2.70, maggiorata: 4.05 },
+        euro4: { base: 2.58, maggiorata: 3.87 },
+        euro5: { base: 2.58, maggiorata: 3.87 },
+        euro6: { base: 2.58, maggiorata: 3.87 }
+      };
+
+      const tariffa = tariffe[classe];
+      let bollo = 0;
+      let dettagli = '';
+
+      if (kw <= 100) {
+        bollo = kw * tariffa.base;
+        dettagli = `${kw} kW × €${tariffa.base.toFixed(2)} = €${bollo.toFixed(2)}`;
+      } else {
+        const primi100 = 100 * tariffa.base;
+        const eccedenti = (kw - 100) * tariffa.maggiorata;
+        bollo = primi100 + eccedenti;
+        
+        dettagli = `Primi 100 kW: 100 × €${tariffa.base.toFixed(2)} = €${primi100.toFixed(2)}<br>`;
+        dettagli += `kW eccedenti: ${(kw - 100).toFixed(1)} × €${tariffa.maggiorata.toFixed(2)} = €${eccedenti.toFixed(2)}<br>`;
+        dettagli += `<strong>Totale: €${bollo.toFixed(2)}</strong>`;
+      }
+
+      // Mostra risultato
+      document.getElementById('result-amount').innerHTML = `€${bollo.toFixed(2)}`;
+      document.getElementById('result-details').innerHTML = `
+        <strong>Dettaglio calcolo:</strong><br>
+        Potenza: ${kw} kW<br>
+        Classe: ${classe.toUpperCase()}<br>
+        ${dettagli}
+        <br><br>
+        <em>Importo indicativo - Le tariffe possono variare per regione</em>
+      `;
+      
+      document.getElementById('result').classList.add('show');
+      document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Auto-calcolo quando si cambia un valore
+    document.getElementById('kw').addEventListener('input', autoCalculate);
+    document.getElementById('classe').addEventListener('change', autoCalculate);
+
+    function autoCalculate() {
+      const kw = document.getElementById('kw').value;
+      const classe = document.getElementById('classe').value;
+      
+      if (kw && classe) {
+        document.getElementById('bollo-form').dispatchEvent(new Event('submit'));
+      }
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-consumo-carburante.html" style="color:#2563eb;text-decoration:none;">Calcolatore Consumo Carburante</a></li>
+</ul>
+</div>
+</body>
+</html>
