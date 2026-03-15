@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Consumo Carburante e Costo Viaggio</title>
+  <meta name="description" content="Calcola quanto carburante ti serve e quanto spendi per il viaggio. Inserisci km, consumo e prezzo.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Consumo Carburante",
+    "description": "Calcola il consumo di carburante e il costo del viaggio inserendo distanza, consumo e prezzo del carburante",
+    "url": "https://tool4u.org/calcolatore-consumo-carburante",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+  :root {
+    --primary-color: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary-color: #f3f4f6;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --border-color: #d1d5db;
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --warning-color: #f59e0b;
+    --border-radius: 8px;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #fafafa;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .tool-header {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 2rem 1rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+  }
+
+  .tool-header h1 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  .tool-header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .ad-slot {
+    background: var(--secondary-color);
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--text-light);
+    margin: 2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .tool-body {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+
+  .form-group input.error {
+    border-color: var(--error-color);
+  }
+
+  .error-message {
+    color: var(--error-color);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+
+  .calculate-btn {
+    width: 100%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.875rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .calculate-btn:hover {
+    background: var(--primary-dark);
+  }
+
+  .calculate-btn:disabled {
+    background: var(--text-light);
+    cursor: not-allowed;
+  }
+
+  .result {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--primary-color);
+  }
+
+  .result h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+  }
+
+  .result-item:last-child {
+    border-bottom: none;
+  }
+
+  .result-label {
+    font-weight: 600;
+    color: var(--text-color);
+  }
+
+  .result-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+  }
+
+  .tool-explanation {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+
+  .tool-explanation h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .tool-explanation p {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    line-height: 1.7;
+  }
+
+  .tool-explanation ul {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+
+  .tool-explanation li {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
+
+  .email-capture {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .email-capture p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .email-capture form {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .email-capture input {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+  }
+
+  .email-capture button {
+    background: white;
+    color: var(--primary-color);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .email-capture button:hover {
+    opacity: 0.9;
+  }
+
+  .tool-footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text-light);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 640px) {
+    .tool-header h1 {
+      font-size: 1.6rem;
+    }
+
+    .tool-header p {
+      font-size: 1rem;
+    }
+
+    .tool-body {
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .email-capture form {
+      flex-direction: column;
+    }
+
+    .email-capture input,
+    .email-capture button {
+      width: 100%;
+    }
+  }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>🚗 Calcolatore Consumo Carburante</h1>
+      <p>Calcola quanto carburante ti serve e il costo totale del tuo viaggio in modo semplice e veloce</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="fuel-calculator" onsubmit="return calculateFuel(event)">
+        <div class="form-group">
+          <label for="km">Distanza (km)</label>
+          <input type="number" id="km" placeholder="500" step="0.1" min="0.1" required>
+          <div class="error-message" id="km-error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="consumo">Consumo (litri/100km)</label>
+          <input type="number" id="consumo" placeholder="6" step="0.1" min="0.1" required>
+          <div class="error-message" id="consumo-error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="prezzo">Prezzo carburante (€/litro)</label>
+          <input type="number" id="prezzo" placeholder="1.75" step="0.01" min="0.01" required>
+          <div class="error-message" id="prezzo-error"></div>
+        </div>
+
+        <button type="submit" class="calculate-btn">Calcola Consumo e Costo</button>
+      </form>
+
+      <div id="result" class="result" style="display: none;">
+        <h3>📊 Risultati del Calcolo</h3>
+        <div class="result-item">
+          <span class="result-label">Litri necessari:</span>
+          <span class="result-value" id="litri-result">0 L</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Costo totale:</span>
+          <span class="result-value" id="costo-result">0,00 €</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Costo al km:</span>
+          <span class="result-value" id="costo-km-result">0,00 €/km</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come funziona il Calcolatore di Consumo Carburante</h2>
+      <p>Il nostro calcolatore di consumo carburante ti permette di pianificare accuratamente i costi dei tuoi viaggi in auto. È uno strumento essenziale per:</p>
+      <ul>
+        <li><strong>Pianificare il budget</strong> per viaggi e vacanze</li>
+        <li><strong>Confrontare costi</strong> tra diversi veicoli</li>
+        <li><strong>Ottimizzare percorsi</strong> per risparmiare carburante</li>
+        <li><strong>Calcolare rimborsi chilometrici</strong> per lavoro</li>
+      </ul>
+      
+      <h3>Formula di calcolo utilizzata:</h3>
+      <p>Il calcolo si basa su una formula semplice e precisa:</p>
+      <ul>
+        <li><strong>Litri necessari</strong> = (Distanza in km × Consumo per 100km) ÷ 100</li>
+        <li><strong>Costo totale</strong> = Litri necessari × Prezzo al litro</li>
+        <li><strong>Costo al km</strong> = Costo totale ÷ Distanza in km</li>
+      </ul>
+
+      <h3>Consigli per risparmiare carburante:</h3>
+      <ul>
+        <li>Mantieni una velocità costante e moderata</li>
+        <li>Controlla regolarmente la pressione degli pneumatici</li>
+        <li>Effettua la manutenzione regolare del veicolo</li>
+        <li>Rimuovi pesi inutili dal bagagliaio</li>
+        <li>Usa l'aria condizionata con moderazione</li>
+      </ul>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> I calcoli sono indicativi e basati sui dati inseriti. I consumi reali possono variare in base a condizioni di guida, traffico, meteo e caratteristiche del veicolo. Per pianificazioni precise, considera sempre un margine di sicurezza.</p>
+      <p style="margin-top: 1rem;">&copy; 2024 Tool4U.org - Strumento gratuito per il calcolo del consumo carburante</p>
+    </div>
+  </div>
+
+  <script>
+    function calculateFuel(event) {
+      event.preventDefault();
+      
+      // Reset errori precedenti
+      clearErrors();
+      
+      // Recupera valori
+      const km = parseFloat(document.getElementById('km').value);
+      const consumo = parseFloat(document.getElementById('consumo').value);
+      const prezzo = parseFloat(document.getElementById('prezzo').value);
+      
+      let hasError = false;
+      
+      // Validazione
+      if (!km || km <= 0) {
+        showError('km', 'Inserisci una distanza valida maggiore di 0');
+        hasError = true;
+      }
+      
+      if (!consumo || consumo <= 0) {
+        showError('consumo', 'Inserisci un consumo valido maggiore di 0');
+        hasError = true;
+      }
+      
+      if (!prezzo || prezzo <= 0) {
+        showError('prezzo', 'Inserisci un prezzo valido maggiore di 0');
+        hasError = true;
+      }
+      
+      if (hasError) return false;
+      
+      // Calcoli
+      const litriNecessari = (km * consumo) / 100;
+      const costoTotale = litriNecessari * prezzo;
+      const costoAlKm = costoTotale / km;
+      
+      // Mostra risultati
+      document.getElementById('litri-result').textContent = litriNecessari.toFixed(1) + ' L';
+      document.getElementById('costo-result').textContent = costoTotale.toFixed(2) + ' €';
+      document.getElementById('costo-km-result').textContent = costoAlKm.toFixed(3) + ' €/km';
+      
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+      
+      return false;
+    }
+    
+    function showError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      const errorDiv = document.getElementById(fieldId + '-error');
+      field.classList.add('error');
+      errorDiv.textContent = message;
+    }
+    
+    function clearErrors() {
+      const errorFields = ['km', 'consumo', 'prezzo'];
+      errorFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        const errorDiv = document.getElementById(fieldId + '-error');
+        field.classList.remove('error');
+        errorDiv.textContent = '';
+      });
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-consumo-carburante'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto con successo! 🎉</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto con successo! 🎉</p>';
+      });
+      return false;
+    }
+    
+    // Auto-calcolo quando si cambiano i valori (opzionale)
+    ['km', 'consumo', 'prezzo'].forEach(fieldId => {
+      document.getElementById(fieldId).addEventListener('input', function() {
+        clearErrors();
+      });
+    });
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
