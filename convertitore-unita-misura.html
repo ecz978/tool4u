@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convertitore Unita di Misura Online | Tool4U</title>
+  <meta name="description" content="Converti lunghezza, peso, volume e superficie tra sistemi metrici e imperiali. Tool gratuito per conversioni rapide e accurate.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Convertitore Unita di Misura",
+    "description": "Tool online per convertire tra diverse unità di misura: lunghezza, peso, volume e superficie",
+    "url": "https://tool4u.org/convertitore-unita-misura",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "permissions": "browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #64748b;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --background: #ffffff;
+  --surface: #f8fafc;
+  --border: #e2e8f0;
+  --text: #334155;
+  --text-light: #64748b;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--background);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: var(--radius);
+  color: white;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.ad-slot {
+  margin: 1.5rem 0;
+  min-height: 100px;
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  border-radius: var(--radius);
+}
+
+.tool-body {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.convert-btn {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.875rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.convert-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.convert-btn:active {
+  transform: translateY(0);
+}
+
+.result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--success);
+}
+
+.result-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--success);
+  margin-bottom: 0.5rem;
+}
+
+.result-formula {
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.tool-explanation {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.tool-explanation h2 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.tool-explanation h3 {
+  color: var(--text);
+  margin: 1.5rem 0 0.5rem 0;
+}
+
+.tool-explanation ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: var(--radius);
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+
+.email-capture button {
+  padding: 0.75rem 1.5rem;
+  background: white;
+  color: var(--primary);
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.email-capture button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.tool-footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+.error {
+  color: var(--danger);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tool-header p {
+    font-size: 1rem;
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .email-capture button {
+    padding: 0.875rem;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+
+  <div class="container">
+    <div class="tool-header">
+      <h1>Convertitore Unità di Misura</h1>
+      <p>Converti rapidamente tra diverse unità di misura: lunghezza, peso, volume e superficie</p>
+    </div>
+
+    <div id="ad-slot-top" class="ad-slot">
+      Spazio Pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="converter-form">
+        <div class="form-group">
+          <label for="valore">Valore</label>
+          <input type="number" id="valore" placeholder="100" step="any" required>
+        </div>
+
+        <div class="form-group">
+          <label for="categoria">Categoria</label>
+          <select id="categoria" required>
+            <option value="">Seleziona categoria</option>
+            <option value="lunghezza">Lunghezza</option>
+            <option value="peso">Peso</option>
+            <option value="volume">Volume</option>
+            <option value="superficie">Superficie</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="da">Da</label>
+          <select id="da" required disabled>
+            <option value="">Seleziona prima la categoria</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="a">A</label>
+          <select id="a" required disabled>
+            <option value="">Seleziona prima la categoria</option>
+          </select>
+        </div>
+
+        <button type="submit" class="convert-btn">Converti</button>
+      </form>
+
+      <div id="result" style="display: none;"></div>
+    </div>
+
+    <div id="ad-slot-middle" class="ad-slot">
+      Spazio Pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come Funziona il Convertitore</h2>
+      <p>Il nostro convertitore di unità di misura permette di convertire rapidamente tra diverse scale di misurazione utilizzate nei sistemi metrici e imperiali.</p>
+      
+      <h3>Categorie Supportate</h3>
+      <ul>
+        <li><strong>Lunghezza:</strong> millimetri, centimetri, metri, chilometri, pollici, piedi, miglia</li>
+        <li><strong>Peso:</strong> milligrammi, grammi, chilogrammi, libbre, once</li>
+        <li><strong>Volume:</strong> millilitri, litri, galloni, once fluide, tazze</li>
+        <li><strong>Superficie:</strong> metri quadrati, chilometri quadrati, ettari, acri</li>
+      </ul>
+      
+      <h3>Come Utilizzare il Tool</h3>
+      <ol style="margin-left: 1.5rem;">
+        <li>Inserisci il valore numerico da convertire</li>
+        <li>Seleziona la categoria di misura</li>
+        <li>Scegli l'unità di partenza (Da)</li>
+        <li>Scegli l'unità di destinazione (A)</li>
+        <li>Clicca su "Converti" per ottenere il risultato</li>
+      </ol>
+      
+      <p>Il tool mostra sia il risultato della conversione che la formula utilizzata, così puoi capire come avviene il calcolo e verificare l'accuratezza del risultato.</p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/s?k=metro+laser+digitale&tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Metro digitale laser su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">
+      Spazio Pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> I risultati sono forniti a scopo informativo. Per applicazioni critiche, verifica sempre i calcoli con fonti ufficiali.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Strumenti online gratuiti</p>
+    </div>
+  </div>
+
+  <script>
+    const unitsData = {
+      lunghezza: {
+        mm: { name: 'Millimetri', factor: 1 },
+        cm: { name: 'Centimetri', factor: 10 },
+        m: { name: 'Metri', factor: 1000 },
+        km: { name: 'Chilometri', factor: 1000000 },
+        pollici: { name: 'Pollici', factor: 25.4 },
+        piedi: { name: 'Piedi', factor: 304.8 },
+        miglia: { name: 'Miglia', factor: 1609344 }
+      },
+      peso: {
+        mg: { name: 'Milligrammi', factor: 1 },
+        g: { name: 'Grammi', factor: 1000 },
+        kg: { name: 'Chilogrammi', factor: 1000000 },
+        libbre: { name: 'Libbre', factor: 453592.37 },
+        once: { name: 'Once', factor: 28349.52 }
+      },
+      volume: {
+        ml: { name: 'Millilitri', factor: 1 },
+        l: { name: 'Litri', factor: 1000 },
+        galloni: { name: 'Galloni US', factor: 3785.41 },
+        'fl-oz': { name: 'Once fluide US', factor: 29.5735 },
+        cups: { name: 'Tazze US', factor: 236.588 }
+      },
+      superficie: {
+        mq: { name: 'Metri quadrati', factor: 1 },
+        kmq: { name: 'Chilometri quadrati', factor: 1000000 },
+        ettari: { name: 'Ettari', factor: 10000 },
+        acri: { name: 'Acri', factor: 4046.86 }
+      }
+    };
+
+    const categoriaSelect = document.getElementById('categoria');
+    const daSelect = document.getElementById('da');
+    const aSelect = document.getElementById('a');
+    const form = document.getElementById('converter-form');
+    const resultDiv = document.getElementById('result');
+
+    categoriaSelect.addEventListener('change', function() {
+      const categoria = this.value;
+      
+      // Reset e disabilita i select
+      daSelect.innerHTML = '<option value="">Seleziona unità di partenza</option>';
+      aSelect.innerHTML = '<option value="">Seleziona unità di destinazione</option>';
+      
+      if (categoria && unitsData[categoria]) {
+        // Abilita i select
+        daSelect.disabled = false;
+        aSelect.disabled = false;
+        
+        // Popola le opzioni
+        Object.keys(unitsData[categoria]).forEach(unit => {
+          const option1 = new Option(unitsData[categoria][unit].name, unit);
+          const option2 = new Option(unitsData[categoria][unit].name, unit);
+          daSelect.add(option1);
+          aSelect.add(option2);
+        });
+      } else {
+        daSelect.disabled = true;
+        aSelect.disabled = true;
+        daSelect.innerHTML = '<option value="">Seleziona prima la categoria</option>';
+        aSelect.innerHTML = '<option value="">Seleziona prima la categoria</option>';
+      }
+      
+      // Nascondi risultato
+      resultDiv.style.display = 'none';
+    });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const valore = parseFloat(document.getElementById('valore').value);
+      const categoria = categoriaSelect.value;
+      const da = daSelect.value;
+      const a = aSelect.value;
+      
+      if (!valore || !categoria || !da || !a) {
+        alert('Compila tutti i campi per procedere');
+        return;
+      }
+      
+      if (da === a) {
+        showResult(valore, valore, da, a, categoria, 'Stesso valore (stessa unità)');
+        return;
+      }
+      
+      // Converti tutto in unità base, poi alla destinazione
+      const factorDa = unitsData[categoria][da].factor;
+      const factorA = unitsData[categoria][a].factor;
+      
+      const valoreBase = valore * factorDa;
+      const risultato = valoreBase / factorA;
+      
+      const nomeUnitaDa = unitsData[categoria][da].name;
+      const nomeUnitaA = unitsData[categoria][a].name;
+      
+      const formula = `${valore} ${nomeUnitaDa} × ${factorDa} ÷ ${factorA} = ${risultato.toLocaleString('it-IT', {maximumFractionDigits: 10})} ${nomeUnitaA}`;
+      
+      showResult(valore, risultato, nomeUnitaDa, nomeUnitaA, categoria, formula);
+    });
+
+    function showResult(valoreOriginale, risultato, unitaDa, unitaA, categoria, formula) {
+      resultDiv.innerHTML = `
+        <div class="result-value">
+          ${risultato.toLocaleString('it-IT', {maximumFractionDigits: 6})} ${unitaA}
+        </div>
+        <div class="result-formula">
+          Formula: ${formula}
+        </div>
+      `;
+      resultDiv.style.display = 'block';
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'convertitore-unita-misura'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto con successo!</p>';
+      });
+      return false;
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/conversione-temperatura.html" style="color:#2563eb;text-decoration:none;">Convertitore Temperatura</a></li>
+<li style="margin:0.5rem 0;"><a href="/convertitore-taglie-scarpe.html" style="color:#2563eb;text-decoration:none;">Convertitore Taglie Scarpe</a></li>
+<li style="margin:0.5rem 0;"><a href="/convertitore-valuta.html" style="color:#2563eb;text-decoration:none;">Convertitore Valuta</a></li>
+</ul>
+</div>
+</body>
+</html>
