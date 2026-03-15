@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown - Quanti Giorni Mancano</title>
+  <meta name="description" content="Calcola quanti giorni mancano alla tua data. Countdown in tempo reale.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Countdown",
+    "description": "Calcola quanti giorni mancano a una data futura con countdown in tempo reale",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "url": "https://tool4u.org/calcolatore-countdown",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #64748b;
+  --success: #059669;
+  --danger: #dc2626;
+  --warning: #d97706;
+  --light-bg: #f8fafc;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --text-muted: #64748b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  background: white;
+  min-height: 100vh;
+}
+
+.tool-header {
+  text-align: center;
+  padding: 2rem 0;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  margin: 0 -1rem 2rem;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.ad-slot {
+  background: var(--light-bg);
+  border: 2px dashed var(--border);
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  border-radius: 8px;
+  color: var(--text-muted);
+}
+
+.tool-body {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+input[type="date"],
+input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="date"]:focus,
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+}
+
+.countdown-display {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  display: none;
+}
+
+.countdown-display.active {
+  display: block;
+}
+
+.countdown-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.countdown-timer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.time-unit {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem 0.5rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.time-value {
+  font-size: 2rem;
+  font-weight: 700;
+  display: block;
+}
+
+.time-label {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
+.countdown-summary {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.tool-explanation {
+  background: var(--light-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.tool-explanation h2 {
+  color: var(--text);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.tool-explanation p {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+.tool-explanation ul {
+  margin-left: 1.5rem;
+  color: var(--text-muted);
+}
+
+.tool-explanation li {
+  margin-bottom: 0.5rem;
+}
+
+.email-capture {
+  background: var(--light-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input[type="email"] {
+  flex: 1;
+}
+
+.email-capture button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.email-capture button:hover {
+  background: var(--primary-dark);
+}
+
+.tool-footer {
+  text-align: center;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.error {
+  color: var(--danger);
+  background: #fef2f2;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  border: 1px solid #fecaca;
+}
+
+@media (max-width: 640px) {
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .countdown-timer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .time-value {
+    font-size: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;background:white;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Countdown</h1>
+      <p>Calcola quanti giorni mancano a una data futura</p>
+    </div>
+
+    <div id="ad-slot-top" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <form id="countdown-form">
+        <div class="form-group">
+          <label for="data_evento">Data evento</label>
+          <input type="date" id="data_evento" name="data_evento" required>
+        </div>
+
+        <div class="form-group">
+          <label for="nome_evento">Nome evento</label>
+          <input type="text" id="nome_evento" name="nome_evento" placeholder="Vacanze" required>
+        </div>
+
+        <button type="submit" class="btn">Avvia Countdown</button>
+      </form>
+
+      <div id="countdown-result" class="countdown-display">
+        <div class="countdown-title" id="event-name"></div>
+        
+        <div class="countdown-timer">
+          <div class="time-unit">
+            <span class="time-value" id="days">0</span>
+            <div class="time-label">Giorni</div>
+          </div>
+          <div class="time-unit">
+            <span class="time-value" id="hours">0</span>
+            <div class="time-label">Ore</div>
+          </div>
+          <div class="time-unit">
+            <span class="time-value" id="minutes">0</span>
+            <div class="time-label">Minuti</div>
+          </div>
+          <div class="time-unit">
+            <span class="time-value" id="seconds">0</span>
+            <div class="time-label">Secondi</div>
+          </div>
+        </div>
+
+        <div class="countdown-summary">
+          <div class="summary-item">
+            <span>Settimane:</span>
+            <span id="weeks">0</span>
+          </div>
+          <div class="summary-item">
+            <span>Mesi approssimativi:</span>
+            <span id="months">0</span>
+          </div>
+          <div class="summary-item">
+            <span>Totale giorni:</span>
+            <span id="total-days">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="error-message"></div>
+    </div>
+
+    <div id="ad-slot-middle" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come funziona il Calcolatore Countdown</h2>
+      <p>Il nostro calcolatore countdown ti permette di visualizzare in tempo reale quanto tempo manca a un evento importante. È perfetto per:</p>
+      <ul>
+        <li><strong>Vacanze e viaggi:</strong> Conta i giorni che mancano alle tue prossime ferie</li>
+        <li><strong>Eventi speciali:</strong> Matrimoni, compleanni, anniversari e festività</li>
+        <li><strong>Scadenze importanti:</strong> Esami, progetti lavorativi, appuntamenti</li>
+        <li><strong>Obiettivi personali:</strong> Traguardi sportivi, diete, sfide personali</li>
+      </ul>
+      <p>Il countdown si aggiorna automaticamente ogni secondo, mostrandoti giorni, ore, minuti e secondi rimanenti. Inoltre, calcola anche le settimane e i mesi approssimativi per darti una visione completa del tempo che resta.</p>
+      <p>Lo strumento è completamente gratuito e funziona direttamente nel tuo browser senza necessità di registrazione o download.</p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/s?k=planner+agenda+2026&tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Planner e agende su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore fornisce stime basate sulla data attuale e quella inserita. I risultati sono indicativi e possono variare in base al fuso orario. Non utilizzare per scadenze critiche senza verifiche aggiuntive.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Strumenti gratuiti per tutti</p>
+    </div>
+  </div>
+
+  <script>
+let countdownInterval = null;
+let targetDate = null;
+
+document.getElementById('countdown-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const dataEvento = document.getElementById('data_evento').value;
+  const nomeEvento = document.getElementById('nome_evento').value;
+  
+  if (!dataEvento || !nomeEvento) {
+    showError('Compila tutti i campi richiesti');
+    return;
+  }
+  
+  targetDate = new Date(dataEvento + 'T23:59:59');
+  const now = new Date();
+  
+  if (targetDate <= now) {
+    showError('La data deve essere futura');
+    return;
+  }
+  
+  document.getElementById('event-name').textContent = `Countdown per: ${nomeEvento}`;
+  document.getElementById('countdown-result').classList.add('active');
+  document.getElementById('error-message').innerHTML = '';
+  
+  // Avvia il countdown
+  if (countdownInterval) {
+    clearInterval(countdownInterval);
+  }
+  
+  updateCountdown();
+  countdownInterval = setInterval(updateCountdown, 1000);
+});
+
+function updateCountdown() {
+  if (!targetDate) return;
+  
+  const now = new Date();
+  const timeLeft = targetDate - now;
+  
+  if (timeLeft <= 0) {
+    clearInterval(countdownInterval);
+    document.getElementById('countdown-result').innerHTML = `
+      <div class="countdown-title">🎉 L'evento è arrivato! 🎉</div>
+      <div style="font-size: 1.2rem; margin-top: 1rem;">Il countdown è terminato!</div>
+    `;
+    return;
+  }
+  
+  const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+  
+  // Calcoli aggiuntivi
+  const weeks = Math.floor(days / 7);
+  const months = Math.floor(days / 30.44); // Media giorni per mese
+  
+  // Aggiorna i valori
+  document.getElementById('days').textContent = days.toString().padStart(2, '0');
+  document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+  document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+  document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+  
+  document.getElementById('weeks').textContent = weeks;
+  document.getElementById('months').textContent = months;
+  document.getElementById('total-days').textContent = days;
+}
+
+function showError(message) {
+  document.getElementById('error-message').innerHTML = `<div class="error">${message}</div>`;
+  document.getElementById('countdown-result').classList.remove('active');
+  if (countdownInterval) {
+    clearInterval(countdownInterval);
+    countdownInterval = null;
+  }
+}
+
+function captureEmail(e) {
+  e.preventDefault();
+  const email = e.target.querySelector('input').value;
+  // Il Publisher inietterà l'endpoint reale
+  fetch('__NEWSLETTER_ENDPOINT__', {
+    method: 'POST', 
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email, source: 'calcolatore-countdown'})
+  }).then(() => {
+    e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+  }).catch(() => {
+    e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+  });
+  return false;
+}
+
+// Imposta data minima a oggi
+document.getElementById('data_evento').min = new Date().toISOString().split('T')[0];
+
+// Cleanup interval quando la pagina viene chiusa
+window.addEventListener('beforeunload', function() {
+  if (countdownInterval) {
+    clearInterval(countdownInterval);
+  }
+});
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-giorni-tra-date.html" style="color:#2563eb;text-decoration:none;">Calcolatore Giorni tra Due Date</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-eta.html" style="color:#2563eb;text-decoration:none;">Calcolatore Eta</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-ore-lavoro.html" style="color:#2563eb;text-decoration:none;">Calcolatore Ore Lavoro</a></li>
+</ul>
+</div>
+</body>
+</html>
