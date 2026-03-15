@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generatore Lorem Ipsum Online Gratis</title>
+  <meta name="description" content="Genera testo Lorem Ipsum segnaposto. Scegli paragrafi, parole o frasi. Copia con un click.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Generatore Lorem Ipsum",
+    "description": "Genera testo Lorem Ipsum segnaposto di qualsiasi lunghezza",
+    "url": "https://tool4u.org/generatore-lorem-ipsum",
+    "applicationCategory": "Utility",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --success: #059669;
+  --bg: #ffffff;
+  --surface: #f8fafc;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --text-muted: #64748b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.ad-slot {
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.tool-form {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 600;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+}
+
+.btn-copy {
+  background: var(--success);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  margin-left: 1rem;
+}
+
+.btn-copy:hover {
+  background: #047857;
+}
+
+.result-section {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+  display: none;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.result-stats {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.result-text {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  min-height: 200px;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.explanation {
+  margin: 3rem 0;
+  padding: 2rem;
+  background: var(--surface);
+  border-radius: 12px;
+}
+
+.explanation h2 {
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.explanation p {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+.email-capture {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 1rem auto 0;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+  margin-top: 3rem;
+}
+
+.copy-feedback {
+  color: var(--success);
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.copy-feedback.show {
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .result-header {
+    text-align: center;
+  }
+  
+  .btn-copy {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Generatore Lorem Ipsum</h1>
+      <p>Genera testo segnaposto Lorem Ipsum di qualsiasi lunghezza</p>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-top">Spazio pubblicitario</div>
+
+    <div class="tool-form">
+      <form id="lorem-form">
+        <div class="form-group">
+          <label for="quantity">Numero</label>
+          <input type="number" id="quantity" min="1" max="100" value="5" placeholder="5" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="type">Tipo</label>
+          <select id="type" required>
+            <option value="paragraphs">Paragrafi</option>
+            <option value="words">Parole</option>
+            <option value="sentences">Frasi</option>
+          </select>
+        </div>
+        
+        <button type="submit" class="btn">Genera Lorem Ipsum</button>
+      </form>
+    </div>
+
+    <div class="result-section" id="result-section">
+      <div class="result-header">
+        <div class="result-stats" id="result-stats"></div>
+        <div>
+          <button type="button" class="btn btn-copy" onclick="copyToClipboard()">Copia</button>
+          <span class="copy-feedback" id="copy-feedback">Copiato!</span>
+        </div>
+      </div>
+      <div class="result-text" id="result-text"></div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">Spazio pubblicitario</div>
+
+    <div class="explanation">
+      <h2>Come funziona il generatore Lorem Ipsum</h2>
+      <p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della stampa e della grafica per riempire spazi di testo nei documenti o presentazioni grafiche in fase di progettazione.</p>
+      <p>Il nostro generatore ti permette di:</p>
+      <p><strong>• Scegliere il numero:</strong> Specifica quanti paragrafi, parole o frasi desideri generare</p>
+      <p><strong>• Selezionare il tipo:</strong> Genera paragrafi completi, singole parole o frasi</p>
+      <p><strong>• Copiare facilmente:</strong> Un click per copiare tutto il testo negli appunti</p>
+      <p>Il Lorem Ipsum deriva da un testo di Cicerone del 45 a.C., modificato per rimuovere elementi che potrebbero distrarre dal design. È lo standard de facto dell'industria tipografica e della stampa.</p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.it/s?k=tastiera+ergonomica&tag=tool4u0b-21" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Tastiere ergonomiche su Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">Spazio pubblicitario</div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo generatore produce testo Lorem Ipsum standard per scopi di progettazione e prototipazione. Il testo generato non ha significato semantico ed è destinato esclusivamente come riempitivo temporaneo.</p>
+      <p>© 2024 Tool4U.org - Generatore Lorem Ipsum gratuito</p>
+    </div>
+  </div>
+
+  <script>
+    // Testo Lorem Ipsum base
+    const loremWords = [
+      'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit',
+      'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore',
+      'magna', 'aliqua', 'enim', 'ad', 'minim', 'veniam', 'quis', 'nostrud',
+      'exercitation', 'ullamco', 'laboris', 'nisi', 'aliquip', 'ex', 'ea', 'commodo',
+      'consequat', 'duis', 'aute', 'irure', 'in', 'reprehenderit', 'voluptate',
+      'velit', 'esse', 'cillum', 'fugiat', 'nulla', 'pariatur', 'excepteur', 'sint',
+      'occaecat', 'cupidatat', 'non', 'proident', 'sunt', 'culpa', 'qui', 'officia',
+      'deserunt', 'mollit', 'anim', 'id', 'est', 'laborum', 'at', 'vero', 'eos',
+      'accusamus', 'accusantium', 'doloremque', 'laudantium', 'totam', 'rem',
+      'aperiam', 'eaque', 'ipsa', 'quae', 'ab', 'illo', 'inventore', 'veritatis',
+      'architecto', 'beatae', 'vitae', 'dicta', 'explicabo', 'nemo', 'ipsam',
+      'voluptatem', 'quia', 'voluptas', 'aspernatur', 'aut', 'odit', 'fugit'
+    ];
+
+    function generateWords(count) {
+      const words = [];
+      for (let i = 0; i < count; i++) {
+        words.push(loremWords[Math.floor(Math.random() * loremWords.length)]);
+      }
+      return words.join(' ');
+    }
+
+    function generateSentence() {
+      const sentenceLength = Math.floor(Math.random() * 10) + 5; // 5-14 parole
+      const words = [];
+      
+      for (let i = 0; i < sentenceLength; i++) {
+        words.push(loremWords[Math.floor(Math.random() * loremWords.length)]);
+      }
+      
+      // Capitalizza la prima parola
+      words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
+      
+      return words.join(' ') + '.';
+    }
+
+    function generateParagraph() {
+      const sentenceCount = Math.floor(Math.random() * 5) + 3; // 3-7 frasi
+      const sentences = [];
+      
+      for (let i = 0; i < sentenceCount; i++) {
+        sentences.push(generateSentence());
+      }
+      
+      return sentences.join(' ');
+    }
+
+    function generateLorem(type, quantity) {
+      let result = '';
+      
+      switch (type) {
+        case 'words':
+          result = generateWords(quantity);
+          break;
+          
+        case 'sentences':
+          const sentences = [];
+          for (let i = 0; i < quantity; i++) {
+            sentences.push(generateSentence());
+          }
+          result = sentences.join(' ');
+          break;
+          
+        case 'paragraphs':
+          const paragraphs = [];
+          for (let i = 0; i < quantity; i++) {
+            paragraphs.push(generateParagraph());
+          }
+          result = paragraphs.join('\n\n');
+          break;
+      }
+      
+      return result;
+    }
+
+    function countWords(text) {
+      return text.trim().split(/\s+/).length;
+    }
+
+    function countCharacters(text) {
+      return text.length;
+    }
+
+    document.getElementById('lorem-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const quantity = parseInt(document.getElementById('quantity').value);
+      const type = document.getElementById('type').value;
+      
+      if (quantity < 1 || quantity > 100) {
+        alert('Il numero deve essere compreso tra 1 e 100');
+        return;
+      }
+      
+      const generatedText = generateLorem(type, quantity);
+      const wordCount = countWords(generatedText);
+      const charCount = countCharacters(generatedText);
+      
+      document.getElementById('result-text').textContent = generatedText;
+      document.getElementById('result-stats').textContent = 
+        `${wordCount} parole • ${charCount} caratteri`;
+      
+      document.getElementById('result-section').style.display = 'block';
+      document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    function copyToClipboard() {
+      const text = document.getElementById('result-text').textContent;
+      
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function() {
+          showCopyFeedback();
+        });
+      } else {
+        // Fallback per browser più vecchi
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showCopyFeedback();
+      }
+    }
+
+    function showCopyFeedback() {
+      const feedback = document.getElementById('copy-feedback');
+      feedback.classList.add('show');
+      setTimeout(() => {
+        feedback.classList.remove('show');
+      }, 2000);
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'generatore-lorem-ipsum'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/generatore-password.html" style="color:#2563eb;text-decoration:none;">Generatore Password Sicure</a></li>
+<li style="margin:0.5rem 0;"><a href="/conta-parole.html" style="color:#2563eb;text-decoration:none;">Conta Parole e Caratteri</a></li>
+</ul>
+</div>
+</body>
+</html>
