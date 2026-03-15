@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Calorie Giornaliere - Fabbisogno Calorico</title>
+  <meta name="description" content="Calcola quante calorie ti servono al giorno. Formula scientifica Harris-Benedict.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Calorie Giornaliere",
+    "description": "Calcola il tuo fabbisogno calorico giornaliero in base a peso, altezza, età e attività",
+    "url": "https://tool4u.org/calcolatore-calorie-giornaliere",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+  --secondary: #64748b;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --light: #f8fafc;
+  --dark: #1e293b;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--dark);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin: 2rem 0;
+  color: white;
+}
+
+.tool-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  box-shadow: var(--shadow-lg);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.btn:hover {
+  background: var(--primary-light);
+}
+
+.result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--light);
+  border-radius: 8px;
+  border-left: 4px solid var(--success);
+  display: none;
+}
+
+.result h3 {
+  color: var(--success);
+  margin-bottom: 1rem;
+}
+
+.calorie-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 0.5rem 0;
+  box-shadow: var(--shadow);
+}
+
+.calorie-card h4 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.calorie-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.explanation {
+  margin: 2rem 0;
+}
+
+.explanation h2 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.explanation ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.ad-slot {
+  background: #f0f0f0;
+  border: 2px dashed #ccc;
+  padding: 2rem;
+  text-align: center;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  color: #666;
+}
+
+.email-capture {
+  background: var(--primary);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.email-capture p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.email-capture form {
+  display: flex;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+}
+
+.email-capture button {
+  background: white;
+  color: var(--primary);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: white;
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .tool-header h1 {
+    font-size: 2rem;
+  }
+  
+  .card {
+    padding: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:white;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+  
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Calorie Giornaliere</h1>
+      <p>Calcola il tuo fabbisogno calorico giornaliero con la formula Harris-Benedict</p>
+    </div>
+
+    <div id="ad-slot-top" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="card">
+      <form id="calorie-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="peso">Peso (kg)</label>
+            <input type="number" id="peso" placeholder="70" min="30" max="300" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="altezza">Altezza (cm)</label>
+            <input type="number" id="altezza" placeholder="175" min="120" max="250" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="eta">Età</label>
+            <input type="number" id="eta" placeholder="30" min="10" max="100" required>
+          </div>
+        </div>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="sesso">Sesso</label>
+            <select id="sesso" required>
+              <option value="">Seleziona</option>
+              <option value="M">Maschio</option>
+              <option value="F">Femmina</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="attivita">Livello di Attività</label>
+            <select id="attivita" required>
+              <option value="">Seleziona</option>
+              <option value="1.2">Sedentario (nessun esercizio)</option>
+              <option value="1.375">Leggero (1-3 giorni/settimana)</option>
+              <option value="1.55">Moderato (3-5 giorni/settimana)</option>
+              <option value="1.725">Attivo (6-7 giorni/settimana)</option>
+              <option value="1.9">Molto attivo (2 volte/giorno)</option>
+            </select>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn">Calcola Calorie</button>
+      </form>
+
+      <div id="result" class="result">
+        <h3>Il tuo fabbisogno calorico:</h3>
+        <div id="calorie-results"></div>
+      </div>
+    </div>
+
+    <div id="ad-slot-middle" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="card explanation">
+      <h2>Come funziona il calcolo delle calorie</h2>
+      <p>Il nostro calcolatore utilizza la <strong>formula Harris-Benedict</strong>, uno standard scientifico per determinare il metabolismo basale (BMR) e il fabbisogno calorico totale.</p>
+      
+      <h3>Formula utilizzata:</h3>
+      <ul>
+        <li><strong>Uomini:</strong> BMR = 88,362 + (13,397 × peso in kg) + (4,799 × altezza in cm) - (5,677 × età in anni)</li>
+        <li><strong>Donne:</strong> BMR = 447,593 + (9,247 × peso in kg) + (3,098 × altezza in cm) - (4,330 × età in anni)</li>
+      </ul>
+      
+      <h3>Moltiplicatori per attività:</h3>
+      <ul>
+        <li><strong>Sedentario:</strong> BMR × 1,2</li>
+        <li><strong>Leggero:</strong> BMR × 1,375</li>
+        <li><strong>Moderato:</strong> BMR × 1,55</li>
+        <li><strong>Attivo:</strong> BMR × 1,725</li>
+        <li><strong>Molto attivo:</strong> BMR × 1,9</li>
+      </ul>
+      
+      <p>I risultati mostrano le calorie per <strong>mantenere il peso attuale</strong>, per <strong>dimagrire</strong> (deficit di 500 kcal) e per <strong>aumentare di peso</strong> (surplus di 500 kcal).</p>
+    </div>
+
+    <div style="margin:1rem 0;padding:0.8rem 1rem;background:#f0f7ff;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;">
+<a href="https://www.amazon.com/s?k=fitness+equipment&tag=YOURTAG-20" target="_blank" rel="noopener sponsored"
+   style="color:#2563eb;text-decoration:none;font-size:0.9rem;">
+   → Shop fitness equipment on Amazon</a>
+</div>
+<div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="footer">
+      <p><strong>Disclaimer:</strong> Questo calcolatore fornisce stime basate su formule scientifiche standard. Per consigli nutrizionali personalizzati, consulta sempre un professionista della salute.</p>
+      <p>© 2024 Tool4U.org - Strumenti di calcolo gratuiti</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('calorie-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const peso = parseFloat(document.getElementById('peso').value);
+      const altezza = parseFloat(document.getElementById('altezza').value);
+      const eta = parseFloat(document.getElementById('eta').value);
+      const sesso = document.getElementById('sesso').value;
+      const attivita = parseFloat(document.getElementById('attivita').value);
+      
+      if (!peso || !altezza || !eta || !sesso || !attivita) {
+        alert('Compila tutti i campi per procedere');
+        return;
+      }
+      
+      let bmr;
+      if (sesso === 'M') {
+        bmr = 88.362 + (13.397 * peso) + (4.799 * altezza) - (5.677 * eta);
+      } else {
+        bmr = 447.593 + (9.247 * peso) + (3.098 * altezza) - (4.330 * eta);
+      }
+      
+      const calorieMantenimento = Math.round(bmr * attivita);
+      const calorieDimagrimento = Math.round(calorieMantenimento - 500);
+      const calorieAumento = Math.round(calorieMantenimento + 500);
+      
+      const resultsHtml = `
+        <div class="calorie-card">
+          <h4>Mantenimento peso</h4>
+          <div class="calorie-value">${calorieMantenimento} kcal/giorno</div>
+        </div>
+        <div class="calorie-card">
+          <h4>Dimagrimento (-0,5 kg/settimana)</h4>
+          <div class="calorie-value">${calorieDimagrimento} kcal/giorno</div>
+        </div>
+        <div class="calorie-card">
+          <h4>Aumento peso (+0,5 kg/settimana)</h4>
+          <div class="calorie-value">${calorieAumento} kcal/giorno</div>
+        </div>
+      `;
+      
+      document.getElementById('calorie-results').innerHTML = resultsHtml;
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-calorie-giornaliere'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:white">Iscritto con successo!</p>';
+      });
+      return false;
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-bmi.html" style="color:#2563eb;text-decoration:none;">Calcolatore BMI</a></li>
+</ul>
+</div>
+</body>
+</html>
