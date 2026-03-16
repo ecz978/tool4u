@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Da RAL a Stipendio Netto | Calcolatore Preciso 2024</title>
+  <meta name="description" content="Converti la RAL in stipendio netto mensile. Calcolo preciso con tredicesima, quattordicesima e tutte le detrazioni fiscali 2024.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore RAL - Stipendio Netto",
+    "description": "Converti la tua Retribuzione Annua Lorda (RAL) in stipendio netto mensile con calcolo preciso di tasse e contributi",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "url": "https://tool4u.org/calcolatore-ral-stipendio-netto",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --success: #059669;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  text-align: center;
+  padding: 2rem 0;
+  background: var(--surface);
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tool-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ad-slot {
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  border-radius: 8px;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.tool-body {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 2rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.calculate-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.calculate-btn:hover {
+  background: var(--primary-dark);
+}
+
+.results {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  border: 2px solid #0ea5e9;
+}
+
+.results-grid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.result-card {
+  background: var(--surface);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.result-label {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 0.25rem;
+}
+
+.result-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.breakdown {
+  background: var(--surface);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.breakdown-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.breakdown-item:last-child {
+  border-bottom: none;
+  font-weight: 600;
+  padding-top: 0.5rem;
+}
+
+.tool-explanation {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+  box-shadow: var(--shadow);
+}
+
+.tool-explanation h2 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.tool-explanation h3 {
+  color: var(--text);
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.tool-explanation p, 
+.tool-explanation li {
+  margin-bottom: 0.75rem;
+  color: var(--text-light);
+}
+
+.tool-explanation ul {
+  padding-left: 1.5rem;
+}
+
+.email-capture {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin: 2rem 0;
+  border: 1px solid #0ea5e9;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.email-capture form {
+  display: flex;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.email-capture button {
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tool-footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .tool-header h1 {
+    font-size: 2rem;
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 769px) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .results-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+
+  <header class="tool-header">
+    <div class="container">
+      <h1>Calcolatore da RAL a Stipendio Netto</h1>
+      <p>Converti la tua Retribuzione Annua Lorda (RAL) in stipendio netto mensile con calcolo preciso di tasse e contributi per il 2024</p>
+    </div>
+  </header>
+
+  <div class="ad-slot" id="ad-slot-top">
+    Spazio pubblicitario
+  </div>
+
+  <main class="container">
+    <div class="tool-body">
+      <form id="calculator-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="ral">RAL - Retribuzione Annua Lorda (€)</label>
+            <input type="number" id="ral" placeholder="35000" min="1" max="500000" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="mensilita">Mensilità</label>
+            <select id="mensilita" required>
+              <option value="">Seleziona mensilità</option>
+              <option value="12">12 mensilità</option>
+              <option value="13">13 mensilità (con tredicesima)</option>
+              <option value="14">14 mensilità (con tredicesima e quattordicesima)</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="regione">Regione di lavoro</label>
+            <select id="regione" required>
+              <option value="">Seleziona regione</option>
+              <option value="Abruzzo">Abruzzo</option>
+              <option value="Basilicata">Basilicata</option>
+              <option value="Calabria">Calabria</option>
+              <option value="Campania">Campania</option>
+              <option value="Emilia-Romagna">Emilia-Romagna</option>
+              <option value="Friuli-Venezia Giulia">Friuli-Venezia Giulia</option>
+              <option value="Lazio">Lazio</option>
+              <option value="Liguria">Liguria</option>
+              <option value="Lombardia">Lombardia</option>
+              <option value="Marche">Marche</option>
+              <option value="Molise">Molise</option>
+              <option value="Piemonte">Piemonte</option>
+              <option value="Puglia">Puglia</option>
+              <option value="Sardegna">Sardegna</option>
+              <option value="Sicilia">Sicilia</option>
+              <option value="Toscana">Toscana</option>
+              <option value="Trentino-Alto Adige">Trentino-Alto Adige</option>
+              <option value="Umbria">Umbria</option>
+              <option value="Valle d'Aosta">Valle d'Aosta</option>
+              <option value="Veneto">Veneto</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="detrazioni_familiari">Detrazioni familiari annue (€)</label>
+            <input type="number" id="detrazioni_familiari" placeholder="0" min="0" max="10000" value="0">
+          </div>
+        </div>
+        
+        <button type="submit" class="calculate-btn">Calcola Stipendio Netto</button>
+      </form>
+
+      <div id="results" class="results hidden">
+        <div class="results-grid">
+          <div class="result-card">
+            <div class="result-label">RAL Inserita</div>
+            <div class="result-value" id="ral-display">€ 0</div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">Lordo Mensile</div>
+            <div class="result-value" id="lordo-mensile">€ 0</div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">Netto Mensile</div>
+            <div class="result-value" id="netto-mensile">€ 0</div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">Netto con Mensilità Extra</div>
+            <div class="result-value" id="netto-con-extra">€ 0</div>
+          </div>
+        </div>
+        
+        <div class="breakdown">
+          <div class="breakdown-title">Dettaglio Trattenute Mensili</div>
+          <div class="breakdown-item">
+            <span>Lordo mensile</span>
+            <span id="breakdown-lordo">€ 0</span>
+          </div>
+          <div class="breakdown-item">
+            <span>Contributi previdenziali (9,19%)</span>
+            <span id="breakdown-contributi">€ 0</span>
+          </div>
+          <div class="breakdown-item">
+            <span>IRPEF</span>
+            <span id="breakdown-irpef">€ 0</span>
+          </div>
+          <div class="breakdown-item">
+            <span>Addizionale regionale</span>
+            <span id="breakdown-regionale">€ 0</span>
+          </div>
+          <div class="breakdown-item">
+            <span>Addizionale comunale</span>
+            <span id="breakdown-comunale">€ 0</span>
+          </div>
+          <div class="breakdown-item">
+            <span>Detrazioni lavoro dipendente</span>
+            <span id="breakdown-detrazioni-lavoro">€ 0</span>
+          </div>
+          <div class="breakdown-item">
+            <span>Detrazioni familiari</span>
+            <span id="breakdown-detrazioni-familiari">€ 0</span>
+          </div>
+          <div class="breakdown-item">
+            <span><strong>Netto mensile</strong></span>
+            <span id="breakdown-netto"><strong>€ 0</strong></span>
+          </div>
+        </div>
+        
+        <div class="result-card" style="margin-top: 1rem;">
+          <div class="result-label">Take-home Pay Annuale</div>
+          <div class="result-value" id="takehome-annuale">€ 0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <section class="tool-explanation">
+      <h2>Come Funziona il Calcolatore RAL</h2>
+      
+      <p>Il nostro calcolatore converte automaticamente la tua Retribuzione Annua Lorda (RAL) in stipendio netto mensile, considerando tutti i fattori fiscali e contributivi del 2024.</p>
+
+      <h3>Cosa Include il Calcolo</h3>
+      <ul>
+        <li><strong>Contributi Previdenziali:</strong> 9,19% della RAL per lavoratori dipendenti</li>
+        <li><strong>IRPEF Progressiva:</strong> 23% fino a €28.000, 25% da €28.001 a €50.000, 35% da €50.001 a €55.000, 43% oltre €55.000</li>
+        <li><strong>Addizionali Regionali:</strong> Variano da 0,9% a 3,33% in base alla regione</li>
+        <li><strong>Addizionali Comunali:</strong> Mediamente 0,4% (varia per comune)</li>
+        <li><strong>Detrazioni per Lavoro Dipendente:</strong> Fino a €1.880 annue in base al reddito</li>
+        <li><strong>Detrazioni Familiari:</strong> Per coniuge e figli a carico</li>
+      </ul>
+
+      <h3>Come Leggere i Risultati</h3>
+      <p><strong>Netto Mensile:</strong> Lo stipendio che ricevi ogni mese per 12 mesi</p>
+      <p><strong>Netto con Mensilità Extra:</strong> Lo stipendio mensile considerando tredicesima e/o quattordicesima distribuita sui mesi</p>
+      <p><strong>Take-home Pay:</strong> L'importo totale netto che ricevi in un anno</p>
+
+      <h3>Differenze per Mensilità</h3>
+      <ul>
+        <li><strong>12 mensilità:</strong> RAL divisa per 12, nessuna mensilità extra</li>
+        <li><strong>13 mensilità:</strong> Include tredicesima a dicembre</li>
+        <li><strong>14 mensilità:</strong> Include tredicesima e quattordicesima (solitamente a giugno/luglio)</li>
+      </ul>
+
+      <h3>Limitazioni del Calcolo</h3>
+      <p>Il calcolatore fornisce una stima basata sui parametri fiscali standard 2024. Il calcolo effettivo può variare in base a:</p>
+      <ul>
+        <li>Contratto Collettivo Nazionale di Lavoro (CCNL) specifico</li>
+        <li>Comune di residenza (per l'addizionale comunale)</li>
+        <li>Altre detrazioni specifiche (mutuo, spese mediche, ecc.)</li>
+        <li>Eventuali benefit aziendali</li>
+      </ul>
+    </section>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+  </main>
+
+  <footer class="tool-footer">
+    <div class="container">
+      <p><strong>Disclaimer:</strong> I risultati sono indicativi e basati sui parametri fiscali 2024. Per calcoli precisi consultare un commercialista. Le aliquote e detrazioni possono variare in base alla situazione specifica.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Strumenti di calcolo gratuiti</p>
+    </div>
+  </footer>
+
+  <script>
+    // Aliquote addizionali regionali 2024 (%)
+    const addizionaliRegionali = {
+      'Abruzzo': 1.23,
+      'Basilicata': 1.4,
+      'Calabria': 1.4,
+      'Campania': 1.6,
+      'Emilia-Romagna': 1.5,
+      'Friuli-Venezia Giulia': 1.25,
+      'Lazio': 1.73,
+      'Liguria': 1.5,
+      'Lombardia': 1.23,
+      'Marche': 1.4,
+      'Molise': 1.4,
+      'Piemonte': 1.68,
+      'Puglia': 1.4,
+      'Sardegna': 1.3,
+      'Sicilia': 1.4,
+      'Toscana': 1.7,
+      'Trentino-Alto Adige': 0.9,
+      'Umbria': 1.4,
+      "Valle d'Aosta": 1.0,
+      'Veneto': 1.23
+    };
+
+    function calcolaIRPEF(redditoImponibile) {
+      let irpef = 0;
+      
+      if (redditoImponibile > 55000) {
+        irpef += (redditoImponibile - 55000) * 0.43;
+        irpef += (55000 - 50000) * 0.35;
+        irpef += (50000 - 28000) * 0.25;
+        irpef += 28000 * 0.23;
+      } else if (redditoImponibile > 50000) {
+        irpef += (redditoImponibile - 50000) * 0.35;
+        irpef += (50000 - 28000) * 0.25;
+        irpef += 28000 * 0.23;
+      } else if (redditoImponibile > 28000) {
+        irpef += (redditoImponibile - 28000) * 0.25;
+        irpef += 28000 * 0.23;
+      } else {
+        irpef += redditoImponibile * 0.23;
+      }
+      
+      return irpef;
+    }
+
+    function calcolaDetrazioniLavoroDipendente(ral) {
+      if (ral <= 15000) {
+        return 1880;
+      } else if (ral <= 28000) {
+        return 1910 + (1190 * (28000 - ral) / 13000);
+      } else if (ral <= 50000) {
+        return 1910 * (50000 - ral) / 22000;
+      } else {
+        return 0;
+      }
+    }
+
+    function formatCurrency(amount) {
+      return '€ ' + Math.round(amount).toLocaleString('it-IT');
+    }
+
+    function calcolaStipendio() {
+      const ral = parseFloat(document.getElementById('ral').value);
+      const mensilita = parseInt(document.getElementById('mensilita').value);
+      const regione = document.getElementById('regione').value;
+      const detrazioniFamiliari = parseFloat(document.getElementById('detrazioni_familiari').value) || 0;
+
+      // Calcoli base
+      const lordoMensile = ral / mensilita;
+      const contributiPrevidenziali = ral * 0.0919; // 9.19%
+      const redditoImponibile = ral - contributiPrevidenziali;
+
+      // IRPEF
+      const irpefAnnua = calcolaIRPEF(redditoImponibile);
+      
+      // Addizionali
+      const addizionaleRegionaleAnnua = redditoImponibile * (addizionaliRegionali[regione] / 100);
+      const addizionaleComunaleAnnua = redditoImponibile * 0.004; // Media 0.4%
+
+      // Detrazioni
+      const detrazioniLavoro = calcolaDetrazioniLavoroDipendente(ral);
+      const totaleTratterute = irpefAnnua + addizionaleRegionaleAnnua + addizionaleComunaleAnnua + contributiPrevidenziali;
+      const totaleDetrazioni = detrazioniLavoro + detrazioniFamiliari;
+      
+      const nettoAnnuale = ral - totaleTratterute + totaleDetrazioni;
+      const nettoMensile = nettoAnnuale / 12;
+      const nettoConExtra = nettoAnnuale / mensilita;
+
+      // Breakdown mensile
+      const contributiMensili = contributiPrevidenziali / 12;
+      const irpefMensile = irpefAnnua / 12;
+      const addRegionaleMensile = addizionaleRegionaleAnnua / 12;
+      const addComunaleMensile = addizionaleComunaleAnnua / 12;
+      const detrazioniLavoroMensili = detrazioniLavoro / 12;
+      const detrazioniFamiliariMensili = detrazioniFamiliari / 12;
+
+      // Aggiorna UI
+      document.getElementById('ral-display').textContent = formatCurrency(ral);
+      document.getElementById('lordo-mensile').textContent = formatCurrency(lordoMensile);
+      document.getElementById('netto-mensile').textContent = formatCurrency(nettoMensile);
+      document.getElementById('netto-con-extra').textContent = formatCurrency(nettoConExtra);
+      document.getElementById('takehome-annuale').textContent = formatCurrency(nettoAnnuale);
+
+      // Breakdown
+      document.getElementById('breakdown-lordo').textContent = formatCurrency(lordoMensile);
+      document.getElementById('breakdown-contributi').textContent = '- ' + formatCurrency(contributiMensili);
+      document.getElementById('breakdown-irpef').textContent = '- ' + formatCurrency(irpefMensile);
+      document.getElementById('breakdown-regionale').textContent = '- ' + formatCurrency(addRegionaleMensile);
+      document.getElementById('breakdown-comunale').textContent = '- ' + formatCurrency(addComunaleMensile);
+      document.getElementById('breakdown-detrazioni-lavoro').textContent = '+ ' + formatCurrency(detrazioniLavoroMensili);
+      document.getElementById('breakdown-detrazioni-familiari').textContent = '+ ' + formatCurrency(detrazioniFamiliariMensili);
+      document.getElementById('breakdown-netto').textContent = formatCurrency(nettoMensile);
+
+      document.getElementById('results').classList.remove('hidden');
+    }
+
+    document.getElementById('calculator-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      calcolaStipendio();
+    });
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-ral-stipendio-netto'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green;margin:0;">Iscritto con successo!</p>';
+      }).catch(() => {
+        e.target.innerHTML = '<p style="color:green;margin:0;">Grazie per l\'iscrizione!</p>';
+      });
+      return false;
+    }
+  </script>
+<div style="margin:1.5rem 0;padding:1.2rem 1.5rem;background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1px solid #fed7aa;border-radius:12px;text-align:center"><p style="margin:0 0 0.5rem;font-size:0.95rem;font-weight:600;color:#9a3412">Potrebbe interessarti</p><a href="https://www.amazon.it/s?k=calcolatrice+finanziaria&tag=tool4u0b-21" target="_blank" rel="noopener sponsored" style="display:inline-block;padding:10px 24px;background:#f97316;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.9rem">Calcolatrice finanziaria su Amazon &rarr;</a><p style="margin:0.5rem 0 0;font-size:0.7rem;color:#c2410c">Link affiliato Amazon</p></div>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
