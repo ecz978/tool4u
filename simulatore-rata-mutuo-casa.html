@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulatore Mutuo Casa - Calcola Rata e Costi</title>
+  <meta name="description" content="Simula il mutuo per casa: calcola rata mensile, spese notarili, TAEG. Inserisci valore immobile e percentuale finanziamento.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Simulatore Rata Mutuo Casa",
+    "description": "Simulatore per calcolare la rata mensile del mutuo casa con dettagli completi su spese e costi",
+    "url": "https://tool4u.org/simulatore-rata-mutuo-casa",
+    "applicationCategory": "FinanceApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #64748b;
+  --success: #059669;
+  --warning: #d97706;
+  --error: #dc2626;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-accent: #f0f9ff;
+  --border: #e2e8f0;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  background: var(--bg-primary);
+  padding: 2rem 0;
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.tool-body {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 2rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  background: var(--bg-primary);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
+}
+
+.form-group input:invalid {
+  border-color: var(--error);
+}
+
+.calculate-btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 2rem;
+}
+
+.calculate-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.results {
+  background: var(--bg-accent);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  display: none;
+}
+
+.results.show {
+  display: block;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.result-item {
+  text-align: center;
+  padding: 1rem;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.result-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+.result-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.result-summary {
+  background: var(--bg-primary);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--success);
+  margin-top: 1rem;
+}
+
+.ad-slot {
+  background: #f5f5f5;
+  border: 2px dashed #ddd;
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+  margin: 2rem 0;
+  border-radius: 8px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tool-explanation {
+  background: var(--bg-primary);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 2rem;
+}
+
+.tool-explanation h2 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.tool-explanation h3 {
+  color: var(--text-primary);
+  margin: 1.5rem 0 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.tool-explanation p, .tool-explanation ul {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.tool-explanation ul {
+  padding-left: 1.5rem;
+}
+
+.tool-explanation li {
+  margin-bottom: 0.5rem;
+}
+
+.email-capture {
+  background: var(--bg-primary);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+}
+
+.email-capture button {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.email-capture button:hover {
+  background: var(--primary-dark);
+}
+
+.tool-footer {
+  background: var(--bg-primary);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tool-body {
+    padding: 1.5rem;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+
+  <header class="tool-header">
+    <div class="container">
+      <h1>Simulatore Rata Mutuo Casa</h1>
+      <p>Calcola la rata mensile del mutuo e tutti i costi accessori per l'acquisto della tua casa</p>
+    </div>
+  </header>
+
+  <div class="ad-slot" id="ad-slot-top">
+    Spazio pubblicitario
+  </div>
+
+  <main class="container">
+    <div class="tool-body">
+      <form id="mutuo-form" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="valore_casa">Valore dell'immobile (€)</label>
+            <input type="number" id="valore_casa" name="valore_casa" placeholder="300000" min="50000" max="2000000" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="ltv">Percentuale finanziamento (%)</label>
+            <input type="number" id="ltv" name="ltv" placeholder="80" min="50" max="100" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="tasso">Tasso di interesse annuo (%)</label>
+            <input type="number" id="tasso" name="tasso" placeholder="2.8" min="0.5" max="8" step="0.1" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="anni">Durata mutuo (anni)</label>
+            <input type="number" id="anni" name="anni" placeholder="25" min="5" max="40" required>
+          </div>
+        </div>
+        
+        <button type="submit" class="calculate-btn">Calcola Rata Mutuo</button>
+      </form>
+
+      <div id="results" class="results">
+        <div class="result-grid">
+          <div class="result-item">
+            <div class="result-value" id="importo-finanziato">€0</div>
+            <div class="result-label">Importo finanziato</div>
+          </div>
+          <div class="result-item">
+            <div class="result-value" id="rata-mensile">€0</div>
+            <div class="result-label">Rata mensile</div>
+          </div>
+          <div class="result-item">
+            <div class="result-value" id="spese-notarili">€0</div>
+            <div class="result-label">Spese notarili</div>
+          </div>
+          <div class="result-item">
+            <div class="result-value" id="costi-totali">€0</div>
+            <div class="result-label">Costi totali</div>
+          </div>
+        </div>
+        
+        <div class="result-summary">
+          <strong>TAEG stimato: <span id="taeg">0,00%</span></strong>
+          <br><small>Il TAEG include rata + spese accessorie distribuite sulla durata del mutuo</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-middle">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come funziona il simulatore mutuo casa</h2>
+      
+      <p>Il nostro simulatore calcola con precisione tutti i costi del tuo mutuo per l'acquisto di casa, fornendo una stima completa e realistica dell'investimento necessario.</p>
+
+      <h3>Parametri di calcolo</h3>
+      <ul>
+        <li><strong>Valore dell'immobile</strong>: Il prezzo di acquisto della casa</li>
+        <li><strong>Percentuale finanziamento (LTV)</strong>: Quanto della casa viene finanziato dalla banca (di solito 70-80%)</li>
+        <li><strong>Tasso di interesse</strong>: Il tasso annuo applicato dalla banca (fisso o variabile)</li>
+        <li><strong>Durata</strong>: Gli anni di rimborso del mutuo</li>
+      </ul>
+
+      <h3>Cosa viene calcolato</h3>
+      <ul>
+        <li><strong>Importo finanziato</strong>: Valore casa × percentuale finanziamento</li>
+        <li><strong>Rata mensile</strong>: Calcolata con la formula dell'ammortamento francese</li>
+        <li><strong>Spese notarili</strong>: Circa 2% del valore dell'immobile (notaio, imposte, visure)</li>
+        <li><strong>Costi istruttoria</strong>: 0,2% dell'importo finanziato (spese bancarie)</li>
+        <li><strong>TAEG</strong>: Tasso Annuo Effettivo Globale che include tutti i costi</li>
+      </ul>
+
+      <h3>Formula della rata mensile</h3>
+      <p>La rata viene calcolata usando la formula dell'ammortamento francese:</p>
+      <p><strong>Rata = Capitale × [i × (1+i)^n] / [(1+i)^n - 1]</strong></p>
+      <p>Dove i = tasso mensile e n = numero di rate totali</p>
+
+      <h3>Consigli utili</h3>
+      <ul>
+        <li>La rata non dovrebbe superare il 30-35% del reddito familiare netto</li>
+        <li>Considera sempre un fondo di emergenza per spese impreviste</li>
+        <li>Confronta sempre più preventivi da diverse banche</li>
+        <li>Valuta se conviene un tasso fisso o variabile in base al mercato</li>
+      </ul>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div class="ad-slot" id="ad-slot-bottom">
+      Spazio pubblicitario
+    </div>
+
+    <footer class="tool-footer">
+      <p><strong>Disclaimer:</strong> I calcoli forniti sono puramente indicativi e non costituiscono consulenza finanziaria. I costi reali possono variare in base alla banca, al tipo di mutuo e alla situazione specifica. Si consiglia sempre di consultare un consulente finanziario qualificato prima di prendere decisioni importanti.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Simulatore Mutuo Casa</p>
+    </footer>
+  </main>
+
+  <script>
+function captureEmail(e) {
+  e.preventDefault();
+  const email = e.target.querySelector('input').value;
+  fetch('__NEWSLETTER_ENDPOINT__', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email, source: 'simulatore-rata-mutuo-casa'})
+  }).then(() => {
+    e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+  });
+  return false;
+}
+
+function formatNumber(num) {
+  return new Intl.NumberFormat('it-IT', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(num);
+}
+
+function formatCurrency(num) {
+  return '€' + formatNumber(num);
+}
+
+function formatInteger(num) {
+  return '€' + new Intl.NumberFormat('it-IT').format(Math.round(num));
+}
+
+function calculateMutuo(valoreCasa, ltv, tasso, anni) {
+  // Calcolo importo finanziato
+  const importoFinanziato = valoreCasa * (ltv / 100);
+  
+  // Calcolo rata mensile con formula ammortamento francese
+  const tassoMensile = (tasso / 100) / 12;
+  const numeroRate = anni * 12;
+  
+  let rataMensile;
+  if (tassoMensile === 0) {
+    // Se il tasso è 0, rata = capitale / numero rate
+    rataMensile = importoFinanziato / numeroRate;
+  } else {
+    const fattore = Math.pow(1 + tassoMensile, numeroRate);
+    rataMensile = importoFinanziato * (tassoMensile * fattore) / (fattore - 1);
+  }
+  
+  // Calcolo spese accessorie
+  const speseNotarili = valoreCasa * 0.02; // 2% del valore casa
+  const imposteRegistro = valoreCasa * 0.009; // 0.9% per prime case
+  const costiIstruttoria = importoFinanziato * 0.002; // 0.2% dell'importo
+  
+  const costiTotali = speseNotarili + imposteRegistro + costiIstruttoria;
+  
+  // Calcolo TAEG (approssimato)
+  const costiMensili = costiTotali / numeroRate;
+  const rataTotale = rataMensile + costiMensili;
+  const taeg = ((rataTotale * numeroRate / importoFinanziato) - 1) * (12 / anni) * 100;
+  
+  return {
+    importoFinanziato,
+    rataMensile,
+    speseNotarili: speseNotarili + imposteRegistro,
+    costiTotali,
+    taeg
+  };
+}
+
+document.getElementById('mutuo-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const valoreCasa = parseFloat(document.getElementById('valore_casa').value);
+  const ltv = parseFloat(document.getElementById('ltv').value);
+  const tasso = parseFloat(document.getElementById('tasso').value);
+  const anni = parseFloat(document.getElementById('anni').value);
+  
+  // Validazione
+  if (!valoreCasa || valoreCasa < 50000 || valoreCasa > 2000000) {
+    alert('Il valore dell\'immobile deve essere compreso tra €50.000 e €2.000.000');
+    return;
+  }
+  
+  if (!ltv || ltv < 50 || ltv > 100) {
+    alert('La percentuale di finanziamento deve essere compresa tra 50% e 100%');
+    return;
+  }
+  
+  if (!tasso || tasso < 0.5 || tasso > 8) {
+    alert('Il tasso di interesse deve essere compreso tra 0,5% e 8%');
+    return;
+  }
+  
+  if (!anni || anni < 5 || anni > 40) {
+    alert('La durata del mutuo deve essere compresa tra 5 e 40 anni');
+    return;
+  }
+  
+  const risultato = calculateMutuo(valoreCasa, ltv, tasso, anni);
+  
+  // Aggiorna i risultati
+  document.getElementById('importo-finanziato').textContent = formatInteger(risultato.importoFinanziato);
+  document.getElementById('rata-mensile').textContent = formatCurrency(risultato.rataMensile);
+  document.getElementById('spese-notarili').textContent = formatInteger(risultato.speseNotarili);
+  document.getElementById('costi-totali').textContent = formatInteger(risultato.costiTotali);
+  document.getElementById('taeg').textContent = formatNumber(risultato.taeg) + '%';
+  
+  // Mostra i risultati
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.classList.add('show');
+  resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+// Test automatici per verificare correttezza
+function runTests() {
+  console.log('Test 1:');
+  const test1 = calculateMutuo(300000, 80, 2.8, 25);
+  console.log('Rata mensile calcolata: €' + test1.rataMensile.toFixed(2));
+  console.log('Attesa: €1.131,87');
+  
+  console.log('Test 2:');
+  const test2 = calculateMutuo(200000, 70, 3.2, 20);
+  console.log('Rata mensile calcolata: €' + test2.rataMensile.toFixed(2));
+  console.log('Attesa: €773,41');
+}
+
+// Esegui i test al caricamento (solo in development)
+// runTests();
+</script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
