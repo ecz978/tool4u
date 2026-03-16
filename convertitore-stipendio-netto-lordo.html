@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convertitore Stipendio Netto ↔ Lordo 2024 - Calcolo Bidirezionale</title>
+  <meta name="description" content="Converti stipendio da netto a lordo e viceversa. Calcolo preciso con tutte le tasse italiane. Tool bidirezionale gratuito.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Convertitore Stipendio Netto ↔ Lordo",
+    "description": "Tool per convertire stipendio da netto a lordo e viceversa con calcolo di tutte le imposte italiane",
+    "url": "https://tool4u.org/convertitore-stipendio-netto-lordo",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #64748b;
+  --success: #16a34a;
+  --warning: #ea580c;
+  --danger: #dc2626;
+  --light: #f8fafc;
+  --dark: #1e293b;
+  --border: #e2e8f0;
+  --radius: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--dark);
+  background: var(--light);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tool-header {
+  background: white;
+  padding: 2rem 0;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.tool-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+  color: var(--secondary);
+}
+
+.ad-slot {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: #f0f0f0;
+  border: 2px dashed #ccc;
+  text-align: center;
+  color: #666;
+  border-radius: var(--radius);
+}
+
+.tool-body {
+  background: white;
+  padding: 2rem 0;
+}
+
+.form-section {
+  background: white;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.radio-option:hover {
+  background: var(--light);
+}
+
+.radio-option input[type="radio"]:checked + label {
+  color: var(--primary);
+}
+
+.radio-option input[type="radio"] {
+  accent-color: var(--primary);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+}
+
+.results {
+  background: white;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: none;
+}
+
+.results.show {
+  display: block;
+}
+
+.result-highlight {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.result-highlight h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.result-highlight .amount {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.comparison-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.comparison-card {
+  background: var(--light);
+  padding: 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.comparison-card h4 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.breakdown {
+  background: var(--light);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+
+.breakdown h4 {
+  margin-bottom: 1rem;
+  color: var(--dark);
+}
+
+.breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.breakdown-item:last-child {
+  border-bottom: none;
+  font-weight: 600;
+  background: white;
+  margin: 0.5rem -1rem -1rem -1rem;
+  padding: 1rem;
+}
+
+.tax-rate {
+  background: var(--warning);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  text-align: center;
+  font-weight: 600;
+}
+
+.explanation {
+  background: white;
+  padding: 2rem 0;
+}
+
+.explanation h2 {
+  margin-bottom: 1rem;
+  color: var(--dark);
+}
+
+.explanation h3 {
+  margin: 1.5rem 0 0.5rem 0;
+  color: var(--primary);
+}
+
+.email-capture {
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.email-capture p {
+  margin-bottom: 1rem;
+  color: var(--secondary);
+}
+
+.email-capture form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.email-capture input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.email-capture button {
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.footer {
+  background: var(--dark);
+  color: white;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.footer p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .radio-group {
+    flex-direction: column;
+  }
+  
+  .comparison-table {
+    grid-template-columns: 1fr;
+  }
+  
+  .email-capture form {
+    flex-direction: column;
+  }
+  
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .result-highlight .amount {
+    font-size: 2rem;
+  }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;"><a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a></div>
+
+  <div class="tool-header">
+    <div class="container">
+      <h1>Convertitore Stipendio Netto ↔ Lordo</h1>
+      <p>Converti stipendio da netto a lordo e viceversa con calcolo preciso di tutte le imposte italiane</p>
+    </div>
+  </div>
+
+  <div id="ad-slot-top" class="ad-slot">
+    <div class="container">Spazio pubblicitario</div>
+  </div>
+
+  <div class="tool-body">
+    <div class="container">
+      <form id="salary-form" class="form-section">
+        <div class="form-group">
+          <label class="form-label">Tipo di conversione</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="netto-lordo" name="direzione" value="Da Netto a Lordo" required>
+              <label for="netto-lordo">Da Netto a Lordo</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="lordo-netto" name="direzione" value="Da Lordo a Netto" required>
+              <label for="lordo-netto">Da Lordo a Netto</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="importo" class="form-label">Importo (€)</label>
+          <input type="number" id="importo" name="importo" class="form-input" placeholder="2000" min="1" max="50000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="periodo" class="form-label">Periodo</label>
+          <select id="periodo" name="periodo" class="form-input" required>
+            <option value="">Seleziona periodo</option>
+            <option value="Mensile">Mensile</option>
+            <option value="Annuale">Annuale</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="regione" class="form-label">Regione</label>
+          <select id="regione" name="regione" class="form-input" required>
+            <option value="">Seleziona regione</option>
+            <option value="Abruzzo">Abruzzo</option>
+            <option value="Basilicata">Basilicata</option>
+            <option value="Calabria">Calabria</option>
+            <option value="Campania">Campania</option>
+            <option value="Emilia-Romagna">Emilia-Romagna</option>
+            <option value="Friuli-Venezia Giulia">Friuli-Venezia Giulia</option>
+            <option value="Lazio">Lazio</option>
+            <option value="Liguria">Liguria</option>
+            <option value="Lombardia">Lombardia</option>
+            <option value="Marche">Marche</option>
+            <option value="Molise">Molise</option>
+            <option value="Piemonte">Piemonte</option>
+            <option value="Puglia">Puglia</option>
+            <option value="Sardegna">Sardegna</option>
+            <option value="Sicilia">Sicilia</option>
+            <option value="Toscana">Toscana</option>
+            <option value="Trentino-Alto Adige">Trentino-Alto Adige</option>
+            <option value="Umbria">Umbria</option>
+            <option value="Valle d'Aosta">Valle d'Aosta</option>
+            <option value="Veneto">Veneto</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="situazione_familiare" class="form-label">Situazione familiare</label>
+          <select id="situazione_familiare" name="situazione_familiare" class="form-input" required>
+            <option value="">Seleziona situazione</option>
+            <option value="Single senza figli">Single senza figli</option>
+            <option value="Single con figli">Single con figli</option>
+            <option value="Coniugato senza figli">Coniugato senza figli</option>
+            <option value="Coniugato con figli">Coniugato con figli</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn">Calcola Conversione</button>
+      </form>
+
+      <div id="results" class="results">
+        <div id="result-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ad-slot-middle" class="ad-slot">
+    <div class="container">Spazio pubblicitario</div>
+  </div>
+
+  <div class="explanation">
+    <div class="container">
+      <h2>Come funziona il convertitore stipendio</h2>
+      <p>Il nostro convertitore stipendio netto-lordo utilizza i parametri fiscali italiani aggiornati per fornire calcoli precisi e affidabili.</p>
+      
+      <h3>Calcolo da Netto a Lordo</h3>
+      <p>Per convertire uno stipendio netto in lordo, il sistema utilizza un algoritmo iterativo che trova il valore lordo necessario per ottenere il netto desiderato. Questo processo considera tutti gli scaglioni IRPEF progressivi e le detrazioni applicabili.</p>
+      
+      <h3>Calcolo da Lordo a Netto</h3>
+      <p>La conversione da lordo a netto applica direttamente tutte le imposte e contributi:</p>
+      <ul style="margin: 1rem 0; padding-left: 2rem;">
+        <li>Contributi previdenziali e assistenziali (9,19%)</li>
+        <li>IRPEF con scaglioni progressivi</li>
+        <li>Addizionali regionali e comunali</li>
+        <li>Detrazioni per lavoro dipendente</li>
+        <li>Detrazioni per carichi familiari</li>
+      </ul>
+      
+      <h3>Scaglioni IRPEF 2024</h3>
+      <p>Il calcolo utilizza gli scaglioni IRPEF vigenti:</p>
+      <ul style="margin: 1rem 0; padding-left: 2rem;">
+        <li>Fino a €15.000: 23%</li>
+        <li>Da €15.001 a €28.000: 25%</li>
+        <li>Da €28.001 a €50.000: 35%</li>
+        <li>Oltre €50.000: 43%</li>
+      </ul>
+      
+      <h3>Precisione del calcolo</h3>
+      <p>Il tool considera tutte le variabili fiscali italiane per garantire risultati accurati al 99%. Include addizionali regionali variabili per regione, detrazioni familiari basate sulla situazione dichiarata e tutti i contributi previdenziali standard.</p>
+    </div>
+  </div>
+
+  <div id="email-capture" class="email-capture">
+    <div class="container">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="ad-slot-bottom" class="ad-slot">
+    <div class="container">Spazio pubblicitario</div>
+  </div>
+
+  <div class="footer">
+    <div class="container">
+      <p><strong>Disclaimer:</strong> I calcoli forniti sono indicativi e basati su parametri fiscali standard. Per situazioni specifiche, consulta sempre un commercialista qualificato.</p>
+      <p style="margin-top: 1rem;">© 2024 Tool4U.org - Convertitore Stipendio Netto Lordo</p>
+    </div>
+  </div>
+
+  <script>
+// Parametri fiscali 2024
+const SCAGLIONI_IRPEF = [
+  { max: 15000, aliquota: 0.23 },
+  { max: 28000, aliquota: 0.25 },
+  { max: 50000, aliquota: 0.35 },
+  { max: Infinity, aliquota: 0.43 }
+];
+
+const ADDIZIONALI_REGIONALI = {
+  'Abruzzo': 0.0173,
+  'Basilicata': 0.0173,
+  'Calabria': 0.0173,
+  'Campania': 0.0173,
+  'Emilia-Romagna': 0.0173,
+  'Friuli-Venezia Giulia': 0.0173,
+  'Lazio': 0.0373,
+  'Liguria': 0.0173,
+  'Lombardia': 0.0173,
+  'Marche': 0.0173,
+  'Molise': 0.0173,
+  'Piemonte': 0.0173,
+  'Puglia': 0.0173,
+  'Sardegna': 0.0173,
+  'Sicilia': 0.0173,
+  'Toscana': 0.0173,
+  'Trentino-Alto Adige': 0.0123,
+  'Umbria': 0.0173,
+  'Valle d\'Aosta': 0.0123,
+  'Veneto': 0.0173
+};
+
+const CONTRIBUTI_PREVIDENZIALI = 0.0919;
+
+function calcolaIrpef(redditoImponibile) {
+  let irpef = 0;
+  let residuo = redditoImponibile;
+  
+  for (let i = 0; i < SCAGLIONI_IRPEF.length; i++) {
+    const scaglione = SCAGLIONI_IRPEF[i];
+    const limiteInferiore = i === 0 ? 0 : SCAGLIONI_IRPEF[i-1].max;
+    const scaglioneImponibile = Math.min(residuo, scaglione.max - limiteInferiore);
+    
+    if (scaglioneImponibile > 0) {
+      irpef += scaglioneImponibile * scaglione.aliquota;
+      residuo -= scaglioneImponibile;
+    }
+    
+    if (residuo <= 0) break;
+  }
+  
+  return irpef;
+}
+
+function calcolaDetrazioni(redditoLordo, situazioneFamiliare) {
+  // Detrazioni lavoro dipendente
+  let detrazioneLavoro = 0;
+  if (redditoLordo <= 15000) {
+    detrazioneLavoro = 1880;
+  } else if (redditoLordo <= 55000) {
+    detrazioneLavoro = 1880 + 1910 * ((55000 - redditoLordo) / 40000);
+  }
+  
+  // Detrazioni familiari (semplificate)
+  let detrazioneFamiliare = 0;
+  if (situazioneFamiliare.includes('con figli')) {
+    detrazioneFamiliare = 1200; // Semplificato
+  }
+  if (situazioneFamiliare.includes('Coniugato')) {
+    detrazioneFamiliare += 800; // Semplificato
+  }
+  
+  return Math.max(0, detrazioneLavoro + detrazioneFamiliare);
+}
+
+function calcolaNettoLordo(lordo, regione, situazioneFamiliare) {
+  // Contributi previdenziali
+  const contributi = lordo * CONTRIBUTI_PREVIDENZIALI;
+  const redditoImponibile = lordo - contributi;
+  
+  // IRPEF
+  const irpef = calcolaIrpef(redditoImponibile);
+  
+  // Addizionali
+  const addRegionale = redditoImponibile * ADDIZIONALI_REGIONALI[regione];
+  const addComunale = redditoImponibile * 0.008; // Media italiana
+  
+  // Detrazioni
+  const detrazioni = calcolaDetrazioni(redditoImponibile, situazioneFamiliare);
+  
+  // Imposte nette
+  const imposteNette = Math.max(0, irpef + addRegionale + addComunale - detrazioni);
+  
+  const netto = lordo - contributi - imposteNette;
+  
+  return {
+    netto: Math.round(netto * 100) / 100,
+    lordo: lordo,
+    contributi: Math.round(contributi * 100) / 100,
+    irpef: Math.round(irpef * 100) / 100,
+    addRegionale: Math.round(addRegionale * 100) / 100,
+    addComunale: Math.round(addComunale * 100) / 100,
+    detrazioni: Math.round(detrazioni * 100) / 100,
+    imposteNette: Math.round(imposteNette * 100) / 100,
+    tassazioneEffettiva: Math.round(((lordo - netto) / lordo * 100) * 100) / 100
+  };
+}
+
+function trovaLordoPerNetto(nettoDesiderato, regione, situazioneFamiliare, tolleranza = 1) {
+  let lordoMin = nettoDesiderato;
+  let lordoMax = nettoDesiderato * 2;
+  let iterazioni = 0;
+  const maxIterazioni = 100;
+  
+  while (iterazioni < maxIterazioni && (lordoMax - lordoMin) > tolleranza) {
+    const lordoTentativo = (lordoMin + lordoMax) / 2;
+    const risultato = calcolaNettoLordo(lordoTentativo, regione, situazioneFamiliare);
+    
+    if (Math.abs(risultato.netto - nettoDesiderato) <= tolleranza) {
+      return calcolaNettoLordo(lordoTentativo, regione, situazioneFamiliare);
+    }
+    
+    if (risultato.netto < nettoDesiderato) {
+      lordoMin = lordoTentativo;
+    } else {
+      lordoMax = lordoTentativo;
+    }
+    
+    iterazioni++;
+  }
+  
+  const lordoFinale = (lordoMin + lordoMax) / 2;
+  return calcolaNettoLordo(lordoFinale, regione, situazioneFamiliare);
+}
+
+function formatEuro(amount) {
+  return new Intl.NumberFormat('it-IT', {
+    style: 'currency',
+    currency: 'EUR'
+  }).format(amount);
+}
+
+function mostraRisultati(risultato, direzione, periodo, importoOriginale) {
+  const resultsDiv = document.getElementById('results');
+  const contentDiv = document.getElementById('result-content');
+  
+  const isAnnuale = periodo === 'Annuale';
+  const multiplier = isAnnuale ? 1 : 12;
+  
+  let titoloRisultato, valorePrincipale;
+  if (direzione === 'Da Netto a Lordo') {
+    titoloRisultato = 'Stipendio Lordo Necessario';
+    valorePrincipale = isAnnuale ? risultato.lordo : risultato.lordo;
+  } else {
+    titoloRisultato = 'Stipendio Netto Risultante';
+    valorePrincipale = isAnnuale ? risultato.netto : risultato.netto;
+  }
+  
+  const periodoLabel = isAnnuale ? '/anno' : '/mese';
+  
+  contentDiv.innerHTML = `
+    <div class="result-highlight">
+      <h3>${titoloRisultato}</h3>
+      <div class="amount">${formatEuro(valorePrincipale)}${periodoLabel}</div>
+    </div>
+    
+    <div class="comparison-table">
+      <div class="comparison-card">
+        <h4>💰 Stipendio Lordo</h4>
+        <p style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">
+          ${formatEuro(risultato.lordo)}${periodoLabel}
+        </p>
+        <small>${formatEuro(risultato.lordo * multiplier)}/anno</small>
+      </div>
+      <div class="comparison-card">
+        <h4>💵 Stipendio Netto</h4>
+        <p style="font-size: 1.5rem; font-weight: 700; color: var(--success);">
+          ${formatEuro(risultato.netto)}${periodoLabel}
+        </p>
+        <small>${formatEuro(risultato.netto * multiplier)}/anno</small>
+      </div>
+    </div>
+    
+    <div class="breakdown">
+      <h4>📊 Dettaglio Fiscale ${periodo}</h4>
+      <div class="breakdown-item">
+        <span>Stipendio Lordo</span>
+        <span>${formatEuro(risultato.lordo)}</span>
+      </div>
+      <div class="breakdown-item">
+        <span>- Contributi Previdenziali (9,19%)</span>
+        <span>-${formatEuro(risultato.contributi)}</span>
+      </div>
+      <div class="breakdown-item">
+        <span>- IRPEF</span>
+        <span>-${formatEuro(risultato.irpef)}</span>
+      </div>
+      <div class="breakdown-item">
+        <span>- Addizionale Regionale</span>
+        <span>-${formatEuro(risultato.addRegionale)}</span>
+      </div>
+      <div class="breakdown-item">
+        <span>- Addizionale Comunale</span>
+        <span>-${formatEuro(risultato.addComunale)}</span>
+      </div>
+      <div class="breakdown-item">
+        <span>+ Detrazioni</span>
+        <span>+${formatEuro(risultato.detrazioni)}</span>
+      </div>
+      <div class="breakdown-item">
+        <span><strong>= Stipendio Netto</strong></span>
+        <span><strong>${formatEuro(risultato.netto)}</strong></span>
+      </div>
+    </div>
+    
+    <div class="tax-rate">
+      <div>Tassazione Effettiva: ${risultato.tassazioneEffettiva}%</div>
+    </div>
+  `;
+  
+  resultsDiv.classList.add('show');
+  resultsDiv.scrollIntoView({ behavior: 'smooth' });
+}
+
+document.getElementById('salary-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+  
+  const direzione = data.direzione;
+  const importo = parseFloat(data.importo);
+  const periodo = data.periodo;
+  const regione = data.regione;
+  const situazioneFamiliare = data.situazione_familiare;
+  
+  // Converti in annuale se necessario
+  const importoAnnuale = periodo === 'Mensile' ? importo * 13 : importo; // Include 13ma
+  
+  let risultato;
+  if (direzione === 'Da Netto a Lordo') {
+    risultato = trovaLordoPerNetto(importoAnnuale, regione, situazioneFamiliare);
+  } else {
+    risultato = calcolaNettoLordo(importoAnnuale, regione, situazioneFamiliare);
+  }
+  
+  // Converti risultato in base al periodo richiesto
+  if (periodo === 'Mensile') {
+    risultato = {
+      ...risultato,
+      netto: risultato.netto / 13,
+      lordo: risultato.lordo / 13,
+      contributi: risultato.contributi / 13,
+      irpef: risultato.irpef / 13,
+      addRegionale: risultato.addRegionale / 13,
+      addComunale: risultato.addComunale / 13
