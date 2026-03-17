@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Come Calcolare l'Area di un Triangolo: Guida Semplice (Base e Altezza)</title>
+    <meta name="description" content="Scopri come calcolare l'area di qualsiasi triangolo in modo semplice usando la sua base e altezza. Formula, esempi pratici e l'uso del nostro tool online.">
+    <link rel="canonical" href="https://tool4u.org/blog/come-calcolare-area-triangolo-base-altezza.html">
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 720px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #262640;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        h1, h2, h3 {
+            color: #2563eb;
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            line-height: 1.3;
+        }
+        h1 {
+            font-size: 2.2em;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.8em;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 0.3em;
+        }
+        h3 {
+            font-size: 1.4em;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 1em;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-bottom: 1em;
+        }
+        .code-block {
+            background-color: #3a3a5a;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        .tool-box {
+            background-color: #2563eb;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+        .tool-box h3 {
+            color: #ffffff;
+            margin-top: 0;
+        }
+        .tool-box p {
+            font-size: 1.1em;
+        }
+        .tool-box a {
+            background-color: #1a1a2e;
+            color: #ffffff;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 1.05em;
+            transition: background-color 0.3s ease;
+        }
+        .tool-box a:hover {
+            background-color: #3a3a5a;
+            text-decoration: none;
+        }
+        .faq-item {
+            margin-bottom: 1.5em;
+            padding-bottom: 1em;
+            border-bottom: 1px dotted #3a3a5a;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .faq-question {
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 0.5em;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #3a3a5a;
+            font-size: 0.9em;
+            color: #aaaaaa;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P0CPJPBH4H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-P0CPJPBH4H');
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Posso usare qualsiasi lato del triangolo come base?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sì, assolutamente! Puoi scegliere qualsiasi dei tre lati come base. L'importante è che poi tu misuri l'altezza *relativa* a quella specifica base, ovvero la distanza perpendicolare dal vertice opposto a quel lato. L'area finale sarà la stessa indipendentemente dalla base scelta."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Cosa succede se l'altezza cade fuori dal triangolo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Questo accade nei triangoli ottusangoli (che hanno un angolo maggiore di 90 gradi). In questi casi, per misurare l'altezza relativa a una delle basi che forma l'angolo ottuso, devi prolungare idealmente quella base. L'altezza sarà la distanza perpendicolare tra il vertice opposto e la linea prolungata della base. La formula A = (b × h) / 2 rimane invariata."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Devo sempre usare una calcolatrice per fare questo calcolo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Per valori semplici, puoi farlo a mente. Per esempio, se hai base = 4 e altezza = 3, (4 × 3) / 2 = 12 / 2 = 6. Per numeri più grandi o decimali, una calcolatrice (o il nostro tool online!) può semplificare il processo e ridurre la possibilità di errori."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Questa formula funziona per tutti i tipi di triangoli (rettangoli, isosceli, equilateri)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sì, questa è la bellezza di questa formula! A = (b × h) / 2 è universale e funziona per qualsiasi tipo di triangolo, purché tu conosca la lunghezza della base e l'altezza perpendicolare ad essa. Per triangoli particolari come quello equilatero o rettangolo, esistono anche formule alternative che sfruttano le loro proprietà specifiche, ma la formula base-altezza è sempre valida."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "C'è un modo per calcolare l'area se conosco solo i tre lati?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sì, esiste! Se conosci la lunghezza di tutti e tre i lati di un triangolo e non hai l'altezza, puoi utilizzare la formula di Erone. Questa formula è più complessa ma estremamente utile in situazioni come quella. Il nostro Calcolatore Area Triangolo, ad esempio, supporta anche il calcolo tramite la formula di Erone, offrendoti massima flessibilità."
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Area Triangolo: La Guida Facile con Base e Altezza</h1>
+
+        <p>Il triangolo è una delle forme geometriche più basilari e diffuse, presente ovunque, dalla natura all'architettura. Capire come calcolare la sua area è una competenza fondamentale non solo per gli studenti, ma anche per professionisti e appassionati che si trovano a misurare spazi o progettare oggetti. Se ti sei mai chiesto "come si calcola l'area di un triangolo?", sei nel posto giusto. Questa guida ti accompagnerà passo dopo passo, mostrando come utilizzare la sua base e altezza per trovare la superficie di qualsiasi triangolo in modo semplice e intuitivo. Dimentica le formule complesse e i calcoli arzigogolati: con la nostra spiegazione, vedrai che è più facile di quanto pensi.</p>
+
+        <img src="/blog/img/calcolare-area-triangolo-base-altezza-facile.png" alt="Area Triangolo: La Guida Facile con Base e Altezza" style="width:100%;border-radius:12px;margin:1rem 0">
+
+        <h2>La Formula Fondamentale: Base per Altezza Diviso Due</h2>
+        <p>Il metodo più comune e diretto per calcolare l'area di un triangolo richiede solo due misure: la lunghezza della sua base e la sua altezza. L'area di un triangolo è pari alla metà del prodotto della lunghezza della sua base per la sua altezza.</p>
+        <p>La formula è la seguente:</p>
+        <div class="code-block">
+            <code>Area = (base × altezza) / 2</code>
+        </div>
+        <p>Oppure, in notazione matematica più concisa
