@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestito Personale: Scopri il Costo Totale con il Nostro Simulatore (TAN vs TAEG)</title>
+    <meta name="description" content="Comprendi il costo totale del tuo prestito personale. Scopri la differenza tra TAN e TAEG e simula tutte le spese accessorie per una scelta informata.">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P0CPJPBH4H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P0CPJPBH4H');
+    </script>
+
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e; /* Dark text */
+            background-color: #f8f9fa; /* Light background */
+            margin: 0;
+            padding: 20px;
+        }
+        main {
+            max-width: 720px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        h1, h2, h3 {
+            color: #1a1a2e;
+            line-height: 1.3;
+        }
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 0.8em;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 0.5em;
+        }
+        h3 {
+            font-size: 1.3em;
+            margin-top: 1em;
+            margin-bottom: 0.6em;
+        }
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 1em;
+        }
+        ol {
+            margin-left: 20px;
+            margin-bottom: 1em;
+        }
+        ul li, ol li {
+            margin-bottom: 0.5em;
+        }
+        strong {
+            font-weight: 600;
+        }
+
+        /* Tool Box Styling */
+        .tool-box {
+            background-color: #e0f2fe; /* Light blue background */
+            border: 2px solid #2563eb;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 2em 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .tool-box h3 {
+            color: #1a1a2e;
+            font-size: 1.5em;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .tool-box p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .tool-box .button {
+            display: inline-block;
+            background-color: #2563eb;
+            color: #ffffff;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        .tool-box .button:hover {
+            background-color: #1a4a9e; /* Darker blue on hover */
+            text-decoration: none;
+        }
+
+        /* FAQ Styling */
+        .faq-item {
+            margin-bottom: 1.5em;
+            border-bottom: 1px dashed #e0e0e0;
+            padding-bottom: 1em;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .faq-item .question {
+            font-weight: bold;
+            color: #1a1a2e;
+            margin-bottom: 0.5em;
+        }
+        .faq-item .answer {
+            margin-left: 1.5em;
+            font-size: 0.95em;
+        }
+        .footer-link {
+            display: block;
+            text-align: center;
+            margin-top: 3em;
+            padding-top: 1em;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+
+    <!-- Schema.org FAQPage Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Qual è la differenza principale tra TAN e TAEG in un prestito personale?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Il <strong>TAN (Tasso Annuo Nominale)</strong> indica unicamente il tasso di interesse puro applicato al capitale erogato, espresso su base annua. Non include nessuna spesa accessoria. Il <strong>TAEG (Tasso Annuo Effettivo Globale)</strong>, invece, rappresenta il costo totale effettivo del prestito per il consumatore, includendo non solo il TAN, ma anche tutte le spese obbligatorie come le spese di istruttoria, le spese di incasso rata, l'imposta di bollo e le eventuali assicurazioni obbligatorie. Il TAEG è l'indicatore più trasparente per confrontare diverse offerte di prestito."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Tutte le assicurazioni sono obbligatorie quando si sottoscrive un prestito personale?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, non tutte le assicurazioni sono obbligatorie per legge per i prestiti personali. Spesso vengono proposte polizze facoltative (ad esempio, a copertura del rischio impiego o malattia) che possono influenzare il TAEG se considerate come condizioni per ottenere il prestito a un certo tasso. È fondamentale distinguere tra assicurazioni obbligatorie per legge (rarissime nei prestiti personali e solitamente legate a specifiche categorie di mutui o finanziamenti) e quelle accessorie o 'consigliate', che il cliente è libero di accettare o rifiutare, spesso potendo anche scegliere una compagnia assicurativa diversa da quella proposta dall'istituto di credito."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "È possibile negoziare le condizioni di un prestito personale, incluse le spese?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sì, in molti casi è possibile negoziare le condizioni di un prestito personale. Le banche e le finanziarie hanno una certa flessibilità sui tassi e sulle spese, specialmente per clienti con un buon profilo creditizio. Non esitare a chiedere se possono applicare condizioni migliori, eliminare alcune spese accessorie o ridurre il TAN. Presentare preventivi da diversi istituti può darti un maggiore potere contrattuale. Utilizzare un simulatore per avere chiari i costi può rafforzare la tua posizione negoziale."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Cosa succede se decido di estinguere il prestito personale in anticipo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Se decidi di estinguere un prestito personale in anticipo, hai il diritto di farlo. Tuttavia, la banca o la finanziaria potrebbe applicare una penale di estinzione anticipata, che è regolamentata dalla legge. La penale non può superare l'1% dell'importo rimborsato in anticipo se la vita residua del contratto è superiore a un anno, o lo 0,5% se la vita residua è pari o inferiore a un anno. In alcuni casi (ad esempio, se il prestito è stato erogato prima di una certa data o con determinate condizioni), la penale potrebbe non essere applicabile. È sempre consigliabile verificare le clausole contrattuali relative all'estinzione anticipata."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Qual è il modo migliore per confrontare diverse offerte di prestito e scegliere quella più vantaggiosa?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Il modo migliore per confrontare diverse offerte di prestito è concentrarsi sul <strong>TAEG (Tasso Annuo Effettivo Globale)</strong>, poiché è l'unico indicatore che include il costo totale del finanziamento, comprese tutte le spese accessorie obbligatorie. Richiedi preventivi dettagliati a più istituti, assicurandoti che siano tutti comprensivi di ogni costo. Utilizza un simulatore di prestito per inserire i dati di ogni offerta e visualizzare chiaramente la rata mensile e il costo totale. Non fermarti alla prima offerta e leggi sempre attentamente il Foglio Informativo e il contratto prima di firmare."
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <main>
+        <h1>Non Farti Sorprendere: Calcola il Costo Reale del Tuo Prestito Personale</h1>
+        
+        <p>Richiedere un prestito personale è un passo importante per realizzare i propri progetti, che sia l'acquisto di un'auto nuova, la ristrutturazione della casa, un viaggio da sogno o semplicemente la gestione di spese impreviste. Tuttavia, molti si concentrano solo sull'importo della rata mensile, trascurando che dietro a questa cifra si nasconde un mondo di tassi e spese che determinano il vero <strong>costo totale del prestito personale</strong>. Ignorare questi dettagli può portare a spiacevoli sorprese e a un indebitamento più oneroso del previsto.</p>
+
+        <img src="/blog/img/costo-totale-prestito-personale-tan-taeg.png" alt="Non Farti Sorprendere: Calcola il Costo Reale del Tuo Prestito Personale" style="width:100%;border-radius:12px;margin:1rem 0">
+
+        <p>Comprendere la differenza tra TAN e TAEG, individuare tutte le spese accessorie e saper calcolare l'effettivo onere finanziario è fondamentale per fare una scelta informata e consapevole. Questo articolo ti guiderà attraverso le complessità dei prestiti personali, fornendoti gli strumenti e le conoscenze necessarie per non farti cogliere impreparato e per scegliere l'offerta più conveniente per le tue esigenze.</p>
+
+        <h2>TAN vs. TAEG: La Chiave per Comprendere il Vero Costo del Tuo Prestito</h2>
+        <p>Quando si parla di prestiti, i termini <abbr title="Tasso Annuo Nominale">TAN</abbr> e <abbr title="Tasso Annuo Effettivo Globale">TAEG</abbr> sono onnipresenti, ma spesso confusi. Eppure, conoscerne la differenza è il primo passo cruciale per valutare il <strong>costo totale del prestito personale</strong>.</p>
+        
+        <h3>Il TAN (Tasso Annuo Nominale): solo gli interessi puri</h3>
+        <p>Il TAN rappresenta il tasso di interesse "nominale" applicato al capitale che ti viene erogato. È il costo puro del denaro, espresso su base annua. Se un prestito ha un TAN del 5%, significa che su ogni 100 euro presi in prestito, pagherai 5 euro di interessi all'anno. Il TAN è utile per calcolare la quota di interessi inclusa in ogni rata, ma <strong>non riflette il costo complessivo del finanziamento</strong>. È una parte fondamentale del calcolo, ma da solo non basta a farti capire quanto spenderai realmente.</p>
+
+        <h3>Il TAEG (Tasso Annuo Effettivo Globale): il vero indicatore di costo</h3>
+        <p>Il TAEG è l'indicatore che devi guardare attentamente. È il <strong>Tasso Annuo Effettivo Globale</strong> e, come suggerisce il nome, include non solo il TAN, ma anche tutte le spese obbligatorie connesse all'erogazione e alla gestione del prestito. Tra queste, rientrano:</p>
+        <ul>
+            <li>Le spese di istruttoria della pratica.</li>
+            <li>Le spese di incasso e gestione rata.</li>
+            <li>L'imposta di bollo sul contratto e sulle comunicazioni periodiche (o imposta sostitutiva, a seconda dei casi).</li>
+            <li>Le eventuali commissioni di intermediazione.</li>
+            <li>Le spese per le assicurazioni obbligatorie, se previste come condizione per l'erogazione del prestito (ad esempio, per i mutui).</li>
+        </ul>
+        <p>Il TAEG è espresso in percentuale e ha lo scopo di fornire al consumatore un'idea chiara e comparabile del <strong>costo totale del prestito personale</strong>. Due prestiti con lo stesso TAN possono avere TAEG molto diversi a causa delle spese accessorie. Per legge, il TAEG deve essere sempre indicato in maniera chiara in ogni proposta di prestito, proprio per tutelare il consumatore e permettergli di confrontare offerte diverse su una base omogenea.</p>
+
+        <h2>Oltre i Tassi: Tutte le Voci di Spesa da Considerare nel Tuo Prestito</h2>
