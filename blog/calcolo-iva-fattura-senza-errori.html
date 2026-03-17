@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolo IVA in Fattura: Guida Pratica per Professionisti e PMI</title>
+    <meta name="description" content="Impara a calcolare l'IVA correttamente per le tue fatture. Evita errori comuni e usa il nostro calcolatore IVA per semplificare la gestione fiscale della tua attività.">
+    
+    <!-- Google Analytics tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P0CPJPBH4H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P0CPJPBH4H');
+    </script>
+
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f8f8;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        h1 {
+            color: #1a1a2e; /* Primary title color */
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        h2 {
+            color: #2563eb; /* Secondary heading color */
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            color: #1a1a2e;
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 1rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        .tool-box {
+            background-color: #e0f2fe; /* Light blue for the box */
+            border: 1px solid #90caf9;
+            padding: 20px;
+            margin: 2rem 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .tool-box h3 {
+            color: #1a1a2e;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .tool-button {
+            display: inline-block;
+            background-color: #2563eb;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+        .tool-button:hover {
+            background-color: #1a4ed8;
+            text-decoration: none;
+        }
+        .faq-section h3 {
+            color: #1a1a2e;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .faq-section p {
+            margin-bottom: 1rem;
+        }
+        footer {
+            margin-top: 3rem;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .example-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+
+    <!-- Schema.org FAQPage markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Cos'è l'IVA e perché è importante calcolarla correttamente?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "L'IVA (Imposta sul Valore Aggiunto) è un'imposta indiretta che grava sul consumo di beni e servizi. È fondamentale calcolarla correttamente in fattura perché errori possono comportare sanzioni, interessi e accertamenti fiscali da parte dell'Agenzia delle Entrate, oltre a problemi nella gestione della contabilità aziendale."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quali sono le principali aliquote IVA in Italia?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In Italia esistono diverse aliquote IVA: l'aliquota ordinaria del 22% (applicabile alla maggior parte dei beni e servizi), l'aliquota ridotta del 10% (per determinati beni alimentari, servizi turistici, lavori di recupero edilizio), l'aliquota super ridotta del 5% (per specifici beni e servizi a finalità sociale) e l'aliquota minima del 4% (per beni di prima necessità e prestazioni sanitarie)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Come si calcola l'IVA se ho solo il prezzo finale (IVA inclusa)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Se conosci il prezzo finale di un prodotto o servizio (IVA inclusa) e vuoi scorporare l'IVA per trovare l'imponibile, devi usare la formula per lo scorporo. Ad esempio, per l'IVA al 22%: Imponibile = Prezzo Totale / 1.22. Una volta trovato l'imponibile, l'IVA sarà Prezzo Totale - Imponibile. Per altre aliquote, sostituirai 1.22 con 1.10, 1.05 o 1.04 a seconda dei casi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Devo sempre applicare l'IVA a tutte le mie operazioni?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, non tutte le operazioni sono soggette ad IVA. Esistono operazioni 'esenti' (come alcune prestazioni sanitarie o finanziarie), 'non imponibili' (come le cessioni all'esportazione) e 'escluse' (che non rientrano nel campo di applicazione dell'IVA). È fondamentale conoscere la normativa specifica per il proprio settore per applicare correttamente l'IVA o non applicarla quando non dovuto."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "È possibile correggere un errore nel calcolo dell'IVA su una fattura già emessa?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sì, è possibile e doveroso correggere gli errori. Se la fattura è stata emessa con un'IVA inferiore al dovuto o in eccesso, è necessario emettere una nota di debito (per IVA sottostimata) o una nota di credito (per IVA sovrastimata o non dovuta) a rettifica della fattura originale. È importante agire tempestivamente per evitare sanzioni."
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <p style="text-align: center; margin-bottom: 2rem;">
+                <a href="/" style="font-weight: bold; font-size: 1.1rem;">Tool4U.org</a>
+            </p>
+            <h1>Come calcolare l'IVA per la tua fattura (e non sbagliare più)</h1>
+        </header>
+
+        <p>Il calcolo dell'IVA (Imposta sul Valore Aggiunto) è una delle operazioni più ricorrenti e delicate per professionisti, aziende e PMI in Italia. Un errore, anche piccolo, può trasformarsi in un problema significativo, comportando sanzioni, interessi e, nei casi più gravi, accertamenti da parte dell'Agenzia delle Entrate. Capire come calcolare correttamente l'IVA non è solo una questione di conformità fiscale, ma anche un pilastro per la buona gestione finanziaria della tua attività.</p>
+
+        <img src="/blog/img/calcolo-iva-fattura-senza-errori.png" alt="Come calcolare l'IVA per la tua fattura (e non sbagliare più)" style="width:100%;border-radius:12px;margin:1rem 0">
+
+        <p>Questa guida pratica è stata pensata per fornirti tutte le informazioni necessarie per padroneggiare il <strong>calcolo IVA per fattura</strong>, dalle diverse aliquote applicabili ai metodi di calcolo, fino ai consigli per evitare gli errori più comuni. Che tu debba emettere una fattura per un cliente o verificare la correttezza di una fattura ricevuta, qui troverai le risposte che cerchi per operare con serenità e precisione.</p>
+
+        <h2>Cos'è l'IVA e Perché è Fondamentale Calcolarla Correttamente</h2>
+        <p>L'IVA, o Imposta sul Valore Aggiunto, è un'imposta indiretta che grava sui consumi. Questo significa che, a differenza delle imposte dirette che colpiscono il reddito, l'IVA si applica al valore aggiunto in ogni fase della produzione e distribuzione di beni e servizi. In Italia, come nella maggior parte dei paesi dell'Unione Europea, è un pilastro fondamentale del sistema fiscale, contribuendo significativamente alle entrate dello Stato.</p>
+        <p>Per la tua attività, calcolare correttamente l'IVA è cruciale per diversi motivi:</p>
+        <ul>
+            <li><strong>Conformità Legale:</strong> La normativa IVA è complessa e in continua evoluzione. Un calcolo errato può portare a non conformità fiscali.</li>
+            <li><strong>Evitare Sanzioni:</strong> Errori nella liquidazione o nel versamento dell'IVA possono comportare pesanti sanzioni pecuniarie, oltre agli interessi dovuti sull'importo non versato.</li>
+            <li><strong>Corretta Gestione Contabile:</strong> Un'IVA calcolata male può falsare i bilanci aziendali, rendendo difficile una corretta valutazione della situazione finanziaria e un'accurata pianificazione fiscale.</li>
+            <li><strong>Rapporti con i Clienti e Fornitori:</strong> Fatture con IVA errata possono generare incomprensioni o contenziosi con clienti e fornitori, danneggiando la reputazione professionale.</li>
+            <li><strong>Deducibilità e Detraibilità:</strong> Per le aziende, la corretta gestione dell'IVA a debito (quella sulle vendite) e dell'IVA a credito (quella sugli acquisti) è fondamentale per la liquidazione periodica e per sfruttare al meglio la detraibilità dell'imposta.</li>
+        </ul>
+        <p>Ignorare o sottovalutare l'importanza del <strong>calcolo IVA per fattura</strong> significa esporsi a rischi inutili. Per questo, è essenziale dotarsi degli strumenti e delle conoscenze adeguate.</p>
+
+        <h2>Le Aliquote IVA in Italia: Un Riepilogo Completo</h2>
+        <p>Prima di passare ai metodi di calcolo, è fondamentale conoscere le diverse aliquote IVA vigenti in Italia, poiché l'applicazione di quella sbagliata è tra gli errori più comuni. L'aliquota è la percentuale da applicare all'imponibile per determinare l'ammontare dell'IVA.</p>
+        <p>Le principali aliquote IVA in Italia sono:</p>
+        <ul>
+            <li><strong>Aliquota Ordinaria (22%):</strong> È l'aliquota standard, applicabile alla maggior parte delle cessioni di beni e prestazioni di servizi, a meno che non sia prevista un'aliquota ridotta o un regime di esenzione/non imponibilità.</li>
+            <li><strong>Aliquota Ridotta (10%):</strong> Si applica a specifiche categorie di beni e servizi considerati di utilità sociale o primaria importanza, tra cui:
+                <ul>
+                    <li>Alcuni prodotti alimentari (carni, pesce, latte, formaggi, frutta, verdura).</li>
+                    <li>Servizi turistici e alberghieri.</li>
+                    <li>Lavori di recupero edilizio (manutenzione ordinaria e straordinaria).</li>
+                    <li>Forniture di energia elettrica e gas per usi domestici.</li>
+                    <li>Medicinali omeopatici.</li>
+                </ul>
+            </li>
+            <li><strong>Aliquota Super Ridotta (5%):</strong> Introdotta per specifici beni e servizi a finalità sociale, come ad esempio:
+                <ul>
+                    <li>Dispositivi medici diagnostici in vitro per COVID-19.</li>
+                    <li>Alcuni prodotti per l'igiene femminile.</li>
+                    <li>Servizi di trasporto pubblico locale e regionale.</li>
+                </ul>
+            </li>
+            <li><strong>Aliquota Minima (4%):</strong> Riservata a beni e servizi considerati di prima necessità, tra cui:
+                <ul>
+                    <li>Prodotti alimentari essenziali (pane, latte fresco, pasta, riso).</li>
+                    <li>Libri, giornali e periodici.</li>
+                    <li>Prodotti agricoli non trasformati.</li>
+                    <li>Protesi e ausili per disabili.</li>
+                    <li>Forniture di energia elettrica e gas per usi agricoli.</li>
+                </ul>
+            </li>
+        </ul>
+        <p>Oltre alle aliquote, esistono operazioni <strong>esenti IVA</strong> (es. prestazioni mediche, finanziarie), <strong>non imponibili IVA</strong> (es. esportazioni, cessioni intracomunitarie) e <strong>fuori campo IVA</strong> (es. operazioni che non rientrano nell'ambito di applicazione dell'imposta). È cruciale consultare sempre la normativa vigente o un consulente fiscale per determinare l'aliquota corretta da applicare alla tua specifica operazione.</p>
+
+        <h2>Metodi di Calcolo dell'IVA: Aggiunta e Scorporo</h2>
+        <p>Il <strong>calcolo IVA per fattura</strong> può avvenire principalmente in due modi, a seconda dei dati di partenza che hai a disposizione: per aggiunta (quando hai l'imponibile) o per scorporo (quando hai il totale IVA inclusa).</p>
+
+        <h3>1. Calcolo IVA per Aggiunta (dall'Imponibile)</h3>
+        <p>Questo è il metodo più comune quando si emette una fattura, partendo dal prezzo netto del bene o servizio. Devi semplicemente applicare l'aliquota IVA all'importo imponibile.</p>
+        <p><strong>Formula:</strong></p>
+        <code>IVA = Importo Imponibile &times; (Aliquota IVA / 100)</code><br>
+        <code>Importo Totale = Importo Imponibile + IVA</code>
+
+        <div class="example-box">
+            <h4>Esempio Pratico:</h4>
+            <p>Un professionista effettua una consulenza per un importo imponibile di <strong>500 euro</strong>. L'aliquota IVA applicabile è il <strong>22%</strong>.</p>
+            <ul>
+                <li>Calcolo dell'IVA: <code>500 &times; (22 / 100) = 500 &times; 0.22 = 110 euro</code></li>
+                <li>Calcolo dell'Importo Totale: <code>500 + 110 = 610 euro</code></li>
+            </ul>
+            <p>La fattura riporterà un imponibile di 500 euro, un'IVA di 110 euro e un totale di 610 euro.</p>
+        </div>
+
+        <h3>2. Calcolo IVA per Scorporo (dal Totale IVA Inclusa)</h3>
+        <p>Lo scorporo dell'IVA è utile quando si conosce solo l'importo totale (prezzo finale) di un bene o servizio, e si vuole risalire all'importo imponibile e all'IVA inclusa. Questo è spesso il caso quando si ricevono scontrini o si analizzano prezzi al pubblico.</p>
+        <p><strong>Formule:</strong></p>
+        <code>Importo Imponibile = Importo Totale / (1 + (Aliquota IVA / 100))</code><br>
+        <code>IVA = Importo Totale - Importo Imponibile</code>
+
+        <div class="example-box">
+            <h4>Esempio Pratico:</h4>
+            <p>Hai acquistato un prodotto per un totale di <strong>122 euro</strong> (IVA inclusa al <strong>22%</strong>) e vuoi sapere l'imponibile e l'IVA.</p>
+            <ul>
+                <li>Calcolo dell'Imponibile: <code>122 / (1 + (22 / 100)) = 122 / 1.22 = 100 euro</code></li>
+                <li>Calcolo dell'IVA: <code>122 - 100 = 22 euro</code></li>
+            </ul>
+            <p>L'imponibile del prodotto era di 100 euro e l'IVA inclusa ammontava a 22 euro.</p>
+        </div>
+
+        <p>È fondamentale utilizzare le formule corrette per evitare discrepanze. Un piccolo errore nel calcolo dell'imponibile o dell'IVA può generare problemi in fase di dichiarazione o controllo fiscale.</p>
+
+        <div class="tool-box">
+            <h3>Semplifica il Calcolo IVA con il nostro Tool Gratuito!</h3>
+            <p>Non vuoi preoccuparti delle formule o del rischio di errori? Il nostro <strong>Calcolatore IVA</strong> è lo strumento perfetto per te!</p>
+            <p>Ti permette di calcolare l'IVA per aggiunta o scorporo con tutte le aliquote italiane in modo rapido e preciso.</p>
+            <a href="https://tool4u.org/calcolatore-iva.html" target="_blank" class="tool-button">Usa il nostro Calcolatore IVA gratuito</a>
+        </div>
+
+        <h2>Errori Comuni da Evitare e Consigli Pratici</h2>
+        <p>Anche con una buona comprensione dei meccanismi, è facile incappare in errori. Ecco i più comuni e come evitarli:</p>
+        <ul>
+            <li><strong>Applicare l'aliquota sbagliata:</strong> Questo è l'errore numero uno. Verifica sempre l'aliquota specifica per il bene o servizio che stai fatturando. Le aliquote cambiano frequentemente e per specifici settori. In caso di dubbio, consulta un professionista o le fonti ufficiali dell'Agenzia delle Entrate.</li>
+            <li><strong>Confondere aggiunta e scorporo:</strong> Usare la formula per l'aggiunta quando avresti dovuto scorporare (o viceversa) porta inevitabilmente a cifre sbagliate. Ricorda: l'aggiunta parte dall'imponibile, lo scorporo dal totale.</li>
+            <li><strong>Dimenticare l'IVA per operazioni specifiche:</strong> Alcuni servizi o prodotti potrebbero avere regimi particolari (es. reverse charge, split payment, regimi speciali). Non dimenticare di applicare le normative specifiche quando necessario.</li>
+            <li><strong>Non considerare esenzioni o non imponibilità:</strong> Non tutte le operazioni sono soggette ad IVA. Se la tua attività rientra in regimi particolari (es. regime forfettario) o effettui operazioni esenti/non imponibili, assicurati di fatturare correttamente senza IVA e di indicare la giusta dicitura di riferimento normativo.</li>
+            <li><strong>Errori di arrotondamento:</strong> Quando si eseguono calcoli manuali, gli arrotondamenti possono creare piccole differenze che, accumulate, possono diventare significative. Utilizza sempre un calcolatore affidabile o software contabili.</li>
+            <li><strong>Mancanza di documentazione:</strong> Conserva sempre tutta la documentazione relativa alle operazioni effettuate (contratti, ordini, ricevute) per giustificare l'aliquota applicata e gli importi fatturati.</li>
+        </ul>
+
+        <h3>Consigli Pratici:</h3>
+        <ol>
+            <li><strong>Doppia Verifica:</strong> Prima di emettere una fattura, ricontrolla sempre l'aliquota applicata e i calcoli. Un piccolo controllo può salvare da grandi problemi.</li>
+            <li><strong>Usa Strumenti Affidabili:</strong> Un <a href="https://tool4u.org/calcolatore-iva.html" target="_blank" title="Calcolatore IVA (Calcola IVA, scorporo e aggiunta con tutte le aliquote italiane)">calcolatore IVA online</a>, come quello offerto da Tool4U.org, o un buon software gestionale possono automatizzare i calcoli e ridurre drasticamente il margine di errore.</li>
+            <li><strong>Aggiornati Costantemente:</strong> Le normative fiscali cambiano. Iscriviti a newsletter del settore o consulta regolarmente siti affidabili (come quello dell'Agenzia delle Entrate) per essere sempre aggiornato sulle novità.</li>
+            <li><strong>Consulta un Professionista:</strong> Per situazioni complesse o dubbi persistenti, non esitare a chiedere il parere di un commercialista o consulente fiscale. La prevenzione è sempre la migliore cura.</li>
+        </ol>
+
+        <section class="faq-section">
+            <h2>Domande Frequenti (FAQ) sul Calcolo IVA</h2>
+            <div itemscope itemtype="https://schema.org/Question">
+                <h3 itemprop="name">Cos'è l'IVA e perché è importante calcolarla correttamente?</h3>
+                <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                    <p itemprop="text">L'IVA (Imposta sul Valore Aggiunto) è un'imposta indiretta che grava sul consumo di beni e servizi. È fondamentale calcolarla correttamente in fattura perché errori possono comportare sanzioni, interessi e accertamenti fiscali da parte dell'Agenzia delle Entrate, oltre a problemi nella gestione della contabilità aziendale.</p>
+                </div>
+            </div>
+
+            <div itemscope itemtype="https://schema.org/Question">
+                <h3 itemprop="name">Quali sono le principali aliquote IVA in Italia?</h3>
+                <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                    <p itemprop="text">In Italia esistono diverse aliquote IVA: l'aliquota ordinaria del 22% (applicabile alla maggior parte dei beni e servizi), l'aliquota ridotta del 10% (per determinati beni alimentari, servizi turistici, lavori di recupero edilizio), l'aliquota super ridotta del 5% (per specifici beni e servizi a finalità sociale) e l'aliquota minima del 4% (per beni di prima necessità e prestazioni sanitarie).</p>
+                </div>
+            </div>
+
+            <div itemscope itemtype="https://schema.org/Question">
+                <h3 itemprop="name">Come si calcola l'IVA se ho solo il prezzo finale (IVA inclusa)?</h3>
+                <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                    <p itemprop="text">Se conosci il prezzo finale di un prodotto o servizio (IVA inclusa) e vuoi scorporare l'IVA per trovare l'imponibile, devi usare la formula per lo scorporo. Ad esempio, per l'IVA al 22%: Imponibile = Prezzo Totale / 1.22. Una volta trovato l'imponibile, l'IVA sarà Prezzo Totale - Imponibile. Per altre aliquote, sostituirai 1.22 con 1.10, 1.05 o 1.04 a seconda dei casi.</p>
+                </div>
+            </div>
+
+            <div itemscope itemtype="https://schema.org/Question">
+                <h3 itemprop="name">Devo sempre applicare l'IVA a tutte le mie operazioni?</h3>
+                <div itemprop="acceptedAnswer" itemscope itemtype="https://schema. deplorable.
+                    <p itemprop="text">No, non tutte le operazioni sono soggette ad IVA. Esistono operazioni 'esenti' (come alcune prestazioni sanitarie o finanziarie), 'non imponibili' (come le cessioni all'esportazione) e 'escluse' (che non rientrano nel campo di applicazione dell'IVA). È fondamentale conoscere la normativa specifica per il proprio settore per applicare correttamente l'IVA o non applicarla quando non dovuto.</p>
+                </div>
+            </div>
+
+            <div itemscope itemtype="https://schema.org/Question">
+                <h3 itemprop="name">È possibile correggere un errore nel calcolo dell'IVA su una fattura già emessa?</h3>
+                <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                    <p itemprop="text">Sì, è possibile e doveroso correggere gli errori. Se la fattura è stata emessa con un'IVA inferiore al dovuto o in eccesso, è necessario emettere una nota di debito (per IVA sottostimata) o una nota di credito (per IVA sovrastimata o non dovuta) a rettifica della fattura originale. È importante agire tempestivamente per evitare sanzioni.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Il calcolo dell'IVA può sembrare una sfida, ma con le giuste conoscenze e gli strumenti adeguati, è un'operazione che si può gestire con sicurezza. Mantenere la tua contabilità in ordine e rispettare gli obblighi fiscali è fondamentale per la salute e la crescita della tua attività. Non lasciare che un calcolo errato metta a rischio la tua serenità: affidati a guide chiare e a strumenti professionali come il nostro <a href="https://tool4u.org/calcolatore-iva.html" target="_blank">Calcolatore IVA</a>. Inizia oggi stesso a gestire le tue fatture con precisione!</p>
+            <p>&copy; 2023 <a href="/">Tool4U.org</a>. Tutti i diritti riservati.</p>
+        </footer>
+    </div>
+</body>
+</html>
