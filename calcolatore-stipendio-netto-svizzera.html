@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Stipendio Netto Svizzera</title>
+  <meta name="description" content="Calcola lo stipendio netto in Svizzera con il nostro calcolatore online gratuito">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calcolatore Stipendio Netto Svizzera",
+      "description": "Calcola lo stipendio netto in Svizzera",
+      "url": "https://tool4u.org/calcolatore-stipendio-netto-svizzera"
+    }
+  </script>
+
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #fff;
+      --background-color: #f7f7f7;
+    }
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-color);
+    }
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0.8rem 1rem 0;
+    }
+    .ad-slot {
+      background-color: #ccc;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .email-capture {
+      margin: 1rem 0;
+    }
+    .email-capture p {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+    .email-capture input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ccc;
+    }
+    .email-capture button {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+    .email-capture button:hover {
+      background-color: #1a56db;
+    }
+    .tool-header {
+      margin-bottom: 1rem;
+    }
+    .tool-header h1 {
+      font-size: 1.5rem;
+      margin-top: 0;
+    }
+    .tool-body {
+      margin-bottom: 1rem;
+    }
+    .tool-body form {
+      display: flex;
+      flex-direction: column;
+    }
+    .tool-body label {
+      margin-bottom: 0.5rem;
+    }
+    .tool-body input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+    }
+    .tool-body select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+    }
+    .tool-body button {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+    .tool-body button:hover {
+      background-color: #1a56db;
+    }
+    .tool-explanation {
+      margin-bottom: 1rem;
+    }
+    .tool-explanation p {
+      font-size: 0.85rem;
+    }
+    .tool-footer {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #f7f7f7;
+      border-top: 1px solid #ccc;
+    }
+    .tool-footer p {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div class="container">
+    <a href="/" style="color:var(--primary-color);text-decoration:none;font-size:0.85rem;">&larr; Tool4U.org</a>
+    <div class="tool-header">
+      <h1>Calcolatore Stipendio Netto Svizzera</h1>
+      <p>Calcola lo stipendio netto in Svizzera</p>
+    </div>
+    <div class="ad-slot" id="AD_SLOT_TOP"></div>
+    <div class="tool-body">
+      <form id="stipendio-netto-form">
+        <label for="stipendio_lordo">Stipendio lordo</label>
+        <input type="number" id="stipendio_lordo" placeholder="Inserisci lo stipendio lordo" required>
+        <label for="canton">Cantone</label>
+        <select id="canton" required>
+          <option value="">Seleziona il cantone</option>
+          <option value="Zurigo">Zurigo</option>
+          <option value="Ginevra">Ginevra</option>
+          <!-- Aggiungere altri cantoni -->
+        </select>
+        <button type="submit">Calcola</button>
+      </form>
+      <p id="stipendio-netto-risultato"></p>
+    </div>
+    <div class="ad-slot" id="AD_SLOT_MIDDLE"></div>
+    <div class="tool-explanation">
+      <h2>Come funziona</h2>
+      <p>Il calcolatore stipendio netto svizzera utilizza la formula standard per la Svizzera: stipendio_netto = stipendio_lordo - (stipendio_lordo * aliquota_fiscale) - (stipendio_lordo * contributi_previdenziali)</p>
+    </div>
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+    <div class="ad-slot" id="AD_SLOT_BOTTOM"></div>
+    <div class="tool-footer">
+      <p>Disclaimer: il calcolatore stipendio netto svizzera è un tool gratuito e non rappresenta un consiglio fiscale o finanziario. I risultati sono approssimativi e possono variare in base alle tue condizioni personali.</p>
+      <p>&copy; 2024 Tool4U.org</p>
+    </div>
+  </div>
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-stipendio-netto-svizzera'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    const stipendioNettoForm = document.getElementById('stipendio-netto-form');
+    stipendioNettoForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const stipendioLordo = parseFloat(document.getElementById('stipendio_lordo').value);
+      const canton = document.getElementById('canton').value;
+      const aliquotaFiscale = getAliquotaFiscale(canton);
+      const contributiPrevidenziali = getContributiPrevidenziali(canton);
+      const stipendioNetto = stipendioLordo - (stipendioLordo * aliquotaFiscale) - (stipendioLordo * contributiPrevidenziali);
+      document.getElementById('stipendio-netto-risultato').innerHTML = `Lo stipendio netto è: ${stipendioNetto.toFixed(2)}`;
+    });
+
+    function getAliquotaFiscale(canton) {
+      // Aggiungere le aliquote fiscali per ogni cantone
+      switch (canton) {
+        case 'Zurigo':
+          return 0.15;
+        case 'Ginevra':
+          return 0.10;
+        default:
+          return 0;
+      }
+    }
+
+    function getContributiPrevidenziali(canton) {
+      // Aggiungere i contributi previdenziali per ogni cantone
+      switch (canton) {
+        case 'Zurigo':
+          return 0.05;
+        case 'Ginevra':
+          return 0.03;
+        default:
+          return 0;
+      }
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
