@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulatore Stipendio Netto</title>
+  <meta name="description" content="Simula lo stipendio netto con il nostro simulatore online gratuito">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "WebApplication",
+      "name": "Simulatore Stipendio Netto",
+      "description": "Simula lo stipendio netto con il nostro simulatore online gratuito",
+      "url": "https://tool4u.org/simulatore-stipendio-netto"
+    }
+  </script>
+
+<style>
+  :root {
+    --primary-color: #2563eb;
+    --secondary-color: #f7f7f7;
+    --error-color: #ff0000;
+  }
+
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0.8rem 1rem 0;
+  }
+
+  .tool-header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .tool-header h1 {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+  }
+
+  .tool-header p {
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+  }
+
+  .ad-slot {
+    background-color: var(--secondary-color);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 0.25rem;
+  }
+
+  .form-group input:focus {
+    border-color: var(--primary-color);
+  }
+
+  .form-group input:invalid {
+    border-color: var(--error-color);
+  }
+
+  .result {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+
+  .come-funziona {
+    margin-bottom: 1rem;
+  }
+
+  .come-funziona h2 {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+  }
+
+  .email-capture {
+    margin-bottom: 1rem;
+  }
+
+  .email-capture p {
+    font-size: 0.85rem;
+  }
+
+  .email-capture form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .email-capture input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 0.25rem;
+  }
+
+  .email-capture button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+
+  .disclaimer {
+    font-size: 0.7rem;
+    color: var(--secondary-color);
+  }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div class="container">
+    <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;">
+      <a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a>
+    </div>
+    <div class="tool-header">
+      <h1>Simulatore Stipendio Netto</h1>
+      <p>Simula lo stipendio netto</p>
+    </div>
+    <div class="ad-slot" id="ad-slot-top"></div>
+    <div class="tool-body">
+      <form id="simulatore-form">
+        <div class="form-group">
+          <label for="stipendio-lordo">Stipendio lordo</label>
+          <input type="number" id="stipendio-lordo" placeholder="Inserisci lo stipendio lordo" required>
+        </div>
+        <div class="form-group">
+          <label for="aliquota-fiscale">Aliquota fiscale</label>
+          <input type="number" id="aliquota-fiscale" placeholder="Inserisci l'aliquota fiscale" required>
+        </div>
+        <button type="submit">Simula</button>
+      </form>
+      <div class="result" id="result"></div>
+    </div>
+    <div class="ad-slot" id="ad-slot-middle"></div>
+    <div class="come-funziona">
+      <h2>Come funziona</h2>
+      <p>Il simulatore stipendio netto calcola lo stipendio netto in base allo stipendio lordo e all'aliquota fiscale. La formula di simulazione è la seguente: stipendio_netto = stipendio_lordo - (stipendio_lordo * aliquota_fiscale)</p>
+    </div>
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+    <div class="ad-slot" id="ad-slot-bottom"></div>
+    <div class="tool-footer">
+      <p class="disclaimer">I risultati del simulatore sono puramente indicativi e non costituiscono un consiglio fiscale o finanziario.</p>
+    </div>
+  </div>
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'simulatore-stipendio-netto'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    const form = document.getElementById('simulatore-form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const stipendioLordo = parseFloat(document.getElementById('stipendio-lordo').value);
+      const aliquotaFiscale = parseFloat(document.getElementById('aliquota-fiscale').value);
+      const stipendioNetto = stipendioLordo - (stipendioLordo * aliquotaFiscale);
+      document.getElementById('result').innerText = `Lo stipendio netto è: ${stipendioNetto.toFixed(2)}`;
+    });
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
