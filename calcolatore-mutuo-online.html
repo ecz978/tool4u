@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Mutuo Online</title>
+  <meta name="description" content="Calcola la rata del tuo mutuo con questo tool online gratuito e facile da usare">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calcolatore Mutuo Online",
+      "description": "Calcola la rata del tuo mutuo con questo tool online gratuito e facile da usare",
+      "url": "https://tool4u.org/calcolatore-mutuo-online"
+    }
+  </script>
+
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #ffffff;
+      --background-color: #f9f9f9;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-color);
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0.8rem 1rem 0;
+    }
+
+    .tool-header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .tool-header h1 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .tool-header p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .ad-slot {
+      background-color: #f0f0f0;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-container {
+      background-color: var(--secondary-color);
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.25rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-container input[type="number"] {
+      width: 100%;
+      height: 2rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+    }
+
+    .form-container button[type="submit"] {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+
+    .result {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-top: 1rem;
+    }
+
+    #email-capture {
+      margin-top: 2rem;
+    }
+
+    #email-capture p {
+      font-size: 0.85rem;
+    }
+
+    #email-capture form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #email-capture input[type="email"] {
+      width: 100%;
+      height: 2rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+    }
+
+    #email-capture button[type="submit"] {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+
+    .tool-footer {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .tool-footer p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+  </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script></head>
+<body>
+  <div class="container">
+    <a href="/" style="color: var(--primary-color); text-decoration: none; font-size: 0.85rem; font-family: system-ui, sans-serif;">&larr; Tool4U.org</a>
+  </div>
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Mutuo Online</h1>
+      <p>Calcola la rata del tuo mutuo con questo tool online gratuito e facile da usare</p>
+    </div>
+    <div class="ad-slot" id="AD_SLOT_TOP"></div>
+    <div class="form-container">
+      <form id="mutuo-form">
+        <label for="importo">Importo del mutuo</label>
+        <input type="number" id="importo" placeholder="Inserisci l'importo del mutuo" required>
+        <label for="tasso">Tasso di interesse</label>
+        <input type="number" id="tasso" placeholder="Inserisci il tasso di interesse" required>
+        <label for="anni">Durata del mutuo in anni</label>
+        <input type="number" id="anni" placeholder="Inserisci la durata del mutuo in anni" required>
+        <button type="submit">Calcola</button>
+      </form>
+      <div class="result" id="result"></div>
+    </div>
+    <div class="ad-slot" id="AD_SLOT_MIDDLE"></div>
+    <div id="come-funziona">
+      <h2>Come funziona</h2>
+      <p>Il calcolatore mutuo online utilizza la formula per calcolare la rata del mutuo: rata = importo * (tasso / 100) * (1 + tasso / 100) ^ (anni * 12) / ((1 + tasso / 100) ^ (anni * 12) - 1)</p>
+    </div>
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+    <div class="ad-slot" id="AD_SLOT_BOTTOM"></div>
+    <div class="tool-footer">
+      <p>&copy; 2024 Tool4U.org. Tutti i diritti riservati.</p>
+    </div>
+  </div>
+  <script>
+    function calculateMutuo(importo, tasso, anni) {
+      const rata = importo * (tasso / 100) * (1 + tasso / 100) ** (anni * 12) / ((1 + tasso / 100) ** (anni * 12) - 1);
+      return rata.toFixed(2);
+    }
+
+    document.getElementById('mutuo-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const importo = parseFloat(document.getElementById('importo').value);
+      const tasso = parseFloat(document.getElementById('tasso').value);
+      const anni = parseFloat(document.getElementById('anni').value);
+      if (importo > 0 && tasso > 0 && anni > 0) {
+        const rata = calculateMutuo(importo, tasso, anni);
+        document.getElementById('result').innerHTML = `La rata del tuo mutuo è di € ${rata}`;
+      } else {
+        document.getElementById('result').innerHTML = 'Inserisci valori validi';
+      }
+    });
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-mutuo-online'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+  </script>
+<div style="margin:1.5rem 0;padding:1.2rem 1.5rem;background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1px solid #fed7aa;border-radius:12px;text-align:center"><p style="margin:0 0 0.5rem;font-size:0.95rem;font-weight:600;color:#9a3412">Potrebbe interessarti</p><a href="https://www.amazon.it/s?k=calcolatrice+finanziaria&tag=tool4u0b-21" target="_blank" rel="noopener sponsored" style="display:inline-block;padding:10px 24px;background:#f97316;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.9rem">Calcolatrice finanziaria su Amazon &rarr;</a><p style="margin:0.5rem 0 0;font-size:0.7rem;color:#c2410c">Link affiliato Amazon</p></div>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
