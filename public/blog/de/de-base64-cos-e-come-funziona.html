@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base64 – Was ist Base64 und wie funktioniert es? Vollständige Erklärung</title>
-    <meta name="description" content="Base64 einfach erklärt: Lerne was Base64 ist, wie die Kodierung funktioniert und warum sie verwendet wird. Mit praktischen Beispielen und FAQ.">
+    <title>Base64 Was Ist Das und Wie Funktioniert Es – Vollständiger Leitfaden</title>
+    <meta name="description" content="Erfahre, was Base64 ist und wie die Kodierung funktioniert. Praktischer Leitfaden mit Beispielen und häufig gestellten Fragen.">
     <meta name="robots" content="index, follow">
-    <meta name="language" content="de">
+    <meta property="og:title" content="Base64 Was Ist Das und Wie Funktioniert Es">
+    <meta property="og:description" content="Verstehe Base64-Kodierung mit unserem kostenlosen Online-Tool">
+    <meta property="og:url" content="https://tool4u.org/base64-cos-e-come-funziona.html">
     <style>
         * {
             margin: 0;
@@ -15,44 +17,45 @@
         }
         body {
             font-family: system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
+            background-color: #f9fafb;
             color: #1a1a2e;
-            background-color: #f8f9fa;
+            line-height: 1.6;
         }
         .container {
             max-width: 720px;
             margin: 0 auto;
             padding: 20px;
             background-color: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #2563eb;
             font-size: 2.2em;
-            margin: 30px 0 20px 0;
+            margin-bottom: 0.5em;
+            color: #1a1a2e;
             line-height: 1.3;
         }
         h2 {
-            color: #2563eb;
             font-size: 1.6em;
-            margin: 25px 0 15px 0;
+            margin-top: 1.2em;
+            margin-bottom: 0.5em;
+            color: #2563eb;
             border-left: 4px solid #2563eb;
             padding-left: 12px;
         }
         h3 {
+            font-size: 1.3em;
+            margin-top: 1em;
+            margin-bottom: 0.4em;
             color: #1a1a2e;
-            font-size: 1.2em;
-            margin: 18px 0 12px 0;
         }
         p {
-            margin: 15px 0;
+            margin-bottom: 1em;
             text-align: justify;
         }
         .intro {
-            background-color: #f0f4ff;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 20px 0;
+            background-color: #f0f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 2em;
             border-left: 4px solid #2563eb;
         }
         .tool-link {
@@ -62,175 +65,152 @@
             padding: 12px 24px;
             border-radius: 6px;
             text-decoration: none;
-            font-weight: bold;
-            margin: 20px 0;
+            font-weight: 600;
+            margin: 1.5em 0;
             transition: background-color 0.3s;
         }
         .tool-link:hover {
             background-color: #1d4ed8;
         }
         .faq-item {
-            background-color: #f8f9fa;
-            padding: 15px;
-            margin: 15px 0;
+            margin-bottom: 2em;
+            background-color: #f9fafb;
+            padding: 16px;
             border-radius: 6px;
             border-left: 4px solid #2563eb;
         }
-        .faq-item summary {
-            font-weight: bold;
+        .faq-question {
+            font-weight: 600;
             color: #2563eb;
-            cursor: pointer;
-            padding: 5px 0;
+            margin-bottom: 0.8em;
+            font-size: 1.05em;
         }
-        .faq-item summary:hover {
-            text-decoration: underline;
+        .faq-answer {
+            color: #1a1a2e;
+            line-height: 1.7;
         }
-        .faq-item p {
-            margin-top: 12px;
+        ul, ol {
+            margin-left: 1.5em;
+            margin-bottom: 1em;
+        }
+        li {
+            margin-bottom: 0.5em;
         }
         code {
-            background-color: #f0f4ff;
+            background-color: #f0f4f8;
             padding: 2px 6px;
-            border-radius: 3px;
+            border-radius: 4px;
             font-family: 'Courier New', monospace;
             color: #2563eb;
         }
-        .example-box {
-            background-color: #f0f4ff;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 15px 0;
-            border: 1px solid #2563eb;
-        }
-        ul {
-            margin: 15px 0 15px 30px;
-        }
-        li {
-            margin: 8px 0;
-        }
-        .cta-box {
-            background-color: #f0f4ff;
-            padding: 20px;
-            border-radius: 6px;
-            text-align: center;
-            margin: 30px 0;
-            border: 2px solid #2563eb;
-        }
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            color: #666;
-            font-size: 0.9em;
+        .highlight {
+            background-color: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 3px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Base64 – Was ist Base64 und wie funktioniert es?</h1>
+        <h1>Base64 Was Ist Das und Wie Funktioniert Es – Vollständiger Leitfaden</h1>
         
         <div class="intro">
-            <p><strong>Base64</strong> ist ein Kodierungssystem, das Binärdaten in ein textbasiertes Format umwandelt. Es wird überall im Internet verwendet – von E-Mail-Anhängen bis zu Datenübertragungen. In diesem Artikel erklären wir dir einfach und verständlich, wie Base64 funktioniert und warum es so wichtig ist.</p>
+            <p>Base64 ist ein weit verbreitetes Kodierungssystem, das binäre Daten in ein textbasiertes Format umwandelt. Ob beim Versand von E-Mail-Anhängen, der Übertragung von Bildern im Web oder dem Speichern sensibler Daten – Base64 spielt eine wichtige Rolle in der digitalen Welt. In diesem Leitfaden erklären wir dir die Grundlagen und zeigen dir praktische Anwendungen.</p>
         </div>
 
-        <h2>Was ist Base64?</h2>
-        <p>Base64 ist ein Verschlüsselungsverfahren, das binäre Daten in ein lesbares Textformat umwandelt. Der Name kommt daher, dass das System 64 verschiedene Zeichen verwendet: die 26 Großbuchstaben (A-Z), die 26 Kleinbuchstaben (a-z), die 10 Ziffern (0-9) sowie zwei Sonderzeichen (+ und /).</p>
-        
-        <p>Die Kodierung ermöglicht es, beliebige binäre Daten – wie Bilder, Dateien oder andere Medieninhalte – in Textform darzustellen. Dies ist besonders nützlich, wenn Daten über textbasierte Systeme wie E-Mail oder HTTP übertragen werden müssen.</p>
+        <a href="/base64-cos-e-come-funziona.html" class="tool-link">🔧 Base64 Converter Tool öffnen</a>
 
-        <h2>Wie funktioniert Base64?</h2>
+        <h2>Was Ist Base64 Überhaupt?</h2>
         
-        <h3>Das Grundprinzip</h3>
-        <p>Base64 funktioniert, indem es 3 Byte (24 Bit) Eingabedaten in 4 Ausgabezeichen umwandelt. Das System arbeitet mit folgendem Prozess:</p>
+        <p>Base64 ist ein <span class="highlight">Kodierungsstandard</span>, der jedes beliebige binäre Datenmuster in ASCII-Textzeichen umwandelt. Das System nutzt nur 64 sichere Zeichen – daher der Name „Base64". Diese Zeichen sind die Ziffern 0-9, die Buchstaben A-Z, a-z und die Symbole + und /.</p>
+
+        <p>Der Hauptzweck von Base64 ist es, binäre Daten so zu kodieren, dass sie problemlos über Textmedien übertragen werden können. Dies ist besonders wichtig, da viele ältere Kommunikationssysteme nur Text verarbeiten können.</p>
+
+        <h2>Wie Funktioniert Base64-Kodierung?</h2>
+
+        <h3>Die Grundlagen des Prozesses</h3>
         
+        <p>Die Base64-Kodierung basiert auf einem einfachen mathematischen Konzept:</p>
+
+        <ol>
+            <li><strong>Binäre Umwandlung:</strong> Der ursprüngliche Text oder die Datei wird zunächst in Binärzahlen (0 und 1) umgewandelt.</li>
+            <li><strong>Aufteilen in Gruppen:</strong> Die Binärzahlen werden in Gruppen à 6 Bits aufgeteilt.</li>
+            <li><strong>Dezimalkonvertierung:</strong> Jede 6-Bit-Gruppe wird in eine Dezimalzahl (0-63) umgewandelt.</li>
+            <li><strong>Zeichenzuordnung:</strong> Jede Dezimalzahl wird einem Base64-Zeichen zugeordnet.</li>
+        </ol>
+
+        <h3>Praktisches Beispiel</h3>
+
+        <p>Das Wort „Hallo" wird wie folgt kodiert:</p>
         <ul>
-            <li>Die Eingabedaten werden in 6-Bit-Gruppen aufgeteilt</li>
-            <li>Jede 6-Bit-Gruppe wird als Dezimalzahl interpretiert (0-63)</li>
-            <li>Diese Zahlen werden dann mit der Base64-Tabelle abgeglichen</li>
-            <li>Das Ergebnis ist eine neue Zeichenkette aus Base64-Zeichen</li>
+            <li>Original: <code>Hallo</code></li>
+            <li>Base64: <code>SGFsbG8=</code></li>
         </ul>
 
-        <div class="example-box">
-            <h3>Praktisches Beispiel</h3>
-            <p>Das Wort <code>"Hallo"</code> in ASCII:</p>
-            <p><strong>Original:</strong> H a l l o<br>
-            <strong>Base64:</strong> SGFsbG8=</p>
-            <p>Das Gleichheitszeichen (=) am Ende ist ein Padding-Zeichen, das verwendet wird, um die Ausgabe auf ein Vielfaches von 4 Zeichen zu bringen.</p>
-        </div>
+        <p>Das Gleichheitszeichen (=) am Ende wird als <strong>Padding-Zeichen</strong> verwendet, um sicherzustellen, dass die kodierte Zeichenkette die richtige Länge hat.</p>
 
-        <h2>Wofür wird Base64 verwendet?</h2>
-        <p>Base64 hat viele praktische Anwendungen im digitalen Alltag:</p>
-        
+        <h2>Praktische Anwendungen von Base64</h2>
+
+        <h3>E-Mail und Anhänge</h3>
+        <p>E-Mail-Systeme verwenden Base64 zur Kodierung von Anhängen. Dies ermöglicht es, Bilder, Dokumente und andere Dateien sicher als Text zu versenden.</p>
+
+        <h3>Datenübertragung im Web</h3>
+        <p>Web-APIs und Webdienste nutzen Base64, um Bilder und Binärdaten in JSON- oder XML-Dokumenten einzubetten, ohne externe Dateien verlinken zu müssen.</p>
+
+        <h3>Datenspeicherung</h3>
+        <p>Manche Datenbanken speichern Bilddaten und andere Binärdateien als Base64-kodierte Zeichenketten, um Kompatibilität zu gewährleisten.</p>
+
+        <h3>Authentifizierung</h3>
+        <p>HTTP Basic Authentication kodiert Benutzernamen und Passwörter in Base64, um sie in HTTP-Headern zu übertragen.</p>
+
+        <h2>Einfache Kodierung und Dekodierung</h2>
+
+        <p>Möchtest du Text in Base64 kodieren oder dekodieren? Unser <a href="/base64-cos-e-come-funziona.html" class="tool-link" style="display: inline;">kostenloses Online-Tool</a> macht dies in Sekunden.</p>
+
+        <p>Einfach deinen Text oder deine Base64-kodierte Zeichenkette eingeben und das Tool zeigt dir das Ergebnis sofort an. Keine Installation, keine Registrierung – direkt online verfügbar!</p>
+
+        <h2>Wichtige Punkte zu Base64</h2>
+
         <ul>
-            <li><strong>E-Mail-Anhänge:</strong> Binäre Dateien werden kodiert, um sie sicher per E-Mail zu versenden</li>
-            <li><strong>Datenübertragung:</strong> APIs und Webservices nutzen Base64 für sichere Datenübertragung</li>
-            <li><strong>Bilder in HTML:</strong> Kleine Bilder werden direkt in HTML eingebettet</li>
-            <li><strong>Authentifizierung:</strong> HTTP Basic Auth verwendet Base64 für Anmeldedaten</li>
-            <li><strong>Datenkompression:</strong> Reduziert Speicherbedarf bei bestimmten Datentypen</li>
+            <li><strong>Nicht verschlüsselt:</strong> Base64 ist eine Kodierung, keine Verschlüsselung. Jeder kann Base64-Daten dekodieren.</li>
+            <li><strong>Größenzunahme:</strong> Base64-kodierte Daten sind etwa 33% größer als die Originaldaten.</li>
+            <li><strong>Universell kompatibel:</strong> Base64 funktioniert auf allen Systemen und Plattformen.</li>
+            <li><strong>Schnelle Verarbeitung:</strong> Die Kodierung und Dekodierung sind rechnerisch günstig und schnell.</li>
         </ul>
 
-        <div class="cta-box">
-            <p><strong>Möchtest du Text oder Daten in Base64 kodieren oder dekodieren?</strong></p>
-            <a href="https://tool4u.org/base64-cos-e-come-funziona.html" class="tool-link">Base64 Tool verwenden</a>
-        </div>
-
-        <h2>Praktische Tipps zum Umgang mit Base64</h2>
-        
-        <h3>Base64 für Bilder nutzen</h3>
-        <p>Kleine Bilder kannst du direkt in deinen HTML-Code einbetten, ohne externe Dateien zu verlinken. Das spart HTTP-Anfragen und beschleunigt Webseiten.</p>
-
-        <h3>Sicherheit bei Base64</h3>
-        <p>Wichtig: Base64 ist <strong>keine Verschlüsselung</strong>! Es ist nur eine Kodierung. Wer die Base64-Zeichenkette hat, kann sie leicht dekodieren. Für sensible Daten solltest du echte Verschlüsselung verwenden.</p>
-
-        <h3>Größe der kodierten Daten</h3>
-        <p>Kodierte Base64-Daten sind etwa 33% größer als die Originaldaten. Dies solltest du bei der Planung von Datenübertragungen berücksichtigen.</p>
-
-        <h2>Häufig gestellte Fragen (FAQ)</h2>
+        <h2>Häufig Gestellte Fragen (FAQ)</h2>
 
         <div class="faq-item">
-            <details>
-                <summary>Ist Base64 eine Verschlüsselung?</summary>
-                <p>Nein, Base64 ist eine Kodierung, nicht eine Verschlüsselung. Es wandelt Daten in ein anderes Format um, bietet aber keinen Schutz vor Unbefugten. Wer Base64-Daten hat, kann sie leicht dekodieren. Für echte Sicherheit benötigst du Verschlüsselungsverfahren wie AES oder RSA.</p>
-            </details>
+            <div class="faq-question">Ist Base64 eine sichere Verschlüsselungsmethode?</div>
+            <div class="faq-answer">Nein, Base64 ist <strong>keine</strong> Verschlüsselungsmethode. Es ist lediglich eine Kodierung, die Daten in ein anderes Format umwandelt. Jeder kann Base64-kodierte Daten problemlos dekodieren. Für sensitive Daten solltest du echte Verschlüsselung wie AES verwenden.</div>
         </div>
 
         <div class="faq-item">
-            <details>
-                <summary>Kann ich Base64 online dekodieren?</summary>
-                <p>Ja, absolut! Mit unserem <a href="https://tool4u.org/base64-cos-e-come-funziona.html">Base64 Tool</a> kannst du beliebige Base64-Strings einfach und schnell dekodieren. Gib einfach die kodierte Zeichenkette ein und erhalte sofort das Ergebnis.</p>
-            </details>
+            <div class="faq-question">Warum wird Base64 verwendet, wenn es keine Sicherheit bietet?</div>
+            <div class="faq-answer">Base64 macht Daten kompatibel mit Textmedien. Viele ältere Systeme können nur ASCII-Text verarbeiten. Base64 ermöglicht es, binäre Daten über diese Kanäle zu versenden, ohne dass sie beschädigt werden. Es geht um Kompatibilität, nicht um Sicherheit.</div>
         </div>
 
         <div class="faq-item">
-            <details>
-                <summary>Warum hat Base64 immer Gleichheitszeichen am Ende?</summary>
-                <p>Die Gleichheitszeichen (=) am Ende sind Padding-Zeichen. Sie werden hinzugefügt, um sicherzustellen, dass die Ausgabe immer ein Vielfaches von 4 Zeichen ist. Dies ist notwendig, weil Base64 in 4er-Gruppen arbeitet und die Eingabedaten nicht immer perfekt aufteilen.</p>
-            </details>
+            <div class="faq-question">Kann ich Base64 verwenden, um meine Passwörter zu schützen?</div>
+            <div class="faq-answer">Absolut nicht! Base64 ist dafür völlig ungeeignet. Passwörter sollten mit starken Hashing-Algorithmen wie bcrypt oder Argon2 geschützt werden. Base64 würde dein Passwort eher gefährden, da es sofort dekodiert werden kann.</div>
         </div>
 
         <div class="faq-item">
-            <details>
-                <summary>Kann ich Base64 für große Dateien verwenden?</summary>
-                <p>Technisch ja, aber es ist nicht ideal. Base64 vergrößert die Dateigröße um etwa 33%. Bei großen Dateien ist es besser, binäre Formate direkt zu übertragen oder sie zu komprimieren. Base64 eignet sich besser für kleine bis mittlere Datenmengen.</p>
-            </details>
+            <div class="faq-question">Wie groß wird eine Base64-kodierte Datei?</div>
+            <div class="faq-answer">Eine Base64-kodierte Datei ist etwa 33-37% größer als die Originaldatei. Dies liegt daran, dass drei Byte Rohdaten in vier Base64-Zeichen kodiert werden. Für eine 100 KB Datei solltest du mit etwa 133-137 KB gerechnet.</div>
         </div>
 
         <div class="faq-item">
-            <details>
-                <summary>Wo werden die 64 Zeichen in Base64 verwendet?</summary>
-                <p>Die 64 Zeichen sind: A-Z (26), a-z (26), 0-9 (10), + (1) und / (1). Jedes dieser Zeichen repräsentiert einen Wert von 0-63. Das 65. Zeichen ist das Gleichheitszeichen (=) für das Padding. Diese 64 Zeichen ermöglichen es, jede 6-Bit-Kombination eindeutig darzustellen.</p>
-            </details>
+            <div class="faq-question">Kann ich jede Datei in Base64 kodieren?</div>
+            <div class="faq-answer">Ja, absolut! Base64 kann jeden Dateityp kodieren – Bilder, Videos, PDFs, Dokumente, Audio-Dateien und alles andere. Begrenzt wirst du eher durch die Speichergröße deines Systems als durch Base64 selbst.</div>
         </div>
 
         <h2>Fazit</h2>
-        <p>Base64 ist ein fundamentales Kodierungssystem, das überall in der modernen Datenverarbeitung verwendet wird. Es ermöglicht die sichere Übertragung binärer Daten über textbasierte Kanäle. Obwohl Base64 keine echte Verschlüsselung ist, bleibt es ein unverzichtbares Werkzeug für Webentwickler, IT-Spezialisten und alle, die mit Datenübertragung arbeiten.</p>
 
-        <p>Mit unserem <a href="https://tool4u.org/base64-cos-e-come-funziona.html">Base64 Tool</a> kannst du schnell und einfach zwischen normalen Daten und Base64 kodieren und dekodieren – vollständig online und kostenlos!</p>
+        <p>Base64 ist ein unverzichtbarer Standard in der modernen digitalen Kommunikation. Es bietet eine einfache, effiziente Möglichkeit, binäre Daten in textbasierte Formate umzuwandeln, ohne dass sie beschädigt werden. Während es keine Sicherheit bietet, ist es für Kompatibilität und Datenintegrität unschlagbar.</p>
 
-        <footer>
-            <p>&copy; 2024 tool4u.org – Alle Rechte vorbehalten. | <a href="https://tool4u.org/base64-cos-e-come-funziona.html">Base64 Tool</a></p>
-        </footer>
+        <p>Probiere unser <a href="/base64-cos-e-come-funziona.html" class="tool-link" style="display: inline;">Base64-Tool</a> noch heute aus und erlebe, wie einfach Kodierung und Dekodierung sein kann!</p>
+
     </div>
 
     <script type="application/ld+json">
@@ -240,46 +220,47 @@
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "Ist Base64 eine Verschlüsselung?",
+                "name": "Ist Base64 eine sichere Verschlüsselungsmethode?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Nein, Base64 ist eine Kodierung, nicht eine Verschlüsselung. Es wandelt Daten in ein anderes Format um, bietet aber keinen Schutz vor Unbefugten. Wer Base64-Daten hat, kann sie leicht dekodieren. Für echte Sicherheit benötigst du Verschlüsselungsverfahren wie AES oder RSA."
+                    "text": "Nein, Base64 ist keine Verschlüsselungsmethode. Es ist lediglich eine Kodierung, die Daten in ein anderes Format umwandelt. Jeder kann Base64-kodierte Daten problemlos dekodieren. Für sensitive Daten solltest du echte Verschlüsselung wie AES verwenden."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Kann ich Base64 online dekodieren?",
+                "name": "Warum wird Base64 verwendet, wenn es keine Sicherheit bietet?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Ja, absolut! Mit dem Base64 Tool kannst du beliebige Base64-Strings einfach und schnell dekodieren. Gib einfach die kodierte Zeichenkette ein und erhalte sofort das Ergebnis."
+                    "text": "Base64 macht Daten kompatibel mit Textmedien. Viele ältere Systeme können nur ASCII-Text verarbeiten. Base64 ermöglicht es, binäre Daten über diese Kanäle zu versenden, ohne dass sie beschädigt werden. Es geht um Kompatibilität, nicht um Sicherheit."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Warum hat Base64 immer Gleichheitszeichen am Ende?",
+                "name": "Kann ich Base64 verwenden, um meine Passwörter zu schützen?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Die Gleichheitszeichen (=) am Ende sind Padding-Zeichen. Sie werden hinzugefügt, um sicherzustellen, dass die Ausgabe immer ein Vielfaches von 4 Zeichen ist. Dies ist notwendig, weil Base64 in 4er-Gruppen arbeitet und die Eingabedaten nicht immer perfekt aufteilen."
+                    "text": "Absolut nicht! Base64 ist dafür völlig ungeeignet. Passwörter sollten mit starken Hashing-Algorithmen wie bcrypt oder Argon2 geschützt werden. Base64 würde dein Passwort eher gefährden, da es sofort dekodiert werden kann."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Kann ich Base64 für große Dateien verwenden?",
+                "name": "Wie groß wird eine Base64-kodierte Datei?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Technisch ja, aber es ist nicht ideal. Base64 vergrößert die Dateigröße um etwa 33%. Bei großen Dateien ist es besser, binäre Formate direkt zu übertragen oder sie zu komprimieren. Base64 eignet sich besser für kleine bis mittlere Datenmengen."
+                    "text": "Eine Base64-kodierte Datei ist etwa 33-37% größer als die Originaldatei. Dies liegt daran, dass drei Byte Rohdaten in vier Base64-Zeichen kodiert werden. Für eine 100 KB Datei solltest du mit etwa 133-137 KB gerechnet."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Wo werden die 64 Zeichen in Base64 verwendet?",
+                "name": "Kann ich jede Datei in Base64 kodieren?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Die 64 Zeichen sind: A-Z (26), a-z (26), 0-9 (10), + (1) und / (1). Jedes dieser Zeichen repräsentiert einen Wert von 0-63. Das 65. Zeichen ist das Gleichheitszeichen (=) für das Padding."
+                    "text": "Ja, absolut! Base64 kann jeden Dateityp kodieren – Bilder, Videos, PDFs, Dokumente, Audio-Dateien und alles andere. Begrenzt wirst du eher durch die Speichergröße deines Systems als durch Base64 selbst."
                 }
             }
         ]
     }
     </script>
+
 </body>
 </html>

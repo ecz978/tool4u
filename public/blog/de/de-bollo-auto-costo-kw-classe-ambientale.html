@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bollo Auto Kosten nach KW und Umweltklasse berechnen | Tool4u</title>
-    <meta name="description" content="Berechnen Sie die Kfz-Steuer (Bollo Auto) basierend auf KW, Hubraum und Umweltklasse. Kostenlos und schnell mit unserem Online-Rechner.">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="de">
+    <title>Kfz-Steuer Berechnen nach kW und Umweltklasse - Kosten Rechner</title>
+    <meta name="description" content="Berechnen Sie die Kfz-Steuer nach Leistung in kW und Umweltklasse. Erfahren Sie die genauen Kosten für Ihr Fahrzeug mit unserem kostenlosen Rechner.">
+    <meta name="keywords" content="Kfz-Steuer, Bollo Auto, kW Berechnung, Umweltklasse, Kfz-Kosten">
+    <meta property="og:title" content="Kfz-Steuer Berechnen nach kW und Umweltklasse">
+    <meta property="og:description" content="Kostenloser Rechner für die Berechnung der Kfz-Steuer basierend auf kW und Umweltklasse.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tool4u.org/bollo-auto-costo-kw-classe-ambientale.html">
     <style>
         * {
             margin: 0;
@@ -15,204 +18,186 @@
         }
         body {
             font-family: system-ui, -apple-system, sans-serif;
-            color: #1a1a2e;
             line-height: 1.6;
-            background-color: #f8f9fa;
+            color: #1a1a2e;
+            background-color: #f9fafb;
+            padding: 20px;
         }
-        main {
+        .container {
             max-width: 720px;
             margin: 0 auto;
-            padding: 20px;
             background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #1a1a2e;
-            font-size: 2.2em;
+            color: #2563eb;
             margin-bottom: 20px;
-            line-height: 1.3;
+            font-size: 2em;
+            line-height: 1.2;
         }
         h2 {
             color: #2563eb;
-            font-size: 1.6em;
             margin-top: 30px;
             margin-bottom: 15px;
-            border-bottom: 3px solid #2563eb;
-            padding-bottom: 10px;
+            font-size: 1.5em;
         }
         h3 {
             color: #1a1a2e;
-            font-size: 1.2em;
             margin-top: 20px;
             margin-bottom: 12px;
+            font-size: 1.2em;
         }
         p {
-            margin-bottom: 16px;
+            margin-bottom: 15px;
             text-align: justify;
         }
-        .intro-box {
-            background-color: #e3f2fd;
+        .intro {
+            background-color: #f0f7ff;
+            padding: 20px;
             border-left: 4px solid #2563eb;
-            padding: 16px;
-            margin: 20px 0;
+            margin-bottom: 25px;
             border-radius: 4px;
         }
-        .tool-cta {
+        .tool-link {
             display: inline-block;
             background-color: #2563eb;
             color: white;
-            padding: 14px 28px;
+            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
+            border-radius: 5px;
+            font-weight: bold;
             margin: 20px 0;
             transition: background-color 0.3s;
         }
-        .tool-cta:hover {
-            background-color: #1e40af;
+        .tool-link:hover {
+            background-color: #1d4ed8;
+        }
+        .tips {
+            background-color: #f3f4f6;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+        }
+        .tips ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .tips li {
+            margin-bottom: 10px;
+        }
+        .faq-section {
+            margin-top: 40px;
         }
         .faq-item {
-            margin: 20px 0;
-            padding: 16px;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            background-color: #fafafa;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
         }
         .faq-question {
             color: #2563eb;
-            font-weight: 600;
+            font-weight: bold;
             margin-bottom: 10px;
-            font-size: 1.1em;
+            cursor: pointer;
+            font-size: 1.05em;
         }
         .faq-answer {
             color: #1a1a2e;
-            line-height: 1.7;
-        }
-        ul {
-            margin: 16px 0 16px 24px;
-        }
-        li {
-            margin-bottom: 10px;
+            line-height: 1.8;
         }
         .highlight {
-            background-color: #fff3cd;
+            background-color: #fef3c7;
             padding: 2px 6px;
             border-radius: 3px;
         }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            color: #666;
-            font-size: 0.9em;
+        a {
+            color: #2563eb;
+            text-decoration: none;
         }
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        .comparison-table th,
-        .comparison-table td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        .comparison-table th {
-            background-color: #2563eb;
-            color: white;
-        }
-        .comparison-table tr:nth-child(even) {
-            background-color: #f5f5f5;
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <main>
-        <h1>Bollo Auto Kosten nach KW und Umweltklasse berechnen</h1>
+    <div class="container">
+        <h1>Kfz-Steuer Berechnen nach kW und Umweltklasse – Genaue Kostenberechnung</h1>
         
-        <div class="intro-box">
-            <p><strong>Die Kfz-Steuer (Bollo Auto) ist eine jährliche Abgabe, die jeden Fahrzeughalter betrifft.</strong> Doch wie wird diese eigentlich berechnet? Die Höhe hängt von mehreren Faktoren ab – insbesondere von der Motorleistung in KW und der Umweltklasse Ihres Fahrzeugs. Mit unserem kostenlosen Rechner erhalten Sie in Sekunden eine genaue Übersicht über Ihre Steuerverpflichtung.</p>
+        <div class="intro">
+            <p>Die Berechnung der Kfz-Steuer ist für viele Fahrzeughalter eine verwirrende Angelegenheit. Die Kosten hängen von mehreren Faktoren ab, insbesondere von der Leistung Ihres Fahrzeugs in Kilowatt (kW) und seiner Umweltklasse. Mit unserem praktischen Rechner erhalten Sie in wenigen Sekunden eine genaue Berechnung Ihrer jährlichen Kfz-Steuer.</p>
         </div>
 
-        <a href="https://tool4u.org/bollo-auto-costo-kw-classe-ambientale.html" class="tool-cta">🔧 Zur Bollo Auto Berechnung</a>
+        <h2>Das Problem: Unklare Kfz-Steuerkosten</h2>
+        <p>Viele Fahrzeughalter wissen nicht genau, wie sich ihre Kfz-Steuer zusammensetzt. Die Höhe der Steuer wird durch verschiedene Parameter bestimmt und kann je nach Fahrzeugtyp und Zulassungsdatum erheblich variieren. Ohne ein zuverlässiges Werkzeug ist es schwierig, die genauen Kosten vorher zu berechnen oder zu verstehen, wie viel Sie jährlich zahlen müssen.</p>
 
-        <h2>Das Problem: Verwirrung bei der Kfz-Steuer</h2>
-        <p>Viele Fahrzeughalter fragen sich, warum die Kfz-Steuer so unterschiedlich ausfallen kann. Während der eine für seinen Wagen 200 Euro zahlt, sind es bei einem ähnlichen Fahrzeug bereits 400 Euro. Der Grund liegt in der komplexen Berechnungsmethode, die sowohl die <span class="highlight">Motorleistung</span> als auch die <span class="highlight">Emissionsklasse</span> berücksichtigt.</p>
-
-        <p>Hinzu kommt: Die Regelungen unterscheiden sich regional und ändern sich regelmäßig. Eine manuelle Berechnung ist daher zeitaufwändig und fehleranfällig. Genau hier setzt unser Tool an.</p>
-
-        <h2>Wie funktioniert die Bollo Auto Berechnung?</h2>
+        <h2>Wie funktioniert die Kfz-Steuer?</h2>
+        <p>Die Kfz-Steuer basiert auf zwei Hauptfaktoren:</p>
         
-        <h3>Die Rolle der KW (Kilowatt)</h3>
-        <p>Die Motorleistung in Kilowatt ist einer der Hauptfaktoren für die Kfz-Steuer. Je höher die KW, desto höher die Steuer. Das System funktioniert nach Leistungsstufen – bei 50 KW beginnt die Berechnung und steigt dann progressiv an. Ein Motor mit 100 KW zahlt deutlich mehr als einer mit 60 KW.</p>
+        <h3>1. Motorleistung in Kilowatt (kW)</h3>
+        <p>Die Leistung Ihres Motors wird in Kilowatt gemessen und ist ein zentraler Faktor für die Steuerberechnung. Je höher die kW-Leistung, desto höher die Steuer. Der Satz für Kfz mit Ottomotor beträgt typischerweise einen bestimmten Betrag pro angefangene 100 kW.</p>
 
-        <h3>Die Bedeutung der Umweltklasse</h3>
-        <p>Die Umweltklasse (auch Emissionsklasse genannt) gibt an, wie viele Schadstoffe Ihr Fahrzeug ausstößt. Moderne Fahrzeuge mit Euro 5 oder Euro 6 Norm zahlen oft weniger Steuern als ältere Fahrzeuge mit Euro 2 oder Euro 3. Dies ist ein Anreiz, in umweltfreundlichere Fahrzeuge zu investieren.</p>
+        <h3>2. Umweltklasse (EURO-Standard)</h3>
+        <p>Die Umweltklasse bestimmt, wie umweltfreundlich Ihr Fahrzeug ist. Moderne Fahrzeuge mit besseren Emissionswerten profitieren oft von reduzierten Steuersätzen oder Steuervergünstigungen. Fahrzeuge mit älteren Standards zahlen typischerweise mehr.</p>
 
-        <h3>Unser Rechner in Aktion</h3>
-        <p>Unser <strong>Bollo Auto Kalkulator</strong> funktioniert ganz einfach:</p>
-        <ul>
-            <li>Geben Sie die <strong>Motorleistung in KW</strong> ein (z.B. 95 KW)</li>
-            <li>Wählen Sie die <strong>Umweltklasse</strong> Ihres Fahrzeugs</li>
-            <li>Erhalten Sie sofort die <strong>jährliche Steuer</strong></li>
-        </ul>
+        <p style="margin-top: 25px;"><strong>Nutzen Sie jetzt unseren kostenlosen Rechner:</strong></p>
+        <a href="/bollo-auto-costo-kw-classe-ambientale.html" class="tool-link">Zum Kfz-Steuer Rechner →</a>
 
-        <p>Das System berücksichtigt automatisch alle aktuellen Regelungen und liefert Ihnen ein präzises Ergebnis – kostenlos und ohne versteckte Gebühren.</p>
+        <h2>Praktische Tipps zur Kfz-Steuer</h2>
+        <div class="tips">
+            <h3>So sparen Sie bei der Kfz-Steuer:</h3>
+            <ul>
+                <li><span class="highlight">Wählen Sie spritsparende Fahrzeuge:</span> Autos mit niedrigerer kW-Leistung zahlen weniger Steuer</li>
+                <li><span class="highlight">Beachten Sie die Umweltklasse:</span> Achten Sie beim Kauf auf Fahrzeuge mit besseren Emissionswerten</li>
+                <li><span class="highlight">Überprüfen Sie Ihre Steuer regelmäßig:</span> Nicht jedes Fahrzeug wird korrekt bewertet – nutzen Sie unseren Rechner zur Kontrolle</li>
+                <li><span class="highlight">Berücksichtigen Sie Steuererleichterungen:</span> Für bestimmte Fahrzeuge (z.B. Elektroautos) gibt es Steuerbefreiungen</li>
+                <li><span class="highlight">Berechnen Sie vor dem Kauf:</span> Nutzen Sie den Rechner, um die Gesamtkosten eines Fahrzeugs zu bewerten</li>
+            </ul>
+        </div>
 
-        <a href="https://tool4u.org/bollo-auto-costo-kw-classe-ambientale.html" class="tool-cta">📊 Jetzt Ihre Bollo Auto berechnen</a>
+        <h2>Warum ist die genaue Berechnung wichtig?</h2>
+        <p>Die Kfz-Steuer ist eine regelmäßige Ausgabe, die Jahr für Jahr anfällt. Eine kleine Differenz bei der Berechnung kann über mehrere Jahre hinweg zu beträchtlichen Kosteneinsparungen oder Mehrausgaben führen. Deshalb ist es entscheidend, die exakten Kosten zu kennen und nicht auf ungenaue Schätzungen zu verlassen.</p>
 
-        <h2>Praktische Tipps zur Kfz-Steuer-Optimierung</h2>
-        
-        <h3>1. Fahrzeugklasse überprüfen</h3>
-        <p>Vergewissern Sie sich, dass Ihr Fahrzeug in die korrekte Emissionsklasse eingeordnet ist. Manchmal können Updates zu besseren Einstufungen führen.</p>
-
-        <h3>2. Gebrauchtkauf planen</h3>
-        <p>Wenn Sie ein gebrauchtes Fahrzeug kaufen möchten, kalkulieren Sie die Bollo Auto vorher mit unserem Rechner ein. Ein Auto mit weniger KW kann langfristig deutlich günstiger sein.</p>
-
-        <h3>3. Regelmäßige Wartung</h3>
-        <p>Eine regelmäßige Wartung und der Einsatz von Qualitätskraftstoff helfen, die Emissionsklasse zu stabilisieren oder sogar zu verbessern.</p>
-
-        <h3>4. Behördliche Unterstützung</h3>
-        <p>In einigen Regionen gibt es Unterstützungen oder Reduktionen für bestimmte Berufsgruppen oder Fahrzeugtypen. Informieren Sie sich bei Ihrer zuständigen Behörde.</p>
+        <p>Mit unserem Rechner auf <strong>tool4u.org</strong> erhalten Sie eine genaue, auf Ihren spezifischen Fahrzeugparametern basierende Berechnung. Geben Sie einfach die kW-Leistung und die Umweltklasse ein – schon erhalten Sie ein zuverlässiges Resultat.</p>
 
         <h2>Häufig gestellte Fragen (FAQ)</h2>
+        <div class="faq-section">
+            <div class="faq-item">
+                <div class="faq-question">❓ Wie oft muss ich die Kfz-Steuer zahlen?</div>
+                <div class="faq-answer">Die Kfz-Steuer wird in Deutschland typischerweise <strong>jährlich</strong> fällig. Sie zahlen die Steuer einmal pro Jahr an die zuständige Zulassungsstelle. Bei Ermächtigung des Finanzamts können auch halbjährliche oder monatliche Zahlungsweisen vereinbart werden.</div>
+            </div>
 
-        <div class="faq-item">
-            <div class="faq-question">Wie wird die Bollo Auto aus der KW-Leistung berechnet?</div>
-            <div class="faq-answer">Die Kfz-Steuer wird nach einem progressiven System berechnet. Es gibt verschiedene Leistungsstufen, bei denen die Abgabe ansteigt. Ein Fahrzeug mit 60 KW zahlt weniger als eines mit 100 KW. Unser Tool berücksichtigt alle Stufen automatisch.</div>
+            <div class="faq-item">
+                <div class="faq-question">❓ Kann ich meine Kfz-Steuer beeinflussen?</div>
+                <div class="faq-answer">Ja, teilweise. Sie können durch den Kauf eines spritsparenden Fahrzeugs mit niedrigerer kW-Leistung und besserer Umweltklasse die Steuer senken. Auch die Wahl von Elektrofahrzeugen kann zu erheblichen Steuereinsparungen oder sogar Steuerbefreiungen führen.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ Wie unterscheidet sich die Berechnung für alte und neue Fahrzeuge?</div>
+                <div class="faq-answer">Fahrzeuge, die vor dem 1. Juli 2009 zugelassen wurden, werden nach der alten Formel besteuert. Neuere Fahrzeuge nutzen ein anderes Berechnungssystem mit dem CO₂-Ausstoß als zusätzlichen Faktor. Unser Rechner berücksichtigt diese Unterschiede automatisch.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ Was genau bedeutet die Umweltklasse?</div>
+                <div class="faq-answer">Die Umweltklasse (EURO-Standard) gibt an, wie viele Schadstoffe ein Fahrzeug ausstößt. EURO 1 ist die älteste und EURO 6 die modernste Norm. Fahrzeuge mit besseren Umweltklassen erfüllen strengere Emissionsstandards und stoßen weniger Schadstoffe aus, weshalb sie oft Steuervergünstigungen erhalten.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ Ist die Berechnung des Rechners zuverlässig?</div>
+                <div class="faq-answer">Ja, unser Rechner nutzt die aktuellen, offiziellen Steuersätze und Berechnungsformeln. Für die genauesten Ergebnisse geben Sie die korrekte kW-Leistung und Umweltklasse Ihres Fahrzeugs ein, die Sie in der Fahrzeugzulassung finden. Der Rechner liefert dann eine genaue Schätzung Ihrer jährlichen Kfz-Steuer.</div>
+            </div>
         </div>
 
-        <div class="faq-item">
-            <div class="faq-question">Welche Umweltklasse hat mein Fahrzeug?</div>
-            <div class="faq-answer">Die Emissionsklasse finden Sie in Ihrem Fahrzeugschein unter Feld 15. Sie wird dort mit „Euro 2", „Euro 3", „Euro 4", „Euro 5" oder „Euro 6" angegeben. Neuere Fahrzeuge haben meistens mindestens Euro 5.</div>
+        <p style="margin-top: 30px; text-align: center;"><strong>Jetzt kostenlos berechnen und Klarheit schaffen:</strong></p>
+        <div style="text-align: center;">
+            <a href="/bollo-auto-costo-kw-classe-ambientale.html" class="tool-link">Kfz-Steuer Rechner öffnen</a>
         </div>
 
-        <div class="faq-item">
-            <div class="faq-question">Kann sich meine Bollo Auto von Jahr zu Jahr ändern?</div>
-            <div class="faq-answer">Ja, gesetzliche Änderungen können die Steuersätze beeinflussen. Allerdings bleibt sie für Ihr konkretes Fahrzeug meist stabil, solange sich weder KW noch Umweltklasse ändern. Nutzen Sie unseren Rechner regelmäßig, um auf dem Laufenden zu bleiben.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">Sind Elektrofahrzeuge von der Bollo Auto befreit?</div>
-            <div class="faq-answer">Viele Länder bieten Steuererleichterungen oder vollständige Befreiungen für E-Fahrzeuge an. Geben Sie in unserem Rechner einfach die entsprechenden Daten ein – wir berücksichtigen automatisch gültige Ermäßigungen.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">Gilt die berechnete Steuer in allen Ländern?</div>
-            <div class="faq-answer">Die Kfz-Steuer ist ein nationales System – sie unterscheidet sich von Land zu Land erheblich. Unser Tool ist auf die aktuellen Regelungen kalibriert. Überprüfen Sie jedoch lokal, ob Besonderheiten für Ihr Bundesland gelten.</div>
-        </div>
-
-        <h2>Fazit: Sicherheit bei der Steuererklärung</h2>
-        <p>Die Bollo Auto muss nicht kompliziert sein. Mit unserem kostenlosen Rechner erhalten Sie in Sekunden eine zuverlässige Übersicht – basierend auf Ihrer genauen KW-Leistung und Umweltklasse. Sparen Sie sich lange Recherchen und planen Sie Ihre Fahrzeugkosten transparent.</p>
-
-        <p><strong>Nutzen Sie jetzt unseren Bollo Auto Kalkulator und erfahren Sie, was Ihr Fahrzeug die Steuern kostet!</strong></p>
-
-        <a href="https://tool4u.org/bollo-auto-costo-kw-classe-ambientale.html" class="tool-cta">✅ Zum kostenlosen Tool</a>
-
-        <footer>
-            <p>&copy; 2024 Tool4u.org – Kostenlose Online-Rechner und Kalkulatoren</p>
-        </footer>
-    </main>
+        <p style="margin-top: 30px; font-size: 0.95em; color: #666; text-align: center;">Kostenlos und ohne Anmeldung – Der Kfz-Steuer Rechner von tool4u.org hilft Ihnen bei der genauen Berechnung Ihrer Fahrzeugsteuer basierend auf kW und Umweltklasse.</p>
+    </div>
 
     <script type="application/ld+json">
     {
@@ -221,42 +206,42 @@
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "Wie wird die Bollo Auto aus der KW-Leistung berechnet?",
+                "name": "Wie oft muss ich die Kfz-Steuer zahlen?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Die Kfz-Steuer wird nach einem progressiven System berechnet. Es gibt verschiedene Leistungsstufen, bei denen die Abgabe ansteigt. Ein Fahrzeug mit 60 KW zahlt weniger als eines mit 100 KW. Unser Tool berücksichtigt alle Stufen automatisch."
+                    "text": "Die Kfz-Steuer wird in Deutschland typischerweise jährlich fällig. Sie zahlen die Steuer einmal pro Jahr an die zuständige Zulassungsstelle. Bei Ermächtigung des Finanzamts können auch halbjährliche oder monatliche Zahlungsweisen vereinbart werden."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Welche Umweltklasse hat mein Fahrzeug?",
+                "name": "Kann ich meine Kfz-Steuer beeinflussen?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Die Emissionsklasse finden Sie in Ihrem Fahrzeugschein unter Feld 15. Sie wird dort mit Euro 2, Euro 3, Euro 4, Euro 5 oder Euro 6 angegeben. Neuere Fahrzeuge haben meistens mindestens Euro 5."
+                    "text": "Ja, teilweise. Sie können durch den Kauf eines spritsparenden Fahrzeugs mit niedrigerer kW-Leistung und besserer Umweltklasse die Steuer senken. Auch die Wahl von Elektrofahrzeugen kann zu erheblichen Steuereinsparungen oder sogar Steuerbefreiungen führen."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Kann sich meine Bollo Auto von Jahr zu Jahr ändern?",
+                "name": "Wie unterscheidet sich die Berechnung für alte und neue Fahrzeuge?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Ja, gesetzliche Änderungen können die Steuersätze beeinflussen. Allerdings bleibt sie für Ihr konkretes Fahrzeug meist stabil, solange sich weder KW noch Umweltklasse ändern. Nutzen Sie unseren Rechner regelmäßig, um auf dem Laufenden zu bleiben."
+                    "text": "Fahrzeuge, die vor dem 1. Juli 2009 zugelassen wurden, werden nach der alten Formel besteuert. Neuere Fahrzeuge nutzen ein anderes Berechnungssystem mit dem CO₂-Ausstoß als zusätzlichen Faktor. Unser Rechner berücksichtigt diese Unterschiede automatisch."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Sind Elektrofahrzeuge von der Bollo Auto befreit?",
+                "name": "Was genau bedeutet die Umweltklasse?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Viele Länder bieten Steuererleichterungen oder vollständige Befreiungen für E-Fahrzeuge an. Geben Sie in unserem Rechner einfach die entsprechenden Daten ein – wir berücksichtigen automatisch gültige Ermäßigungen."
+                    "text": "Die Umweltklasse (EURO-Standard) gibt an, wie viele Schadstoffe ein Fahrzeug ausstößt. EURO 1 ist die älteste und EURO 6 die modernste Norm. Fahrzeuge mit besseren Umweltklassen erfüllen strengere Emissionsstandards und stoßen weniger Schadstoffe aus, weshalb sie oft Steuervergünstigungen erhalten."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Gilt die berechnete Steuer in allen Ländern?",
+                "name": "Ist die Berechnung des Rechners zuverlässig?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Die Kfz-Steuer ist ein nationales System – sie unterscheidet sich von Land zu Land erheblich. Unser Tool ist auf die aktuellen Regelungen kalibriert. Überprüfen Sie jedoch lokal, ob Besonderheiten für Ihr Bundesland gelten."
+                    "text": "Ja, unser Rechner nutzt die aktuellen, offiziellen Steuersätze und Berechnungsformeln. Für die genauesten Ergebnisse geben Sie die korrekte kW-Leistung und Umweltklasse Ihres Fahrzeugs ein, die Sie in der Fahrzeugzulassung finden. Der Rechner liefert dann eine genaue Schätzung Ihrer jährlichen Kfz-Steuer."
                 }
             }
         ]

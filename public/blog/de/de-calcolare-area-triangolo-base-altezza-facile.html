@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dreiecksfläche berechnen: Base und Höhe einfach erklärt - Tool4u</title>
-    <meta name="description" content="Dreiecksfläche mit Base und Höhe einfach berechnen. Kostenloses Online-Tool mit Schritt-für-Schritt Anleitung und praktischen Tipps.">
+    <title>Dreieckfläche mit Basis und Höhe berechnen - Einfache Anleitung</title>
+    <meta name="description" content="Erfahren Sie, wie Sie die Fläche eines Dreiecks mit Basis und Höhe einfach berechnen. Kostenlos, schnell und zuverlässig mit unserem Online-Tool.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://tool4u.org/calcolare-area-triangolo-base-altezza-facile.html">
     <style>
@@ -15,111 +15,280 @@
         }
         body {
             font-family: system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
+            background-color: #f9fafb;
             color: #1a1a2e;
-            background: #f8f9fa;
+            line-height: 1.6;
         }
         .container {
             max-width: 720px;
             margin: 0 auto;
             padding: 20px;
-            background: white;
         }
-        h1 {
+        header {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        header h1 {
             font-size: 2.2em;
-            color: #1a1a2e;
-            margin-bottom: 20px;
-            line-height: 1.2;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        .intro {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         h2 {
-            font-size: 1.6em;
             color: #2563eb;
-            margin-top: 35px;
+            font-size: 1.6em;
+            margin-top: 30px;
             margin-bottom: 15px;
-            border-bottom: 3px solid #2563eb;
-            padding-bottom: 10px;
+            border-left: 4px solid #2563eb;
+            padding-left: 12px;
         }
         h3 {
-            font-size: 1.2em;
-            color: #1a1a2e;
+            color: #1e40af;
+            font-size: 1.3em;
             margin-top: 20px;
             margin-bottom: 12px;
         }
-        p {
-            margin-bottom: 15px;
-            text-align: justify;
+        .tool-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 2px solid #2563eb;
+            text-align: center;
         }
-        .intro {
-            background: #f0f7ff;
-            border-left: 4px solid #2563eb;
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 4px;
-        }
-        .tool-link {
+        .tool-btn {
             display: inline-block;
-            background: #2563eb;
+            background-color: #2563eb;
             color: white;
-            padding: 12px 28px;
+            padding: 14px 32px;
+            border-radius: 6px;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
             margin: 20px 0;
-            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
         }
-        .tool-link:hover {
-            background: #1d4ed8;
+        .tool-btn:hover {
+            background-color: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        .content {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .formula {
-            background: #f5f5f5;
-            border: 1px solid #ddd;
+            background: #f0f4ff;
+            border-left: 4px solid #2563eb;
             padding: 15px;
             margin: 20px 0;
-            border-radius: 5px;
-            font-family: monospace;
-            text-align: center;
-            font-size: 1.1em;
+            border-radius: 4px;
+            font-style: italic;
         }
-        .steps {
-            background: #fff9e6;
-            padding: 20px;
+        .tips {
+            background: #e8f4f8;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
             margin: 20px 0;
-            border-radius: 5px;
-            border-left: 4px solid #ffc107;
+            border-radius: 4px;
         }
-        .steps ol {
-            margin-left: 20px;
+        .tips strong {
+            color: #2563eb;
         }
-        .steps li {
-            margin-bottom: 12px;
+        .faq-section {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .faq-item {
-            background: #f9f9f9;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border-left: 4px solid #2563eb;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 20px;
         }
-        .faq-item h3 {
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-question {
             color: #2563eb;
-            margin-top: 0;
+            font-weight: 700;
+            font-size: 1.05em;
+            margin-bottom: 8px;
+            cursor: pointer;
         }
-        .tip {
-            background: #e8f5e9;
-            padding: 12px;
-            margin: 15px 0;
-            border-radius: 4px;
-            border-left: 4px solid #4caf50;
+        .faq-answer {
+            color: #4b5563;
+            line-height: 1.7;
+        }
+        .highlight {
+            background-color: #fef08a;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
         }
         footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
             text-align: center;
-            color: #666;
-            font-size: 0.9em;
+            padding: 20px;
+            color: #6b7280;
+            font-size: 0.95em;
+            margin-top: 40px;
+        }
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
         }
     </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Dreieckfläche mit Basis und Höhe berechnen</h1>
+            <p>Einfach, schnell und kostenlos</p>
+        </header>
+
+        <div class="intro">
+            <p>Die Berechnung der Fläche eines Dreiecks gehört zu den grundlegenden Aufgaben der Geometrie. Ob in der Schule, bei handwerklichen Projekten oder im Beruf – wissen zu müssen, wie viel Fläche ein Dreieck einnimmt, ist praktisch täglich relevant. Mit unserer einfachen Methode und dem kostenlosen Online-Tool wird diese Aufgabe zu einem Kinderspiel.</p>
+        </div>
+
+        <div class="tool-section">
+            <h2>Starten Sie jetzt – Berechnen Sie sofort</h2>
+            <p>Nutzen Sie unser kostenloses Tool für präzise Berechnungen in Sekunden:</p>
+            <a href="https://tool4u.org/calcolare-area-triangolo-base-altezza-facile.html" class="tool-btn">Zum Dreieckflächen-Tool →</a>
+            <p style="margin-top: 15px; font-size: 0.95em; color: #6b7280;">Kostenlos • Keine Anmeldung • Sofortige Ergebnisse</p>
+        </div>
+
+        <div class="content">
+            <h2>Wie funktioniert die Berechnung?</h2>
+            
+            <h3>Die Formel verstehen</h3>
+            <p>Die Fläche eines Dreiecks wird mit einer einfachen mathematischen Formel berechnet:</p>
+            
+            <div class="formula">
+                <strong>Fläche = (Basis × Höhe) ÷ 2</strong>
+            </div>
+
+            <p>Dabei ist:</p>
+            <ul>
+                <li><strong>Basis</strong> = die untere Seite des Dreiecks (beliebige Längeneinheit)</li>
+                <li><strong>Höhe</strong> = der senkrechte Abstand vom Dreieck zur Basis</li>
+            </ul>
+
+            <h3>Praktisches Beispiel</h3>
+            <p>Stellen Sie sich ein Dreieck mit einer Basis von <span class="highlight">8 Metern</span> und einer Höhe von <span class="highlight">6 Metern</span> vor:</p>
+            <ul>
+                <li>Rechnung: (8 × 6) ÷ 2 = 48 ÷ 2 = <strong>24 Quadratmeter</strong></li>
+            </ul>
+
+            <p>Das bedeutet, dass dieses Dreieck eine Fläche von 24 Quadratmetern einnimmt. Mit unserem <a href="https://tool4u.org/calcolare-area-triangolo-base-altezza-facile.html">Online-Rechner</a> sparen Sie sich diese manuelle Berechnung und erhalten das Ergebnis sofort.</p>
+        </div>
+
+        <div class="content">
+            <h2>Praktische Tipps für genaue Messungen</h2>
+            
+            <div class="tips">
+                <strong>💡 Hinweis:</strong> Die Höhe muss immer senkrecht zur Basis gemessen werden. Das ist eine häufige Fehlerquelle bei manuellen Messungen.
+            </div>
+
+            <h3>Schritt-für-Schritt-Anleitung</h3>
+            <ol>
+                <li><strong>Basis bestimmen:</strong> Messen Sie die untere Seite des Dreiecks genau aus</li>
+                <li><strong>Höhe messen:</strong> Nutzen Sie ein Lineal oder Messstab, um die senkrechte Distanz zur Basis zu ermitteln</li>
+                <li><strong>Einheiten prüfen:</strong> Stellen Sie sicher, dass Basis und Höhe in der gleichen Einheit (cm, m, etc.) angegeben sind</li>
+                <li><strong>Tool nutzen:</strong> Geben Sie beide Werte in unseren <a href="https://tool4u.org/calcolare-area-triangolo-base-altezza-facile.html">Dreieckflächen-Rechner</a> ein</li>
+                <li><strong>Ergebnis erhalten:</strong> Ihre Fläche wird sofort berechnet und angezeigt</li>
+            </ol>
+
+            <h3>Häufige Anwendungsfälle</h3>
+            <ul>
+                <li>Berechnung von Dachflächen bei Häusern</li>
+                <li>Landvermessung und Kartographie</li>
+                <li>Architektur und Bauwesen</li>
+                <li>Schulaufgaben und Mathematik-Unterricht</li>
+                <li>DIY-Projekte und Heimwerkerarbeiten</li>
+            </ul>
+        </div>
+
+        <div class="faq-section">
+            <h2>Häufig gestellte Fragen</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">❓ Was ist der Unterschied zwischen Basis und Höhe?</div>
+                <div class="faq-answer">
+                    Die Basis ist eine der drei Seiten des Dreiecks – üblicherweise die untere. Die Höhe ist der senkrechte (90-Grad) Abstand von dieser Basis zum gegenüber liegenden Eckpunkt des Dreiecks. Dieser Unterschied ist entscheidend für die korrekte Berechnung.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ Funktioniert die Formel bei allen Dreiecksarten?</div>
+                <div class="faq-answer">
+                    Ja, die Formel (Basis × Höhe) ÷ 2 funktioniert bei allen Dreiecksarten: gleichseitigen, gleichschenkligen, rechtwinkligen und unregelmäßigen Dreiecken. Wichtig ist nur, dass Sie die Höhe korrekt senkrecht zur gewählten Basis messen.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ Welche Einheiten sollte ich verwenden?</div>
+                <div class="faq-answer">
+                    Sie können jede Längeneinheit verwenden (Millimeter, Zentimeter, Meter, etc.), aber Basis und Höhe müssen in der gleichen Einheit angegeben sein. Das Ergebnis wird dann in Quadrateinheiten angegeben (z.B. Quadratmeter, Quadratzentimeter).
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ Kann die Höhe außerhalb des Dreiecks liegen?</div>
+                <div class="faq-answer">
+                    Bei stumpfwinkligen Dreiecken kann die Höhe tatsächlich außerhalb des Dreiecks liegen. Wenn Sie die Linie der Basis verlängern würde, fällt die senkrechte Höhe auf diese verlängerte Linie. Die Formel funktioniert trotzdem einwandfrei.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ Ist euer Tool kostenlos?</div>
+                <div class="faq-answer">
+                    Ja, unser <a href="https://tool4u.org/calcalore-area-triangolo-base-altezza-facile.html">Dreieckflächen-Rechner</a> ist vollständig kostenlos und erfordert keine Anmeldung. Sie können beliebig viele Berechnungen durchführen, ohne etwas zu bezahlen.
+                </div>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>Nutzen Sie unser kostenloses Tool</h2>
+            <p>Sparen Sie Zeit und Fehler mit unserem Online-Rechner:</p>
+            <a href="https://tool4u.org/calcolare-area-triangolo-base-altezza-facile.html" class="tool-btn">Jetzt Dreieckfläche berechnen →</a>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 tool4u.org | Alle Rechte vorbehalten | <a href="#">Datenschutz</a> | <a href="#">Impressum</a></p>
+        </footer>
+    </div>
+
+    <!-- Schema.org FAQPage Markup -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -127,26 +296,18 @@
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "Wie berechne ich die Dreiecksfläche mit Base und Höhe?",
+                "name": "Was ist der Unterschied zwischen Basis und Höhe?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Die Formel ist einfach: Fläche = (Base × Höhe) ÷ 2. Multiplizieren Sie die Base (Grundseite) mit der Höhe und teilen Sie das Ergebnis durch zwei."
+                    "text": "Die Basis ist eine der drei Seiten des Dreiecks – üblicherweise die untere. Die Höhe ist der senkrechte (90-Grad) Abstand von dieser Basis zum gegenüber liegenden Eckpunkt des Dreiecks."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Was ist die Höhe eines Dreiecks?",
+                "name": "Funktioniert die Formel bei allen Dreiecksarten?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Die Höhe ist die senkrechte Linie von der Base zur gegenüberliegenden Spitze des Dreiecks. Sie muss immer rechtwinklig zur Base stehen."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Funktioniert diese Formel bei allen Dreieckstypen?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Ja, die Formel (Base × Höhe) ÷ 2 funktioniert bei gleichseitigen, gleichschenkligen und ungleichseitigen Dreiecken gleichermaßen."
+                    "text": "Ja, die Formel (Basis × Höhe) ÷ 2 funktioniert bei allen Dreiecksarten: gleichseitigen, gleichschenkligen, rechtwinkligen und unregelmäßigen Dreiecken."
                 }
             },
             {
@@ -154,149 +315,50 @@
                 "name": "Welche Einheiten sollte ich verwenden?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Sie können jede Längeneinheit verwenden (cm, m, km). Das Ergebnis wird in Quadratunits ausgedrückt (cm², m², km²)."
+                    "text": "Sie können jede Längeneinheit verwenden (Millimeter, Zentimeter, Meter, etc.), aber Basis und Höhe müssen in der gleichen Einheit angegeben sein."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Kann ich das Tool ohne Registrierung nutzen?",
+                "name": "Kann die Höhe außerhalb des Dreiecks liegen?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Ja, unser Dreiecksfläche-Rechner ist kostenlos und erfordert keine Registrierung. Sie können ihn sofort nutzen."
+                    "text": "Bei stumpfwinkligen Dreiecken kann die Höhe tatsächlich außerhalb des Dreiecks liegen. Die Formel funktioniert trotzdem einwandfrei."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Ist euer Tool kostenlos?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Ja, unser Dreieckflächen-Rechner ist vollständig kostenlos und erfordert keine Anmeldung."
                 }
             }
         ]
     }
     </script>
-</head>
-<body>
-    <div class="container">
-        <h1>Dreiecksfläche berechnen: Base und Höhe einfach erklärt</h1>
-        
-        <div class="intro">
-            <p><strong>Die Berechnung der Dreiecksfläche ist eine Grundaufgabe der Geometrie.</strong> Ob in der Schule, im Studium oder in beruflichen Projekten – Sie benötigen oft eine schnelle und zuverlässige Methode, um die Fläche eines Dreiecks zu berechnen. Mit der richtigen Formel und unserem praktischen Online-Tool wird diese Aufgabe zum Kinderspiel.</p>
-        </div>
 
-        <h2>Das Problem: Warum ist die Flächenberechnung wichtig?</h2>
-        
-        <p>Die Dreiecksfläche ist nicht nur eine mathematische Übung. Sie brauchen diese Berechnung in vielen praktischen Situationen:</p>
-        
-        <ul style="margin-left: 20px; margin-bottom: 15px;">
-            <li>Beim Verstehen von Dachkonstruktionen in der Architektur</li>
-            <li>Bei der Berechnung von Gartenflächenbereichen</li>
-            <li>In technischen Zeichnungen und Bauplänen</li>
-            <li>Bei schulischen Mathematikaufgaben</li>
-            <li>In der Vermessungstechnik</li>
-        </ul>
-
-        <p>Ohne ein klares Verständnis oder ein zuverlässiges Werkzeug können Fehler passieren. Genau hier helfen wir Ihnen weiter.</p>
-
-        <h2>So funktioniert die Berechnung der Dreiecksfläche</h2>
-
-        <h3>Die Formel erklärt</h3>
-        
-        <p>Die Grundformel für die Berechnung einer Dreiecksfläche ist denkbar einfach:</p>
-
-        <div class="formula">
-            Fläche = (Base × Höhe) ÷ 2
-        </div>
-
-        <p>Was bedeutet das konkret?</p>
-        
-        <ul style="margin-left: 20px; margin-bottom: 15px;">
-            <li><strong>Base (Grundseite):</strong> Eine beliebige Seite des Dreiecks, die Sie als Grundlage wählen</li>
-            <li><strong>Höhe:</strong> Die senkrechte Entfernung von der Base zur gegenüberliegenden Spitze</li>
-        </ul>
-
-        <div class="tip">
-            <strong>Wichtig:</strong> Die Höhe muss immer rechtwinklig (90 Grad) zur Base stehen. Nur dann können Sie die Formel korrekt anwenden.
-        </div>
-
-        <h3>Praktische Schritt-für-Schritt Anleitung</h3>
-
-        <div class="steps">
-            <ol>
-                <li><strong>Messen Sie die Base:</strong> Bestimmen Sie die Länge der Grundseite in Ihrer gewählten Einheit (z.B. cm oder m)</li>
-                <li><strong>Messen Sie die Höhe:</strong> Ermitteln Sie die senkrechte Distanz von der Base zur Spitze</li>
-                <li><strong>Multiplizieren Sie:</strong> Base × Höhe rechnen</li>
-                <li><strong>Teilen Sie durch 2:</strong> Das Ergebnis durch zwei dividieren</li>
-                <li><strong>Notieren Sie die Einheit:</strong> Das Ergebnis in Quadrateinheiten ausdrücken (z.B. cm², m²)</li>
-            </ol>
-        </div>
-
-        <h3>Nutzen Sie unser praktisches Online-Tool</h3>
-
-        <p>Mathematik muss nicht kompliziert sein. Unser kostenloses Online-Tool nimmt Ihnen alle Rechenarbeit ab:</p>
-
-        <a href="https://tool4u.org/calcolare-area-triangolo-base-altezza-facile.html" class="tool-link">Zum Dreiecksfläche-Rechner →</a>
-
-        <p>Geben Sie einfach Ihre Base- und Höhe-Werte ein, und der Rechner liefert Ihnen sofort das Ergebnis. Keine Formeln, keine Fehlerrechnung – nur präzise Ergebnisse in Sekunden.</p>
-
-        <h2>Praktische Tipps und Tricks</h2>
-
-        <h3>Verschiedene Dreieckstypen</h3>
-
-        <p><strong>Gleichseitiges Dreieck:</strong> Alle Seiten sind gleich lang. Die Formel funktioniert genauso – geben Sie einfach eine beliebige Seite als Base und die entsprechende Höhe ein.</p>
-
-        <p><strong>Gleichschenkliges Dreieck:</strong> Zwei Seiten sind gleich lang. Verwenden Sie die unterschiedliche Seite als Base für eine einfachere Berechnung.</p>
-
-        <p><strong>Ungleichseitiges Dreieck:</strong> Keine Seite ist gleich lang. Hier können Sie jede Seite als Base wählen – das Ergebnis ist immer dasselbe.</p>
-
-        <h3>Häufige Fehler vermeiden</h3>
-
-        <div class="tip">
-            ❌ <strong>Falscher Fehler:</strong> Die Höhe über die Seitenlänge eines anderen Dreiecksseite messen<br>
-            ✓ <strong>Richtig:</strong> Nur die senkrechte Linie von der Base zur Spitze verwenden
-        </div>
-
-        <div class="tip">
-            ❌ <strong>Falscher Fehler:</strong> Vergessen, durch 2 zu teilen<br>
-            ✓ <strong>Richtig:</strong> Immer das Ergebnis von (Base × Höhe) durch 2 dividieren
-        </div>
-
-        <div class="tip">
-            ❌ <strong>Falscher Fehler:</strong> Verschiedene Einheiten mischen (z.B. cm und m)<br>
-            ✓ <strong>Richtig:</strong> Immer die gleiche Einheit für Base und Höhe verwenden
-        </div>
-
-        <h2>Häufig gestellte Fragen</h2>
-
-        <div class="faq-item">
-            <h3>Wie berechne ich die Dreiecksfläche mit Base und Höhe?</h3>
-            <p>Die Formel ist: Fläche = (Base × Höhe) ÷ 2. Multiplizieren Sie die Base (Grundseite) mit der Höhe und teilen Sie das Ergebnis durch zwei. Unser Online-Tool macht diese Berechnung automatisch für Sie.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Was ist die Höhe eines Dreiecks?</h3>
-            <p>Die Höhe ist die senkrechte Linie von der Base zur gegenüberliegenden Spitze des Dreiecks. Sie muss immer rechtwinklig (90 Grad) zur Base stehen. Die Höhe kann innerhalb oder außerhalb des Dreiecks liegen.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Funktioniert diese Formel bei allen Dreieckstypen?</h3>
-            <p>Ja, die Formel (Base × Höhe) ÷ 2 funktioniert bei gleichseitigen, gleichschenkligen und ungleichseitigen Dreiecken gleichermaßen. Sie arbeitet auch mit rechtwinkligen Dreiecken perfekt.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Welche Einheiten sollte ich verwenden?</h3>
-            <p>Sie können jede Längeneinheit verwenden: Zentimeter (cm), Meter (m), Kilometer (km), Zoll, Fuß usw. Das Ergebnis wird immer in Quadratunits ausgedrückt (cm², m², km² usw.).</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Kann ich das Tool ohne Registrierung nutzen?</h3>
-            <p>Ja, unser Dreiecksfläche-Rechner ist vollständig kostenlos und erfordert keine Registrierung oder Anmeldung. Sie können ihn sofort und unbegrenzt nutzen.</p>
-        </div>
-
-        <h2>Fazit: Dreiecksflächen schnell berechnen</h2>
-
-        <p>Die Berechnung der Dreiecksfläche mit Base und Höhe ist ein fundamentales mathematisches Konzept, das Sie mit unserer einfachen Anleitung und dem praktischen Online-Tool schnell meistern. Ob Sie Student, Handwerker oder Lehrer sind – Sie haben nun alle Werkzeuge, um präzise Ergebnisse zu erzielen.</p>
-
-        <p>Nutzen Sie unser kostenloses Tool, um Zeit zu sparen und Fehler zu vermeiden. Probieren Sie es jetzt aus – Sie werden sehen, wie einfach es ist!</p>
-
-        <a href="https://tool4u.org/calcolare-area-triangolo-base-altezza-facile.html" class="tool-link">Jetzt Dreiecksfläche berechnen →</a>
-
-        <footer>
-            <p>&copy; 2024 Tool4u.org – Kostenlose Online-Tools für Ihre Berechnungen</p>
-        </footer>
-    </div>
+    <!-- Article Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Dreieckfläche mit Basis und Höhe berechnen - Einfache Anleitung",
+        "description": "Erfahren Sie, wie Sie die Fläche eines Dreiecks mit Basis und Höhe einfach berechnen. Kostenlos, schnell und zuverlässig mit unserem Online-Tool.",
+        "image": "https://tool4u.org/triangle.jpg",
+        "author": {
+            "@type": "Organization",
+            "name": "tool4u.org"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "tool4u.org",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://tool4u.org/logo.png"
+            }
+        }
+    }
+    </script>
 </body>
 </html>
