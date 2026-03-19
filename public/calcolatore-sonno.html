@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Sonno - Cicli e Orario Ideale per Dormire</title>
+  <meta name="description" content="Calcola l'orario ideale per addormentarti o svegliarti rispettando i cicli di sonno di 90 minuti.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Sonno e Cicli",
+    "description": "Calcola l'orario ideale per addormentarti o svegliarti rispettando i cicli di sonno di 90 minuti.",
+    "url": "https://tool4u.org/calcolatore-sonno",
+    "applicationCategory": "HealthApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T7RECNQWSB');
+  </script>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --primary-light: #3b82f6;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --bg: #ffffff;
+      --bg-secondary: #f9fafb;
+      --text-primary: #1f2937;
+      --text-secondary: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    .nav {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0.8rem 1rem 0;
+    }
+
+    .nav a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover {
+      color: var(--primary-dark);
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .tool-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .tool-header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .tool-header p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+    }
+
+    .ad-slot {
+      background-color: var(--bg);
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tool-body {
+      background-color: var(--bg);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+    }
+
+    input[type="time"],
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background-color: var(--bg);
+      color: var(--text-primary);
+    }
+
+    input[type="time"]:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    input[type="time"]:invalid {
+      border-color: var(--danger);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    button {
+      flex: 1;
+      padding: 0.875rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 2px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--border);
+    }
+
+    .results {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 2px solid var(--border);
+    }
+
+    .results h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+    }
+
+    .results-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .result-item {
+      background-color: var(--bg-secondary);
+      border-left: 4px solid var(--primary);
+      padding: 1.25rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .result-item:hover {
+      box-shadow: var(--shadow);
+      transform: translateX(4px);
+    }
+
+    .result-time {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .result-cycles {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .result-info {
+      margin-top: 0.5rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .info-badge {
+      display: inline-block;
+      background-color: var(--primary-light);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+    }
+
+    .error {
+      background-color: #fee2e2;
+      color: var(--danger);
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--danger);
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .error.show {
+      display: block;
+    }
+
+    .tool-explanation {
+      background-color: var(--bg);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .tool-explanation h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .tool-explanation h3 {
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .tool-explanation p,
+    .tool-explanation li {
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .tool-explanation ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tool-explanation li {
+      margin-bottom: 0.5rem;
+    }
+
+    .email-capture {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .email-capture p {
+      font-size: 1.1rem;
+      margin-bottom: 1.25rem;
+      font-weight: 500;
+    }
+
+    .email-capture form {
+      display: flex;
+      gap: 0.75rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .email-capture input {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+
+    .email-capture input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .email-capture button {
+      padding: 0.75rem 1.5rem;
+      background-color: var(--success);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .email-capture button:hover {
+      background-color: #059669;
+      transform: translateY(-2px);
+    }
+
+    .tool-footer {
+      background-color: var(--bg);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      border-top: 2px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .tool-footer p {
+      margin-bottom: 0.75rem;
+    }
+
+    .tool-footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .tool-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .tool-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .tool-body {
+        padding: 1.5rem;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .email-capture form {
+        flex-direction: column;
+      }
+
+      .result-time {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="/">&larr; Tool4U.org</a>
+  </div>
+
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Sonno e Cicli</h1>
+      <p>Scopri l'orario ideale per addormentarti o svegliarti</p>
+    </div>
+
+    <div id="ad-slot-top" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-body">
+      <div id="error" class="error"></div>
+
+      <form id="sleepForm">
+        <div class="form-group">
+          <label for="orario">Orario sveglia o addormentamento</label>
+          <input 
+            type="time" 
+            id="orario" 
+            name="orario" 
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="tipo">Calcola orario di</label>
+          <select id="tipo" name="tipo" required>
+            <option value="">-- Seleziona un'opzione --</option>
+            <option value="sveglia">Addormentamento (conosco l'orario di sveglia)</option>
+            <option value="addormentamento">Sveglia (conosco l'orario di addormentamento)</option>
+          </select>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn-primary">Calcola</button>
+          <button type="reset" class="btn-secondary">Azzera</button>
+        </div>
+      </form>
+
+      <div id="results" class="results hidden">
+        <h2>Orari Consigliati</h2>
+        <div id="resultsList" class="results-list"></div>
+      </div>
+    </div>
+
+    <div id="ad-slot-middle" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-explanation">
+      <h2>Come Funziona il Calcolatore</h2>
+      
+      <h3>I Cicli del Sonno</h3>
+      <p>
+        Il sonno non è un processo uniforme. Durante la notte, il corpo attraversa cicli di sonno ricorrenti, 
+        ciascuno della durata di circa <strong>90 minuti</strong>. Completare interi cicli è fondamentale 
+        per svegliarsi riposati e vitali.
+      </p>
+
+      <h3>Come Calcolare</h3>
+      <ul>
+        <li><strong>Se conosci l'orario di sveglia:</strong> Il calcolatore sottrae multipli di 90 minuti 
+        (più 15 minuti per addormentarsi) dall'orario desiderato, suggerendoti i migliori orari per andare a dormire.</li>
+        <li><strong>Se conosci l'orario di addormentamento:</strong> Il calcolatore aggiunge multipli di 90 minuti 
+        all'orario in cui vuoi coricarti, suggerendoti gli orari migliori per svegliarti.</li>
+      </ul>
+
+      <h3>Perché 15 Minuti?</h3>
+      <p>
+        Il nostro algoritmo aggiunge 15 minuti al calcolo per tenere conto del tempo medio necessario 
+        per addormentarsi. Questo valore è basato su studi del sonno e varia leggermente da persona a persona.
+      </p>
+
+      <h3>Quante Opzioni Visualizzare?</h3>
+      <p>
+        Il calcolatore mostra 4-6 opzioni di orari, permettendoti di scegliere quella più adatta alla tua 
+        situazione. Idealmente, dovresti completare <strong>4-6 cicli per notte</strong> (6-9 ore).
+      </p>
+
+      <h3>Consigli Utili</h3>
+      <ul>
+        <li>Mantieni una routine regolare, andando a letto e svegliandoti sempre alla stessa ora.</li>
+        <li>Evita schermi luminosi 30 minuti prima di dormire.</li>
+        <li>Riduci caffeina e alcol nelle ore serali.</li>
+        <li>Crea un ambiente tranquillo, fresco e buio.</li>
+        <li>Se posticipare il risveglio di 5-10 minuti è inevitabile, lo è comunque meglio che interrompere un ciclo.</li>
+      </ul>
+    </div>
+
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+
+    <div id="ad-slot-bottom" class="ad-slot">
+      Spazio pubblicitario
+    </div>
+
+    <div class="tool-footer">
+      <p>
+        <strong>Disclaimer:</strong> Questo calcolatore è uno strumento educativo e non sostituisce il 
+        consiglio di un medico o professionista del sonno. Ogni persona ha esigenze di sonno diverse. 
+        Consulta un esperto se hai problemi di sonno persistenti.
+      </p>
+      <p>
+        &copy; 2024 Tool4U.org | Tutti i diritti riservati | 
+        <a href="/">Home</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const CYCLE_MINUTES = 90;
+    const FALL_ASLEEP_MINUTES = 15;
+    const MIN_CYCLES = 4;
+    const MAX_CYCLES = 6;
+
+    const sleepForm = document.getElementById('sleepForm');
+    const orarioInput = document.getElementById('orario');
+    const tipoSelect = document.getElementById('tipo');
+    const resultsDiv = document.getElementById('results');
+    const resultsListDiv = document.getElementById('resultsList');
+    const errorDiv = document.getElementById('error');
+
+    sleepForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      calculateSleep();
+    });
+
+    function calculateSleep() {
+      errorDiv.classList.remove('show');
+      resultsDiv.classList.add('hidden');
+
+      const orario = orarioInput.value;
+      const tipo = tipoSelect.value;
+
+      if (!orario || !tipo) {
+        showError('Per favore compila tutti i campi.');
+        return;
+      }
+
+      try {
+        const results = computeSleepTimes(orario, tipo);
+        displayResults(results, tipo);
+      } catch (error) {
+        showError('Si è verificato un errore nel calcolo. Riprova.');
+        console.error(error);
+      }
+    }
+
+    function computeSleepTimes(timeString, type) {
+      const [hours, minutes] = timeString.split(':').map(Number);
+      const referenceDate = new Date(2024, 0, 1, hours, minutes, 0);
+
+      const results = [];
+
+      if (type === 'sveglia') {
+        // L'utente fornisce l'orario di sveglia, calcoliamo gli orari per addormentarsi
+        for (let cycles = MIN_CYCLES; cycles <= MAX_CYCLES; cycles++) {
+          const totalMinutesToSubtract = (cycles * CYCLE_MINUTES) + FALL_ASLEEP_MINUTES;
+          const bedtimeDate = new Date(referenceDate.getTime() - totalMinutesToSubtract * 60000);
+          
+          results.push({
+            time: formatTime(bedtimeDate),
+            cycles: cycles,
+            duration: cycles * CYCLE_MINUTES,
+            type: 'bedtime'
+          });
+        }
+      } else if (type === 'addormentamento') {
+        // L'utente fornisce l'orario di addormentamento, calcoliamo gli orari per svegliarsi
+        const adjustedDate = new Date(referenceDate.getTime() + FALL_ASLEEP_MINUTES * 60000);
+        
+        for (let cycles = MIN_CYCLES; cycles <= MAX_CYCLES; cycles++) {
+          const totalMinutesToAdd = cycles * CYCLE_MINUTES;
+          const wakeupDate = new Date(adjustedDate.getTime() + totalMinutesToAdd * 60000);
+          
+          results.push({
+            time: formatTime(wakeupDate),
+            cycles: cycles,
+            duration: cycles * CYCLE_MINUTES,
+            type: 'wakeup'
+          });
+        }
+      }
+
+      return results;
+    }
+
+    function formatTime(date) {
+      const h = String(date.getHours()).padStart(2, '0');
+      const m = String(date.getMinutes()).padStart(2, '0');
+      return `${h}:${m}`;
+    }
+
+    function displayResults(results, tipo) {
+      resultsListDiv.innerHTML = '';
+
+      const heading = tipo === 'sveglia' 
+        ? 'Orari Consigliati per Addormentarsi' 
+        : 'Orari Consigliati per Svegliarsi';
+
+      const section = resultsDiv.querySelector('h2');
+      if (section) {
+        section.textContent = heading;
+      }
+
+      results.forEach((result, index) => {
+        const item = document.createElement('div');
+        item.className = 'result-item';
+
+        const timeDiv = document.createElement('div');
+        timeDiv.className = 'result-time';
+        timeDiv.textContent = result.time;
+
+        const cyclesDiv = document.createElement('div');
+        cyclesDiv.className = 'result-cycles';
+        cyclesDiv.textContent = `${result.cycles} cicli di sonno`;
+
+        const durationDiv = document.createElement('div');
+        durationDiv.className = 'result-info';
+        const hours = Math.floor(result.duration / 60);
+        const mins = result.duration % 60;
+        durationDiv.textContent = `Durata: ${hours}h ${mins}m`;
+
+        const badge = document.createElement('span');
+        badge.className = 'info-badge';
+        
+        if (result.cycles === 5) {
+          badge.textContent = '⭐ Ideale';
+          badge.style.backgroundColor = 'var(--success)';
+        } else if (result.cycles === 4 || result.cycles === 6) {
+          badge.textContent = '✓ Buono';
+        } else {
+          badge.textContent = result.cycles + ' cicli';
+        }
+
+        item.appendChild(timeDiv);
+        item.appendChild(cyclesDiv);
+        item.appendChild(durationDiv);
+        item.appendChild(badge);
+
+        resultsListDiv.appendChild(item);
+      });
+
+      resultsDiv.classList.remove('hidden');
+      resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showError(message) {
+      errorDiv.textContent = message;
+      errorDiv.classList.add('show');
+    }
+
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'calcolatore-sonno' })
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:#10b981; font-weight:600;">✓ Iscritto con successo!</p>';
+      }).catch(() => {
+        // Fallback: mostra comunque il messaggio di successo
+        e.target.innerHTML = '<p style="color:#10b981; font-weight:600;">✓ Iscritto con successo!</p>';
+      });
+
+      return false;
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
