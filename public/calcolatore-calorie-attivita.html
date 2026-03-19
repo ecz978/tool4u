@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Calorie Bruciate - Sport e Attività Fisica</title>
+  <meta name="description" content="Scopri quante calorie bruci correndo, nuotando, in bici o durante altre attività fisiche. Calcolo facile e veloce basato su peso, tipo di attività e durata.">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Calorie Bruciate",
+    "description": "Calcola le calorie bruciate durante diverse attività sportive e fisiche",
+    "url": "https://tool4u.org/calcolatore-calorie-attivita",
+    "applicationCategory": "UtilityApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T7RECNQWSB');
+  </script>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --secondary: #10b981;
+      --secondary-dark: #059669;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-600: #4b5563;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --info: #3b82f6;
+      --info-light: #eff6ff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%);
+      color: var(--gray-800);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .nav-home {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0.8rem 1rem 0;
+    }
+
+    .nav-home a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+    }
+
+    .nav-home a:hover {
+      color: var(--primary-dark);
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .tool-header {
+      text-align: center;
+      margin: 2rem 0 1.5rem;
+    }
+
+    .tool-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-header p {
+      font-size: 1rem;
+      color: var(--gray-600);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .ad-slot {
+      background: var(--gray-100);
+      border: 2px dashed var(--gray-300);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+      color: var(--gray-400);
+      font-size: 0.85rem;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tool-body {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      background: white;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    input[type="number"].error,
+    select.error {
+      border-color: var(--danger);
+    }
+
+    .error-message {
+      color: var(--danger);
+      font-size: 0.85rem;
+      margin-top: 0.4rem;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .result-container {
+      display: none;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, var(--success-light) 0%, var(--info-light) 100%);
+      border-radius: 12px;
+      border-left: 5px solid var(--success);
+    }
+
+    .result-container.show {
+      display: block;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-main {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .calories-value {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--success);
+      margin: 0.5rem 0;
+    }
+
+    .calories-label {
+      font-size: 0.95rem;
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+
+    .equivalences {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .equivalence-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 0.9rem;
+    }
+
+    .equivalence-item:last-child {
+      border-bottom: none;
+    }
+
+    .equivalence-label {
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+
+    .equivalence-value {
+      color: var(--gray-900);
+      font-weight: 700;
+    }
+
+    .explanation {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    }
+
+    .explanation h2 {
+      font-size: 1.5rem;
+      color: var(--gray-900);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .explanation h3 {
+      font-size: 1.1rem;
+      color: var(--gray-800);
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .explanation p {
+      color: var(--gray-600);
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    .met-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    .met-table th {
+      background: var(--gray-100);
+      padding: 0.75rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--gray-900);
+      border-bottom: 2px solid var(--gray-300);
+    }
+
+    .met-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--gray-200);
+      color: var(--gray-600);
+    }
+
+    .met-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .formula-box {
+      background: var(--info-light);
+      border: 1px solid var(--info);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: var(--gray-900);
+      overflow-x: auto;
+    }
+
+    .food-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.85rem;
+    }
+
+    .food-table th {
+      background: var(--gray-100);
+      padding: 0.6rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--gray-900);
+      border-bottom: 2px solid var(--gray-300);
+    }
+
+    .food-table td {
+      padding: 0.6rem;
+      border-bottom: 1px solid var(--gray-200);
+      color: var(--gray-600);
+    }
+
+    .email-capture {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .email-capture p {
+      margin-bottom: 1rem;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    #email-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    #email-form input {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    #email-form input::placeholder {
+      color: var(--gray-400);
+    }
+
+    #email-form button {
+      background: var(--secondary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin: 0;
+    }
+
+    #email-form button:hover {
+      background: var(--secondary-dark);
+    }
+
+    .tool-footer {
+      background: var(--gray-50);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      border: 1px solid var(--gray-200);
+    }
+
+    .tool-footer h3 {
+      color: var(--gray-800);
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-footer p {
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .tool-footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .tool-footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .tool-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .tool-body {
+        padding: 1.5rem;
+      }
+
+      .calories-value {
+        font-size: 2.5rem;
+      }
+
+      .explanation {
+        padding: 1.5rem;
+      }
+
+      .explanation h2 {
+        font-size: 1.2rem;
+      }
+
+      #email-form {
+        flex-direction: column;
+      }
+
+      #email-form button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-home">
+    <a href="/">← Tool4U.org</a>
+  </div>
+
+  <div class="tool-header">
+    <h1>🔥 Calcolatore Calorie Bruciate</h1>
+    <p>Scopri quante calorie bruci durante le tue attività fisiche preferite</p>
+  </div>
+
+  <div id="ad-slot-top" class="ad-slot">Spazio pubblicitario</div>
+
+  <div class="container">
+    <div class="tool-body">
+      <form id="calorie-form">
+        <div class="form-group">
+          <label for="peso">Peso (kg)</label>
+          <input 
+            type="number" 
+            id="peso" 
+            name="peso" 
+            placeholder="70" 
+            min="20" 
+            max="300" 
+            step="0.1"
+            required
+          >
+          <div class="error-message" id="peso-error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="attivita">Tipo di attività</label>
+          <select id="attivita" name="attivita" required>
+            <option value="">-- Seleziona un'attività --</option>
+            <option value="corsa">🏃 Corsa (8 km/h)</option>
+            <option value="corsa-veloce">🏃‍♂️ Corsa veloce (12 km/h)</option>
+            <option value="camminata">🚶 Camminata veloce (5 km/h)</option>
+            <option value="camminata-lenta">🚶‍♀️ Camminata lenta (3 km/h)</option>
+            <option value="nuoto">🏊 Nuoto (moderato)</option>
+            <option value="ciclismo">🚴 Ciclismo (moderato)</option>
+            <option value="palestra">💪 Palestra (pesi)</option>
+            <option value="yoga">🧘 Yoga</option>
+            <option value="calcio">⚽ Calcio</option>
+            <option value="tennis">🎾 Tennis</option>
+            <option value="hi-it">⚡ HIIT - Allenamento intenso</option>
+          </select>
+          <div class="error-message" id="attivita-error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="durata">Durata (minuti)</label>
+          <input 
+            type="number" 
+            id="durata" 
+            name="durata" 
+            placeholder="30" 
+            min="1" 
+            max="1440" 
+            step="1"
+            required
+          >
+          <div class="error-message" id="durata-error"></div>
+        </div>
+
+        <button type="submit">Calcola Calorie Bruciate</button>
+      </form>
+
+      <div id="result-container" class="result-container">
+        <div class="result-main">
+          <div class="calories-label">Calorie bruciate</div>
+          <div class="calories-value" id="calories-result">0</div>
+          <div style="font-size: 0.9rem; color: var(--gray-600);" id="activity-detail">Attività</div>
+        </div>
+
+        <div class="equivalences">
+          <div style="font-weight: 600; color: var(--gray-800); margin-bottom: 1rem; text-align: center;">Equivalenze nutrizionali</div>
+          <div class="equivalence-item">
+            <span class="equivalence-label">🍎 Mela media</span>
+            <span class="equivalence-value" id="equiv-apple">0</span>
+          </div>
+          <div class="equivalence-item">
+            <span class="equivalence-label">🍌 Banana</span>
+            <span class="equivalence-value" id="equiv-banana">0</span>
+          </div>
+          <div class="equivalence-item">
+            <span class="equivalence-label">🍔 Hamburger</span>
+            <span class="equivalence-value" id="equiv-burger">0</span>
+          </div>
+          <div class="equivalence-item">
+            <span class="equivalence-label">🍕 Fetta di pizza</span>
+            <span class="equivalence-value" id="equiv-pizza">0</span>
+          </div>
+          <div class="equivalence-item">
+            <span class="equivalence-label">🥗 Insalata verde</span>
+            <span class="equivalence-value" id="equiv-salad">0</span>
+          </div>
+          <div class="equivalence-item">
+            <span class="equivalence-label">☕ Caffè latte</span>
+            <span class="equivalence-value" id="equiv-coffee">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ad-slot-middle" class="ad-slot">Spazio pubblicitario</div>
+
+  <div class="container">
+    <div class="explanation">
+      <h2>📚 Come funziona il calcolo</h2>
+      
+      <p>Il calcolatore utilizza il valore MET (Metabolic Equivalent of Task), uno standard scientifico internazionale che misura l'intensità dell'attività fisica in rapporto al metabolismo basale.</p>
+
+      <h3>La formula</h3>
+      <div class="formula-box">
+        Calorie = MET × Peso (kg) × Durata (ore)
+      </div>
+
+      <h3>Valori MET per attività</h3>
+      <table class="met-table">
+        <thead>
+          <tr>
+            <th>Attività</th>
+            <th>MET</th>
+            <th>Intensità</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Camminata lenta (3 km/h)</td>
+            <td>3.5</td>
+            <td>Bassa</td>
+          </tr>
+          <tr>
+            <td>Camminata veloce (5 km/h)</td>
+            <td>4.5</td>
+            <td>Bassa-Media</td>
+          </tr>
+          <tr>
+            <td>Yoga</td>
+            <td>5</td>
+            <td>Media</td>
+          </tr>
+          <tr>
+            <td>Ciclismo (moderato)</td>
+            <td>7</td>
+            <td>Media-Alta</td>
+          </tr>
+          <tr>
+            <td>Corsa (8 km/h)</td>
+            <td>8</td>
+            <td>Alta</td>
+          </tr>
+          <tr>
+            <td>Nuoto</td>
+            <td>8</td>
+            <td>Alta</td>
+          </tr>
+          <tr>
+            <td>Corsa veloce (12 km/h)</td>
+            <td>12</td>
+            <td>Molto alta</td>
+          </tr>
+          <tr>
+            <td>HIIT (intenso)</td>
+            <td>14</td>
+            <td>Molto alta</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Esempio di calcolo</h3>
+      <p><strong>Scenario:</strong> Persona di 70 kg che corre per 30 minuti</p>
+      <ul style="margin-left: 1.5rem; color: var(--gray-600);">
+        <li>MET corsa = 8</li>
+        <li>Durata in ore = 30 ÷ 60 = 0,5 ore</li>
+        <li>Calorie = 8 × 70 × 0,5 = <strong>280 calorie</strong></li>
+      </ul>
+
+      <h3>Fattori che influenzano il consumo</h3>
+      <p style="color: var(--gray-600);">Il calcolo delle calorie bruciate varia in base a:</p>
+      <ul style="margin-left: 1.5rem; color: var(--gray-600);">
+        <li><strong>Età e sesso:</strong> Gli uomini tendono a bruciare più calorie rispetto alle donne a parità di peso</li>
+        <li><strong>Metabolismo basale:</strong> Varia da persona a persona</li>
+        <li><strong>Livello di fitness:</strong> Chi è più allenato potrebbe bruciare meno calorie per la stessa attività</li>
+        <li><strong>Intensità effettiva:</strong> La velocità di corsa, la pendenza del terreno, ecc. influenzano i valori</li>
+        <li><strong>Temperatura ambiente:</strong> Il freddo aumenta lievemente il consumo calorico</li>
+      </ul>
+
+      <h3>Cibi e calorie comuni</h3>
+      <table class="food-table">
+        <thead>
+          <tr>
+            <th>Alimento</th>
+            <th>Calorie</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mela media</td>
+            <td>95 kcal</td>
+          </tr>
+          <tr>
+            <td>Banana media</td>
+            <td>105 kcal</td>
+          </tr>
+          <tr>
+            <td>Hamburger</td>
+            <td>250-300 kcal</td>
+          </tr>
+          <tr>
+            <td>Fetta di pizza</td>
+            <td>250 kcal</td>
+          </tr>
+          <tr>
+            <td>Insalata verde (100g)</td>
+            <td>15-25 kcal</td>
+          </tr>
+          <tr>
+            <td>Caffè latte (200ml)</td>
+            <td>120-150 kcal</td>
+          </tr>
+          <tr>
+            <td>Yogurt naturale</td>
+            <td>100 kcal</td>
+          </tr>
+          <tr>
+            <td>Pane integrale (1 fetta)</td>
+            <td>80 kcal</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Consigli pratici</h3>
+      <ul style="margin-left: 1.5rem; color: var(--gray-600);">
+        <li><strong>Combinare attività:</strong> Alternare attività a diversa intensità per un beneficio maggiore</li>
+        <li><strong>Consistenza:</strong> L'attività regolare è più importante di sessioni intense occasionali</li>
+        <li><strong>Nutrizione:</strong> Bruciare calorie deve essere abbinato a una dieta equilibrata</li>
+        <li><strong>Monitoraggio:</strong> Usa il calcolatore per tracciare i tuoi progressi nel tempo</li>
+        <li><strong>Consultare uno specialista:</strong> Per programmi personalizzati, rivolgiti a un personal trainer o nutrizionista</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="ad-slot-middle-2" class="ad-slot" style="margin: 1.5rem 1rem;">Spazio pubblicitario</div>
+
+  <div class="container">
+    <div id="email-capture" class="email-capture">
+      <p>📧 Ricevi nuovi strumenti utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="ad-slot-bottom" class="ad-slot">Spazio pubblicitario</div>
+
+  <div class="container">
+    <div class="tool-footer">
+      <h3>⚠️ Disclaimer</h3>
+      <p>
+        Questo calcolatore fornisce stime educative basate su dati scientifici medi. 
+        Le calorie bruciate variano da persona a persona in base a fattori individuali come 
+        metabolismo, età, sesso, condizione fisica e genetica. 
+      </p>
+      <p>
+        I risultati non costituiscono consulenza medica o nutrizionale professionale. 
+        Per informazioni personalizzate sulla tua salute e fitness, consulta un medico o un professionista qualificato.
+      </p>
+      <p style="margin-top: 1rem; border-top: 1px solid var(--gray-300); padding-top: 1rem;">
+        Tool4U.org © 2024 | <a href="#">Privacy</a> | <a href="#">Termini di servizio</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // MET values for different activities
+    const metValues = {
+      'corsa': 8,
+      'corsa-veloce': 12,
+      'camminata': 4.5,
+      'camminata-lenta': 3.5,
+      'nuoto': 8,
+      'ciclismo': 7,
+      'palestra': 6,
+      'yoga': 5,
+      'calcio': 10,
+      'tennis': 8,
+      'hi-it': 14
+    };
+
+    // Activity labels
+    const activityLabels = {
+      'corsa': 'Corsa a 8 km/h',
+      'corsa-veloce': 'Corsa veloce a 12 km/h',
+      'camminata': 'Camminata veloce',
+      'camminata-lenta': 'Camminata lenta',
+      'nuoto': 'Nuoto',
+      'ciclismo': 'Ciclismo moderato',
+      'palestra': 'Palestra (pesi)',
+      'yoga': 'Yoga',
+      'calcio': 'Calcio',
+      'tennis': 'Tennis',
+      'hi-it': 'HIIT - Allenamento intenso'
+    };
+
+    // Food equivalencies in calories
+    const foodEquivalencies = {
+      apple: 95,
+      banana: 105,
+      burger: 275,
+      pizza: 250,
+      salad: 20,
+      coffee: 135
+    };
+
+    const form = document.getElementById('calorie-form');
+    const resultContainer = document.getElementById('result-container');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Clear previous errors
+      clearErrors();
+      
+      // Get form values
+      const peso = parseFloat(document.getElementById('peso').value);
+      const attivita = document.getElementById('attivita').value;
+      const durata = parseInt(document.getElementById('durata').value);
+
+      // Validation
+      if (!peso || peso <= 0) {
+        showError('peso-error', 'Inserisci un peso valido');
+        return;
+      }
+
+      if (!attivita) {
+        showError('attivita-error', 'Seleziona un\'attività');
+        return;
+      }
+
+      if (!durata || durata <= 0) {
+        showError('durata-error', 'Inserisci una durata valida');
+        return;
+      }
+
+      // Calculate calories
+      calculateCalories(peso, attivita, durata);
+    });
+
+    function clearErrors() {
+      document.querySelectorAll('.error-message').forEach(el => {
+        el.classList.remove('show');
+        el.textContent = '';
