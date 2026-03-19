@@ -3,301 +3,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Calculate Loan Monthly Payment - Complete Guide 2024</title>
-    <meta name="description" content="Learn how to calculate loan monthly payment with our step-by-step guide. Understand amortization, interest rates, and use our free calculator tool today.">
+    <title>How to Calculate Loan Payment: Complete Guide to Mortgage Installments</title>
+    <meta name="description" content="Learn how to calculate loan payment and mortgage installments. Use our free calculator tool to determine your monthly payment in seconds.">
     <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
+    <meta property="og:title" content="How to Calculate Loan Payment: Complete Guide">
+    <meta property="og:description" content="Master loan payment calculations with our easy-to-use tool and step-by-step guide.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://tool4u.org/come-calcolare-rata-prestito-mutuo.html">
     <link rel="canonical" href="https://tool4u.org/come-calcolare-rata-prestito-mutuo.html">
-    
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "What is the formula to calculate loan monthly payment?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "The standard loan payment formula is: M = P[r(1+r)^n]/[(1+r)^n-1], where M is monthly payment, P is principal amount, r is monthly interest rate, and n is total number of payments. This formula applies to most fixed-rate loans including mortgages and personal loans."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "How do interest rates affect my monthly payment?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Interest rates directly impact your monthly payment amount. Higher interest rates result in larger payments, while lower rates reduce your monthly obligation. For example, a 3% interest rate on a $200,000 loan will have significantly lower payments than a 6% rate on the same amount."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Can I calculate loan payments without a calculator?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "While the mathematical formula exists, manual calculations are complex and error-prone. Using a loan calculator is highly recommended as it ensures accuracy and saves time. Our free tool at tool4u.org provides instant, reliable calculations for any loan scenario."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What factors influence my final loan payment amount?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Four main factors determine your payment: the loan principal (amount borrowed), interest rate (annual percentage rate), loan term (duration in months or years), and payment frequency (monthly, quarterly, etc.). Understanding these elements helps you make informed borrowing decisions."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Is the monthly payment the same throughout the loan term?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "For fixed-rate loans, yes—your monthly payment remains constant throughout the entire loan term. However, with adjustable-rate loans, payments may change when interest rates adjust. Always check your loan agreement to understand your specific payment structure."
-                }
-            }
-        ]
-    }
-    </script>
-
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
         body {
             font-family: system-ui, -apple-system, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
+            color: #1a1a2e;
             line-height: 1.6;
+            background: #f9f9f9;
+            padding: 20px;
         }
-        
         .container {
             max-width: 720px;
             margin: 0 auto;
-            padding: 20px;
-            background-color: white;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        
         h1 {
-            color: #1a1a2e;
             font-size: 2.2em;
-            margin-bottom: 15px;
-            margin-top: 30px;
-        }
-        
-        h2 {
             color: #1a1a2e;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        h2 {
             font-size: 1.6em;
+            color: #2563eb;
             margin-top: 35px;
             margin-bottom: 15px;
             border-bottom: 3px solid #2563eb;
             padding-bottom: 10px;
         }
-        
         h3 {
-            color: #2563eb;
             font-size: 1.2em;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            color: #1a1a2e;
+            margin-top: 25px;
+            margin-bottom: 12px;
         }
-        
         p {
             margin-bottom: 15px;
+            text-align: justify;
             font-size: 1em;
         }
-        
+        .intro {
+            background: #f0f7ff;
+            padding: 20px;
+            border-left: 4px solid #2563eb;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 20px 0;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .cta-button:hover {
+            background: #1e40af;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .faq-section {
+            margin-top: 40px;
+        }
+        .faq-item {
+            margin-bottom: 25px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .faq-question {
+            background: #f5f5f5;
+            padding: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #2563eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            padding: 16px;
+            color: #1a1a2e;
+            border-top: 1px solid #e0e0e0;
+        }
+        .toggle-icon {
+            font-size: 1.3em;
+        }
         ul, ol {
             margin-left: 20px;
             margin-bottom: 15px;
         }
-        
         li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
-        
-        .intro-section {
-            background-color: #f0f7ff;
-            padding: 20px;
-            border-left: 4px solid #2563eb;
-            margin: 20px 0;
+        .formula {
+            background: #f5f5f5;
+            padding: 15px;
             border-radius: 4px;
-        }
-        
-        .tool-link {
-            display: inline-block;
-            background-color: #2563eb;
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
+            font-family: 'Courier New', monospace;
             margin: 20px 0;
-            transition: background-color 0.3s;
+            overflow-x: auto;
         }
-        
-        .tool-link:hover {
-            background-color: #1e40af;
-        }
-        
-        .faq-section {
-            margin-top: 40px;
-        }
-        
-        .faq-item {
-            background-color: #f8f9fa;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            border-left: 3px solid #2563eb;
-        }
-        
-        .faq-item h3 {
-            color: #1a1a2e;
-            margin-top: 0;
-        }
-        
-        .faq-item p {
-            margin-bottom: 0;
-        }
-        
-        .highlight {
-            background-color: #fff3cd;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-        
-        .button-container {
+        .footer-link {
             text-align: center;
-            margin: 30px 0;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .footer-link a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .footer-link a:hover {
+            text-decoration: underline;
         }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the formula to calculate loan payment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The standard formula for calculating monthly loan payment is: M = P × [r(1+r)^n] / [(1+r)^n - 1], where M is monthly payment, P is principal amount, r is monthly interest rate, and n is total number of payments."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I calculate mortgage payment manually?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To calculate mortgage payment manually: 1) Divide your annual interest rate by 12 to get monthly rate, 2) Multiply the loan amount by this monthly rate, 3) Apply the standard amortization formula, or use our online calculator for instant results."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What factors affect my loan payment amount?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your loan payment depends on three main factors: the principal amount borrowed, the interest rate offered by your lender, and the loan term (repayment period in months or years)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use a calculator to estimate different payment scenarios?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, using our loan payment calculator, you can input different loan amounts, interest rates, and terms to see how each affects your monthly payment. This helps you compare offers and plan your budget effectively."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between loan payment and total interest paid?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Loan payment is your fixed monthly installment. Total interest paid is the sum of all interest charges over the entire loan term. The longer your loan, the more total interest you'll pay even if monthly payment is lower."
+          }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How to Calculate Loan Payment: Complete Guide to Mortgage Installments",
+      "description": "Learn how to calculate loan payment and mortgage installments with our comprehensive guide and free calculator tool.",
+      "image": "https://tool4u.org/images/loan-calculation.png",
+      "author": {
+        "@type": "Organization",
+        "name": "Tool4u"
+      },
+      "datePublished": "2024-01-15",
+      "dateModified": "2024-01-15"
+    }
+    </script>
 </head>
 <body>
     <div class="container">
-        <h1>How to Calculate Loan Monthly Payment: Complete Guide</h1>
-        
-        <div class="intro-section">
-            <p><strong>Understanding how to calculate your loan monthly payment is essential for responsible financial planning.</strong> Whether you're considering a mortgage, personal loan, or auto loan, knowing exactly what your payment will be helps you budget effectively and compare loan options. This guide walks you through the calculation process and introduces you to the most efficient tool available.</p>
+        <h1>How to Calculate Loan Payment: Complete Guide to Mortgage Installments</h1>
+
+        <div class="intro">
+            <p>Whether you're planning to buy a home, take a personal loan, or refinance existing debt, understanding how to calculate your monthly loan payment is essential for financial planning. In this guide, we'll walk you through the calculation methods and show you how to use our free tool to determine your exact payment amount in seconds.</p>
         </div>
 
-        <h2>Why Calculate Your Loan Payment?</h2>
-        <p>Before borrowing money, it's crucial to understand your financial obligations. Calculating your monthly loan payment helps you:</p>
+        <h2>Why Understanding Loan Calculations Matters</h2>
+        <p>Before borrowing money, you need to know your financial obligations. Calculating your loan payment helps you:</p>
         <ul>
-            <li>Determine if you can comfortably afford the loan</li>
-            <li>Compare different loan offers and interest rates</li>
-            <li>Plan your monthly budget more accurately</li>
-            <li>Understand how principal and interest are distributed</li>
-            <li>Make informed decisions about loan terms</li>
+            <li>Budget effectively and plan your monthly expenses</li>
+            <li>Compare different loan offers from various lenders</li>
+            <li>Understand how interest rates impact your total cost</li>
+            <li>Make informed decisions about loan terms and amounts</li>
+            <li>Avoid overextending your finances</li>
         </ul>
 
-        <h2>Understanding Loan Payment Components</h2>
-        <p>Your monthly loan payment consists of several key elements:</p>
-        
-        <h3>Principal Amount</h3>
-        <p>The principal is the total amount of money you borrow. For example, if you take out a $250,000 mortgage, that's your principal. The full amount must eventually be repaid through your monthly payments.</p>
-        
-        <h3>Interest Rate</h3>
-        <p>The interest rate represents the cost of borrowing. Expressed as an annual percentage rate (APR), it's divided by 12 to calculate the monthly rate. A <span class="highlight">lower interest rate means lower monthly payments</span>, making it critical to shop around for the best rates.</p>
-        
-        <h3>Loan Term</h3>
-        <p>The loan term is the total duration you have to repay the loan, typically expressed in months or years. Longer terms result in smaller monthly payments but higher total interest paid. Shorter terms mean higher monthly payments but less total interest.</p>
-
         <h2>The Loan Payment Formula Explained</h2>
-        <p>The standard amortization formula used to calculate monthly loan payments is:</p>
-        <p style="font-family: 'Courier New', monospace; background-color: #f0f0f0; padding: 15px; border-radius: 4px; text-align: center;"><strong>M = P[r(1+r)^n]/[(1+r)^n-1]</strong></p>
+        <p>The standard formula for calculating monthly loan payment uses amortization, which spreads the principal and interest across equal monthly installments:</p>
+
+        <div class="formula">
+            M = P × [r(1+r)^n] / [(1+r)^n - 1]
+        </div>
+
         <p>Where:</p>
         <ul>
-            <li><strong>M</strong> = Monthly payment amount</li>
+            <li><strong>M</strong> = Monthly payment</li>
             <li><strong>P</strong> = Principal loan amount</li>
             <li><strong>r</strong> = Monthly interest rate (annual rate ÷ 12)</li>
             <li><strong>n</strong> = Total number of payments (years × 12)</li>
         </ul>
 
-        <h2>Step-by-Step Calculation Example</h2>
-        <p>Let's calculate a practical example:</p>
-        <p><strong>Scenario:</strong> $200,000 loan, 5% annual interest, 30-year term</p>
+        <h3>Example Calculation</h3>
+        <p>Let's say you borrow $200,000 at 5% annual interest for 30 years:</p>
         <ul>
             <li>Principal (P) = $200,000</li>
-            <li>Monthly Interest Rate (r) = 5% ÷ 12 = 0.004167</li>
-            <li>Number of Payments (n) = 30 × 12 = 360</li>
+            <li>Monthly rate (r) = 5% ÷ 12 = 0.00417</li>
+            <li>Number of payments (n) = 30 × 12 = 360</li>
+            <li>Result: Monthly payment ≈ $1,073.64</li>
         </ul>
-        <p>Plugging into the formula: M = $200,000 × [0.004167(1.004167)^360]/[(1.004167)^360-1] = <strong>$1,073.64 per month</strong></p>
 
-        <h2>Use Our Free Loan Calculator</h2>
-        <p>Manual calculations are complex and prone to errors. That's why we've created an easy-to-use tool that handles all the math instantly.</p>
-        
-        <div class="button-container">
-            <a href="/come-calcolare-rata-prestito-mutuo.html" class="tool-link">Calculate Your Loan Payment Now</a>
-        </div>
-        
-        <p>Our calculator accepts your loan parameters and provides:</p>
+        <h2>Use Our Free Loan Payment Calculator</h2>
+        <p>While the formula is accurate, calculating manually takes time and is prone to errors. Our online tool handles the complex mathematics instantly and accurately.</p>
+
+        <a href="https://tool4u.org/come-calcolare-rata-prestito-mutuo.html" class="cta-button">Calculate Your Loan Payment Now</a>
+
+        <p>Our calculator lets you:</p>
         <ul>
-            <li>Exact monthly payment amount</li>
-            <li>Total interest paid over the loan term</li>
-            <li>Detailed amortization schedule</li>
-            <li>Visual payment breakdown</li>
-            <li>Comparison scenarios</li>
+            <li>Enter your loan amount, interest rate, and term</li>
+            <li>See your monthly payment instantly</li>
+            <li>View total interest paid over the loan lifetime</li>
+            <li>Compare multiple scenarios side-by-side</li>
+            <li>Get results for mortgages, auto loans, and personal loans</li>
         </ul>
 
-        <h2>Practical Tips for Managing Your Loan</h2>
-        
-        <h3>Compare Multiple Offers</h3>
-        <p>Different lenders offer different interest rates. Use our calculator to test various rates and terms to find the best option for your situation.</p>
-        
-        <h3>Consider Extra Payments</h3>
-        <p>If you can afford slightly higher payments, you'll pay less total interest and become debt-free faster. Many loans allow additional principal payments without penalties.</p>
-        
-        <h3>Review Your Interest Rate</h3>
-        <p>For adjustable-rate loans, monitor when your rate adjusts. Understanding how rate changes affect your payment helps you prepare financially.</p>
-        
-        <h3>Check for Hidden Fees</h3>
-        <p>Some loans include origination fees, processing fees, or prepayment penalties. Factor these into your total borrowing cost when comparing options.</p>
+        <h2>Practical Tips for Managing Your Loan Payments</h2>
 
-        <h2>Common Loan Types and Payment Structures</h2>
-        
-        <h3>Fixed-Rate Loans</h3>
-        <p>Your interest rate and monthly payment remain constant throughout the entire loan term. This predictability makes budgeting easier.</p>
-        
-        <h3>Adjustable-Rate Loans</h3>
-        <p>Your interest rate may change after an initial fixed period. This can result in payment increases or decreases, depending on market conditions.</p>
-        
-        <h3>Interest-Only Loans</h3>
-        <p>During the initial period, you pay only interest with no principal reduction. This structure typically results in a balloon payment at the end.</p>
+        <h3>1. Compare Different Terms</h3>
+        <p>Shorter loan terms mean higher monthly payments but less total interest. Longer terms reduce monthly payments but increase your total cost. Use the calculator to find the right balance for your budget.</p>
 
-        <div class="button-container">
-            <a href="/come-calcolare-rata-prestito-mutuo.html" class="tool-link">Try Our Calculator Today</a>
+        <h3>2. Understand Interest Rate Impact</h3>
+        <p>Even small interest rate differences significantly affect your payment. A 0.5% rate increase on a $300,000 mortgage can add $150+ to your monthly payment.</p>
+
+        <h3>3. Consider Making Extra Payments</h3>
+        <div class="highlight">
+            <p>If possible, paying more than your required monthly payment reduces your total interest and shortens the loan term. Many loans allow extra payments without penalties.</p>
         </div>
 
-        <h2 class="faq-section">Frequently Asked Questions</h2>
-        
-        <div class="faq-item">
-            <h3>What is the formula to calculate loan monthly payment?</h3>
-            <p>The standard loan payment formula is: M = P[r(1+r)^n]/[(1+r)^n-1], where M is monthly payment, P is principal amount, r is monthly interest rate, and n is total number of payments. This formula applies to most fixed-rate loans including mortgages and personal loans.</p>
-        </div>
-        
-        <div class="faq-item">
-            <h3>How do interest rates affect my monthly payment?</h3>
-            <p>Interest rates directly impact your monthly payment amount. Higher interest rates result in larger payments, while lower rates reduce your monthly obligation. For example, a 3% interest rate on a $200,000 loan will have significantly lower payments than a 6% rate on the same amount.</p>
-        </div>
-        
-        <div class="faq-item">
-            <h3>Can I calculate loan payments without a calculator?</h3>
-            <p>While the mathematical formula exists, manual calculations are complex and error-prone. Using a loan calculator is highly recommended as it ensures accuracy and saves time. Our free tool at tool4u.org provides instant, reliable calculations for any loan scenario.</p>
-        </div>
-        
-        <div class="faq-item">
-            <h3>What factors influence my final loan payment amount?</h3>
-            <p>Four main factors determine your payment: the loan principal (amount borrowed), interest rate (annual percentage rate), loan term (duration in months or years), and payment frequency (monthly, quarterly, etc.). Understanding these elements helps you make informed borrowing decisions.</p>
-        </div>
-        
-        <div class="faq-item">
-            <h3>Is the monthly payment the same throughout the loan term?</h3>
-            <p>For fixed-rate loans, yes—your monthly payment remains constant throughout the entire loan term. However, with adjustable-rate loans, payments may change when interest rates adjust. Always check your loan agreement to understand your specific payment structure.</p>
+        <h3>4. Review Loan Offers Carefully</h3>
+        <p>When comparing loans, look at the total cost over the life of the loan, not just the monthly payment. A lower payment might come with a longer term, meaning higher total interest.</p>
+
+        <h3>5. Account for Additional Costs</h3>
+        <p>Remember that your loan payment isn't your only cost. Mortgages include property taxes, insurance, and HOA fees. Factor these into your total monthly housing expense.</p>
+
+        <h2>Common Questions About Loan Payments</h2>
+
+        <div class="faq-section">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What is the formula to calculate loan payment?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer" style="display: none;">
+                    <p>The standard formula for calculating monthly loan payment is: M = P × [r(1+r)^n] / [(1+r)^n - 1], where M is monthly payment, P is principal amount, r is monthly interest rate (annual rate divided by 12), and n is total number of payments (loan term in years multiplied by 12).</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I calculate mortgage payment manually?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer" style="display: none;">
+                    <p>To calculate mortgage payment manually: First, divide your annual interest rate by 12 to get the monthly rate. Then multiply the loan amount by this monthly rate. Finally, apply the amortization formula. However, using our online calculator is faster and eliminates calculation errors.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What factors affect my loan payment amount?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer" style="display: none;">
+                    <p>Your loan payment depends on three main factors: the principal amount you borrow, the interest rate offered by your lender, and the loan term (the period over which you'll repay the loan in months or years). Higher principal or interest rate increases your payment, while longer terms decrease it.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I use a calculator to estimate different payment scenarios?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer" style="display: none;">
+                    <p>Yes, with our loan payment calculator, you can input different loan amounts, interest rates, and terms to see how each affects your monthly payment. This helps you compare different loan offers from multiple lenders and plan your budget effectively.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What is the difference between loan payment and total interest paid?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer" style="display: none;">
+                    <p>Your loan payment is the fixed monthly installment you pay. Total interest paid is the sum of all interest charges over the entire loan term. The longer your loan term, the more total interest you'll pay even if your monthly payment is lower.</p>
+                </div>
+            </div>
         </div>
 
-        <h2>Conclusion</h2>
-        <p>Calculating your loan monthly payment is a fundamental step in responsible borrowing. Whether you're using the mathematical formula or our free online calculator, understanding your payment obligations empowers you to make better financial decisions. Start using our <strong><a href="/come-calcolare-rata-prestito-mutuo.html" style="color: #2563eb; text-decoration: none;">loan payment calculator</a></strong> today to explore different scenarios and find the loan terms that work best for your financial goals.</p>
+        <div class="footer-link">
+            <p>Ready to calculate your loan payment? <a href="https://tool4u.org/come-calcolare-rata-prestito-mutuo.html">Use our free calculator tool now</a> to get accurate results for your specific situation.</p>
+        </div>
     </div>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('.toggle-icon');
+                
+                if (answer.style.display === 'none') {
+                    answer.style.display = 'block';
+                    icon.textContent = '−';
+                } else {
+                    answer.style.display = 'none';
+                    icon.textContent = '+';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
