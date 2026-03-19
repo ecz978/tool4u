@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Carico Glicemico - Gestisci la Glicemia</title>
+  <meta name="description" content="Calcola il carico glicemico dei tuoi pasti. Strumento utile per diabetici e chi vuole controllare la glicemia.">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Calcolatore Carico Glicemico",
+  "description": "Calcola il carico glicemico di un pasto per gestire meglio la glicemia",
+  "url": "https://tool4u.org/calcolatore-indice-glicemico",
+  "applicationCategory": "HealthApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)}
+    gtag('js', new Date());
+    gtag('config', 'G-T7RECNQWSB');
+  </script>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --success: #16a34a;
+      --warning: #ea580c;
+      --danger: #dc2626;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-700: #374151;
+      --gray-900: #111827;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%);
+      color: var(--gray-900);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .nav-link {
+      display: block;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0.8rem 1rem 0;
+    }
+
+    .nav-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .nav-link a:hover {
+      opacity: 0.7;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .tool-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .tool-header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--gray-900);
+    }
+
+    .tool-header p {
+      font-size: 1.05rem;
+      color: var(--gray-700);
+    }
+
+    .ad-slot {
+      background: var(--gray-100);
+      border: 2px dashed var(--gray-300);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      margin: 2rem 0;
+      font-size: 0.9rem;
+      color: var(--gray-700);
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tool-body {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--gray-900);
+      font-size: 0.95rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+      font-family: inherit;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-group input:invalid {
+      border-color: var(--danger);
+    }
+
+    .error-message {
+      color: var(--danger);
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    button {
+      flex: 1;
+      padding: 0.875rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+
+    .btn-calculate {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-calculate:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-calculate:active {
+      transform: translateY(0);
+    }
+
+    .btn-reset {
+      background: var(--gray-200);
+      color: var(--gray-900);
+    }
+
+    .btn-reset:hover {
+      background: var(--gray-300);
+    }
+
+    .result-container {
+      background: var(--gray-50);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 2rem;
+      border-left: 5px solid var(--primary);
+      display: none;
+    }
+
+    .result-container.show {
+      display: block;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .result-classification {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .classification-basso {
+      background: #dcfce7;
+      color: var(--success);
+      border-left: 4px solid var(--success);
+    }
+
+    .classification-medio {
+      background: #fed7aa;
+      color: var(--warning);
+      border-left: 4px solid var(--warning);
+    }
+
+    .classification-alto {
+      background: #fee2e2;
+      color: var(--danger);
+      border-left: 4px solid var(--danger);
+    }
+
+    .result-advice {
+      background: white;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .result-advice h4 {
+      margin-bottom: 0.5rem;
+      color: var(--gray-900);
+    }
+
+    .explanation {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      margin-bottom: 2rem;
+    }
+
+    .explanation h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--gray-900);
+    }
+
+    .explanation h3 {
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+
+    .explanation p {
+      margin-bottom: 1rem;
+      color: var(--gray-700);
+      line-height: 1.8;
+    }
+
+    .explanation ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--gray-700);
+    }
+
+    .explanation li {
+      margin-bottom: 0.5rem;
+    }
+
+    .explanation table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .explanation th, .explanation td {
+      border: 1px solid var(--gray-200);
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    .explanation th {
+      background: var(--gray-100);
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+
+    .email-capture {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    }
+
+    .email-capture p {
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    .email-capture form {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 100%;
+    }
+
+    .email-capture input {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      min-width: 0;
+    }
+
+    .email-capture input::placeholder {
+      color: var(--gray-700);
+    }
+
+    .email-capture button {
+      padding: 0.75rem 1.5rem;
+      background: white;
+      color: var(--primary);
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      white-space: nowrap;
+    }
+
+    .email-capture button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .tool-footer {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--gray-700);
+      margin-bottom: 1rem;
+    }
+
+    .tool-footer p {
+      margin-bottom: 0.5rem;
+    }
+
+    .disclaimer {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--gray-900);
+    }
+
+    @media (max-width: 640px) {
+      .tool-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .tool-body {
+        padding: 1.5rem;
+      }
+
+      .result-value {
+        font-size: 2rem;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .email-capture form {
+        flex-direction: column;
+      }
+
+      .email-capture input, .email-capture button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <div class="nav-link">
+    <a href="/">← Tool4U.org</a>
+  </div>
+
+  <!-- TOOL HEADER -->
+  <div class="container">
+    <div class="tool-header">
+      <h1>Calcolatore Carico Glicemico</h1>
+      <p>Calcola il carico glicemico dei tuoi pasti per gestire meglio la glicemia</p>
+    </div>
+  </div>
+
+  <!-- AD SLOT TOP -->
+  <div id="ad-slot-top" class="ad-slot"></div>
+
+  <!-- TOOL BODY -->
+  <div class="container">
+    <div class="tool-body">
+      <form id="cg-form">
+        <div class="form-group">
+          <label for="ig">Indice Glicemico dell'alimento</label>
+          <input 
+            type="number" 
+            id="ig" 
+            name="ig" 
+            placeholder="70" 
+            min="0" 
+            max="100" 
+            step="1"
+            required
+          >
+          <div class="error-message" id="ig-error">Inserisci un valore tra 0 e 100</div>
+        </div>
+
+        <div class="form-group">
+          <label for="carboidrati">Carboidrati per porzione (g)</label>
+          <input 
+            type="number" 
+            id="carboidrati" 
+            name="carboidrati" 
+            placeholder="50" 
+            min="0" 
+            max="1000" 
+            step="0.1"
+            required
+          >
+          <div class="error-message" id="carboidrati-error">Inserisci un valore valido</div>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn-calculate">Calcola Carico Glicemico</button>
+          <button type="reset" class="btn-reset">Pulisci</button>
+        </div>
+      </form>
+
+      <!-- RESULT -->
+      <div id="result-container" class="result-container">
+        <div class="result-value" id="result-value">0</div>
+        <div id="result-classification"></div>
+        <div class="result-advice">
+          <h4>Consigli:</h4>
+          <p id="result-text"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AD SLOT MIDDLE -->
+  <div id="ad-slot-middle" class="ad-slot"></div>
+
+  <!-- EXPLANATION -->
+  <div class="container">
+    <div class="explanation">
+      <h2>Come funziona il Calcolatore Carico Glicemico</h2>
+
+      <h3>Cos'è il Carico Glicemico?</h3>
+      <p>
+        Il carico glicemico (CG) è una misura che combina due fattori importanti per la gestione della glicemia:
+        l'indice glicemico (IG) dell'alimento e la quantità di carboidrati consumati.
+      </p>
+
+      <h3>Formula di Calcolo</h3>
+      <p>
+        <strong>Carico Glicemico = (Indice Glicemico × Carboidrati) / 100</strong>
+      </p>
+
+      <h3>Classificazione del Carico Glicemico</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Classificazione</th>
+            <th>Valore CG</th>
+            <th>Effetto sulla Glicemia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Basso</strong></td>
+            <td>&lt; 10</td>
+            <td>Innalza lentamente la glicemia</td>
+          </tr>
+          <tr>
+            <td><strong>Medio</strong></td>
+            <td>11 - 19</td>
+            <td>Innalza moderatamente la glicemia</td>
+          </tr>
+          <tr>
+            <td><strong>Alto</strong></td>
+            <td>&gt; 20</td>
+            <td>Innalza rapidamente la glicemia</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Come Usare il Calcolatore</h3>
+      <ol>
+        <li><strong>Inserisci l'Indice Glicemico (IG)</strong>: Trova il valore IG dell'alimento (es. pane bianco = 75, riso integrale = 68)</li>
+        <li><strong>Inserisci i Carboidrati</strong>: Indica la quantità di carboidrati nella porzione che consumi</li>
+        <li><strong>Clicca Calcola</strong>: Otterrai immediatamente il carico glicemico e il relativo consiglio</li>
+      </ol>
+
+      <h3>Perché è Importante?</h3>
+      <p>
+        Il carico glicemico è particolarmente utile per:
+      </p>
+      <ul>
+        <li>Chi ha il diabete di tipo 2</li>
+        <li>Chi vuole controllare la glicemia per prevenire malattie metaboliche</li>
+        <li>Chi desidera mantenere stabili i livelli di energia durante la giornata</li>
+        <li>Chi segue una dieta a basso indice glicemico</li>
+      </ul>
+
+      <h3>Consigli Pratici</h3>
+      <ul>
+        <li><strong>Carico Glicemico Basso:</strong> Preferisci questi alimenti per mantenere la glicemia stabile</li>
+        <li><strong>Carico Glicemico Medio:</strong> Consumali con moderazione, meglio abbinati a proteine e fibre</li>
+        <li><strong>Carico Glicemico Alto:</strong> Limita il consumo o abbinali a cibi ricchi di fibre e proteine</li>
+      </ul>
+
+      <h3>Esempi di Indici Glicemici Comuni</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Alimento</th>
+            <th>Indice Glicemico</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Pane bianco</td>
+            <td>75</td>
+          </tr>
+          <tr>
+            <td>Riso bianco</td>
+            <td>73</td>
+          </tr>
+          <tr>
+            <td>Pasta integrale</td>
+            <td>40</td>
+          </tr>
+          <tr>
+            <td>Mela</td>
+            <td>36</td>
+          </tr>
+          <tr>
+            <td>Fagioli</td>
+            <td>28</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Nota Importante</h3>
+      <p>
+        Il carico glicemico è uno strumento utile ma non deve sostituire il consiglio del tuo medico o nutrizionista.
+        Se hai diabete o problemi di glicemia, consulta sempre un professionista sanitario.
+      </p>
+    </div>
+  </div>
+
+  <!-- AD SLOT MIDDLE-BOTTOM -->
+  <div id="ad-slot-middle-bottom" class="ad-slot"></div>
+
+  <!-- EMAIL CAPTURE -->
+  <div class="container">
+    <div class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- AD SLOT BOTTOM -->
+  <div id="ad-slot-bottom" class="ad-slot"></div>
+
+  <!-- FOOTER -->
+  <div class="container">
+    <div class="tool-footer">
+      <div class="disclaimer">
+        <strong>⚠️ Disclaimer:</strong> Questo strumento è a scopo informativo e educativo. Non è un consiglio medico. 
+        Consulta sempre un medico o nutrizionista prima di apportare modifiche significative alla tua dieta, 
+        specialmente se hai diabete o altre condizioni di salute.
+      </div>
+      <p><strong>Calcolatore Carico Glicemico</strong> © 2024 Tool4U.org</p>
+      <p>Uno strumento gratuito per calcolare e comprendere il carico glicemico degli alimenti.</p>
+    </div>
+  </div>
+
+  <script>
+    // Form handling
+    const form = document.getElementById('cg-form');
+    const igInput = document.getElementById('ig');
+    const carboidratiInput = document.getElementById('carboidrati');
+    const resultContainer = document.getElementById('result-container');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if (!validateForm()) {
+        return;
+      }
+
+      const ig = parseFloat(igInput.value);
+      const carboidrati = parseFloat(carboidratiInput.value);
+      
+      const cg = (ig * carboidrati) / 100;
+      displayResult(cg);
+    });
+
+    function validateForm() {
+      let isValid = true;
+
+      // Validate IG
+      const igValue = parseFloat(igInput.value);
+      const igError = document.getElementById('ig-error');
+      if (isNaN(igValue) || igValue < 0 || igValue > 100) {
+        igError.classList.add('show');
+        isValid = false;
+      } else {
+        igError.classList.remove('show');
+      }
+
+      // Validate Carboidrati
+      const carbValue = parseFloat(carboidratiInput.value);
+      const carbError = document.getElementById('carboidrati-error');
+      if (isNaN(carbValue) || carbValue < 0) {
+        carbError.classList.add('show');
+        isValid = false;
+      } else {
+        carbError.classList.remove('show');
+      }
+
+      return isValid;
+    }
+
+    function getClassification(cg) {
+      if (cg < 10) {
+        return { type: 'basso', label: 'Carico Glicemico Basso' };
+      } else if (cg >= 10 && cg <= 19) {
+        return { type: 'medio', label: 'Carico Glicemico Medio' };
+      } else {
+        return { type: 'alto', label: 'Carico Glicemico Alto' };
+      }
+    }
+
+    function getAdvice(classification) {
+      const advices = {
+        basso: 'Questo alimento ha un carico glicemico basso e non provoca picchi di glicemia. È una scelta ideale per mantenere stabili i livelli di zucchero nel sangue.',
+        medio: 'Questo alimento ha un carico glicemico medio. Puoi consumarlo, ma è consigliabile abbinarlo a fonti di proteine e fibre per ridurre l\'impatto sulla glicemia.',
+        alto: 'Questo alimento ha un carico glicemico alto e può provocare un rapido aumento della glicemia. Limitane il consumo e abbinalo a cibi ricchi di fibre e proteine per ridurre l\'impatto.'
+      };
+      return advices[classification.type];
+    }
+
+    function displayResult(cg) {
+      const cgRounded = Math.round(cg * 10) / 10;
+      const classification = getClassification(cgRounded);
+      const advice = getAdvice(classification);
+
+      document.getElementById('result-value').textContent = cgRounded.toFixed(1);
+      
+      const classificationDiv = document.getElementById('result-classification');
+      classificationDiv.innerHTML = `<div class="result-classification classification-${classification.type}">${classification.label}</div>`;
+      
+      document.getElementById('result-text').textContent = advice;
+      
+      resultContainer.classList.add('show');
+    }
+
+    // Email capture
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'calcolatore-indice-glicemico' })
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:#white">✓ Iscritto con successo!</p>';
+      }).catch(() => {
+        // Fallback if endpoint not configured
+        e.target.innerHTML = '<p style="color:white">✓ Grazie per l\'iscrizione!</p>';
+      });
+      return false;
+    }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
