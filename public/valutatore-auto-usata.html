@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Valore Auto Usata - Stima Prezzo di Mercato</title>
+  <meta name="description" content="Stima il valore della tua auto usata. Calcolo basato su deprezzamento, chilometri e condizioni del veicolo.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Valutatore Prezzo Auto Usata",
+    "description": "Stima il valore di mercato di un'auto usata in base ad anno, km e condizioni",
+    "url": "https://tool4u.org/valutatore-auto-usata"
+  }
+  </script>
+
+<style>
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #fff;
+  --background-color: #f0f0f0;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+}
+
+.nav {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0.8rem 1rem 0;
+}
+
+.nav a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.tool-header {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.tool-header h1 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.ad-slot {
+  height: 100px;
+  margin: 1rem 0;
+  background-color: #ccc;
+}
+
+.tool-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tool-body form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tool-body label {
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.tool-body input, .tool-body select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+}
+
+.tool-body button[type="submit"] {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.tool-body button[type="submit"]:hover {
+  background-color: #1a56db;
+}
+
+.result {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--secondary-color);
+  border: 1px solid #ddd;
+}
+
+.como-funziona {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.como-funziona h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.como-funziona p {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.email-capture {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.email-capture p {
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.email-capture form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.email-capture input[type="email"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ddd;
+}
+
+.email-capture button[type="submit"] {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.email-capture button[type="submit"]:hover {
+  background-color: #1a56db;
+}
+
+.tool-footer {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.tool-footer p {
+  font-size: 0.65rem;
+  color: #666;
+}
+</style>
+</head>
+<body>
+  <div class="nav">
+    <a href="/" style="color:var(--primary-color);text-decoration:none;font-size:0.85rem;">&larr; Tool4U.org</a>
+  </div>
+  <div class="tool-header">
+    <h1>Valutatore Prezzo Auto Usata</h1>
+    <p>Stima il valore di mercato di un'auto usata in base ad anno, km e condizioni</p>
+  </div>
+  <div class="ad-slot" id="AD_SLOT_TOP"></div>
+  <div class="tool-body">
+    <form id="valutatore-form">
+      <label for="prezzo_nuovo">Prezzo da nuovo (€)</label>
+      <input type="number" id="prezzo_nuovo" placeholder="25000" required>
+      <label for="anno">Anno immatricolazione</label>
+      <input type="number" id="anno" placeholder="2019" required>
+      <label for="km">Chilometri percorsi</label>
+      <input type="number" id="km" placeholder="80000" required>
+      <label for="condizioni">Condizioni generali</label>
+      <select id="condizioni">
+        <option value="ottimo">Ottimo</option>
+        <option value="buono">Buono</option>
+        <option value="discreto">Discreto</option>
+        <option value="da riparare">Da riparare</option>
+      </select>
+      <button type="submit">Calcola</button>
+    </form>
+    <div class="result" id="result"></div>
+  </div>
+  <div class="ad-slot" id="AD_SLOT_MIDDLE"></div>
+  <div class="como-funziona">
+    <h2>Come funziona</h2>
+    <p>Il valutatore prezzo auto usata calcola il valore di mercato di un'auto usata in base ad anno, km e condizioni. Il calcolo si basa su un deprezzamento del 20% nel primo anno, del 15% nel secondo anno, del 10% nel terzo anno e dell'8% negli anni successivi. Inoltre, il calcolo tiene conto dei chilometri percorsi (media di 15000 km all'anno) e delle condizioni generali dell'auto.</p>
+  </div>
+  <div id="email-capture" class="email-capture">
+    <p>Ricevi nuovi tool utili ogni settimana</p>
+    <form id="email-form" onsubmit="return captureEmail(event)">
+      <input type="email" placeholder="La tua email" required>
+      <button type="submit">Iscriviti</button>
+    </form>
+  </div>
+  <div class="ad-slot" id="AD_SLOT_BOTTOM"></div>
+  <div class="tool-footer">
+    <p>Tool4U.org &copy; 2023. Tutti i diritti riservati.</p>
+  </div>
+  <script>
+  function calculateValue(prezzo_nuovo, anno, km, condizioni) {
+    const currentYear = new Date().getFullYear();
+    const yearsOld = currentYear - anno;
+    let depreciation = 0;
+    if (yearsOld > 0) {
+      depreciation = (prezzo_nuovo * 0.2) + (prezzo_nuovo * 0.15 * (yearsOld - 1)) + (prezzo_nuovo * 0.1 * (yearsOld - 2)) + (prezzo_nuovo * 0.08 * (yearsOld - 3));
+    }
+    const kmDepreciation = (km / 15000) * prezzo_nuovo * 0.05;
+    let conditionDepreciation = 0;
+    switch (condizioni) {
+      case "ottimo":
+        conditionDepreciation = prezzo_nuovo * 0.1;
+        break;
+      case "discreto":
+        conditionDepreciation = prezzo_nuovo * 0.1;
+        break;
+      case "da riparare":
+        conditionDepreciation = prezzo_nuovo * 0.25;
+        break;
+    }
+    const value = prezzo_nuovo - depreciation - kmDepreciation - conditionDepreciation;
+    return value;
+  }
+
+  document.getElementById("valutatore-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const prezzo_nuovo = parseFloat(document.getElementById("prezzo_nuovo").value);
+    const anno = parseInt(document.getElementById("anno").value);
+    const km = parseFloat(document.getElementById("km").value);
+    const condizioni = document.getElementById("condizioni").value;
+    const value = calculateValue(prezzo_nuovo, anno, km, condizioni);
+    const minValue = value * 0.9;
+    const maxValue = value * 1.1;
+    document.getElementById("result").innerHTML = `Valore stimato: ${value.toFixed(2)}€ (min: ${minValue.toFixed(2)}€, max: ${maxValue.toFixed(2)}€)`;
+  });
+
+  function captureEmail(e) {
+    e.preventDefault();
+    const email = e.target.querySelector('input').value;
+    fetch('__NEWSLETTER_ENDPOINT__', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, source: 'valutatore-auto-usata'})
+    }).then(() => {
+      e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+    });
+    return false;
+  }
+  </script>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
