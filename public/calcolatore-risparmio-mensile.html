@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Risparmio Mensile</title>
+  <meta name="description" content="Calcola quanto puoi risparmiare ogni mese in base alle tue entrate e uscite. Pianifica il tuo budget familiare.">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calcolatore Risparmio Mensile",
+      "description": "Calcola quanto puoi risparmiare ogni mese in base alle tue entrate e uscite. Pianifica il tuo budget familiare.",
+      "url": "/calcolatore-risparmio-mensile"
+    }
+  </script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #f7f7f7;
+    }
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--secondary-color);
+    }
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0.8rem 1rem 0;
+    }
+    .tool-header {
+      text-align: center;
+    }
+    .tool-header h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .tool-header p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .form-group input {
+      width: 100%;
+      height: 2rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+    }
+    .form-group select {
+      width: 100%;
+      height: 2rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+    }
+    .result {
+      background-color: #f0f0f0;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+    }
+    .ad-slot {
+      background-color: #f7f7f7;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      text-align: center;
+    }
+    .email-capture {
+      background-color: #f7f7f7;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+    }
+    .email-capture form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .email-capture input {
+      width: 100%;
+      height: 2rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .email-capture button {
+      background-color: var(--primary-color);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+    .footer {
+      background-color: #f7f7f7;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" style="color:var(--primary-color);text-decoration:none;font-size:0.85rem;">&larr; Tool4U.org</a>
+    <div class="tool-header">
+      <h1>Calcolatore Risparmio Mensile</h1>
+      <p>Calcola quanto puoi risparmiare ogni mese in base alle tue entrate e uscite. Pianifica il tuo budget familiare.</p>
+    </div>
+    <div class="ad-slot" id="ad-slot-top"></div>
+    <form id="calculator-form">
+      <div class="form-group">
+        <label for="entrate">ENTRATE MENSILI</label>
+        <input type="number" id="entrate" required>
+      </div>
+      <div class="form-group">
+        <label for="uscite">USCITE MENSILI</label>
+        <input type="number" id="uscite" required>
+      </div>
+      <button type="submit" id="calcola">CALCOLA RISPARMIO</button>
+    </form>
+    <div id="result" class="result"></div>
+    <div class="ad-slot" id="ad-slot-middle"></div>
+    <div class="tool-explanation">
+      <h2>Come funziona</h2>
+      <p>Il calcolatore risparmio mensile è uno strumento semplice e facile da usare che ti aiuta a pianificare il tuo budget familiare. Basta inserire le tue entrate e uscite mensili e il calcolatore ti darà una stima del tuo risparmio mensile.</p>
+    </div>
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+    <div class="ad-slot" id="ad-slot-bottom"></div>
+    <div class="footer">
+      <p>&copy; 2024 Tool4U.org. Tutti i diritti riservati.</p>
+    </div>
+  </div>
+  <script>
+    function calculateRisparmio() {
+      const entrate = parseFloat(document.getElementById('entrate').value);
+      const uscite = parseFloat(document.getElementById('uscite').value);
+      const risparmio = entrate - uscite;
+      return risparmio;
+    }
+    document.getElementById('calcola').addEventListener('click', function(event) {
+      event.preventDefault();
+      const risparmio = calculateRisparmio();
+      if (risparmio >= 0) {
+        document.getElementById('result').innerHTML = `Il tuo risparmio mensile è di €${risparmio.toFixed(2)}`;
+      } else {
+        document.getElementById('result').innerHTML = `Il tuo deficit mensile è di €${Math.abs(risparmio).toFixed(2)}`;
+      }
+    });
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-risparmio-mensile'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+  </script>
+<div style="margin:1.5rem 0;padding:1.2rem 1.5rem;background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1px solid #fed7aa;border-radius:12px;text-align:center"><p style="margin:0 0 0.5rem;font-size:0.95rem;font-weight:600;color:#9a3412">Potrebbe interessarti</p><a href="https://www.amazon.it/s?k=calcolatrice+finanziaria&tag=tool4u0b-21" target="_blank" rel="noopener sponsored" style="display:inline-block;padding:10px 24px;background:#f97316;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.9rem">Calcolatrice finanziaria su Amazon &rarr;</a><p style="margin:0.5rem 0 0;font-size:0.7rem;color:#c2410c">Link affiliato Amazon</p></div>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
