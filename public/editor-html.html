@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editor HTML Online Gratuito con Anteprima Live | Tool4U</title>
+<meta name="description" content="Editor HTML online gratuito con anteprima live in tempo reale. Scrivi codice HTML, formatta il testo con i bottoni e copia l'HTML generato. Nessuna installazione richiesta.">
+<meta name="keywords" content="editor html online, editor html gratuito, html editor live preview, editor html con anteprima, scrivi html online, formattatore html, generatore html, html wysiwyg online, editor codice html, anteprima html live">
+<link rel="canonical" href="https://tool4u.org/editor-html.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7RECNQWSB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-T7RECNQWSB")</script>
+<meta property="og:title" content="Editor HTML Online Gratuito con Anteprima Live">
+<meta property="og:description" content="Scrivi e visualizza HTML in tempo reale. Formattazione con un click, copia HTML istantanea.">
+<meta property="og:url" content="https://tool4u.org/editor-html.html">
+<meta property="og:type" content="website">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,sans-serif;background:#f8fafc;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.site-header{background:#1a1a2e;padding:12px 20px;display:flex;align-items:center;gap:12px}
+.site-header a{color:#93c5fd;text-decoration:none;font-size:0.85rem;font-weight:600}
+.site-header a:hover{color:#fff}
+.site-header span{color:#64748b;font-size:0.85rem}
+.hero{background:linear-gradient(135deg,#1a1a2e,#2563eb);color:#fff;padding:2rem 1rem;text-align:center}
+.hero h1{font-size:1.8rem;margin-bottom:0.5rem;font-weight:700}
+.hero p{color:#bfdbfe;font-size:0.95rem}
+.ad-banner{text-align:center;padding:10px;background:#f1f5f9;border-bottom:1px solid #e2e8f0}
+.tool-wrap{max-width:1200px;width:100%;margin:0 auto;padding:1.5rem 1rem;flex:1}
+.toolbar{display:flex;flex-wrap:wrap;gap:6px;background:#fff;border:1px solid #e2e8f0;border-radius:10px 10px 0 0;padding:10px 12px;border-bottom:none}
+.toolbar-group{display:flex;gap:4px;padding-right:10px;border-right:1px solid #e2e8f0;margin-right:2px}
+.toolbar-group:last-child{border-right:none;padding-right:0}
+.tb-btn{padding:5px 10px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;cursor:pointer;font-size:0.82rem;font-weight:600;color:#374151;transition:all 0.12s;white-space:nowrap}
+.tb-btn:hover{background:#2563eb;color:#fff;border-color:#2563eb}
+select.tb-btn{padding:5px 8px;font-size:0.82rem}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #e2e8f0;border-radius:0 0 10px 10px;overflow:hidden;min-height:420px}
+@media(max-width:700px){.panels{grid-template-columns:1fr;min-height:auto}}
+.panel-label{background:#f1f5f9;padding:6px 14px;font-size:0.75rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between}
+.editor-side{display:flex;flex-direction:column;border-right:1px solid #e2e8f0}
+.preview-side{display:flex;flex-direction:column;background:#fff}
+#editor{width:100%;flex:1;min-height:380px;padding:14px;font-family:'Courier New',monospace;font-size:0.88rem;line-height:1.6;border:none;outline:none;resize:none;background:#1e293b;color:#e2e8f0;tab-size:2}
+@media(max-width:700px){#editor{min-height:200px}}
+#preview{flex:1;min-height:380px;padding:16px;overflow:auto;background:#fff;font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a2e}
+@media(max-width:700px){#preview{min-height:200px}}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
+.btn-copy{padding:10px 22px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn-copy:hover{background:#1d4ed8}
+.btn-clear{padding:10px 18px;background:#fff;color:#64748b;border:1px solid #e2e8f0;border-radius:8px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn-clear:hover{border-color:#ef4444;color:#ef4444}
+.char-count{color:#64748b;font-size:0.82rem;margin-left:auto}
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a2e;color:#fff;padding:12px 20px;border-radius:8px;font-size:0.88rem;font-weight:600;opacity:0;transform:translateY(10px);transition:all 0.25s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+.info-section{max-width:1200px;margin:0 auto;padding:0 1rem 2rem;width:100%}
+.info-box{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:1.5rem;margin-bottom:1rem}
+.info-box h2{font-size:1.1rem;color:#1a1a2e;margin-bottom:0.75rem;font-weight:700}
+.info-box ul{padding-left:1.2rem;color:#475569;font-size:0.9rem;line-height:1.8}
+.info-box p{color:#475569;font-size:0.9rem;line-height:1.7}
+.site-footer{background:#1a1a2e;color:#64748b;text-align:center;padding:1rem;font-size:0.8rem;margin-top:auto}
+.site-footer a{color:#93c5fd;text-decoration:none}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="/">&#8592; Tool4U.org</a>
+  <span>/</span>
+  <span>Editor HTML</span>
+</header>
+<div class="hero">
+  <h1>Editor HTML Online</h1>
+  <p>Scrivi, formatta e visualizza il tuo codice HTML in tempo reale</p>
+</div>
+<div class="ad-banner">
+  <script async="async" data-cfasync="false" src="https://pl28922734.profitablecpmratenetwork.com/a5b8c5fe668820a6b4be4455f1f4e5d8/invoke.js"></script>
+  <div id="container-a5b8c5fe668820a6b4be4455f1f4e5d8"></div>
+</div>
+<div class="tool-wrap">
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <select class="tb-btn" onchange="insertHeading(this.value);this.value=''">
+        <option value="">Titolo</option>
+        <option value="h1">H1</option>
+        <option value="h2">H2</option>
+        <option value="h3">H3</option>
+        <option value="h4">H4</option>
+      </select>
+    </div>
+    <div class="toolbar-group">
+      <button class="tb-btn" onclick="wrap('<strong>','</strong>')" title="Grassetto"><b>B</b></button>
+      <button class="tb-btn" onclick="wrap('<em>','</em>')" title="Corsivo"><i>I</i></button>
+      <button class="tb-btn" onclick="wrap('<u>','</u>')" title="Sottolineato"><u>U</u></button>
+      <button class="tb-btn" onclick="wrap('<s>','</s>')" title="Barrato"><s>S</s></button>
+      <button class="tb-btn" onclick="wrap('<mark>','</mark>')" title="Evidenziato">&#128394;</button>
+    </div>
+    <div class="toolbar-group">
+      <button class="tb-btn" onclick="insertList('ul')">&#8226; Lista</button>
+      <button class="tb-btn" onclick="insertList('ol')">1. Lista</button>
+    </div>
+    <div class="toolbar-group">
+      <button class="tb-btn" onclick="insertBlock('p')">&#182; p</button>
+      <button class="tb-btn" onclick="insertBlock('blockquote')">&#10077; Quote</button>
+      <button class="tb-btn" onclick="insertBlock('pre')">&lt;/&gt; Code</button>
+      <button class="tb-btn" onclick="insertHr()">&#8212; HR</button>
+    </div>
+    <div class="toolbar-group">
+      <button class="tb-btn" onclick="insertLink()">&#128279; Link</button>
+      <button class="tb-btn" onclick="insertImg()">&#128444; Img</button>
+    </div>
+    <div class="toolbar-group">
+      <button class="tb-btn" onclick="loadTemplate()">&#128196; Template</button>
+    </div>
+  </div>
+  <div class="panels">
+    <div class="editor-side">
+      <div class="panel-label">
+        <span>&#9999;&#65039; Editor HTML</span>
+        <span id="line-count">0 righe</span>
+      </div>
+      <textarea id="editor" spellcheck="false" placeholder="Scrivi il tuo HTML qui..." oninput="updatePreview();updateCount()"></textarea>
+    </div>
+    <div class="preview-side">
+      <div class="panel-label">
+        <span>&#128065; Anteprima Live</span>
+      </div>
+      <div id="preview"></div>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="btn-copy" onclick="copyHTML()">&#128203; Copia HTML</button>
+    <button class="btn-clear" onclick="clearEditor()">&#128465; Pulisci</button>
+    <span class="char-count" id="char-count">0 caratteri</span>
+  </div>
+</div>
+<div class="info-section">
+  <div class="info-box">
+    <h2>Come usare l'Editor HTML Online</h2>
+    <ul>
+      <li>Scrivi il codice HTML direttamente nell'editor a sinistra</li>
+      <li>Usa i <strong>bottoni della toolbar</strong> per formattare il testo senza scrivere tag</li>
+      <li>L'<strong>anteprima live</strong> a destra si aggiorna in tempo reale</li>
+      <li>Clicca <strong>Copia HTML</strong> per copiare il codice negli appunti</li>
+      <li>Usa <strong>Template</strong> per iniziare con una struttura HTML completa</li>
+    </ul>
+  </div>
+  <div class="info-box">
+    <h2>A cosa serve un Editor HTML Online</h2>
+    <p>Un editor HTML online è utile per chi deve creare o modificare pagine web senza installare software. È ideale per sviluppatori, designer, blogger e studenti che vogliono testare rapidamente del codice HTML direttamente dal browser. Con l'anteprima live puoi vedere immediatamente il risultato delle tue modifiche, risparmiando tempo e riducendo gli errori.</p>
+  </div>
+</div>
+<div class="toast" id="toast">&#10003; HTML copiato!</div>
+<footer class="site-footer">
+  Tool4U.org &mdash; Strumenti online gratuiti &nbsp;|&nbsp; <a href="/privacy.html">Privacy e Cookie</a>
+</footer>
+<script>
+var editor=document.getElementById('editor');
+var preview=document.getElementById('preview');
+function updatePreview(){preview.innerHTML=editor.value;}
+function updateCount(){var lines=editor.value.split('\n').length;var chars=editor.value.length;document.getElementById('line-count').textContent=lines+' righe';document.getElementById('char-count').textContent=chars+' caratteri';}
+function getSelection(){var s=editor.selectionStart,e=editor.selectionEnd;return{start:s,end:e,text:editor.value.substring(s,e)};}
+function wrap(open,close){var sel=getSelection();var text=sel.text||'testo';var nv=editor.value.substring(0,sel.start)+open+text+close+editor.value.substring(sel.end);editor.value=nv;editor.focus();updatePreview();updateCount();}
+function insertBlock(tag){var sel=getSelection();var text=sel.text||'Testo qui';var block='\n<'+tag+'>'+text+'</'+tag+'>\n';editor.value=editor.value.substring(0,sel.start)+block+editor.value.substring(sel.end);editor.focus();updatePreview();updateCount();}
+function insertHeading(level){if(!level)return;insertBlock(level);}
+function insertList(type){var sel=getSelection();var lines=sel.text?sel.text.split('\n'):['Elemento 1','Elemento 2','Elemento 3'];var items=lines.map(function(l){return'  <li>'+(l.trim()||'Elemento')+'</li>';}).join('\n');var block='\n<'+type+'>\n'+items+'\n</'+type+'>\n';editor.value=editor.value.substring(0,sel.start)+block+editor.value.substring(sel.end);editor.focus();updatePreview();updateCount();}
+function insertHr(){var sel=getSelection();editor.value=editor.value.substring(0,sel.start)+'\n<hr>\n'+editor.value.substring(sel.end);editor.focus();updatePreview();updateCount();}
+function insertLink(){var url=prompt('URL del link:','https://');if(!url)return;var sel=getSelection();var text=sel.text||'testo del link';var tag='<a href="'+url+'">'+text+'</a>';editor.value=editor.value.substring(0,sel.start)+tag+editor.value.substring(sel.end);editor.focus();updatePreview();updateCount();}
+function insertImg(){var url=prompt('URL immagine:','https://');if(!url)return;var alt=prompt('Alt:','')||'';var tag='<img src="'+url+'" alt="'+alt+'">\n';var sel=getSelection();editor.value=editor.value.substring(0,sel.start)+tag+editor.value.substring(sel.end);editor.focus();updatePreview();updateCount();}
+function loadTemplate(){if(editor.value&&!confirm('Sostituire il contenuto con il template?'))return;editor.value='<!DOCTYPE html>\n<html lang="it">\n<head>\n  <meta charset="UTF-8">\n  <title>Il mio documento</title>\n</head>\n<body>\n  <h1>Titolo</h1>\n  <p>Contenuto qui.</p>\n</body>\n</html>';updatePreview();updateCount();editor.focus();}
+function copyHTML(){if(!editor.value)return;navigator.clipboard.writeText(editor.value).then(function(){var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000);}).catch(function(){editor.select();document.execCommand('copy');});}
+function clearEditor(){if(editor.value&&!confirm('Cancellare tutto?'))return;editor.value='';preview.innerHTML='';updateCount();editor.focus();}
+editor.addEventListener('keydown',function(e){if(e.key==='Tab'){e.preventDefault();var s=this.selectionStart;this.value=this.value.substring(0,s)+'  '+this.value.substring(this.selectionEnd);this.selectionStart=this.selectionEnd=s+2;updatePreview();updateCount();}});
+updateCount();
+</script>
+</body>
+</html>
