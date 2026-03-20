@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Indice di Massa Corporea (IMC)</title>
+  <meta name="description" content="Calcola il tuo indice di massa corporea inserendo peso e altezza. Scopri se sei in sottopeso, normopeso, sovrappeso o obeso.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Indice di Massa Corporea (IMC)",
+    "description": "Calcola il tuo indice di massa corporea inserendo peso e altezza. Scopri se sei in sottopeso, normopeso, sovrappeso o obeso.",
+    "url": "https://tool4u.org/calcolatore-indice-massa-corporea"
+  }
+  </script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #ffffff;
+      --background-color: #f7f7f7;
+      --text-color: #333333;
+    }
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0.8rem 1rem 0;
+    }
+    .tool-header {
+      margin-bottom: 1rem;
+    }
+    .tool-header h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .tool-header p {
+      font-size: 0.85rem;
+      color: #666666;
+    }
+    .ad-slot {
+      height: 100px;
+      background-color: #cccccc;
+      margin-bottom: 1rem;
+    }
+    #tool-body {
+      margin-bottom: 1rem;
+    }
+    #tool-body form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #tool-body input {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border: 1px solid #cccccc;
+      border-radius: 0.25rem;
+    }
+    #tool-body button {
+      width: 100%;
+      height: 40px;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+    #tool-body button:hover {
+      background-color: #1a56cb;
+    }
+    #result {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    #come-funziona {
+      margin-bottom: 1rem;
+    }
+    #come-funziona h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    #come-funziona p {
+      font-size: 0.85rem;
+      color: #666666;
+    }
+    #email-capture {
+      margin-bottom: 1rem;
+    }
+    #email-capture p {
+      font-size: 0.85rem;
+      color: #666666;
+    }
+    #email-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #email-form input {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border: 1px solid #cccccc;
+      border-radius: 0.25rem;
+    }
+    #email-form button {
+      width: 100%;
+      height: 40px;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+    #email-form button:hover {
+      background-color: #1a56cb;
+    }
+    #tool-footer {
+      margin-bottom: 1rem;
+    }
+    #tool-footer p {
+      font-size: 0.6rem;
+      color: #666666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;">
+      <a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a>
+    </div>
+    <div class="tool-header">
+      <h1>Calcolatore Indice di Massa Corporea (IMC)</h1>
+      <p>Calcola il tuo indice di massa corporea inserendo peso e altezza. Scopri se sei in sottopeso, normopeso, sovrappeso o obeso.</p>
+    </div>
+    <div class="ad-slot" id="AD_SLOT_TOP"></div>
+    <div id="tool-body">
+      <form id="imc-form">
+        <input type="number" id="peso" placeholder="Peso (kg)" required>
+        <input type="number" id="altezza" placeholder="Altezza (cm)" required>
+        <button type="submit">Calcola IMC</button>
+      </form>
+      <div id="result"></div>
+    </div>
+    <div class="ad-slot" id="AD_SLOT_MIDDLE"></div>
+    <div id="come-funziona">
+      <h2>Come funziona</h2>
+      <p>Il calcolatore indice di massa corporea utilizza la formula IMC = peso (kg) / altezza (m)² per calcolare il tuo indice di massa corporea. Il risultato sarà classificato in base ai seguenti valori:</p>
+      <ul>
+        <li>Sottopeso: IMC < 18,5</li>
+        <li>Normopeso: IMC = 18,5-24,9</li>
+        <li>Sovrappeso: IMC = 25-29,9</li>
+        <li>Obeso: IMC ≥ 30</li>
+      </ul>
+    </div>
+    <div id="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+    <div class="ad-slot" id="AD_SLOT_BOTTOM"></div>
+    <div id="tool-footer">
+      <p>Copyright 2023 Tool4U.org. Tutti i diritti riservati.</p>
+    </div>
+  </div>
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'calcolatore-indice-massa-corporea'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+    const imcForm = document.getElementById('imc-form');
+    imcForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const peso = parseFloat(document.getElementById('peso').value);
+      const altezza = parseFloat(document.getElementById('altezza').value) / 100;
+      const imc = peso / (altezza * altezza);
+      const result = document.getElementById('result');
+      if (imc < 18.5) {
+        result.innerText = `Il tuo IMC è ${imc.toFixed(2)}. Sei in sottopeso.`;
+      } else if (imc >= 18.5 && imc < 25) {
+        result.innerText = `Il tuo IMC è ${imc.toFixed(2)}. Sei in normopeso.`;
+      } else if (imc >= 25 && imc < 30) {
+        result.innerText = `Il tuo IMC è ${imc.toFixed(2)}. Sei in sovrappeso.`;
+      } else {
+        result.innerText = `Il tuo IMC è ${imc.toFixed(2)}. Sei obeso.`;
+      }
+    });
+  </script>
+<div style="margin:1.5rem 0;padding:1.2rem 1.5rem;background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1px solid #fed7aa;border-radius:12px;text-align:center"><p style="margin:0 0 0.5rem;font-size:0.95rem;font-weight:600;color:#9a3412">Potrebbe interessarti</p><a href="https://www.amazon.it/s?k=bilancia+pesapersone+digitale&tag=tool4u0b-21" target="_blank" rel="noopener sponsored" style="display:inline-block;padding:10px 24px;background:#f97316;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.9rem">Bilancia pesapersone digitale su Amazon &rarr;</a><p style="margin:0.5rem 0 0;font-size:0.7rem;color:#c2410c">Link affiliato Amazon</p></div>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
