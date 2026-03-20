@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convertitore Chilometri Miglia Online</title>
+  <meta name="description" content="Converti istantaneamente chilometri in miglia e viceversa. Utile per viaggi internazionali e sport.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "WebApplication",
+    "name": "Convertitore Chilometri Miglia Online",
+    "description": "Converti istantaneamente chilometri in miglia e viceversa. Utile per viaggi internazionali e sport.",
+    "url": "https://tool4u.org/convertitore-km-miglia"
+  }
+  </script>
+
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #f7f7f7;
+    }
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--secondary-color);
+    }
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0.8rem 1rem 0;
+    }
+    .tool-header {
+      margin-bottom: 1rem;
+    }
+    .tool-header h1 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+    .tool-body {
+      background-color: #fff;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .input-field {
+      margin-bottom: 1rem;
+    }
+    .input-field label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .input-field input {
+      width: 100%;
+      height: 2rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+    }
+    .result {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    .come-funziona {
+      margin-top: 2rem;
+    }
+    .come-funziona h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #f7f7f7;
+      border-top: 1px solid #ddd;
+    }
+    .ad-slot {
+      height: 100px;
+      background-color: #ccc;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="max-width:680px;margin:0 auto;padding:0.8rem 1rem 0;">
+      <a href="/" style="color:#2563eb;text-decoration:none;font-size:0.85rem;font-family:system-ui,sans-serif;">&larr; Tool4U.org</a>
+    </div>
+    <div class="tool-header">
+      <h1>Convertitore Chilometri Miglia Online</h1>
+      <p>Converti istantaneamente chilometri in miglia e viceversa. Utile per viaggi internazionali e sport.</p>
+    </div>
+    <div class="ad-slot" id="AD_SLOT_TOP"></div>
+    <div class="tool-body">
+      <form id="conversion-form">
+        <div class="input-field">
+          <label for="value">Inserisci il valore da convertire:</label>
+          <input type="number" id="value" required>
+        </div>
+        <div class="input-field">
+          <label for="unit">Seleziona l'unità di misura:</label>
+          <select id="unit" required>
+            <option value="km">Chilometri</option>
+            <option value="miglia">Miglia</option>
+          </select>
+        </div>
+        <button type="submit">Converti</button>
+      </form>
+      <div id="result" class="result"></div>
+    </div>
+    <div class="ad-slot" id="AD_SLOT_MIDDLE"></div>
+    <div class="come-funziona">
+      <h2>Come funziona</h2>
+      <p>Il convertitore di chilometri e miglia utilizza un semplice algoritmo di conversione per trasformare il valore inserito dall'utente dall'una all'altra unità di misura. Il fattore di conversione utilizzato è di 1 chilometro = 0,621371 miglia.</p>
+    </div>
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+    <div class="ad-slot" id="AD_SLOT_BOTTOM"></div>
+    <div class="footer">
+      <p>&copy; 2023 Tool4U.org. Tutti i diritti riservati.</p>
+    </div>
+  </div>
+  <script>
+    function captureEmail(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      // Il Publisher inietterà l'endpoint reale
+      fetch('__NEWSLETTER_ENDPOINT__', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, source: 'convertitore-km-miglia'})
+      }).then(() => {
+        e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+      });
+      return false;
+    }
+
+    const form = document.getElementById('conversion-form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const value = parseFloat(document.getElementById('value').value);
+      const unit = document.getElementById('unit').value;
+      let result;
+
+      if (unit === 'km') {
+        result = value * 0.621371;
+        document.getElementById('result').innerHTML = `${value} chilometri = ${result.toFixed(2)} miglia`;
+      } else {
+        result = value * 1.60934;
+        document.getElementById('result').innerHTML = `${value} miglia = ${result.toFixed(2)} chilometri`;
+      }
+    });
+  </script>
+<div style="margin:1.5rem 0;padding:1.2rem 1.5rem;background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1px solid #fed7aa;border-radius:12px;text-align:center"><p style="margin:0 0 0.5rem;font-size:0.95rem;font-weight:600;color:#9a3412">Potrebbe interessarti</p><a href="https://www.amazon.it/s?k=metro+laser+digitale&tag=tool4u0b-21" target="_blank" rel="noopener sponsored" style="display:inline-block;padding:10px 24px;background:#f97316;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.9rem">Metro digitale laser su Amazon &rarr;</a><p style="margin:0.5rem 0 0;font-size:0.7rem;color:#c2410c">Link affiliato Amazon</p></div>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/conversione-temperatura.html" style="color:#2563eb;text-decoration:none;">Convertitore Temperatura</a></li>
+<li style="margin:0.5rem 0;"><a href="/convertitore-taglie-scarpe.html" style="color:#2563eb;text-decoration:none;">Convertitore Taglie Scarpe</a></li>
+<li style="margin:0.5rem 0;"><a href="/convertitore-valuta.html" style="color:#2563eb;text-decoration:none;">Convertitore Valuta</a></li>
+<li style="margin:0.5rem 0;"><a href="/convertitore-unita-misura.html" style="color:#2563eb;text-decoration:none;">Convertitore Unita di Misura</a></li>
+</ul>
+</div>
+</body>
+</html>
