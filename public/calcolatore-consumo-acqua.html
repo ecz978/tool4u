@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Fabbisogno Giornaliero di Acqua</title>
+  <meta name="description" content="Calcola quanta acqua devi bere al giorno in base al tuo peso, attività fisica e clima.">
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Fabbisogno Giornaliero di Acqua",
+    "description": "Calcola quanta acqua devi bere al giorno in base al tuo peso, attività fisica e clima.",
+    "url": "https://tool4u.org/calcolatore-consumo-acqua"
+  }</script>
+
+<style>
+  :root {
+    --primary-color: #2563eb;
+    --secondary-color: #fff;
+    --background-color: #f9f9f9;
+    --text-color: #333;
+  }
+
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0.8rem 1rem 0;
+  }
+
+  .tool-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .tool-body {
+    background-color: var(--secondary-color);
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-field {
+    margin-bottom: 1rem;
+  }
+
+  .form-field label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-field input {
+    width: 100%;
+    height: 2rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+  }
+
+  .result {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+
+  .ad-slot {
+    height: 100px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .email-capture {
+    margin-top: 2rem;
+  }
+
+  .email-capture p {
+    margin-bottom: 0.5rem;
+  }
+
+  .email-capture form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .email-capture input {
+    width: 100%;
+    height: 2rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .email-capture button {
+    width: 100%;
+    height: 2rem;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    cursor: pointer;
+  }
+
+  .tool-footer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: #666;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="/" style="color: #2563eb; text-decoration: none; font-size: 0.85rem; font-family: system-ui, sans-serif;">&larr; Tool4U.org</a>
+  <h1 class="tool-header">Calcolatore Fabbisogno Giornaliero di Acqua</h1>
+  <div class="ad-slot" id="AD_SLOT_TOP"></div>
+  <div class="tool-body">
+    <form id="calculator-form">
+      <div class="form-field">
+        <label for="peso">Peso (kg)</label>
+        <input type="number" id="peso" required>
+      </div>
+      <div class="form-field">
+        <label for="attivita-fisica">Attività fisica</label>
+        <select id="attivita-fisica" required>
+          <option value="">Seleziona</option>
+          <option value="bassa">Bassa</option>
+          <option value="media">Media</option>
+          <option value="alta">Alta</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="clima">Clima</label>
+        <select id="clima" required>
+          <option value="">Seleziona</option>
+          <option value="freddo">Freddo</option>
+          <option value="temperato">Temperato</option>
+          <option value="caldo">Caldo</option>
+        </select>
+      </div>
+      <button type="submit">Calcola</button>
+    </form>
+    <div class="result" id="result"></div>
+  </div>
+  <div class="ad-slot" id="AD_SLOT_MIDDLE"></div>
+  <div class="tool-explanation">
+    <h2>Come funziona</h2>
+    <p>Il calcolatore fabbisogno giornaliero di acqua stimano la quantità di acqua che dovresti bere al giorno in base al tuo peso, attività fisica e clima.</p>
+  </div>
+  <div class="email-capture">
+    <p>Ricevi nuovi tool utili ogni settimana</p>
+    <form id="email-form" onsubmit="return captureEmail(event)">
+      <input type="email" placeholder="La tua email" required>
+      <button type="submit">Iscriviti</button>
+    </form>
+  </div>
+  <div class="ad-slot" id="AD_SLOT_BOTTOM"></div>
+  <div class="tool-footer">
+    <p>Disclaimer: il calcolatore è solo un'indicazione e non sostituisce il consiglio di un medico.</p>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('calculator-form');
+  const resultElement = document.getElementById('result');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const peso = parseFloat(document.getElementById('peso').value);
+    const attivitaFisica = document.getElementById('attivita-fisica').value;
+    const clima = document.getElementById('clima').value;
+
+    let fabbisognoAcqua = 0;
+
+    if (attivitaFisica === 'bassa') {
+      fabbisognoAcqua = peso * 30;
+    } else if (attivitaFisica === 'media') {
+      fabbrisognoAcqua = peso * 35;
+    } else if (attivitaFisica === 'alta') {
+      fabbrisognoAcqua = peso * 40;
+    }
+
+    if (clima === 'caldo') {
+      fabbrisognoAcqua += 10;
+    } else if (clima === 'freddo') {
+      fabbrisognoAcqua -= 10;
+    }
+
+    resultElement.textContent = `Il tuo fabbisogno giornaliero di acqua è di ${fabbisognoAcqua} ml`;
+  });
+
+  function captureEmail(e) {
+    e.preventDefault();
+    const email = e.target.querySelector('input').value;
+    // Il Publisher inietterà l'endpoint reale
+    fetch('__NEWSLETTER_ENDPOINT__', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, source: 'calcolatore-consumo-acqua' })
+    }).then(() => {
+      e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+    });
+    return false;
+  }
+</script>
+<div style="margin:1.5rem 0;padding:1.2rem 1.5rem;background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1px solid #fed7aa;border-radius:12px;text-align:center"><p style="margin:0 0 0.5rem;font-size:0.95rem;font-weight:600;color:#9a3412">Potrebbe interessarti</p><a href="https://www.amazon.it/s?k=bilancia+pesapersone+digitale&tag=tool4u0b-21" target="_blank" rel="noopener sponsored" style="display:inline-block;padding:10px 24px;background:#f97316;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.9rem">Bilancia pesapersone digitale su Amazon &rarr;</a><p style="margin:0.5rem 0 0;font-size:0.7rem;color:#c2410c">Link affiliato Amazon</p></div>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
