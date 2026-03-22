@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolatore Calorie Alimenti</title>
+  <meta name="description" content="Calcola le calorie degli alimenti più comuni. Cerca un alimento e scopri i valori nutrizionali per 100g o per la porzione che vuoi.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calcolatore Calorie Alimenti",
+    "description": "Calcola le calorie degli alimenti più comuni. Cerca un alimento e scopri i valori nutrizionali per 100g o per la porzione che vuoi.",
+    "url": "https://tool4u.org/calcolatore-calorie-alimenti"
+  }
+  </script>
+<style>
+  :root {
+    --primary-color: #2563eb;
+    --secondary-color: #f7f7f7;
+  }
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--secondary-color);
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0.8rem 1rem 0;
+  }
+  .nav {
+    margin-bottom: 1rem;
+  }
+  .nav a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.85rem;
+  }
+  .tool-header {
+    margin-bottom: 1rem;
+  }
+  .tool-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .tool-header p {
+    font-size: 0.85rem;
+    color: #666;
+  }
+  .ad-slot {
+    margin-bottom: 1rem;
+  }
+  .form-container {
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .form-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .form-container input[type="text"], .form-container select {
+    width: 100%;
+    height: 2rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
+  .form-container button[type="submit"] {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  .result {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .how-it-works {
+    margin-top: 2rem;
+  }
+  .how-it-works h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  .email-capture {
+    margin-top: 2rem;
+  }
+  .email-capture p {
+    font-size: 0.85rem;
+  }
+  .email-capture form {
+    margin-top: 0.5rem;
+  }
+  .email-capture input[type="email"] {
+    width: 100%;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
+  .email-capture button[type="submit"] {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  .footer {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .footer p {
+    font-size: 0.85rem;
+    color: #666;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <a href="/" style="color: var(--primary-color); text-decoration: none; font-size: 0.85rem; font-family: system-ui, sans-serif;">&larr; Tool4U.org</a>
+    </div>
+    <div class="tool-header">
+      <h1>Calcolatore Calorie Alimenti</h1>
+      <p>Calcola le calorie degli alimenti più comuni. Cerca un alimento e scopri i valori nutrizionali per 100g o per la porzione che vuoi.</p>
+    </div>
+    <div class="ad-slot" id="ad-slot-top"></div>
+    <div class="form-container">
+      <form id="calculator-form">
+        <label for="alimento">Seleziona un alimento:</label>
+        <select id="alimento" name="alimento">
+          <option value="pollo">Pollo</option>
+          <option value="manzo">Manzo</option>
+          <option value="pesce">Pesce</option>
+          <option value="uova">Uova</option>
+          <option value="latte">Latte</option>
+          <option value="formaggio">Formaggio</option>
+          <option value="pane">Pane</option>
+          <option value="riso">Riso</option>
+          <option value="pasta">Pasta</option>
+        </select>
+        <label for="porzione">Seleziona la porzione:</label>
+        <input type="number" id="porzione" name="porzione" value="100" required>
+        <label for="unita-misura">Seleziona l'unità di misura:</label>
+        <select id="unita-misura" name="unita-misura">
+          <option value="g">Grammi</option>
+          <option value="ml">Millilitri</option>
+        </select>
+        <button type="submit">Calcola</button>
+      </form>
+    </div>
+    <div class="result" id="result"></div>
+    <div class="ad-slot" id="ad-slot-middle"></div>
+    <div class="how-it-works">
+      <h2>Come funziona</h2>
+      <p>Il calcolatore calorie alimenti utilizza una database di valori nutrizionali per calcolare le calorie degli alimenti selezionati. I valori nutrizionali sono basati su dati provenienti da fonti attendibili e aggiornati.</p>
+    </div>
+    <div id="email-capture" class="email-capture">
+      <p>Ricevi nuovi tool utili ogni settimana</p>
+      <form id="email-form" onsubmit="return captureEmail(event)">
+        <input type="email" placeholder="La tua email" required>
+        <button type="submit">Iscriviti</button>
+      </form>
+    </div>
+    <div class="ad-slot" id="ad-slot-bottom"></div>
+    <div class="footer">
+      <p>Disclaimer: i valori nutrizionali sono approssimativi e possono variare in base alla fonte e alla preparazione dell'alimento. Utilizza questo tool come riferimento generale e consulta un professionista della salute per consigli personalizzati.</p>
+    </div>
+  </div>
+  <script>
+  function captureEmail(e) {
+    e.preventDefault();
+    const email = e.target.querySelector('input').value;
+    // Il Publisher inietterà l'endpoint reale
+    fetch('__NEWSLETTER_ENDPOINT__', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, source: 'calcolatore-calorie-alimenti'})
+    }).then(() => {
+      e.target.innerHTML = '<p style="color:green">Iscritto!</p>';
+    });
+    return false;
+  }
+  const calculatorForm = document.getElementById('calculator-form');
+  calculatorForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const alimento = document.getElementById('alimento').value;
+    const porzione = document.getElementById('porzione').value;
+    const unitaMisura = document.getElementById('unita-misura').value;
+    const valoriNutrizionali = {
+      'pollo': { calorie: 165, proteine: 30, grassi: 3, carboidrati: 0 },
+      'manzo': { calorie: 250, proteine: 25, grassi: 15, carboidrati: 0 },
+      'pesce': { calorie: 180, proteine: 20, grassi: 10, carboidrati: 0 },
+      'uova': { calorie: 70, proteine: 6, grassi: 5, carboidrati: 0 },
+      'latte': { calorie: 50, proteine: 3, grassi: 2, carboidrati: 5 },
+      'formaggio': { calorie: 150, proteine: 10, grassi: 10, carboidrati: 0 },
+      'pane': { calorie: 80, proteine: 2, grassi: 1, carboidrati: 15 },
+      'riso': { calorie: 110, proteine: 2, grassi: 1, carboidrati: 25 },
+      'pasta': { calorie: 130, proteine: 2, grassi: 1, carboidrati: 30 },
+    };
+    const valoriNutrizionaliSelezionati = valoriNutrizionali[alimento];
+    const calorie = valoriNutrizionaliSelezionati.calorie * (porzione / 100);
+    const proteine = valoriNutrizionaliSelezionati.proteine * (porzione / 100);
+    const grassi = valoriNutrizionaliSelezionati.grassi * (porzione / 100);
+    const carboidrati = valoriNutrizionaliSelezionati.carboidrati * (porzione / 100);
+    const result = document.getElementById('result');
+    result.innerHTML = `
+      <h2>Risultati</h2>
+      <p>Calorie: ${calorie.toFixed(2)} kcal</p>
+      <p>Proteine: ${proteine.toFixed(2)} g</p>
+      <p>Grassi: ${grassi.toFixed(2)} g</p>
+      <p>Carboidrati: ${carboidrati.toFixed(2)} g</p>
+    `;
+  });
+  </script>
+<div style="margin:1.5rem 0;padding:1.2rem 1.5rem;background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1px solid #fed7aa;border-radius:12px;text-align:center"><p style="margin:0 0 0.5rem;font-size:0.95rem;font-weight:600;color:#9a3412">Potrebbe interessarti</p><a href="https://www.amazon.it/s?k=bilancia+pesapersone+digitale&tag=tool4u0b-21" target="_blank" rel="noopener sponsored" style="display:inline-block;padding:10px 24px;background:#f97316;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.9rem">Bilancia pesapersone digitale su Amazon &rarr;</a><p style="margin:0.5rem 0 0;font-size:0.7rem;color:#c2410c">Link affiliato Amazon</p></div>
+<div class="related-tools" style="margin:2rem 0;padding:1.5rem;background:#f8f9fa;border-radius:8px;">
+<h3 style="margin:0 0 1rem;font-size:1.1rem;">Tool correlati</h3>
+<ul style="list-style:none;padding:0;margin:0;">
+<li style="margin:0.5rem 0;"><a href="/calcolatore-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Mutuo Online Gratuito</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-stipendio-netto.html" style="color:#2563eb;text-decoration:none;">Calcolatore Stipendio Netto</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-iva.html" style="color:#2563eb;text-decoration:none;">Calcolatore IVA</a></li>
+<li style="margin:0.5rem 0;"><a href="/calcolatore-rata-mutuo.html" style="color:#2563eb;text-decoration:none;">Calcolatore Rata Mutuo - Calcolo Preciso</a></li>
+</ul>
+</div>
+</body>
+</html>
