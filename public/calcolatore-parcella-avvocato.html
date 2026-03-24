@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore Parcella Avvocato</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="number"] {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        select {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3e8e41;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        .disclaimer {
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calcolatore Parcella Avvocato</h2>
+        <form id="calculator-form">
+            <div class="form-group">
+                <label for="valore-causa">Valore della causa (€)</label>
+                <input type="number" id="valore-causa" required>
+            </div>
+            <div class="form-group">
+                <label for="fase">Fase</label>
+                <select id="fase" required>
+                    <option value="">Seleziona una fase</option>
+                    <option value="stragiudiziale">Stragiudiziale</option>
+                    <option value="primo-grado">Primo grado</option>
+                    <option value="appello">Appello</option>
+                    <option value="cassazione">Cassazione</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="materia">Materia</label>
+                <select id="materia" required>
+                    <option value="">Seleziona una materia</option>
+                    <option value="civile">Civile</option>
+                    <option value="penale">Penale</option>
+                    <option value="amministrativo">Amministrativo</option>
+                    <option value="lavoro">Lavoro</option>
+                </select>
+            </div>
+            <button type="submit">Calcola</button>
+        </form>
+        <div class="result" id="result"></div>
+        <div class="disclaimer">
+            Nota: la stima dei compensi è indicativa e si basa sui parametri forensi italiani (D.M. 55/2014). I valori reali possono variare in base alle specifiche esigenze del caso.
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('calculator-form');
+        const resultDiv = document.getElementById('result');
+        const valoreCausaInput = document.getElementById('valore-causa');
+        const faseSelect = document.getElementById('fase');
+        const materiaSelect = document.getElementById('materia');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const valoreCausa = parseFloat(valoreCausaInput.value);
+            const fase = faseSelect.value;
+            const materia = materiaSelect.value;
+
+            let minimo, massimo;
+            switch (fase) {
+                case 'stragiudiziale':
+                    minimo = valoreCausa * 0.01;
+                    massimo = valoreCausa * 0.05;
+                    break;
+                case 'primo-grado':
+                    minimo = valoreCausa * 0.02;
+                    massimo = valoreCausa * 0.1;
+                    break;
+                case 'appello':
+                    minimo = valoreCausa * 0.015;
+                    massimo = valoreCausa * 0.075;
+                    break;
+                case 'cassazione':
+                    minimo = valoreCausa * 0.01;
+                    massimo = valoreCausa * 0.05;
+                    break;
+                default:
+                    return;
+            }
+
+            if (materia === 'penale') {
+                minimo *= 1.5;
+                massimo *= 1.5;
+            }
+
+            resultDiv.innerHTML = `La stima dei compensi per la fase ${fase} è tra ${minimo.toFixed(2)}€ e ${massimo.toFixed(2)}€`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore Interessi Legali</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            border-radius: 10px 10px 0 0;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .form {
+            padding: 20px;
+        }
+        .form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .form input[type="number"], .form input[type="date"] {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form select {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .result {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        .result p {
+            margin-bottom: 10px;
+        }
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0069d9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Calcolatore Interessi Legali</h1>
+        </div>
+        <div class="form">
+            <label for="capitale">Capitale (€)</label>
+            <input type="number" id="capitale" value="0">
+            <label for="data-inizio">Data inizio</label>
+            <input type="date" id="data-inizio" value="2024-01-01">
+            <label for="data-fine">Data fine</label>
+            <input type="date" id="data-fine" value="2024-01-01">
+            <label for="tipo-tasso">Tipo tasso</label>
+            <select id="tipo-tasso">
+                <option value="legale">Legale (2.5%)</option>
+                <option value="mora">Mora (8%)</option>
+            </select>
+            <button class="btn" onclick="calcolaInteressi()">Calcola</button>
+        </div>
+        <div class="result" id="result">
+            <p>Tasso legale vigente in Italia: 
+                <span id="tasso-legale">2.5%</span> per interessi legali, 
+                <span id="tasso-mora">8%</span> per mora
+            </p>
+            <p>Giorni trascorsi: <span id="giorni-trascorsi">0</span></p>
+            <p>Interessi maturati (€): <span id="interessi-maturati">0.00</span></p>
+            <p>Totale da pagare (€): <span id="totale-da-pagare">0.00</span></p>
+        </div>
+    </div>
+    <script>
+        function calcolaInteressi() {
+            const capitale = parseFloat(document.getElementById("capitale").value);
+            const dataInizio = new Date(document.getElementById("data-inizio").value);
+            const dataFine = new Date(document.getElementById("data-fine").value);
+            const tipoTasso = document.getElementById("tipo-tasso").value;
+            const tassoLegale = 2.5 / 100;
+            const tassoMora = 8 / 100;
+            let tasso;
+            if (tipoTasso === "legale") {
+                tasso = tassoLegale;
+            } else {
+                tasso = tassoMora;
+            }
+            const giorniTrascorsi = Math.round((dataFine - dataInizio) / (1000 * 3600 * 24));
+            const interessiMaturati = capitale * tasso * (giorniTrascorsi / 365);
+            const totaleDaPagare = capitale + interessiMaturati;
+            document.getElementById("giorni-trascorsi").innerText = giorniTrascorsi;
+            document.getElementById("interessi-maturati").innerText = interessiMaturati.toFixed(2);
+            document.getElementById("totale-da-pagare").innerText = totaleDaPagare.toFixed(2);
+        }
+    </script>
+</html>
