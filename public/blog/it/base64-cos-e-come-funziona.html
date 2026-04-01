@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="it">
+<head><script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "w0vhf9r9mx");</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base64: Cos'è e Come Funziona | Guida Completa con Esempi</title>
+<meta name="description" content="Scopri cos'è Base64, come funziona la codifica e decodifica, quando usarla e alcuni esempi pratici. Guida completa in italiano.">
+<style>
+  body{max-width:720px;margin:0 auto;padding:20px;font-family:system-ui;color:#1a1a2e;background:#f8f9fa;line-height:1.7}
+  h1{color:#2563eb;font-size:1.8rem;margin-bottom:1rem}
+  h2{color:#2563eb;font-size:1.3rem;margin-top:2rem}
+  h3{color:#1e40af;font-size:1.1rem;margin-top:1.5rem}
+  p{margin-bottom:1rem}
+  code{background:#e2e8f0;padding:2px 6px;border-radius:4px;font-size:0.9rem;font-family:monospace}
+  pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto;font-size:0.9rem;margin-bottom:1rem}
+  .faq-box{background:#fff;border-left:4px solid #2563eb;padding:16px 20px;margin-bottom:1rem;border-radius:0 8px 8px 0;box-shadow:0 1px 4px rgba(0,0,0,0.07)}
+  .faq-box h3{margin-top:0;color:#2563eb}
+  .tip-box{background:#eff6ff;border:1px solid #bfdbfe;padding:14px 18px;border-radius:8px;margin-bottom:1rem}
+  a{color:#2563eb;text-decoration:none}
+  a:hover{text-decoration:underline}
+  ul{margin-bottom:1rem;padding-left:1.4rem}
+  li{margin-bottom:0.4rem}
+</style>
+</head>
+<body>
+
+<h1>Base64: Cos'è, Come Funziona e Quando Usarla</h1><div style="margin:1.5rem 0;text-align:center"><script async="async" data-cfasync="false" src="https://pl28922734.profitablecpmratenetwork.com/a5b8c5fe668820a6b4be4455f1f4e5d8/invoke.js"></script><div id="container-a5b8c5fe668820a6b4be4455f1f4e5d8"></div></div>
+
+<p>Se hai mai lavorato con API, email o immagini incorporate nel codice HTML, sicuramente ti sei imbattuto in lunghe stringhe di testo strano come <code>SGVsbG8gV29ybGQh</code>. Si tratta di <strong>Base64</strong>, uno dei formati di codifica più diffusi nel mondo informatico. In questa guida scoprirai cos'è, come funziona e in quali situazioni viene utilizzata, con esempi pratici.</p>
+
+<h2>Cos'è la Codifica Base64?</h2>
+
+<p>Base64 è un sistema di codifica binario-testuale che converte dati binari in una sequenza di caratteri ASCII. Il nome deriva dal fatto che utilizza un alfabeto di <strong>64 caratteri</strong> distinti per rappresentare i dati. Questi caratteri sono:</p>
+
+<ul>
+  <li>Lettere maiuscole: <code>A–Z</code> (26 caratteri)</li>
+  <li>Lettere minuscole: <code>a–z</code> (26 caratteri)</li>
+  <li>Cifre numeriche: <code>0–9</code> (10 caratteri)</li>
+  <li>Due simboli speciali: <code>+</code> e <code>/</code> (2 caratteri)</li>
+  <li>Il carattere <code>=</code> usato come padding</li>
+</ul>
+
+<p>È importante chiarire subito un concetto fondamentale: Base64 <strong>non è una cifratura</strong>. Non offre alcuna protezione dei dati. È semplicemente un modo per rappresentare informazioni binarie in un formato testuale compatibile con tutti i sistemi.</p>
+
+<h2>Come Funziona Base64: Il Meccanismo di Codifica</h2>
+
+<p>Il processo di codifica Base64 avviene in tre passaggi principali:</p>
+
+<h3>1. Conversione in binario</h3>
+<p>Ogni carattere del testo originale viene convertito nel suo equivalente ASCII e poi in binario a 8 bit. Ad esempio, la lettera <strong>M</strong> corrisponde al valore ASCII 77, ovvero <code>01001101</code> in binario.</p>
+
+<h3>2. Raggruppamento in blocchi da 6 bit</h3>
+<p>I bit vengono raggruppati in blocchi da 6 (anziché 8). Ogni gruppo da 6 bit può rappresentare un valore compreso tra 0 e 63, che corrisponde a uno dei 64 caratteri dell'alfabeto Base64.</p>
+
+<h3>3. Sostituzione con caratteri Base64</h3>
+<p>Ogni valore numerico viene sostituito con il carattere corrispondente nella tabella Base64. Se il numero totale di bit non è divisibile per 6, vengono aggiunti degli zeri come padding e la stringa viene completata con il simbolo <code>=</code>.</p>
+
+<h3>Esempio pratico</h3>
+<p>Proviamo a codificare la parola <strong>"Ciao"</strong>:</p>
+
+<pre>
+Testo originale: Ciao
+Valori ASCII:    67  105  97  111
+Binario (8-bit): 01000011 01101001 01100001 01101111
+Raggruppato 6:   010000 110110 100101 100001 011011 11(0000)
+Valori decimali: 16     54     37     33     27     48
+Base64:          Q      2      l      h      b      w
+Risultato: Q2lhbw==
+</pre>
+
+<div class="tip-box">
+  <strong>💡 Consiglio:</strong> Se devi codificare o decodificare rapidamente una stringa Base64 senza installare nulla, puoi usare strumenti online come quelli disponibili su <a href="https://tool4u.org" target="_blank" rel="noopener">tool4u.org</a>, che offre una serie di utility pratiche direttamente dal browser.
+</div>
+
+<h2>Quando Si Usa Base64?</h2>
+
+<p>Base64 viene impiegata in numerosi contesti pratici nello sviluppo web e nella programmazione:</p>
+
+<h3>Email e MIME</h3>
+<p>Il protocollo MIME, usato per le email, supporta solo testo ASCII. Allegati come immagini, PDF o file audio vengono codificati in Base64 per essere trasmessi correttamente come parte del messaggio.</p>
+
+<h3>Data URI nelle pagine web</h3>
+<p>È possibile incorporare immagini direttamente nel codice HTML o CSS usando Base64, evitando richieste HTTP aggiuntive:</p>
+
+<pre>
+&lt;img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."&gt;
+</pre>
+
+<h3>API e trasferimento dati JSON</h3>
+<p>Quando si invia o riceve contenuto binario tramite API REST (ad esempio immagini o file), Base64 permette di includere i dati direttamente in un payload JSON, che accetta solo testo.</p>
+
+<h3>Autenticazione HTTP Basic</h3>
+<p>Nel meccanismo di autenticazione HTTP Basic, username e password vengono concatenati e codificati in Base64 prima di essere inseriti nell'header della richiesta:</p>
+
+<pre>
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+</pre>
+
+<h2>Vantaggi e Svantaggi di Base64</h2>
+
+<p>Come ogni tecnologia, Base64 ha pro e contro che è bene conoscere:</p>
+
+<ul>
+  <li><strong>✅ Compatibilità universale:</strong> funziona su qualsiasi sistema che supporta ASCII</li>
+  <li><strong>✅ Semplicità:</strong> facile da implementare in qualsiasi linguaggio di programmazione</li>
+  <li><strong>❌ Aumento delle dimensioni:</strong> i dati codificati occupano circa il 33% in più rispetto all'originale</li>
+  <li><strong>❌ Nessuna sicurezza:</strong> chiunque può decodificarla istantaneamente, non va confusa con la crittografia</li>
+</ul>
+
+<h2>Base64 in JavaScript, Python e PHP</h2>
+
+<p>Ogni linguaggio di programmazione moderno offre funzioni native per lavorare con Base64:</p>
+
+<pre>
+// JavaScript
+btoa("Ciao Mondo")     // Codifica → "Q2lhbyBNb25kbw=="
+atob("Q2lhbyBNb25kbw==") // Decodifica → "Ciao Mondo"
+
+# Python
+import base64
+base64.b64encode(b"Ciao Mondo")  # Codifica
+base64.b64decode("Q2lhbyBNb25kbw==")  # Decodifica
+
+// PHP
+base64_encode("Ciao Mondo");  // Codifica
+base64_decode("Q2lhbyBNb25kbw==");  // Decodifica
+</pre>
+
+<h2>Domande Frequenti su Base64</h2>
+
+<div class="faq-box">
+  <h3>Base64 è sicura per proteggere dati sensibili?</h3>
+  <p>No. Base64 non è una forma di crittografia ma solo una codifica. Chiunque può decodificare una stringa Base64 in pochi secondi. Per proteggere dati sensibili occorre usare algoritmi crittografici come AES o RSA.</p>
+</div>
+
+<div class="faq-box">
+  <h3>Perché la stringa Base64 è più lunga del testo originale?</h3>
+  <p>Perché Base64 converte ogni 3 byte di dati in 4 caratteri ASCII. Questo comporta un aumento medio del 33-36% rispetto alla dimensione originale del dato.</p>
+</div>
+
+<div class="faq-box">
+  <h3>Qual è la differenza tra Base64 e Base64 URL-safe?</h3>
+  <p>La variante URL-safe sostituisce i caratteri <code>+</code> e <code>/</code> con <code>-</code> e <code>_</code>, rendendola compatibile con URL e nomi di file senza necessità di ulteriore encoding. È usata ad esempio nei token JWT.</p>
+</div>
+
+<div class="faq-box">
+  <h3>Come posso decodificare una stringa Base64 online?</h3>
+  <p>Esistono diversi strumenti gratuiti disponibili online. Puoi usare utility web come quelle presenti su <a href="https://tool4u.org" target="_blank" rel="noopener">tool4u.org</a> per codificare e decodificare stringhe Base64 direttamente dal browser, senza installare nulla.</p>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Base64 è sicura per proteggere dati sensibili?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Base64 non è una forma di crittografia ma solo una codifica. Chiunque può decodificare una stringa Base64 in pochi secondi. Per proteggere dati sensibili occorre usare algoritmi crittografici come AES o RSA."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Perché la stringa Base64 è più lunga del testo originale?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Perché Base64 converte ogni 3 byte di dati in 4 caratteri ASCII. Questo comporta un aumento medio del 33-36% rispetto alla dimensione originale del dato."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual è la differenza tra Base64 e Base64 URL-safe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La variante URL-safe sostituisce i caratteri + e / con - e _, rendendola compatibile con URL e nomi di file senza necessità di ulteriore encoding. È usata ad esempio nei token JWT."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Come posso decodificare una stringa Base64 online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Esistono diversi strumenti gratuiti disponibili online. Puoi usare utility web come quelle presenti su tool4u.org per codificare e decodificare stringhe Base64 direttamente dal browser, senza installare nulla."
+      }
+    }
+  ]
+}
+</script>
+
+</body>
+</html>
