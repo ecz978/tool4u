@@ -513,5 +513,26 @@ body {
     <a href="https://tool4u.org/blog/it/guida-codifica-decodifica-base64" style="color:#2563eb;text-decoration:none;font-weight:600">Base64 Encode Decode Online: Guida Completa alla Codifica e Decodifica</a>
   </p>
 </div>
+
+<div class="faq-section" style="margin:2rem 0;padding:0;border-top:1px solid #e2e8f0;">
+<h2 style="font-size:1.2rem;margin:1.5rem 0 1rem;color:#1a1a2e;">Domande frequenti</h2>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Cos'è la codifica Base64?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Base64 è un sistema di codifica che converte dati binari in una stringa di caratteri ASCII stampabili (lettere, numeri e simboli +/=). Usa 64 caratteri diversi per rappresentare gruppi di 6 bit. È usato per trasmettere dati binari (come immagini) attraverso canali che accettano solo testo.</p>
+</details>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">A cosa serve il Base64?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Base64 è usato per: incorporare immagini nelle email HTML, trasmettere file binari via API REST, codificare credenziali nell'HTTP Basic Authentication (username:password → Base64), salvare dati binari in JSON o XML, e nei JWT (JSON Web Token) per l'autenticazione web.</p>
+</details>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Base64 è una forma di crittografia?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">No, Base64 è solo una codifica, non una crittografia. I dati codificati in Base64 sono facilmente decodificabili da chiunque. Non offre alcuna sicurezza. Va usato solo per compatibilità di formato, non per proteggere informazioni sensibili. Per la sicurezza usa algoritmi crittografici come AES o RSA.</p>
+</details>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Perché la stringa Base64 è più lunga dell'originale?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Base64 codifica ogni 3 byte di dati in 4 caratteri ASCII, quindi aumenta la dimensione del 33% circa. Una immagine da 100KB diventa circa 133KB in Base64. Il carattere = finale (padding) completa il blocco quando i dati originali non sono divisibili per 3.</p>
+</details>
+</div>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è la codifica Base64?", "acceptedAnswer": {"@type": "Answer", "text": "Base64 è un sistema di codifica che converte dati binari in una stringa di caratteri ASCII stampabili (lettere, numeri e simboli +/=). Usa 64 caratteri diversi per rappresentare gruppi di 6 bit. È usato per trasmettere dati binari (come immagini) attraverso canali che accettano solo testo."}}, {"@type": "Question", "name": "A cosa serve il Base64?", "acceptedAnswer": {"@type": "Answer", "text": "Base64 è usato per: incorporare immagini nelle email HTML, trasmettere file binari via API REST, codificare credenziali nell'HTTP Basic Authentication (username:password → Base64), salvare dati binari in JSON o XML, e nei JWT (JSON Web Token) per l'autenticazione web."}}, {"@type": "Question", "name": "Base64 è una forma di crittografia?", "acceptedAnswer": {"@type": "Answer", "text": "No, Base64 è solo una codifica, non una crittografia. I dati codificati in Base64 sono facilmente decodificabili da chiunque. Non offre alcuna sicurezza. Va usato solo per compatibilità di formato, non per proteggere informazioni sensibili. Per la sicurezza usa algoritmi crittografici come AES o RSA."}}, {"@type": "Question", "name": "Perché la stringa Base64 è più lunga dell'originale?", "acceptedAnswer": {"@type": "Answer", "text": "Base64 codifica ogni 3 byte di dati in 4 caratteri ASCII, quindi aumenta la dimensione del 33% circa. Una immagine da 100KB diventa circa 133KB in Base64. Il carattere = finale (padding) completa il blocco quando i dati originali non sono divisibili per 3."}}]}</script>
 </body>
 </html>

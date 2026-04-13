@@ -173,11 +173,53 @@ function insertList(type){var sel=getSelection();var lines=sel.text?sel.text.spl
 function insertHr(){var sel=getSelection();editor.value=editor.value.substring(0,sel.start)+'\n<hr>\n'+editor.value.substring(sel.end);editor.focus();updatePreview();updateCount();}
 function insertLink(){var url=prompt('URL del link:','https://');if(!url)return;var sel=getSelection();var text=sel.text||'testo del link';var tag='<a href="'+url+'">'+text+'</a>';editor.value=editor.value.substring(0,sel.start)+tag+editor.value.substring(sel.end);editor.focus();updatePreview();updateCount();}
 function insertImg(){var url=prompt('URL immagine:','https://');if(!url)return;var alt=prompt('Alt:','')||'';var tag='<img src="'+url+'" alt="'+alt+'">\n';var sel=getSelection();editor.value=editor.value.substring(0,sel.start)+tag+editor.value.substring(sel.end);editor.focus();updatePreview();updateCount();}
-function loadTemplate(){if(editor.value&&!confirm('Sostituire il contenuto con il template?'))return;editor.value='<!DOCTYPE html>\n<html lang="it">\n<head>\n  <meta charset="UTF-8">\n  <title>Il mio documento</title>\n</head>\n<body>\n  <h1>Titolo</h1>\n  <p>Contenuto qui.</p>\n</body>\n</html>';updatePreview();updateCount();editor.focus();}
+function loadTemplate(){if(editor.value&&!confirm('Sostituire il contenuto con il template?'))return;editor.value='<!DOCTYPE html>\n<html lang="it">\n<head>\n  <meta charset="UTF-8">\n  <title>Il mio documento</title>\n</head>\n<body>\n  <h1>Titolo</h1>\n  <p>Contenuto qui.</p>\n
+<div class="faq-section" style="margin:2rem 0;padding:0;border-top:1px solid #e2e8f0;">
+<h2 style="font-size:1.2rem;margin:1.5rem 0 1rem;color:#1a1a2e;">Domande frequenti</h2>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Cos'è un editor HTML online?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Un editor HTML online permette di scrivere, modificare e visualizzare codice HTML direttamente nel browser senza installare software. Mostra in tempo reale il risultato del codice HTML scritto. È utile per test rapidi, apprendimento HTML, e per condividere esempi di codice.</p>
+</details>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Come si usa l'editor HTML?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Scrivi il codice HTML nel pannello di sinistra o superiore. Il risultato viene visualizzato in tempo reale nel pannello di anteprima. Puoi usare tag standard HTML5 inclusi <div>, <p>, <h1>-<h6>, <a>, <img>, e aggiungere CSS inline o nel tag <style> per lo stile.</p>
+</details>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Quali sono i tag HTML più importanti?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">I tag fondamentali sono: <html> (documento), <head> (metadati), <body> (contenuto visibile), <h1>-<h6> (titoli), <p> (paragrafi), <a> (link), <img> (immagini), <div> (contenitore generico), <span> (testo inline), <ul>/<ol>/<li> (liste), <table> (tabelle), <form> (moduli).</p>
+</details>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Come validare il codice HTML?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Puoi validare il tuo HTML usando il W3C Markup Validator (validator.w3.org) che verifica la conformità agli standard HTML5. Un HTML valido garantisce una resa consistente tra browser diversi, migliore accessibilità, e migliore indicizzazione da parte dei motori di ricerca.</p>
+</details>
+</div>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un editor HTML online?", "acceptedAnswer": {"@type": "Answer", "text": "Un editor HTML online permette di scrivere, modificare e visualizzare codice HTML direttamente nel browser senza installare software. Mostra in tempo reale il risultato del codice HTML scritto. È utile per test rapidi, apprendimento HTML, e per condividere esempi di codice."}}, {"@type": "Question", "name": "Come si usa l'editor HTML?", "acceptedAnswer": {"@type": "Answer", "text": "Scrivi il codice HTML nel pannello di sinistra o superiore. Il risultato viene visualizzato in tempo reale nel pannello di anteprima. Puoi usare tag standard HTML5 inclusi <div>, <p>, <h1>-<h6>, <a>, <img>, e aggiungere CSS inline o nel tag <style> per lo stile."}}, {"@type": "Question", "name": "Quali sono i tag HTML più importanti?", "acceptedAnswer": {"@type": "Answer", "text": "I tag fondamentali sono: <html> (documento), <head> (metadati), <body> (contenuto visibile), <h1>-<h6> (titoli), <p> (paragrafi), <a> (link), <img> (immagini), <div> (contenitore generico), <span> (testo inline), <ul>/<ol>/<li> (liste), <table> (tabelle), <form> (moduli)."}}, {"@type": "Question", "name": "Come validare il codice HTML?", "acceptedAnswer": {"@type": "Answer", "text": "Puoi validare il tuo HTML usando il W3C Markup Validator (validator.w3.org) che verifica la conformità agli standard HTML5. Un HTML valido garantisce una resa consistente tra browser diversi, migliore accessibilità, e migliore indicizzazione da parte dei motori di ricerca."}}]}</script>
+</body>\n</html>';updatePreview();updateCount();editor.focus();}
 function copyHTML(){if(!editor.value)return;navigator.clipboard.writeText(editor.value).then(function(){var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000);}).catch(function(){editor.select();document.execCommand('copy');});}
 function clearEditor(){if(editor.value&&!confirm('Cancellare tutto?'))return;editor.value='';preview.innerHTML='';updateCount();editor.focus();}
 editor.addEventListener('keydown',function(e){if(e.key==='Tab'){e.preventDefault();var s=this.selectionStart;this.value=this.value.substring(0,s)+'  '+this.value.substring(this.selectionEnd);this.selectionStart=this.selectionEnd=s+2;updatePreview();updateCount();}});
 updateCount();
 </script>
+
+<div class="faq-section" style="margin:2rem 0;padding:0;border-top:1px solid #e2e8f0;">
+<h2 style="font-size:1.2rem;margin:1.5rem 0 1rem;color:#1a1a2e;">Domande frequenti</h2>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Cos'è un editor HTML online?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Un editor HTML online permette di scrivere, modificare e visualizzare codice HTML direttamente nel browser senza installare software. Mostra in tempo reale il risultato del codice HTML scritto. È utile per test rapidi, apprendimento HTML, e per condividere esempi di codice.</p>
+</details>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Come si usa l'editor HTML?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Scrivi il codice HTML nel pannello di sinistra o superiore. Il risultato viene visualizzato in tempo reale nel pannello di anteprima. Puoi usare tag standard HTML5 inclusi <div>, <p>, <h1>-<h6>, <a>, <img>, e aggiungere CSS inline o nel tag <style> per lo stile.</p>
+</details>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Quali sono i tag HTML più importanti?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">I tag fondamentali sono: <html> (documento), <head> (metadati), <body> (contenuto visibile), <h1>-<h6> (titoli), <p> (paragrafi), <a> (link), <img> (immagini), <div> (contenitore generico), <span> (testo inline), <ul>/<ol>/<li> (liste), <table> (tabelle), <form> (moduli).</p>
+</details>
+<details style="margin:0.5rem 0;padding:0.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
+<summary style="cursor:pointer;font-weight:600;color:#1a1a2e;">Come validare il codice HTML?</summary>
+<p style="margin:0.8rem 0 0;color:#475569;line-height:1.6;">Puoi validare il tuo HTML usando il W3C Markup Validator (validator.w3.org) che verifica la conformità agli standard HTML5. Un HTML valido garantisce una resa consistente tra browser diversi, migliore accessibilità, e migliore indicizzazione da parte dei motori di ricerca.</p>
+</details>
+</div>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un editor HTML online?", "acceptedAnswer": {"@type": "Answer", "text": "Un editor HTML online permette di scrivere, modificare e visualizzare codice HTML direttamente nel browser senza installare software. Mostra in tempo reale il risultato del codice HTML scritto. È utile per test rapidi, apprendimento HTML, e per condividere esempi di codice."}}, {"@type": "Question", "name": "Come si usa l'editor HTML?", "acceptedAnswer": {"@type": "Answer", "text": "Scrivi il codice HTML nel pannello di sinistra o superiore. Il risultato viene visualizzato in tempo reale nel pannello di anteprima. Puoi usare tag standard HTML5 inclusi <div>, <p>, <h1>-<h6>, <a>, <img>, e aggiungere CSS inline o nel tag <style> per lo stile."}}, {"@type": "Question", "name": "Quali sono i tag HTML più importanti?", "acceptedAnswer": {"@type": "Answer", "text": "I tag fondamentali sono: <html> (documento), <head> (metadati), <body> (contenuto visibile), <h1>-<h6> (titoli), <p> (paragrafi), <a> (link), <img> (immagini), <div> (contenitore generico), <span> (testo inline), <ul>/<ol>/<li> (liste), <table> (tabelle), <form> (moduli)."}}, {"@type": "Question", "name": "Come validare il codice HTML?", "acceptedAnswer": {"@type": "Answer", "text": "Puoi validare il tuo HTML usando il W3C Markup Validator (validator.w3.org) che verifica la conformità agli standard HTML5. Un HTML valido garantisce una resa consistente tra browser diversi, migliore accessibilità, e migliore indicizzazione da parte dei motori di ricerca."}}]}</script>
 </body>
 </html>
