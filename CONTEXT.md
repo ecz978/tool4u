@@ -54,7 +54,7 @@ tools.json                ← registry di tutti i tool (usato per generare la ho
 
 ## Cosa è già stato fatto (cronologia)
 
-### Sessione aprile 2026 — SEO completo
+### Sessione aprile 2026 — SEO completo + Analytics
 
 **1. Clean URLs (commit b772e4c)**
 - Cloudflare Worker (`src/index.js`) che fa 301 redirect da `/pagina.html` → `/pagina`
@@ -72,6 +72,11 @@ tools.json                ← registry di tutti i tool (usato per generare la ho
 - `og:type` corretto da `website` → `article` su tutte le pagine blog
 - 45 articoli IT troncati fixati (aggiunto `</body></html>` mancante)
 - Schema include: headline, description, url, datePublished (2026-03-15), dateModified (2026-04-13), inLanguage, author/publisher Organization
+
+**5. Analytics automatici via Worker (commit 016513f)**
+- `src/index.js` esteso: inietta GA (G-FXR34MEGL6) + Clarity (w0vhf9r9mx) in ogni risposta HTML
+- Guard anti-doppia-iniezione: salta se GA già presente nella pagina
+- Le pagine nuove non hanno bisogno di includere analytics manualmente
 
 **4. Pagina Chi siamo (commit abf095a)**
 - Creata `/public/chi-siamo.html` con `Organization` JSON-LD schema
@@ -123,7 +128,9 @@ tools.json                ← registry di tutti i tool (usato per generare la ho
 - **Linguaggi:** HTML/CSS/JS puro (niente framework)
 - **Font:** DM Sans (Google Fonts) — usato nelle pagine statiche
 - **Colori principali:** `#2563eb` (blu primario), `#1a1a2e` (testo scuro), `#FAFAF8` (background)
-- **Analytics:** Microsoft Clarity (`w0vhf9r9mx`)
+- **Analytics:** iniettati automaticamente dal Worker — NON serve aggiungerli manualmente nelle pagine
+  - Microsoft Clarity: `w0vhf9r9mx`
+  - Google Analytics: `G-FXR34MEGL6`
 - **Affiliazioni:** Amazon Associates (tag: `tool4u0b-21`)
 - **Email contatto:** info@tool4u.org, privacy@tool4u.org
 
